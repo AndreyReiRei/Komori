@@ -5,8 +5,13 @@
 │   ├── main.css
 │   ├── header.css
 │   ├── footer.css
+│   ├── products-accordion.css
 │   └── burger-menu.css
 └── js/
     ├── burger.js
     ├── calls.js
+    ├── products-accordion.js
     └── main.js
+
+
+	
