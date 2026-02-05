@@ -1,0 +1,581 @@
+/* 
+ * Стили для подвала сайта "Комори"
+ * Цветовая палитра: темно-серый (#2a2a2a), розовый сакуры (#ffb7c5), белый
+ */
+
+footer {
+	background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+	/* Темный градиентный фон */
+	color: white;
+	padding: 60px 0 35px;
+	margin-top: 80px;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Декоративная полоска сверху футера */
+footer::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	background: linear-gradient(90deg, #ffb7c5, #9d7bad, #ff6b6b, #ffb7c5);
+	background-size: 300% 100%;
+	animation: gradientMove 4s ease infinite;
+}
+
+@keyframes gradientMove {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* Контейнер футера */
+.container__footer {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+	position: relative;
+	z-index: 1;
+}
+
+/* Основное содержимое футера (колонки) */
+.footer-content {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 45px;
+	margin-bottom: 50px;
+}
+
+/* Стили для колонок футера */
+.footer-column h3 {
+	color: #ffb7c5;
+	/* Розовый цвет сакуры для заголовков */
+	font-size: 20px;
+	margin-bottom: 25px;
+	padding-bottom: 12px;
+	border-bottom: 2px solid rgba(255, 183, 197, 0.3);
+	position: relative;
+	font-weight: 600;
+}
+
+/* Декоративный элемент под заголовками колонок */
+.footer-column h3::after {
+	content: '❀';
+	position: absolute;
+	bottom: -12px;
+	left: 0;
+	color: #ff6b6b;
+	font-size: 16px;
+}
+
+/* Ссылки в колонках футера */
+.footer-links {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.footer-links li {
+	margin-bottom: 14px;
+}
+
+.footer-links a {
+	color: #ddd;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	transition: all 0.3s ease;
+	font-size: 14px;
+	padding: 5px 0;
+}
+
+.footer-links a:hover {
+	color: #ffb7c5;
+	transform: translateX(8px);
+}
+
+.footer-links a i {
+	font-size: 12px;
+	color: #ff6b6b;
+	width: 16px;
+	text-align: center;
+	transition: transform 0.3s ease;
+}
+
+.footer-links a:hover i {
+	transform: rotate(90deg);
+}
+
+/* Контакты в футере */
+.footer-contacts {
+	margin-top: 15px;
+}
+
+.contact-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 15px;
+	margin-bottom: 18px;
+	color: #ddd;
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+.contact-item i {
+	color: #9d7bad;
+	/* Фиолетовый цвет для иконок */
+	font-size: 18px;
+	margin-top: 3px;
+	flex-shrink: 0;
+}
+
+.contact-item strong {
+	color: white;
+	display: block;
+	margin-bottom: 4px;
+	font-weight: 600;
+}
+
+/* Социальные сети */
+.social-links {
+	display: flex;
+	gap: 18px;
+	margin-top: 25px;
+}
+
+.social-link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 42px;
+	height: 42px;
+	background-color: #333;
+	color: white;
+	border-radius: 50%;
+	text-decoration: none;
+	transition: all 0.3s ease;
+	font-size: 18px;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Эффект при наведении на иконки соцсетей */
+.social-link::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+	transition: left 0.5s ease;
+}
+
+.social-link:hover::before {
+	left: 100%;
+}
+
+.social-link:hover {
+	transform: translateY(-5px) scale(1.1);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Цвета для разных соцсетей */
+.social-link.vk:hover {
+	background-color: #4a76a8;
+}
+
+.social-link.telegram:hover {
+	background-color: #2AABEE;
+}
+
+.social-link.instagram:hover {
+	background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+}
+
+.social-link.youtube:hover {
+	background-color: #FF0000;
+}
+
+.social-link.whatsapp:hover {
+	background-color: #25D366;
+}
+
+.social-link.viber:hover {
+	background-color: #7360F2;
+}
+
+/* Форма подписки на новости */
+.newsletter {
+	margin-top: 30px;
+	padding-top: 25px;
+	border-top: 1px solid #333;
+}
+
+.newsletter h4 {
+	color: #ffb7c5;
+	font-size: 16px;
+	margin-bottom: 15px;
+	font-weight: 600;
+}
+
+.subscribe-form {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.subscribe-form input {
+	padding: 14px 18px;
+	border: 2px solid #444;
+	border-radius: 8px;
+	background-color: #333;
+	color: white;
+	font-size: 14px;
+	transition: all 0.3s ease;
+}
+
+.subscribe-form input:focus {
+	outline: none;
+	border-color: #ffb7c5;
+	box-shadow: 0 0 0 3px rgba(255, 183, 197, 0.2);
+}
+
+.subscribe-form input::placeholder {
+	color: #999;
+}
+
+.subscribe-form button {
+	background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+	color: white;
+	border: none;
+	padding: 14px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 600;
+	font-size: 14px;
+	transition: all 0.3s ease;
+}
+
+.subscribe-form button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* Нижняя часть футера */
+.footer-bottom {
+	border-top: 1px solid #333;
+	padding-top: 30px;
+	text-align: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.copyright {
+	color: #aaa;
+	font-size: 14px;
+}
+
+.developer {
+	color: #bbb;
+	font-size: 13px;
+}
+
+.developer i {
+	color: #ff6b6b;
+	margin: 0 5px;
+}
+
+/* Способы оплаты */
+.payment-methods {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+}
+
+.payment-method {
+	font-size: 28px;
+	color: #888;
+	transition: all 0.3s ease;
+}
+
+.payment-method:hover {
+	color: white;
+	transform: translateY(-3px);
+}
+
+
+/* Адаптивность */
+
+/* ====== УРОВЕНЬ 1: БОЛЬШИЕ ЭКРАНЫ (Desktop) ====== */
+/* 1201px и выше - стандартные стили */
+
+/* ====== УРОВЕНЬ 2: СРЕДНИЕ ЭКРАНЫ (Tablet Landscape) ====== */
+/* 992px - 1200px */
+@media (max-width: 1200px) and (min-width: 993px) {
+	.container__footer {
+		max-width: 960px;
+		padding: 0 25px;
+	}
+
+	.footer-content {
+		gap: 40px;
+		margin-bottom: 45px;
+	}
+
+	.footer-column h3 {
+		font-size: 19px;
+		margin-bottom: 22px;
+	}
+
+	.footer-links a {
+		font-size: 13px;
+	}
+
+	.contact-item {
+		font-size: 13px;
+	}
+}
+
+/* ====== УРОВЕНЬ 3: ПЛАНШЕТЫ (Tablet Portrait) ====== */
+/* 768px - 992px */
+@media (max-width: 992px) and (min-width: 769px) {
+	.container__footer {
+		max-width: 100%;
+		padding: 0 30px;
+	}
+
+	.footer-content {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 35px;
+		margin-bottom: 40px;
+	}
+
+	footer {
+		padding: 50px 0 30px;
+		margin-top: 60px;
+	}
+
+	.footer-column h3 {
+		font-size: 18px;
+		margin-bottom: 20px;
+	}
+
+	.footer-links a {
+		font-size: 13px;
+	}
+
+	.footer-links li {
+		margin-bottom: 12px;
+	}
+
+	.contact-item {
+		font-size: 13px;
+		margin-bottom: 16px;
+	}
+
+	.social-link {
+		width: 40px;
+		height: 40px;
+		font-size: 17px;
+	}
+
+	.payment-method {
+		font-size: 26px;
+	}
+}
+
+/* ====== УРОВЕНЬ 4: МОБИЛЬНЫЕ УСТРОЙСТВА (Mobile) ====== */
+/* 481px - 768px */
+@media (max-width: 768px) and (min-width: 481px) {
+	.container__footer {
+		padding: 0 20px;
+	}
+
+	.footer-content {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 30px;
+	}
+
+	footer {
+		padding: 45px 0 25px;
+		margin-top: 50px;
+	}
+
+	.footer-column h3 {
+		font-size: 17px;
+		margin-bottom: 18px;
+	}
+
+	.footer-links a {
+		font-size: 12px;
+	}
+
+	.contact-item {
+		font-size: 12px;
+	}
+
+	.social-link {
+		width: 38px;
+		height: 38px;
+		font-size: 16px;
+	}
+
+	.payment-method {
+		font-size: 24px;
+	}
+
+	.newsletter h4 {
+		font-size: 15px;
+	}
+
+	.subscribe-form input {
+		padding: 12px 15px;
+		font-size: 13px;
+	}
+
+	.subscribe-form button {
+		padding: 12px;
+		font-size: 13px;
+	}
+
+	.footer-bottom {
+		padding-top: 25px;
+	}
+}
+
+/* ====== УРОВЕНЬ 5: ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ (Small Mobile) ====== */
+/* 320px - 480px */
+@media (max-width: 480px) {
+	.container__footer {
+		padding: 0 15px;
+	}
+
+	.footer-content {
+		grid-template-columns: 1fr;
+		gap: 30px;
+	}
+
+	footer {
+		padding: 40px 0 20px;
+		margin-top: 40px;
+	}
+
+	.footer-column h3 {
+		font-size: 16px;
+		margin-bottom: 16px;
+	}
+
+	.footer-links a {
+		font-size: 12px;
+	}
+
+	.footer-links li {
+		margin-bottom: 10px;
+	}
+
+	.contact-item {
+		font-size: 11px;
+		margin-bottom: 14px;
+		gap: 12px;
+	}
+
+	.contact-item i {
+		font-size: 16px;
+	}
+
+	.social-links {
+		gap: 15px;
+		margin-top: 20px;
+	}
+
+	.social-link {
+		width: 36px;
+		height: 36px;
+		font-size: 15px;
+	}
+
+	.payment-methods {
+		gap: 15px;
+	}
+
+	.payment-method {
+		font-size: 22px;
+	}
+
+	.newsletter {
+		margin-top: 25px;
+		padding-top: 20px;
+	}
+
+	.newsletter h4 {
+		font-size: 14px;
+		margin-bottom: 12px;
+	}
+
+	.footer-bottom {
+		flex-direction: column;
+		gap: 20px;
+		text-align: center;
+		padding-top: 20px;
+	}
+
+	.copyright,
+	.developer {
+		order: 2;
+		font-size: 12px;
+	}
+
+	.payment-methods {
+		order: 1;
+	}
+}
+
+/* ====== УРОВЕНЬ 6: СУПЕР МАЛЕНЬКИЕ ЭКРАНЫ (Extra Small) ====== */
+/* До 320px */
+@media (max-width: 320px) {
+	.container__footer {
+		padding: 0 10px;
+	}
+
+	.footer-content {
+		gap: 25px;
+	}
+
+	footer {
+		padding: 35px 0 15px;
+	}
+
+	.footer-column h3 {
+		font-size: 15px;
+	}
+
+	.footer-links a {
+		font-size: 11px;
+	}
+
+	.social-link {
+		width: 34px;
+		height: 34px;
+		font-size: 14px;
+	}
+
+	.payment-method {
+		font-size: 20px;
+	}
+}

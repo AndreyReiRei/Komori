@@ -1,0 +1,12 @@
+/project/
+│
+├── index.html
+├── css/
+│   ├── main.css
+│   ├── header.css
+│   ├── footer.css
+│   └── burger-menu.css
+└── js/
+    ├── burger.js
+    ├── calls.js
+    └── main.js

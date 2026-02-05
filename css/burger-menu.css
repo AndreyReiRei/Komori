@@ -1,0 +1,427 @@
+/* 
+ * Стили для бургер-меню "Комори"
+ * Адаптирован под азиатский стиль с розовой цветовой палитрой
+ */
+
+/* Бургер-иконка */
+.burger-menu {
+	display: none;
+	cursor: pointer;
+	z-index: 1001;
+	position: relative;
+}
+
+.burger-icon {
+	width: 32px;
+	height: 26px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.burger-icon span {
+	display: block;
+	height: 3px;
+	width: 100%;
+	background-color: white;
+	border-radius: 3px;
+	transition: all 0.3s ease;
+}
+
+/* Контакты в шапке - скрываем на мобильных */
+@media (max-width: 768px) {
+
+	/* Показываем бургер-меню на мобильных */
+	.burger-menu {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+		border-radius: 8px;
+		border: 2px solid #ffb7c5;
+		/* Розовая рамка */
+		transition: all 0.3s ease;
+	}
+
+	.burger-menu:hover {
+		background: linear-gradient(135deg, #333 0%, #222 100%);
+		border-color: #ff6b6b;
+	}
+
+	.burger-menu.active {
+		background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+		border-color: #ff6b6b;
+		z-index: 1002;
+		/* Повышаем z-index при активном меню */
+	}
+
+	/* Анимация бургер-иконки при открытии */
+	.burger-menu.active .burger-icon span:nth-child(1) {
+		transform: rotate(45deg) translate(7px, 7px);
+		background-color: #ffb7c5;
+		/* Розовый цвет для активного состояния */
+	}
+
+	.burger-menu.active .burger-icon span:nth-child(2) {
+		opacity: 0;
+	}
+
+	.burger-menu.active .burger-icon span:nth-child(3) {
+		transform: rotate(-45deg) translate(7px, -7px);
+		background-color: #ffb7c5;
+		/* Розовый цвет для активного состояния */
+	}
+
+	/* Основное меню для мобильных - ширина 1/3 экрана */
+	.main-nav {
+		display: none;
+		position: fixed;
+		top: 0;
+		/* Фиксируем сверху */
+		right: 0;
+		/* Прижимаем к правому краю */
+		width: 33.333%;
+		/* 1/3 экрана */
+		min-width: 300px;
+		/* Минимальная ширина */
+		max-width: 420px;
+		/* Максимальная ширина */
+		z-index: 1000;
+		height: 100vh;
+		/* Полная высота экрана */
+		overflow-y: auto;
+		background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+		box-shadow: -8px 0 30px rgba(0, 0, 0, 0.3);
+		border-left: 3px solid #ffb7c5;
+		/* Розовая полоска слева */
+		transform: translateX(100%);
+		transition: transform 0.4s ease;
+	}
+
+	.main-nav.active {
+		display: block;
+		transform: translateX(0);
+	}
+
+	/* Список навигации для мобильных */
+	.nav-list {
+		flex-direction: column;
+		padding: 0;
+		margin: 0;
+		padding-top: 90px;
+		/* Отступ сверху для шапки */
+	}
+
+	.nav-list>li {
+		width: 100%;
+		list-style: none;
+		border-bottom: 1px solid #333;
+	}
+
+	.nav-list>li:last-child {
+		border-bottom: none;
+	}
+
+	/* Стиль ссылок в меню */
+	.nav-link {
+		width: 100%;
+		padding: 20px 25px;
+		display: flex;
+		align-items: center;
+		text-align: left;
+		color: #eee;
+		text-decoration: none;
+		transition: all 0.3s ease;
+		font-size: 16px;
+		background: transparent;
+		border: none;
+		font-family: 'Segoe UI', Tahoma, 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+		cursor: pointer;
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* Эффект при наведении на пункты меню */
+	.nav-link::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 183, 197, 0.1), transparent);
+		transition: left 0.5s ease;
+	}
+
+	.nav-link:hover {
+		background: linear-gradient(135deg, rgba(255, 183, 197, 0.1) 0%, rgba(157, 123, 173, 0.1) 100%);
+		color: #ffb7c5;
+		padding-left: 30px;
+	}
+
+	.nav-link:hover::before {
+		left: 100%;
+	}
+
+	.nav-link i:first-child {
+		margin-right: 18px;
+		width: 22px;
+		text-align: center;
+		font-size: 20px;
+		color: #ffb7c5;
+		transition: transform 0.3s ease;
+	}
+
+	.nav-link:hover i:first-child {
+		transform: scale(1.1);
+	}
+
+	.nav-link span {
+		flex-grow: 1;
+		font-weight: 500;
+	}
+
+	/* Акции и скидки - специальный стиль */
+	.promo-link {
+		color: #ff6b6b !important;
+		font-weight: 600;
+		background: linear-gradient(135deg, rgba(42, 42, 42, 0.9) 0%, rgba(42, 42, 42, 0.9) 50%, rgba(255, 107, 107, 0.08) 100%);
+	}
+
+	.promo-link:hover {
+		background: linear-gradient(135deg, rgba(255, 107, 107, 0.15) 0%, rgba(255, 183, 197, 0.15) 100%);
+		color: #ff8a8a !important;
+	}
+
+	.promo-link i:first-child {
+		color: #ff6b6b;
+	}
+
+	/* Каталог - особый стиль */
+	.has-dropdown>.nav-link {
+		background: linear-gradient(135deg, rgba(42, 42, 42, 0.9) 0%, rgba(42, 42, 42, 0.9) 50%, rgba(157, 123, 173, 0.08) 100%);
+		border-left: 5px solid #9d7bad;
+		/* Фиолетовая полоска слева */
+		font-weight: 600;
+	}
+
+	.has-dropdown>.nav-link:hover {
+		background: linear-gradient(135deg, rgba(157, 123, 173, 0.15) 0%, rgba(255, 183, 197, 0.15) 100%);
+		border-left: 5px solid #ffb7c5;
+		/* Розовая полоска при наведении */
+	}
+
+	.has-dropdown>.nav-link i:first-child {
+		color: #9d7bad;
+	}
+
+	.has-dropdown>.nav-link:hover i:first-child {
+		color: #ffb7c5;
+	}
+
+	/* Выпадающее меню каталога */
+	.dropdown-menu {
+		display: none;
+		background: linear-gradient(135deg, #222 0%, #1a1a1a 100%);
+		padding: 15px 0;
+		margin: 0;
+		border-top: 1px solid #333;
+		border-bottom: 1px solid #333;
+		box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.2);
+	}
+
+	.dropdown-menu.active {
+		display: block;
+		animation: slideInRight 0.4s ease;
+	}
+
+	@keyframes slideInRight {
+		from {
+			opacity: 0;
+			transform: translateX(-15px);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	.dropdown-menu li {
+		list-style: none;
+	}
+
+	.dropdown-menu li a {
+		padding: 16px 25px 16px 65px;
+		display: flex;
+		align-items: center;
+		color: #ccc;
+		text-decoration: none;
+		transition: all 0.3s ease;
+		font-size: 15px;
+		position: relative;
+		cursor: pointer;
+		border-bottom: 1px solid #2a2a2a;
+	}
+
+	.dropdown-menu li:last-child a {
+		border-bottom: none;
+	}
+
+	.dropdown-menu li a:hover {
+		background: linear-gradient(135deg, rgba(255, 183, 197, 0.1) 0%, rgba(157, 123, 173, 0.1) 100%);
+		color: white;
+		padding-left: 70px;
+	}
+
+	.dropdown-menu li a i {
+		margin-right: 15px;
+		width: 18px;
+		text-align: center;
+		font-size: 16px;
+		color: #9d7bad;
+		transition: color 0.3s ease;
+	}
+
+	.dropdown-menu li a:hover i {
+		color: #ffb7c5;
+	}
+
+	/* Декоративная полоска слева при наведении */
+	.dropdown-menu li a::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 4px;
+		background-color: transparent;
+		transition: background-color 0.3s ease;
+	}
+
+	.dropdown-menu li a:hover::before {
+		background: linear-gradient(to bottom, #ffb7c5, #9d7bad);
+	}
+
+	/* Оверлей для фона при открытом меню */
+	.nav-overlay {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100vh;
+		background-color: rgba(26, 26, 26, 0.7);
+		/* Темный полупрозрачный фон */
+		z-index: 999;
+	}
+
+	.nav-overlay.active {
+		display: block;
+		animation: fadeIn 0.3s ease;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+
+		to {
+			opacity: 1;
+		}
+	}
+}
+
+/* Адаптация для очень маленьких экранов */
+@media (max-width: 480px) {
+	.main-nav {
+		width: 85%;
+		/* На очень маленьких экранах делаем шире */
+		min-width: 280px;
+	}
+
+	.nav-list {
+		padding-top: 80px;
+		/* Меньший отступ сверху */
+	}
+
+	.nav-link {
+		padding: 18px 20px;
+		font-size: 15px;
+	}
+
+	.dropdown-menu li a {
+		padding: 14px 20px 14px 55px;
+		font-size: 14px;
+	}
+
+	.dropdown-menu li a:hover {
+		padding-left: 60px;
+	}
+
+	.burger-menu {
+		width: 44px;
+		height: 44px;
+	}
+
+	.burger-icon {
+		width: 28px;
+		height: 22px;
+	}
+}
+
+/* Для средних экранов (планшеты) */
+@media (min-width: 481px) and (max-width: 768px) {
+	.main-nav {
+		width: 40%;
+		/* Немного шире на планшетах */
+	}
+}
+
+/* Для десктопа - показываем стрелку для выпадающего меню */
+@media (min-width: 769px) {
+
+	/* На десктопе скрываем бургер-меню */
+	.burger-menu {
+		display: none !important;
+	}
+
+	/* На десктопе скрываем оверлей */
+	.nav-overlay {
+		display: none !important;
+	}
+
+	/* Стрелка для выпадающего меню на десктопе */
+	.dropdown-arrow {
+		margin-left: 8px;
+		font-size: 12px;
+		opacity: 0.7;
+		transition: transform 0.3s;
+	}
+
+	.has-dropdown:hover .dropdown-arrow {
+		transform: rotate(180deg);
+		opacity: 1;
+	}
+}
+
+/* Стилизация скроллбара для мобильного меню */
+.main-nav::-webkit-scrollbar {
+	width: 8px;
+}
+
+.main-nav::-webkit-scrollbar-track {
+	background: #1a1a1a;
+}
+
+.main-nav::-webkit-scrollbar-thumb {
+	background: linear-gradient(to bottom, #ffb7c5, #9d7bad);
+	border-radius: 4px;
+}
+
+.main-nav::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(to bottom, #ffcbd6, #b39bc5);
+}

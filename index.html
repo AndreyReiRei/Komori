@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Комори - азиатский магазинчик у дома</title>
+
+	<!-- Основной стиль -->
+	<link rel="stylesheet" href="css/main.css">
+	<!-- Шапка -->
+	<link rel="stylesheet" href="css/header.css">
+	<!-- Подвал -->
+	<link rel="stylesheet" href="css/footer.css">
+	<!-- Бургер меню -->
+	<link rel="stylesheet" href="css/burger-menu.css">
+	<!-- Аккардеон продукции -->
+	<link rel="stylesheet" href="css/products-accordion.css">
+	<!-- Библиотека -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+	<!-- Шапка сайта -->
+	<header>
+		<div class="container__header">
+			<div class="header-top">
+				<!-- Логотип -->
+				<div class="logo">
+					<a href="/">
+						<div class="logo-icon">
+							<div class="logo-complex">
+								<!-- <i class="fas fa-moon"></i> -->
+								<i class="fas fa-leaf"></i>
+								<!-- <i class="fas fa-mug-hot"></i> -->
+
+							</div>
+						</div>
+						<div class="logo-text">
+							Комори
+							<span class="logo-tagline">Азиатский магазинчик у дома</span>
+						</div>
+					</a>
+				</div>
+
+				<!-- Контакты для десктопа -->
+				<div class="header-contacts">
+					<div class="phone-numbers">
+						<div class="phone-number">
+							<i class="fas fa-phone"></i>
+							<span>8 (888) 888-88-88</span>
+						</div>
+						<div class="phone-number">
+							<i class="fas fa-mobile-alt"></i>
+							<span>7 (777) 777-77-77</span>
+						</div>
+					</div>
+					<button class="callback-btn" id="callbackBtn">
+						<i class="fas fa-headset"></i> <!-- Иконка гарнитуры вместо телефона -->
+						<span>ЗАКАЗАТЬ ЗВОНОК</span>
+					</button>
+				</div>
+
+				<!-- Бургер-меню для мобильных -->
+				<div class="burger-menu" id="burgerMenu">
+					<div class="burger-icon">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Основная навигация для десктопа -->
+			<nav class="main-nav" id="mainNav">
+				<ul class="nav-list">
+					<li class="has-dropdown">
+						<a href="#" class="nav-link">
+							<i class="fas fa-bars"></i> <!-- Иконка меню -->
+							<span>Каталог товаров</span>
+							<i class="fas fa-chevron-down dropdown-arrow"></i>
+						</a>
+						<!-- Обновленное подменю для азиатского магазина -->
+						<ul class="dropdown-menu">
+							<li><a href="#"><i class="fas fa-user-ninja"></i> Аниме фигурки</a></li>
+							<li><a href="#"><i class="fas fa-mug-hot"></i> Японский чай</a></li>
+							<li><a href="#"><i class="fas fa-cookie-bite"></i> Азиатские сладости</a></li>
+							<li><a href="#"><i class="fas fa-utensils"></i> Японская посуда</a></li>
+							<li><a href="#"><i class="fas fa-book"></i> Манга и книги</a></li>
+							<li><a href="#"><i class="fas fa-tshirt"></i> Аниме одежда</a></li>
+							<li><a href="#"><i class="fas fa-gamepad"></i> Японские игры</a></li>
+							<li><a href="#"><i class="fas fa-palette"></i> Канцелярия кавай</a></li>
+							<li><a href="#"><i class="fas fa-spray-can"></i> Косметика из Азии</a></li>
+							<li><a href="#"><i class="fas fa-home"></i> Азиатский декор</a></li>
+							<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" class="nav-link promo-link">
+							<i class="fas fa-tags"></i> <!-- Иконка ценника -->
+							<span>Акции и скидки</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link">
+							<i class="fas fa-shipping-fast"></i> <!-- Иконка доставки -->
+							<span>Доставка</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link">
+							<i class="fas fa-users"></i> <!-- Иконка людей -->
+							<span>Нашим друзьям</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link">
+							<i class="fas fa-newspaper"></i>
+							<span>Новости восходящего солнца</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link">
+							<i class="fas fa-info-circle"></i>
+							<span>О нас</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link">
+							<i class="fas fa-store"></i> <!-- Иконка магазина -->
+							<span>Магазин</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<!-- Оверлей для мобильного меню -->
+	<div class="nav-overlay" id="navOverlay"></div>
+
+
+
+	<!-- Основное содержимое -->
+	<main>
+		<div class="container__main">
+			<!-- Хлебные крошки -->
+			<nav class="breadcrumbs">
+				<a href="#">Главная</a> /
+				<a href="#">Акции и скидки</a> /
+				<span>Фигурки, чай и другая азиатская продукция</span>
+			</nav>
+
+			<!-- Горизонтальный скролл-аккордеон с товарами -->
+			<section class="products-accordion">
+				<div class="accordion-header">
+					<h2>Популярные товары</h2>
+					<div class="accordion-controls">
+						<button class="scroll-btn prev-btn" aria-label="Предыдущие товары">
+							<i class="fas fa-chevron-left"></i>
+						</button>
+						<button class="scroll-btn next-btn" aria-label="Следующие товары">
+							<i class="fas fa-chevron-right"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class="accordion-container">
+					<div class="products-scroll" id="productsScroll">
+						<!-- Товар 1 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400&h=300&fit=crop&crop=center"
+									alt="Аниме фигурка Наруто" loading="lazy">
+								<span class="product-badge">Хит продаж</span>
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Фигурка Наруто Узумаки</h3>
+								<p class="product-description">Детализированная фигурка главного героя из аниме "Наруто"
+								</p>
+								<div class="product-meta">
+									<span class="product-price">1 890 ₽</span>
+									<span class="product-old-price">2 390 ₽</span>
+									<span class="product-discount">-21%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 2 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center"
+									alt="Японский чай маття" loading="lazy">
+								<span class="product-badge new">Новинка</span>
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Маття премиум</h3>
+								<p class="product-description">Настоящий японский зелёный чай высшего сорта</p>
+								<div class="product-meta">
+									<span class="product-price">890 ₽</span>
+									<span class="product-old-price">1 190 ₽</span>
+									<span class="product-discount">-25%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 3 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w-400&h=300&fit=crop&crop=center"
+									alt="Аниме футболка" loading="lazy">
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Футболка Атака Титанов</h3>
+								<p class="product-description">Хлопковая футболка с принтом из культового аниме</p>
+								<div class="product-meta">
+									<span class="product-price">1 290 ₽</span>
+									<span class="product-old-price">1 590 ₽</span>
+									<span class="product-discount">-19%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 4 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="https://images.unsplash.com/photo-1559715541-5daf8a0296d0?w=400&h=300&fit=crop&crop=center"
+									alt="Японские сладости" loading="lazy">
+								<span class="product-badge">Бестселлер</span>
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Набор японских сладостей</h3>
+								<p class="product-description">Ассорти из моти, рамена и традиционных десертов</p>
+								<div class="product-meta">
+									<span class="product-price">1 490 ₽</span>
+									<span class="product-old-price">1 990 ₽</span>
+									<span class="product-discount">-25%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 5 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop&crop=center"
+									alt="Манга Наруто" loading="lazy">
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Манга Наруто (том 1)</h3>
+								<p class="product-description">Первый том легендарной манги на русском языке</p>
+								<div class="product-meta">
+									<span class="product-price">690 ₽</span>
+									<span class="product-old-price">890 ₽</span>
+									<span class="product-discount">-22%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 6 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop&crop=center"
+									alt="Японская посуда" loading="lazy">
+								<span class="product-badge new">Новинка</span>
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Чайный набор сакура</h3>
+								<p class="product-description">Керамический набор для чайной церемонии</p>
+								<div class="product-meta">
+									<span class="product-price">2 990 ₽</span>
+									<span class="product-old-price">3 590 ₽</span>
+									<span class="product-discount">-17%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 7 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=400&h=300&fit=crop&crop=center"
+									alt="Канцелярия кавай" loading="lazy">
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Набор канцелярии кавай</h3>
+								<p class="product-description">Тетради, ручки и наклейки в японском стиле</p>
+								<div class="product-meta">
+									<span class="product-price">1 190 ₽</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 8 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?w=400&h=300&fit=crop&crop=center"
+									alt="K-POP мерч" loading="lazy">
+								<span class="product-badge">Хит</span>
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">K-POP альбом BTS</h3>
+								<p class="product-description">Ограниченное издание с фотокарточками</p>
+								<div class="product-meta">
+									<span class="product-price">2 490 ₽</span>
+									<span class="product-old-price">2 990 ₽</span>
+									<span class="product-discount">-17%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Индикаторы прокрутки -->
+					<div class="scroll-indicators">
+						<div class="indicator active" data-index="0"></div>
+						<div class="indicator" data-index="1"></div>
+						<div class="indicator" data-index="2"></div>
+						<div class="indicator" data-index="3"></div>
+					</div>
+				</div>
+
+				<!-- Кнопка "Показать все" -->
+				<div class="accordion-footer">
+					<a href="#" class="show-all-btn">
+						<span>Показать все товары</span>
+						<i class="fas fa-arrow-right"></i>
+					</a>
+				</div>
+			</section>
+
+
+			<!-- Секция с промо-контентом -->
+			<section class="promo-section">
+				<h1>Комори - уютный азиатский магазинчик у дома</h1>
+
+				<div class="promo-content">
+					<!-- Основной текст промо -->
+					<div class="promo-text">
+						<p>Комори — ваш солнечный уголок Азии.</p>
+
+						<p>Есть моменты, когда солнечный свет, пробиваясь сквозь листву, создает на пути узор из света
+							и тени. В Японии для этого есть особое слово — «коморэби» (木漏れ日). Это мимолетное ощущение
+							спокойствия, уюта и тихой красоты.</p>
+
+						<p>Наш «Комори» — это и есть такой уголок. Небольшой, тёплый магазинчик у дома, где время
+							замедляет свой бег. Здесь пахнет цветочным улуном и имбирным печеньем, на полках замерли в
+							изящных позах герои любимых историй, а упаковки с необычными сладостями обещают маленькое
+							путешествие.</p>
+
+						<p>Это место, куда заходят не только за фигуркой, чаем или хрустящим сенем. Сюда приходят за
+							ощущением. За тем самым солнечным бликом посреди будней. За кусочком далекой и такой манящей
+							культуры, которую теперь можно взять в руки.</p>
+
+						<p>Загляните. Поймайте свой лучик. Ваша Азия — совсем рядом.</p>
+
+						<!-- Блок с акцией -->
+						<div class="promo-info">
+							<p><strong>Специальное предложение:</strong> При первой покупке - скидка 15%!</p>
+							<p><strong>Срок действия акции:</strong> 01.01.2026 - 31.12.2077</p>
+						</div>
+					</div>
+
+					<!-- Боковая панель с товаром -->
+					<div class="promo-sidebar">
+						<div class="promo-card">
+							<h3>Фигурки, культура, чай и многое другое</h3>
+							<p>В японской эстетике есть понятие «ити-го ити-э» — «одна встреча, одно мгновение». Это
+								осознание того, что каждая встреча уникальна и больше никогда не повторится.</p>
+
+							<p>Наши фигурки — это и есть такие драгоценные мгновения. Самый яркий диалог,
+								кульминационная битва, тихая улыбка героя — всё это мастерски уловлено и воплощено в
+								детализированном материале. Это не просто сувениры, а материальные воспоминания, которые
+								позволяют прикоснуться к эмоциям от любимой истории.</p>
+
+							<p>Пусть ваше любимое мгновение будет с вами. Навсегда.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Секция предпросмотра каталога -->
+			<section class="catalog-preview">
+				<h2>Популярные категории</h2>
+				<div class="catalog-grid">
+					<!-- Аниме фигурки -->
+					<div class="catalog-item">
+						<i class="fas fa-user-ninja"></i>
+						<h3>Аниме фигурки</h3>
+						<p>Статуэтки любимых персонажей</p>
+					</div>
+					<!-- Японский чай -->
+					<div class="catalog-item">
+						<i class="fas fa-mug-hot"></i>
+						<h3>Японский чай</h3>
+						<p>Сэнтя, маття, улуны</p>
+					</div>
+					<!-- Азиатские сладости -->
+					<div class="catalog-item">
+						<i class="fas fa-cookie-bite"></i>
+						<h3>Азиатские сладости</h3>
+						<p>Мочи, рамен, сэйю</p>
+					</div>
+					<!-- Манга и книги -->
+					<div class="catalog-item">
+						<i class="fas fa-book"></i>
+						<h3>Манга и книги</h3>
+						<p>Комиксы и литература</p>
+					</div>
+					<!-- Японская посуда -->
+					<div class="catalog-item">
+						<i class="fas fa-utensils"></i>
+						<h3>Японская посуда</h3>
+						<p>Пиалы, чайные наборы</p>
+					</div>
+					<!-- Аниме одежда -->
+					<div class="catalog-item">
+						<i class="fas fa-tshirt"></i>
+						<h3>Аниме одежда</h3>
+						<p>Футболки, худи, аксессуары</p>
+					</div>
+					<!-- Японские игры -->
+					<div class="catalog-item">
+						<i class="fas fa-gamepad"></i>
+						<h3>Японские игры</h3>
+						<p>Настольные и видеоигры</p>
+					</div>
+					<!-- Канцелярия кавай -->
+					<div class="catalog-item">
+						<i class="fas fa-palette"></i>
+						<h3>Канцелярия кавай</h3>
+						<p>Тетради, ручки, наклейки</p>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<!-- Подвал сайта -->
+	<footer>
+		<div class="container__footer">
+			<div class="footer-content">
+				<!-- Колонка 1: Каталог -->
+				<div class="footer-column">
+					<h3>Категории</h3>
+					<ul class="footer-links">
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Аниме фигурки</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Японский чай</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Азиатские сладости</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Манга и книги</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Аниме одежда</a></li>
+					</ul>
+				</div>
+
+				<!-- Колонка 2: Информация -->
+				<div class="footer-column">
+					<h3>Информация</h3>
+					<ul class="footer-links">
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Доставка и оплата</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Возврат товара</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Политика конфиденциальности</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Публичная оферта</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+					</ul>
+				</div>
+
+				<!-- Колонка 3: Контакты -->
+				<div class="footer-column">
+					<h3>Контакты</h3>
+					<div class="footer-contacts">
+						<div class="contact-item">
+							<i class="fas fa-map-marker-alt"></i>
+							<div>
+								<strong>Адрес магазина:</strong>
+								г. Надежд, ул. Сакурная, 33
+							</div>
+						</div>
+						<div class="contact-item">
+							<i class="fas fa-phone"></i>
+							<div>
+								<strong>Телефоны:</strong>
+								8 (888) 88-88-88<br>
+								7 (777) 777-77-77
+							</div>
+						</div>
+						<div class="contact-item">
+							<i class="fas fa-clock"></i>
+							<div>
+								<strong>Режим работы:</strong>
+								Пн-Пт: 10:00-20:00<br>
+								Сб-Вс: 11:00-19:00
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Колонка 4: Соцсети -->
+				<div class="footer-column">
+					<h3>Мы в соцсетях</h3>
+					<div class="social-links">
+						<a href="#" class="social-link vk" title="ВКонтакте">
+							<i class="fab fa-vk"></i>
+						</a>
+						<a href="#" class="social-link telegram" title="Telegram">
+							<i class="fab fa-telegram"></i>
+						</a>
+						<a href="#" class="social-link instagram" title="Instagram">
+							<i class="fab fa-instagram"></i>
+						</a>
+						<a href="#" class="social-link youtube" title="YouTube">
+							<i class="fab fa-youtube"></i>
+						</a>
+					</div>
+					<!-- Форма подписки на новости -->
+					<div class="newsletter">
+						<h4>Подписка на новости</h4>
+						<form class="subscribe-form">
+							<input type="email" placeholder="Ваш email" required>
+							<button type="submit">Подписаться</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer-bottom">
+				<div class="copyright">
+					© 2026 Комори. Азиатский магазинчик у дома.
+				</div>
+
+				<div class="payment-methods">
+					<i class="fab fa-cc-visa payment-method" title="Visa"></i>
+					<i class="fab fa-cc-mastercard payment-method" title="MasterCard"></i>
+					<i class="fab fa-cc-mir payment-method" title="Мир"></i>
+					<i class="fab fa-cc-paypal payment-method" title="PayPal"></i>
+				</div>
+
+				<div class="developer">
+					Сделано с <i class="fas fa-heart"></i> для ценителей азиатской культуры
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Модальное окно -->
+	<div class="modal" id="callbackModal">
+		<div class="modal-content">
+			<span class="close-modal">&times;</span>
+			<h2>Заказать обратный звонок</h2>
+			<form id="callbackForm">
+				<input type="text" placeholder="Ваше имя" required>
+				<input type="tel" placeholder="Ваш телефон" required>
+				<textarea placeholder="Ваш вопрос (необязательно)"></textarea>
+				<button type="submit">Отправить</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- Подключение JavaScript -->
+
+	<!-- Основной код -->
+	<script src="js/main.js"></script>
+	<!-- Бургер меню -->
+	<script src="js/burger.js"></script>
+	<!-- Звноки -->
+	<script src="js/calls.js"></script>
+	<!-- Аккардеон продукции -->
+	<script src="js/products-accordion.js"></script>
+
+</body>
+
+</html>
