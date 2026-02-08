@@ -1,0 +1,376 @@
+/* СТИЛИ ДЛЯ КАТЕГОРИЙ ТОВАРОВ */
+/* ============================================ */
+
+/* Основные стили секции предпросмотра каталога */
+.catalog-preview {
+	margin-bottom: 70px;
+	position: relative;
+}
+
+.catalog-preview h2 {
+	color: #2a2a2a;
+	margin-bottom: 45px;
+	font-size: 34px;
+	text-align: center;
+	position: relative;
+	padding-bottom: 20px;
+	font-weight: 700;
+}
+
+/* Декоративная линия под заголовком */
+.catalog-preview h2::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 120px;
+	height: 3px;
+	background: linear-gradient(90deg, #ffb7c5, #ff6b6b, #ffb7c5);
+}
+
+/* Сетка каталога */
+.catalog-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 30px;
+	transition: grid-template-rows 0.5s ease;
+}
+
+/* Элемент каталога */
+.catalog-item {
+	background-color: white;
+	border-radius: 15px;
+	padding: 35px 25px;
+	text-align: center;
+	box-shadow: 0 8px 20px rgba(255, 183, 197, 0.15);
+	transition: all 0.4s ease;
+	cursor: pointer;
+	border: 2px solid transparent;
+	position: relative;
+	overflow: hidden;
+	animation: fadeInUp 0.6s ease forwards;
+	opacity: 0;
+}
+
+/* Анимация появления элементов */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Анимация скрытия */
+@keyframes fadeOutDown {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateY(20px);
+		display: none;
+	}
+}
+
+/* Анимация при наведении на элемент каталога */
+.catalog-item:hover {
+	transform: translateY(-12px);
+	box-shadow: 0 20px 40px rgba(255, 183, 197, 0.25);
+	border-color: #ffb7c5;
+}
+
+/* Декоративный элемент на элементе каталога */
+.catalog-item::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 5px;
+	background: linear-gradient(90deg, #ffb7c5, #ff6b6b);
+	transform: scaleX(0);
+	transition: transform 0.4s ease;
+}
+
+.catalog-item:hover::before {
+	transform: scaleX(1);
+}
+
+/* Иконки в элементах каталога */
+.catalog-item i {
+	font-size: 52px;
+	color: #ff6b6b;
+	margin-bottom: 25px;
+	transition: all 0.4s ease;
+	display: block;
+}
+
+.catalog-item:hover i {
+	transform: scale(1.15) rotate(5deg);
+	color: #ff4757;
+}
+
+/* Заголовок элемента каталога */
+.catalog-item h3 {
+	color: #2a2a2a;
+	font-size: 20px;
+	font-weight: 600;
+	line-height: 1.4;
+	margin-bottom: 10px;
+}
+
+/* Описание элемента каталога */
+.catalog-item p {
+	color: #666;
+	font-size: 14px;
+	line-height: 1.5;
+	opacity: 0.9;
+}
+
+/* Стили для скрытых категорий */
+.hidden-category {
+	display: none;
+	animation: fadeInUp 0.5s ease forwards;
+	opacity: 0;
+}
+
+.catalog-grid.expanded .hidden-category {
+	display: block;
+	animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Футер с кнопкой */
+.accordion-footer {
+	text-align: center;
+	margin-top: 50px;
+	padding-top: 30px;
+	border-top: 2px dashed #ffe6ea;
+}
+
+/* Кнопка "Показать все" */
+.show-all-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+	color: white;
+	padding: 15px 30px;
+	border-radius: 50px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: all 0.3s ease;
+	box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	min-width: 200px;
+}
+
+.show-all-btn:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+	background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+}
+
+.show-all-btn:active {
+	transform: translateY(0);
+}
+
+.show-all-btn i {
+	transition: transform 0.3s ease;
+}
+
+.show-all-btn.expanded i {
+	transform: rotate(90deg);
+}
+
+/* Анимация для плавного появления кнопки */
+@keyframes slideInUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.show-all-btn {
+	animation: slideInUp 0.5s ease 0.3s forwards;
+	opacity: 0;
+}
+
+/* ============================================ */
+/* АДАПТИВНОСТЬ */
+/* ============================================ */
+
+/* Большие экраны (Desktop) - 1201px и выше */
+/* Базовые стили уже установлены */
+
+/* Средние экраны (Tablet Landscape / Small Desktop) - 992px - 1200px */
+@media (max-width: 1200px) and (min-width: 993px) {
+	.catalog-grid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 28px;
+	}
+
+	.catalog-grid.expanded {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.catalog-item {
+		padding: 30px 20px;
+	}
+
+	.catalog-item i {
+		font-size: 48px;
+		margin-bottom: 22px;
+	}
+
+	.catalog-item h3 {
+		font-size: 19px;
+	}
+
+	.catalog-preview h2 {
+		font-size: 32px;
+	}
+}
+
+/* Планшеты (Tablet Portrait) - 768px - 992px */
+@media (max-width: 992px) and (min-width: 769px) {
+	.catalog-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 25px;
+	}
+
+	.catalog-grid.expanded {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.catalog-item {
+		padding: 28px 20px;
+	}
+
+	.catalog-item i {
+		font-size: 46px;
+		margin-bottom: 20px;
+	}
+
+	.catalog-item h3 {
+		font-size: 18px;
+	}
+
+	.catalog-preview h2 {
+		font-size: 30px;
+		margin-bottom: 35px;
+	}
+}
+
+/* Мобильные устройства (Mobile) - 481px - 768px */
+@media (max-width: 768px) and (min-width: 481px) {
+	.catalog-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 20px;
+	}
+
+	.catalog-grid.expanded {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.catalog-item {
+		padding: 25px 18px;
+	}
+
+	.catalog-item i {
+		font-size: 44px;
+		margin-bottom: 18px;
+	}
+
+	.catalog-item h3 {
+		font-size: 17px;
+	}
+
+	.catalog-preview h2 {
+		font-size: 28px;
+		margin-bottom: 30px;
+	}
+
+	.show-all-btn {
+		padding: 14px 28px;
+		font-size: 15px;
+		min-width: 180px;
+	}
+}
+
+/* Очень маленькие экраны (Small Mobile) - 320px - 480px */
+@media (max-width: 480px) {
+	.catalog-grid {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.catalog-grid.expanded {
+		grid-template-columns: 1fr;
+	}
+
+	.catalog-item {
+		padding: 22px 15px;
+	}
+
+	.catalog-item i {
+		font-size: 40px;
+		margin-bottom: 15px;
+	}
+
+	.catalog-item h3 {
+		font-size: 16px;
+	}
+
+	.catalog-item p {
+		font-size: 13px;
+	}
+
+	.catalog-preview h2 {
+		font-size: 24px;
+		margin-bottom: 25px;
+	}
+
+	.show-all-btn {
+		padding: 12px 25px;
+		font-size: 14px;
+		min-width: 160px;
+	}
+
+	.accordion-footer {
+		margin-top: 40px;
+		padding-top: 25px;
+	}
+}
+
+/* Супер маленькие экраны (Extra Small) - до 320px */
+@media (max-width: 320px) {
+	.catalog-item {
+		padding: 20px 12px;
+	}
+
+	.catalog-preview h2 {
+		font-size: 22px;
+	}
+
+	.show-all-btn {
+		padding: 10px 20px;
+		font-size: 13px;
+		min-width: 140px;
+	}
+}

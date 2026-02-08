@@ -21,76 +21,42 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		} );
 	} );
 
-	// Анимация при скролле для элементов каталога
-	function animateOnScroll() {
-		const catalogItems = document.querySelectorAll( '.catalog-preview .catalog-item' );
-
-		catalogItems.forEach( item => {
-			const itemPosition = item.getBoundingClientRect().top;
-			const screenPosition = window.innerHeight / 1.3;
-
-			if ( itemPosition < screenPosition ) {
-				item.style.opacity = '1';
-				item.style.transform = 'translateY(0)';
-			}
-		} );
-	}
-
-	// Инициализация анимации элементов каталога
-	const catalogItems = document.querySelectorAll( '.catalog-preview .catalog-item' );
-	if ( catalogItems.length > 0 ) {
-		// Устанавливаем начальные стили для анимации
-		catalogItems.forEach( item => {
-			item.style.opacity = '0';
-			item.style.transform = 'translateY(30px)';
-			item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-		} );
-
-		// Запускаем анимацию при загрузке
-		setTimeout( animateOnScroll, 400 );
-
-		// И при скролле
-		window.addEventListener( 'scroll', animateOnScroll );
-	}
-
-	// Обработка кликов по элементам каталога на главной странице
-	document.querySelectorAll( '.catalog-preview .catalog-item' ).forEach( item => {
-		item.addEventListener( 'click', function () {
-			const title = this.querySelector( 'h3' ).textContent;
-			const description = this.querySelector( 'p' ).textContent;
-
-			// Создаем модальное окно с информацией о категории
-			const modal = document.createElement( 'div' );
-			modal.className = 'modal';
-			modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-modal">&times;</span>
-                    <h2>${title}</h2>
-                    <p>${description}</p>
-                    <p>Здесь будет подробная информация о категории "${title}".</p>
-                    <p>В реальном приложении здесь будет переход к товарам этой категории.</p>
-                    <button class="modal-btn" onclick="this.closest('.modal').style.display='none'">Закрыть</button>
-                </div>
-            `;
-
-			document.body.appendChild( modal );
-			modal.style.display = 'block';
-
-			// Обработчик закрытия
-			modal.querySelector( '.close-modal' ).addEventListener( 'click', function () {
-				modal.style.display = 'none';
-				setTimeout( () => modal.remove(), 300 );
-			} );
-
-			// Закрытие по клику вне модального окна
-			window.addEventListener( 'click', function ( e ) {
-				if ( e.target === modal ) {
+	// Базовая обработка модальных окон (если они есть на странице)
+	function initModalHandlers() {
+		// Закрытие модального окна при клике на крестик
+		document.querySelectorAll( '.close-modal' ).forEach( closeBtn => {
+			closeBtn.addEventListener( 'click', function () {
+				const modal = this.closest( '.modal' );
+				if ( modal ) {
 					modal.style.display = 'none';
-					setTimeout( () => modal.remove(), 300 );
 				}
 			} );
 		} );
-	} );
+
+		// Закрытие модального окна при клике вне его области
+		document.querySelectorAll( '.modal' ).forEach( modal => {
+			modal.addEventListener( 'click', function ( e ) {
+				if ( e.target === this ) {
+					this.style.display = 'none';
+				}
+			} );
+		} );
+
+		// Открытие модального окна при клике на элементы с data-modal-target
+		document.querySelectorAll( '[data-modal-target]' ).forEach( trigger => {
+			trigger.addEventListener( 'click', function ( e ) {
+				e.preventDefault();
+				const modalId = this.getAttribute( 'data-modal-target' );
+				const modal = document.querySelector( modalId );
+				if ( modal ) {
+					modal.style.display = 'block';
+				}
+			} );
+		} );
+	}
+
+	// Инициализация обработчиков модальных окон
+	initModalHandlers();
 
 	// Добавляем текущий год в футер
 	const copyright = document.querySelector( '.copyright' );
@@ -99,23 +65,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		copyright.innerHTML = copyright.innerHTML.replace( '2024', currentYear );
 	}
 
-	// Активация карточек при наведении (дополнительный эффект)
-	document.querySelectorAll( '.catalog-preview .catalog-item' ).forEach( card => {
-		card.addEventListener( 'mouseenter', function () {
-			this.style.transform = 'translateY(-10px)';
-			this.style.boxShadow = '0 20px 40px rgba(255, 183, 197, 0.25)';
-		} );
-
-		card.addEventListener( 'mouseleave', function () {
-			if ( !this.classList.contains( 'hovered' ) ) {
-				this.style.transform = 'translateY(0)';
-			}
-			this.style.boxShadow = '0 8px 20px rgba(255, 183, 197, 0.15)';
-		} );
-	} );
-
-
-	// Закрытие бургер-меню при переходе по якорным ссылкам
+	// Закрытие бургер-меню при переходе по якорным ссылкам (если есть меню)
 	document.querySelectorAll( 'a[href^="#"]' ).forEach( anchor => {
 		anchor.addEventListener( 'click', function ( e ) {
 			const targetId = this.getAttribute( 'href' );
@@ -136,6 +86,86 @@ document.addEventListener( 'DOMContentLoaded', function () {
 					document.body.style.overflow = '';
 				}
 			}
+		} );
+	} );
+
+	// Общая функция для форм (если есть)
+	function initFormHandlers() {
+		document.querySelectorAll( 'form' ).forEach( form => {
+			form.addEventListener( 'submit', function ( e ) {
+				// Проверка обязательных полей
+				const requiredFields = this.querySelectorAll( '[required]' );
+				let isValid = true;
+
+				requiredFields.forEach( field => {
+					if ( !field.value.trim() ) {
+						isValid = false;
+						field.style.borderColor = '#ff4757';
+
+						// Убираем красную обводку при вводе
+						field.addEventListener( 'input', function () {
+							this.style.borderColor = '#ffe6ea';
+						}, { once: true } );
+					}
+				} );
+
+				if ( !isValid ) {
+					e.preventDefault();
+					alert( 'Пожалуйста, заполните все обязательные поля.' );
+				}
+			} );
+		} );
+	}
+
+	initFormHandlers();
+
+	// Анимация для элементов при скролле (общая функция)
+	function initScrollAnimations() {
+		const animatedElements = document.querySelectorAll( '.animate-on-scroll' );
+
+		if ( animatedElements.length > 0 ) {
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			};
+
+			const observer = new IntersectionObserver( ( entries ) => {
+				entries.forEach( entry => {
+					if ( entry.isIntersecting ) {
+						entry.target.classList.add( 'animated' );
+						observer.unobserve( entry.target );
+					}
+				} );
+			}, observerOptions );
+
+			animatedElements.forEach( element => {
+				observer.observe( element );
+			} );
+		}
+	}
+
+	initScrollAnimations();
+
+	// Улучшение доступности для кнопок
+	document.querySelectorAll( 'button, [role="button"]' ).forEach( button => {
+		// Добавляем обработку нажатия Enter для элементов с role="button"
+		if ( button.getAttribute( 'role' ) === 'button' ) {
+			button.addEventListener( 'keydown', function ( e ) {
+				if ( e.key === 'Enter' || e.key === ' ' ) {
+					e.preventDefault();
+					this.click();
+				}
+			} );
+		}
+
+		// Добавляем фокус-стили
+		button.addEventListener( 'focus', function () {
+			this.style.outline = '2px solid #ff6b6b';
+			this.style.outlineOffset = '2px';
+		} );
+
+		button.addEventListener( 'blur', function () {
+			this.style.outline = 'none';
 		} );
 	} );
 

@@ -173,15 +173,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		} );
 	} );
 
-	// Обработчик для кнопки "Показать все"
-	const showAllBtn = document.querySelector( '.show-all-btn' );
-	if ( showAllBtn ) {
-		showAllBtn.addEventListener( 'click', function ( e ) {
-			e.preventDefault();
-			showNotification( 'В реальном приложении здесь будет переход на страницу всех товаров' );
-		} );
-	}
-
 	// Функция показа уведомлений
 	function showNotification( message ) {
 		// Создаем элемент уведомления

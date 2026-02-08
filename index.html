@@ -16,6 +16,8 @@
 	<link rel="stylesheet" href="css/burger-menu.css">
 	<!-- Аккардеон продукции -->
 	<link rel="stylesheet" href="css/products-accordion.css">
+	<!-- Все Категории -->
+	<link rel="stylesheet" href="css/catalog-styles.css">
 	<!-- Библиотека -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -94,6 +96,7 @@
 							<li><a href="#"><i class="fas fa-spray-can"></i> Косметика из Азии</a></li>
 							<li><a href="#"><i class="fas fa-home"></i> Азиатский декор</a></li>
 							<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
+							<li><a href="#"><i class="fas fa-music"></i> Азиатская популярная музыка </a></li>
 						</ul>
 					</li>
 					<li>
@@ -140,8 +143,6 @@
 	<!-- Оверлей для мобильного меню -->
 	<div class="nav-overlay" id="navOverlay"></div>
 
-
-
 	<!-- Основное содержимое -->
 	<main>
 		<div class="container__main">
@@ -171,8 +172,7 @@
 						<!-- Товар 1 -->
 						<div class="product-card">
 							<div class="product-image">
-								<img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400&h=300&fit=crop&crop=center"
-									alt="Аниме фигурка Наруто" loading="lazy">
+								<img src="/image/figures.jpg" alt="Аниме фигурка Наруто" loading="lazy">
 								<span class="product-badge">Хит продаж</span>
 							</div>
 							<div class="product-content">
@@ -191,8 +191,7 @@
 						<!-- Товар 2 -->
 						<div class="product-card">
 							<div class="product-image">
-								<img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center"
-									alt="Японский чай маття" loading="lazy">
+								<img src="/image/tea.jpg" alt="Японский чай маття" loading="lazy">
 								<span class="product-badge new">Новинка</span>
 							</div>
 							<div class="product-content">
@@ -210,8 +209,7 @@
 						<!-- Товар 3 -->
 						<div class="product-card">
 							<div class="product-image">
-								<img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w-400&h=300&fit=crop&crop=center"
-									alt="Аниме футболка" loading="lazy">
+								<img src="/image/T-shirt.webp" alt="Аниме футболка" loading="lazy">
 							</div>
 							<div class="product-content">
 								<h3 class="product-title">Футболка Атака Титанов</h3>
@@ -228,8 +226,7 @@
 						<!-- Товар 4 -->
 						<div class="product-card">
 							<div class="product-image">
-								<img src="https://images.unsplash.com/photo-1559715541-5daf8a0296d0?w=400&h=300&fit=crop&crop=center"
-									alt="Японские сладости" loading="lazy">
+								<img src="/image/swits.jpg" alt="Японские сладости" loading="lazy">
 								<span class="product-badge">Бестселлер</span>
 							</div>
 							<div class="product-content">
@@ -247,8 +244,7 @@
 						<!-- Товар 5 -->
 						<div class="product-card">
 							<div class="product-image">
-								<img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop&crop=center"
-									alt="Манга Наруто" loading="lazy">
+								<img src="/image/manga.jpg" alt="Манга Наруто" loading="lazy">
 							</div>
 							<div class="product-content">
 								<h3 class="product-title">Манга Наруто (том 1)</h3>
@@ -265,8 +261,7 @@
 						<!-- Товар 6 -->
 						<div class="product-card">
 							<div class="product-image">
-								<img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop&crop=center"
-									alt="Японская посуда" loading="lazy">
+								<img src="/image/sakura.jpg" alt="Японская посуда" loading="lazy">
 								<span class="product-badge new">Новинка</span>
 							</div>
 							<div class="product-content">
@@ -284,8 +279,7 @@
 						<!-- Товар 7 -->
 						<div class="product-card">
 							<div class="product-image">
-								<img src="https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=400&h=300&fit=crop&crop=center"
-									alt="Канцелярия кавай" loading="lazy">
+								<img src="/image/offices.jpg" alt="Канцелярия кавай" loading="lazy">
 							</div>
 							<div class="product-content">
 								<h3 class="product-title">Набор канцелярии кавай</h3>
@@ -300,8 +294,7 @@
 						<!-- Товар 8 -->
 						<div class="product-card">
 							<div class="product-image">
-								<img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?w=400&h=300&fit=crop&crop=center"
-									alt="K-POP мерч" loading="lazy">
+								<img src="/image/BTS.jpg" alt="K-POP мерч" loading="lazy">
 								<span class="product-badge">Хит</span>
 							</div>
 							<div class="product-content">
@@ -324,14 +317,6 @@
 						<div class="indicator" data-index="2"></div>
 						<div class="indicator" data-index="3"></div>
 					</div>
-				</div>
-
-				<!-- Кнопка "Показать все" -->
-				<div class="accordion-footer">
-					<a href="#" class="show-all-btn">
-						<span>Показать все товары</span>
-						<i class="fas fa-arrow-right"></i>
-					</a>
 				</div>
 			</section>
 
@@ -371,7 +356,7 @@
 
 			<!-- Секция предпросмотра каталога -->
 			<section class="catalog-preview">
-				<h2>Популярные категории</h2>
+				<h2>Все категории</h2>
 				<div class="catalog-grid">
 					<!-- Аниме фигурки -->
 					<div class="catalog-item">
@@ -421,6 +406,35 @@
 						<h3>Канцелярия кавай</h3>
 						<p>Тетради, ручки, наклейки</p>
 					</div>
+
+					<!-- ДОБАВЛЕННЫЕ КАТЕГОРИИ (изначально скрыты) -->
+					<div class="catalog-item hidden-category">
+						<i class="fas fa-spa"></i>
+						<h3>Косметика из Азии</h3>
+						<p>Корейская косметика, японские средства</p>
+					</div>
+					<div class="catalog-item hidden-category">
+						<i class="fas fa-home"></i>
+						<h3>Азиатский декор</h3>
+						<p>Вазы, ширмы, предметы интерьера</p>
+					</div>
+					<div class="catalog-item hidden-category">
+						<i class="fas fa-compact-disc"></i>
+						<h3>Аниме на дисках</h3>
+						<p>DVD, Blu-ray коллекции</p>
+					</div>
+					<div class="catalog-item hidden-category">
+						<i class="fas fa-music"></i>
+						<h3>Азиатская популярная музыка</h3>
+						<p>K-pop, J-pop, OST аниме</p>
+					</div>
+				</div>
+				<!-- Кнопка "Показать все" -->
+				<div class="accordion-footer">
+					<button class="show-all-btn">
+						<span>Показать все товары</span>
+						<i class="fas fa-arrow-right"></i>
+					</button>
 				</div>
 			</section>
 		</div>
@@ -555,6 +569,8 @@
 	<script src="js/calls.js"></script>
 	<!-- Аккардеон продукции -->
 	<script src="js/products-accordion.js"></script>
+	<!-- Популярные категории -->
+	<script src="js/catalog-expand.js"></script>
 
 </body>
 
