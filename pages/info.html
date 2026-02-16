@@ -7,17 +7,17 @@
 	<title>Комори - азиатский магазинчик у дома</title>
 
 	<!-- Основной стиль -->
-	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="/css/main.css">
 	<!-- Шапка -->
-	<link rel="stylesheet" href="css/header.css">
+	<link rel="stylesheet" href="/css/header.css">
 	<!-- Подвал -->
-	<link rel="stylesheet" href="css/footer.css">
+	<link rel="stylesheet" href="/css/footer.css">
 	<!-- Бургер меню -->
-	<link rel="stylesheet" href="css/burger-menu.css">
+	<link rel="stylesheet" href="/css/burger-menu.css">
 	<!-- Аккардеон продукции -->
-	<link rel="stylesheet" href="css/products-accordion.css">
+	<link rel="stylesheet" href="/css/products-accordion.css">
 	<!-- Все Категории -->
-	<link rel="stylesheet" href="css/catalog-styles.css">
+	<link rel="stylesheet" href="/css/catalog-styles.css">
 	<!-- Библиотека -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -124,7 +124,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="/pages/info.html" class="nav-link">
+						<a href="#" class="nav-link">
 							<i class="fas fa-info-circle"></i>
 							<span>О нас</span>
 						</a>
@@ -146,165 +146,34 @@
 	<!-- Основное содержимое -->
 	<main>
 		<div class="container__main">
-			<!-- Горизонтальный скролл-аккордеон с товарами -->
-			<section class="products-accordion">
-				<div class="accordion-container">
-					<!-- Кнопки навигации на краях картинок -->
+			<!-- Секция с промо-контентом -->
+			<section class="promo-section">
+				<h1>Комори - уютный азиатский магазинчик у дома</h1>
 
-					<!-- <button class="scroll-btn prev-btn" aria-label="Предыдущие товары">
-						<i class="fas fa-chevron-left"></i>
-					</button>
-					<button class="scroll-btn next-btn" aria-label="Следующие товары">
-						<i class="fas fa-chevron-right"></i>
-					</button> -->
+				<div class="promo-content">
+					<!-- Основной текст промо -->
+					<div class="promo-text">
+						<p>Комори — ваш солнечный уголок Азии.</p>
 
-					<!-- Товары  -->
-					<div class="products-scroll" id="productsScroll">
-						<!-- Товар 1 -->
-						<div class="product-card">
-							<div class="product-image">
-								<img src="/image/figures.jpg" alt="Аниме фигурка Наруто" loading="lazy">
-								<span class="product-badge">Хит продаж</span>
-							</div>
-							<div class="product-content">
-								<h3 class="product-title">Фигурка Наруто Узумаки</h3>
-								<p class="product-description">Детализированная фигурка главного героя из аниме "Наруто"
-								</p>
-								<div class="product-meta">
-									<span class="product-price">1 890 ₽</span>
-									<span class="product-old-price">2 390 ₽</span>
-									<span class="product-discount">-21%</span>
-								</div>
-								<button class="product-btn">В корзину</button>
-							</div>
-						</div>
+						<p>Есть моменты, когда солнечный свет, пробиваясь сквозь листву, создает на пути узор из света
+							и тени. В Японии для этого есть особое слово — «коморэби» (木漏れ日). Это мимолетное ощущение
+							спокойствия, уюта и тихой красоты.</p>
 
-						<!-- Товар 2 -->
-						<div class="product-card">
-							<div class="product-image">
-								<img src="/image/tea.jpg" alt="Японский чай маття" loading="lazy">
-								<span class="product-badge new">Новинка</span>
-							</div>
-							<div class="product-content">
-								<h3 class="product-title">Маття премиум</h3>
-								<p class="product-description">Настоящий японский зелёный чай высшего сорта</p>
-								<div class="product-meta">
-									<span class="product-price">890 ₽</span>
-									<span class="product-old-price">1 190 ₽</span>
-									<span class="product-discount">-25%</span>
-								</div>
-								<button class="product-btn">В корзину</button>
-							</div>
-						</div>
+						<p>Наш «Комори» — это и есть такой уголок. Небольшой, тёплый магазинчик у дома, где время
+							замедляет свой бег. Здесь пахнет цветочным улуном и имбирным печеньем, на полках замерли в
+							изящных позах герои любимых историй, а упаковки с необычными сладостями обещают маленькое
+							путешествие.</p>
 
-						<!-- Товар 3 -->
-						<div class="product-card">
-							<div class="product-image">
-								<img src="/image/T-shirt.webp" alt="Аниме футболка" loading="lazy">
-							</div>
-							<div class="product-content">
-								<h3 class="product-title">Футболка Атака Титанов</h3>
-								<p class="product-description">Хлопковая футболка с принтом из культового аниме</p>
-								<div class="product-meta">
-									<span class="product-price">1 290 ₽</span>
-									<span class="product-old-price">1 590 ₽</span>
-									<span class="product-discount">-19%</span>
-								</div>
-								<button class="product-btn">В корзину</button>
-							</div>
-						</div>
+						<p>Это место, куда заходят не только за фигуркой, чаем или хрустящим сенем. Сюда приходят за
+							ощущением. За тем самым солнечным бликом посреди будней. За кусочком далекой и такой манящей
+							культуры, которую теперь можно взять в руки.</p>
 
-						<!-- Товар 4 -->
-						<div class="product-card">
-							<div class="product-image">
-								<img src="/image/swits.jpg" alt="Японские сладости" loading="lazy">
-								<span class="product-badge">Бестселлер</span>
-							</div>
-							<div class="product-content">
-								<h3 class="product-title">Набор японских сладостей</h3>
-								<p class="product-description">Ассорти из моти, рамена и традиционных десертов</p>
-								<div class="product-meta">
-									<span class="product-price">1 490 ₽</span>
-									<span class="product-old-price">1 990 ₽</span>
-									<span class="product-discount">-25%</span>
-								</div>
-								<button class="product-btn">В корзину</button>
-							</div>
-						</div>
+						<p>Загляните. Поймайте свой лучик. Ваша Азия — совсем рядом.</p>
 
-						<!-- Товар 5 -->
-						<div class="product-card">
-							<div class="product-image">
-								<img src="/image/manga.jpg" alt="Манга Наруто" loading="lazy">
-							</div>
-							<div class="product-content">
-								<h3 class="product-title">Манга Наруто (том 1)</h3>
-								<p class="product-description">Первый том легендарной манги на русском языке</p>
-								<div class="product-meta">
-									<span class="product-price">690 ₽</span>
-									<span class="product-old-price">890 ₽</span>
-									<span class="product-discount">-22%</span>
-								</div>
-								<button class="product-btn">В корзину</button>
-							</div>
-						</div>
-
-						<!-- Товар 6 -->
-						<div class="product-card">
-							<div class="product-image">
-								<img src="/image/sakura.jpg" alt="Японская посуда" loading="lazy">
-								<span class="product-badge new">Новинка</span>
-							</div>
-							<div class="product-content">
-								<h3 class="product-title">Чайный набор сакура</h3>
-								<p class="product-description">Керамический набор для чайной церемонии</p>
-								<div class="product-meta">
-									<span class="product-price">2 990 ₽</span>
-									<span class="product-old-price">3 590 ₽</span>
-									<span class="product-discount">-17%</span>
-								</div>
-								<button class="product-btn">В корзину</button>
-							</div>
-						</div>
-
-						<!-- Товар 7 -->
-						<div class="product-card">
-							<div class="product-image">
-								<img src="/image/offices.jpg" alt="Канцелярия кавай" loading="lazy">
-							</div>
-							<div class="product-content">
-								<h3 class="product-title">Набор канцелярии кавай</h3>
-								<p class="product-description">Тетради, ручки и наклейки в японском стиле</p>
-								<div class="product-meta">
-									<span class="product-price">1 190 ₽</span>
-								</div>
-								<button class="product-btn">В корзину</button>
-							</div>
-						</div>
-
-						<!-- Товар 8 -->
-						<div class="product-card">
-							<div class="product-image">
-								<img src="/image/BTS.jpg" alt="K-POP мерч" loading="lazy">
-								<span class="product-badge">Хит</span>
-							</div>
-							<div class="product-content">
-								<h3 class="product-title">K-POP альбом BTS</h3>
-								<p class="product-description">Ограниченное издание с фотокарточками</p>
-								<div class="product-meta">
-									<span class="product-price">2 490 ₽</span>
-									<span class="product-old-price">2 990 ₽</span>
-									<span class="product-discount">-17%</span>
-								</div>
-								<button class="product-btn">В корзину</button>
-							</div>
-						</div>
-					</div>
-
-					<!-- Навигационная полоска с делениями -->
-					<div class="scroll-navbar">
-						<div class="navbar-track">
-							<!-- Сегменты будут создаваться динамически через JavaScript -->
+						<!-- Блок с акцией -->
+						<div class="promo-info">
+							<p><strong>Специальное предложение:</strong> При первой покупке - скидка 15%!</p>
+							<p><strong>Срок действия акции:</strong> 01.01.2026 - 31.12.2077</p>
 						</div>
 					</div>
 				</div>

@@ -24,39 +24,10 @@ body {
 /* Основной контейнер для контента */
 .container__main {
 	width: 100%;
-	max-width: 1200px;
+	max-width: 1800px;
 	margin: 0 auto;
 	padding: 0 20px;
 	flex: 1;
-}
-
-/* Хлебные крошки */
-.breadcrumbs {
-	padding: 25px 0;
-	font-size: 14px;
-	color: #666;
-	background: linear-gradient(90deg, #fff9fb, #ffeef2);
-	border-radius: 10px;
-	margin: 20px 0;
-	padding-left: 20px;
-}
-
-.breadcrumbs a {
-	color: #ff6b6b;
-	/* Акцентный красный для ссылок */
-	text-decoration: none;
-	transition: color 0.3s ease;
-	position: relative;
-}
-
-.breadcrumbs a:hover {
-	color: #ff4757;
-	text-decoration: underline;
-}
-
-.breadcrumbs span {
-	color: #2a2a2a;
-	font-weight: 500;
 }
 
 /* Секция с промо-контентом */
@@ -141,110 +112,6 @@ body {
 
 .promo-info strong {
 	color: #ff6b6b;
-}
-
-/* Секция предпросмотра каталога */
-.catalog-preview {
-	margin-bottom: 70px;
-	position: relative;
-}
-
-.catalog-preview h2 {
-	color: #2a2a2a;
-	margin-bottom: 45px;
-	font-size: 34px;
-	text-align: center;
-	position: relative;
-	padding-bottom: 20px;
-	font-weight: 700;
-}
-
-/* Декоративная линия под заголовком */
-.catalog-preview h2::after {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 120px;
-	height: 3px;
-	background: linear-gradient(90deg, #ffb7c5, #ff6b6b, #ffb7c5);
-}
-
-/* Сетка каталога */
-.catalog-grid {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 30px;
-}
-
-/* Элемент каталога */
-.catalog-item {
-	background-color: white;
-	border-radius: 15px;
-	padding: 35px 25px;
-	text-align: center;
-	box-shadow: 0 8px 20px rgba(255, 183, 197, 0.15);
-	transition: all 0.4s ease;
-	cursor: pointer;
-	border: 2px solid transparent;
-	position: relative;
-	overflow: hidden;
-}
-
-/* Анимация при наведении на элемент каталога */
-.catalog-item:hover {
-	transform: translateY(-12px);
-	box-shadow: 0 20px 40px rgba(255, 183, 197, 0.25);
-	border-color: #ffb7c5;
-}
-
-/* Декоративный элемент на элементе каталога */
-.catalog-item::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	height: 5px;
-	background: linear-gradient(90deg, #ffb7c5, #ff6b6b);
-	transform: scaleX(0);
-	transition: transform 0.4s ease;
-}
-
-.catalog-item:hover::before {
-	transform: scaleX(1);
-}
-
-/* Иконки в элементах каталога */
-.catalog-item i {
-	font-size: 52px;
-	color: #ff6b6b;
-	margin-bottom: 25px;
-	transition: all 0.4s ease;
-	display: block;
-}
-
-.catalog-item:hover i {
-	transform: scale(1.15) rotate(5deg);
-	color: #ff4757;
-}
-
-/* Заголовок элемента каталога */
-.catalog-item h3 {
-	color: #2a2a2a;
-	font-size: 20px;
-	font-weight: 600;
-	line-height: 1.4;
-	margin-bottom: 10px;
-}
-
-/* Описание элемента каталога */
-.catalog-item p {
-	color: #666;
-	font-size: 14px;
-	line-height: 1.5;
-	opacity: 0.9;
 }
 
 /* Модальное окно */
@@ -370,9 +237,6 @@ body {
 
 /* Адаптивность */
 
-
-/* 4 уровня: большие (desktop), средние (tablet), маленькие (mobile), очень маленькие (small mobile) */
-
 /* ====== УРОВЕНЬ 1: БОЛЬШИЕ ЭКРАНЫ (Desktop) ====== */
 /* 1201px и выше - стандартные стили уже в основном блоке */
 
@@ -382,11 +246,6 @@ body {
 	.container__main {
 		max-width: 960px;
 		padding: 0 25px;
-	}
-
-	.catalog-grid {
-		grid-template-columns: repeat(3, 1fr);
-		gap: 28px;
 	}
 
 	.promo-content {
@@ -401,21 +260,9 @@ body {
 		font-size: 34px;
 	}
 
-	.catalog-preview h2 {
-		font-size: 32px;
-	}
-
-	.catalog-item {
-		padding: 30px 20px;
-	}
-
-	.catalog-item i {
-		font-size: 48px;
-		margin-bottom: 22px;
-	}
-
-	.catalog-item h3 {
-		font-size: 19px;
+	.modal-content {
+		max-width: 450px;
+		padding: 35px 30px;
 	}
 }
 
@@ -425,11 +272,6 @@ body {
 	.container__main {
 		max-width: 100%;
 		padding: 0 30px;
-	}
-
-	.catalog-grid {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 25px;
 	}
 
 	.promo-content {
@@ -446,32 +288,9 @@ body {
 		margin-bottom: 25px;
 	}
 
-	.catalog-preview h2 {
-		font-size: 30px;
-		margin-bottom: 35px;
-	}
-
-	.catalog-item {
-		padding: 28px 20px;
-	}
-
-	.catalog-item i {
-		font-size: 46px;
-		margin-bottom: 20px;
-	}
-
-	.catalog-item h3 {
-		font-size: 18px;
-	}
-
 	.modal-content {
 		max-width: 450px;
 		padding: 35px 30px;
-	}
-
-	.breadcrumbs {
-		padding: 20px;
-		font-size: 15px;
 	}
 }
 
@@ -480,11 +299,6 @@ body {
 @media (max-width: 768px) and (min-width: 481px) {
 	.container__main {
 		padding: 0 20px;
-	}
-
-	.catalog-grid {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 20px;
 	}
 
 	.promo-section {
@@ -497,35 +311,9 @@ body {
 		margin-bottom: 20px;
 	}
 
-	.catalog-preview h2 {
-		font-size: 28px;
-		margin-bottom: 30px;
-	}
-
-	.catalog-item {
-		padding: 25px 18px;
-	}
-
-	.catalog-item i {
-		font-size: 44px;
-		margin-bottom: 18px;
-	}
-
-	.catalog-item h3 {
-		font-size: 17px;
-	}
-
 	.promo-text p {
 		font-size: 15px;
 		line-height: 1.7;
-	}
-
-	.promo-card {
-		padding: 25px;
-	}
-
-	.promo-card h3 {
-		font-size: 22px;
 	}
 
 	.modal-content {
@@ -537,12 +325,6 @@ body {
 	.modal-content h2 {
 		font-size: 26px;
 	}
-
-	.breadcrumbs {
-		padding: 18px 15px;
-		font-size: 14px;
-		margin: 15px 0;
-	}
 }
 
 /* ====== УРОВЕНЬ 5: ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ (Small Mobile) ====== */
@@ -550,11 +332,6 @@ body {
 @media (max-width: 480px) {
 	.container__main {
 		padding: 0 15px;
-	}
-
-	.catalog-grid {
-		grid-template-columns: 1fr;
-		gap: 20px;
 	}
 
 	.promo-section {
@@ -567,40 +344,9 @@ body {
 		margin-bottom: 18px;
 	}
 
-	.catalog-preview h2 {
-		font-size: 24px;
-		margin-bottom: 25px;
-	}
-
-	.catalog-item {
-		padding: 22px 15px;
-	}
-
-	.catalog-item i {
-		font-size: 40px;
-		margin-bottom: 15px;
-	}
-
-	.catalog-item h3 {
-		font-size: 16px;
-	}
-
-	.catalog-item p {
-		font-size: 13px;
-	}
-
 	.promo-text p {
 		font-size: 14px;
 		line-height: 1.6;
-	}
-
-	.promo-card {
-		padding: 20px;
-	}
-
-	.promo-card h3 {
-		font-size: 20px;
-		margin-bottom: 15px;
 	}
 
 	.promo-info {
@@ -630,12 +376,6 @@ body {
 		font-size: 16px;
 	}
 
-	.breadcrumbs {
-		padding: 15px 12px;
-		font-size: 13px;
-		margin: 12px 0;
-	}
-
 	.close-modal {
 		top: 15px;
 		right: 18px;
@@ -658,24 +398,11 @@ body {
 		font-size: 22px;
 	}
 
-	.catalog-preview h2 {
-		font-size: 22px;
-	}
-
-	.catalog-item {
-		padding: 20px 12px;
-	}
-
 	.modal-content {
 		padding: 20px 15px;
 	}
 
 	.modal-content h2 {
 		font-size: 20px;
-	}
-
-	.breadcrumbs {
-		padding: 12px 10px;
-		font-size: 12px;
 	}
 }
