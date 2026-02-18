@@ -16,9 +16,9 @@ header {
 /* Контейнер шапки */
 .container__header {
 	width: 100%;
-	max-width: 100%;
+	/* max-width: 1800px; */
 	margin: 0 auto;
-	padding: 0 30px;
+	padding: 0 20px;
 }
 
 /* Верхняя часть шапки */
@@ -576,5 +576,249 @@ header {
 		padding: 10px 16px;
 		font-size: 12px;
 		white-space: nowrap;
+	}
+}
+
+
+/* СТИЛИ ДЛЯ БЛОКА ИКОНОК ПОЛЬЗОВАТЕЛЯ В ЧЕРНОЙ ШАПКЕ */
+/* ============================================ */
+
+.user-actions {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	margin-left: auto;
+	margin-right: 40px;
+}
+
+.user-action-item {
+	position: relative;
+}
+
+.action-link {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	color: rgba(255, 255, 255, 0.9);
+	transition: all 0.3s ease;
+	padding: 8px 12px;
+	border-radius: 10px;
+	position: relative;
+	min-width: 70px;
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid transparent;
+}
+
+.action-link:hover {
+	background: rgba(255, 183, 197, 0.1);
+	border-color: rgba(255, 183, 197, 0.3);
+	color: #ffb7c5;
+	transform: translateY(-2px);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.action-link:active {
+	transform: translateY(0);
+}
+
+.action-link i {
+	font-size: 22px;
+	margin-bottom: 5px;
+	transition: all 0.3s ease;
+	color: rgba(255, 183, 197, 0.9);
+}
+
+.action-link:hover i {
+	transform: scale(1.1);
+	color: #ffb7c5;
+}
+
+.action-text {
+	font-size: 12px;
+	font-weight: 500;
+	white-space: nowrap;
+	transition: color 0.3s ease;
+}
+
+/* Бейджи для избранного и корзины */
+.action-badge {
+	position: absolute;
+	top: -5px;
+	right: 5px;
+	background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+	color: white;
+	font-size: 11px;
+	font-weight: 700;
+	min-width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+	0% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.05);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+/* Специфичные стили для каждой иконки */
+
+/* Избранное */
+.favorites-action .action-link:hover i {
+	color: #ffb7c5;
+}
+
+.favorites-action .action-badge {
+	background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+}
+
+/* Корзина */
+.cart-action .action-link:hover i {
+	color: #ffb7c5;
+}
+
+.cart-action .action-badge {
+	background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+}
+
+/* Авторизация */
+.auth-action .action-link:hover i {
+	color: #ffb7c5;
+}
+
+/* Стили для активного состояния (когда пользователь авторизован) */
+.user-action-item.active .action-link {
+	background: rgba(255, 183, 197, 0.15);
+	border-color: rgba(255, 183, 197, 0.4);
+	color: #ffb7c5;
+}
+
+.user-action-item.active .action-link i {
+	color: #ffb7c5;
+}
+
+/* ============================================ */
+/* АДАПТИВНОСТЬ ДЛЯ ИКОНОК ПОЛЬЗОВАТЕЛЯ */
+/* ============================================ */
+
+/* Планшеты (Tablet Portrait) - 768px - 992px */
+@media (max-width: 992px) and (min-width: 769px) {
+	.user-actions {
+		margin-right: 20px;
+		gap: 15px;
+	}
+
+	.action-link {
+		min-width: 60px;
+		padding: 6px 10px;
+	}
+
+	.action-link i {
+		font-size: 20px;
+	}
+
+	.action-text {
+		font-size: 11px;
+	}
+
+	.action-badge {
+		font-size: 10px;
+		min-width: 16px;
+		height: 16px;
+	}
+}
+
+/* Мобильные устройства (Mobile) - 481px - 768px */
+@media (max-width: 768px) and (min-width: 481px) {
+	.user-actions {
+		margin-right: 15px;
+		gap: 10px;
+	}
+
+	.action-link {
+		min-width: 50px;
+		padding: 5px 8px;
+		background: rgba(255, 255, 255, 0.05);
+	}
+
+	.action-link i {
+		font-size: 18px;
+		margin-bottom: 3px;
+	}
+
+	.action-text {
+		font-size: 10px;
+	}
+
+	.action-badge {
+		font-size: 9px;
+		min-width: 15px;
+		height: 15px;
+		top: -3px;
+		right: 3px;
+	}
+}
+
+/* Очень маленькие экраны (Small Mobile) - 320px - 480px */
+@media (max-width: 480px) {
+	.user-actions {
+		gap: 8px;
+		margin-right: 10px;
+	}
+
+	.action-link {
+		min-width: 45px;
+		padding: 4px 6px;
+		background: rgba(255, 255, 255, 0.05);
+	}
+
+	.action-link i {
+		font-size: 16px;
+		margin-bottom: 2px;
+	}
+
+	.action-text {
+		display: none;
+		/* Скрываем текст на очень маленьких экранах */
+	}
+
+	.action-badge {
+		font-size: 8px;
+		min-width: 14px;
+		height: 14px;
+		top: -2px;
+		right: 2px;
+	}
+}
+
+/* Супер маленькие экраны (Extra Small) - до 320px */
+@media (max-width: 320px) {
+	.user-actions {
+		gap: 5px;
+	}
+
+	.action-link {
+		padding: 3px 5px;
+		min-width: 40px;
+	}
+
+	.action-link i {
+		font-size: 14px;
 	}
 }

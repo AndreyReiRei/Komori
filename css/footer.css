@@ -43,7 +43,7 @@ footer::before {
 /* Контейнер футера */
 .container__footer {
 	width: 100%;
-	max-width: 1200px;
+	/* max-width: 1800px; */
 	margin: 0 auto;
 	padding: 0 20px;
 	position: relative;

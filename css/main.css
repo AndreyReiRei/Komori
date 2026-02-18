@@ -24,95 +24,13 @@ body {
 /* Основной контейнер для контента */
 .container__main {
 	width: 100%;
-	max-width: 1800px;
+	/* max-width: 1800px; */
 	margin: 0 auto;
 	padding: 0 20px;
 	flex: 1;
 }
 
-/* Секция с промо-контентом */
-.promo-section {
-	background-color: white;
-	border-radius: 15px;
-	padding: 40px;
-	margin-bottom: 50px;
-	box-shadow: 0 10px 30px rgba(255, 183, 197, 0.15);
-	/* Тень розового цвета */
-	border: 1px solid #ffe6ea;
-	position: relative;
-	overflow: hidden;
-}
 
-/* Декоративный элемент в углу */
-.promo-section::before {
-	content: '';
-	position: absolute;
-	top: -50px;
-	right: -50px;
-	width: 150px;
-	height: 150px;
-	background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ffb7c5" opacity="0.1" d="M50,0C22.4,0,0,22.4,0,50s22.4,50,50,50s50-22.4,50-50S77.6,0,50,0z M50,86.7 c-20.3,0-36.7-16.4-36.7-36.7S29.7,13.3,50,13.3S86.7,29.7,86.7,50S70.3,86.7,50,86.7z"/></svg>');
-	background-repeat: no-repeat;
-	z-index: 0;
-}
-
-.promo-section h1 {
-	color: #ff6b6b;
-	/* Акцентный красный для заголовка */
-	margin-bottom: 30px;
-	font-size: 36px;
-	border-bottom: 3px solid #ffb7c5;
-	/* Розовая сакура для подчеркивания */
-	padding-bottom: 15px;
-	position: relative;
-	z-index: 1;
-	font-weight: 700;
-}
-
-/* Декоративный элемент под заголовком */
-.promo-section h1::after {
-	content: '✿';
-	position: absolute;
-	right: 0;
-	bottom: -12px;
-	color: #ffb7c5;
-	font-size: 24px;
-}
-
-/* Контейнер для промо-контента */
-.promo-content {
-	display: flex;
-	gap: 50px;
-	position: relative;
-	z-index: 1;
-}
-
-/* Основной текст промо */
-.promo-text {
-	flex: 2;
-}
-
-.promo-text p {
-	margin-bottom: 20px;
-	font-size: 16px;
-	line-height: 1.8;
-	color: #444;
-	text-align: justify;
-}
-
-/* Блок с информацией об акции */
-.promo-info {
-	background: linear-gradient(135deg, #fff5f7 0%, #ffeef2 100%);
-	padding: 25px;
-	border-left: 5px solid #ff6b6b;
-	margin-top: 35px;
-	border-radius: 0 10px 10px 0;
-	border: 1px solid #ffe6ea;
-}
-
-.promo-info strong {
-	color: #ff6b6b;
-}
 
 /* Модальное окно */
 .modal {

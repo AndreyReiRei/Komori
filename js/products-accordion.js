@@ -12,7 +12,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	// ========== КОНФИГУРАЦИЯ ==========
 	const config = {
-		autoScrollInterval: 3000, // Интервал автоскролла (4 секунды)
+		autoScrollInterval: 4000, // Интервал автоскролла (4 секунды)
 		hoverScrollInterval: 6000, // Интервал автоскролла при наведении на товар (6 секунд)
 		transitionDuration: 600, // Длительность анимации прокрутки
 		loopScroll: true, // Зацикленная прокрутка (true - включена, false - выключена)
