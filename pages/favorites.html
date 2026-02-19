@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Комори - азиатский магазинчик у дома</title>
+
+	<!-- Основной стиль -->
+	<link rel="stylesheet" href="/css/main.css">
+	<!-- Шапка -->
+	<link rel="stylesheet" href="/css/header.css">
+	<!-- Подвал -->
+	<link rel="stylesheet" href="/css/footer.css">
+	<!-- Бургер меню -->
+	<link rel="stylesheet" href="/css/burger-menu.css">
+	<!-- Все Категории -->
+	<link rel="stylesheet" href="/css/catalog-styles.css">
+	<!-- Стили для избранного -->
+	<link rel="stylesheet" href="/css/favorites.css">
+	<!-- Библиотека -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+	<!-- Шапка сайта -->
+	<header>
+		<div class="container__header">
+			<div class="header-top">
+				<!-- Логотип -->
+				<div class="logo">
+					<a href="/">
+						<div class="logo-icon">
+							<div class="logo-complex">
+								<!-- <i class="fas fa-moon"></i> -->
+								<i class="fas fa-leaf"></i>
+								<!-- <i class="fas fa-mug-hot"></i> -->
+
+							</div>
+						</div>
+						<div class="logo-text">
+							Комори
+							<span class="logo-tagline">Азиатский магазинчик у дома</span>
+						</div>
+					</a>
+				</div>
+
+				<!-- Блок иконок пользователя (корзина, избранное, вход) -->
+				<div class="user-actions">
+					<!-- Избранное -->
+					<div class="user-action-item favorites-action">
+						<a href="/pages/favorites.html" class="action-link" id="favoritesBtn">
+							<i class="far fa-heart"></i>
+							<span class="action-text">Избранное</span>
+							<span class="action-badge" id="favoritesCount">0</span>
+						</a>
+					</div>
+
+					<!-- Корзина -->
+					<div class="user-action-item cart-action">
+						<a href="/pages/cart.html" class="action-link" id="cartBtn">
+							<i class="fas fa-shopping-cart"></i>
+							<span class="action-text">Корзина</span>
+							<span class="action-badge" id="cartCount">0</span>
+						</a>
+					</div>
+
+					<!-- Вход/Регистрация -->
+					<div class="user-action-item auth-action">
+						<a href="#" class="action-link" id="authBtn">
+							<i class="far fa-user"></i>
+							<span class="action-text" id="authText">Войти</span>
+						</a>
+					</div>
+				</div>
+
+				<!-- Контакты для десктопа -->
+				<div class="header-contacts">
+					<div class="phone-numbers">
+						<div class="phone-number">
+							<i class="fas fa-phone"></i>
+							<span>8 (888) 888-88-88</span>
+						</div>
+						<div class="phone-number">
+							<i class="fas fa-mobile-alt"></i>
+							<span>7 (777) 777-77-77</span>
+						</div>
+					</div>
+					<button class="callback-btn" id="callbackBtn">
+						<i class="fas fa-headset"></i> <!-- Иконка гарнитуры вместо телефона -->
+						<span>ЗАКАЗАТЬ ЗВОНОК</span>
+					</button>
+				</div>
+
+				<!-- Бургер-меню для мобильных -->
+				<div class="burger-menu" id="burgerMenu">
+					<div class="burger-icon">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Основная навигация для десктопа -->
+			<nav class="main-nav" id="mainNav">
+				<ul class="nav-list">
+					<li class="has-dropdown">
+						<a href="#" class="nav-link">
+							<i class="fas fa-bars"></i> <!-- Иконка меню -->
+							<span>Каталог товаров</span>
+							<i class="fas fa-chevron-down dropdown-arrow"></i>
+						</a>
+						<!-- Обновленное подменю для азиатского магазина -->
+						<ul class="dropdown-menu">
+							<li><a href="#"><i class="fas fa-user-ninja"></i> Аниме фигурки</a></li>
+							<li><a href="#"><i class="fas fa-mug-hot"></i> Японский чай</a></li>
+							<li><a href="#"><i class="fas fa-cookie-bite"></i> Азиатские сладости</a></li>
+							<li><a href="#"><i class="fas fa-utensils"></i> Японская посуда</a></li>
+							<li><a href="#"><i class="fas fa-book"></i> Манга и книги</a></li>
+							<li><a href="#"><i class="fas fa-tshirt"></i> Аниме одежда</a></li>
+							<li><a href="#"><i class="fas fa-gamepad"></i> Японские игры</a></li>
+							<li><a href="#"><i class="fas fa-palette"></i> Канцелярия кавай</a></li>
+							<li><a href="#"><i class="fas fa-spray-can"></i> Косметика из Азии</a></li>
+							<li><a href="#"><i class="fas fa-home"></i> Азиатский декор</a></li>
+							<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
+							<li><a href="#"><i class="fas fa-music"></i> Азиатская популярная музыка </a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" class="nav-link promo-link">
+							<i class="fas fa-tags"></i> <!-- Иконка ценника -->
+							<span>Акции и скидки</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link">
+							<i class="fas fa-shipping-fast"></i> <!-- Иконка доставки -->
+							<span>Доставка</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link">
+							<i class="fas fa-users"></i> <!-- Иконка людей -->
+							<span>Нашим друзьям</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link">
+							<i class="fas fa-newspaper"></i>
+							<span>Новости восходящего солнца</span>
+						</a>
+					</li>
+					<li>
+						<a href="/pages/info.html" class="nav-link">
+							<i class="fas fa-info-circle"></i>
+							<span>О нас</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link">
+							<i class="fas fa-store"></i> <!-- Иконка магазина -->
+							<span>Магазин</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<!-- Модальное окно корзины -->
+	<div id="cartModal" class="modal">
+		<div class="modal-content cart-modal-content">
+			<span class="close-modal">&times;</span>
+			<h2><i class="fas fa-shopping-cart"></i> Корзина</h2>
+			<div class="cart-content">
+				<div class="cart-empty" id="cartEmpty">
+					<i class="fas fa-shopping-basket"></i>
+					<p>Ваша корзина пуста</p>
+					<a href="/pages/cart.html" class="continue-shopping">Перейти к покупкам</a>
+				</div>
+				<div class="cart-items" id="cartItems" style="display: none;">
+					<div class="cart-item">
+						<img src="https://via.placeholder.com/80x80" alt="Товар" class="cart-item-image">
+						<div class="cart-item-info">
+							<h4 class="cart-item-title">Аниме фигурка Наруто</h4>
+							<div class="cart-item-controls">
+								<button class="quantity-btn minus">-</button>
+								<span class="quantity">1</span>
+								<button class="quantity-btn plus">+</button>
+								<span class="cart-item-price">2 499 ₽</span>
+							</div>
+						</div>
+						<button class="remove-item"><i class="fas fa-times"></i></button>
+					</div>
+					<!-- Другие товары будут добавляться динамически -->
+				</div>
+				<div class="cart-total" id="cartTotal" style="display: none;">
+					<div class="total-row">
+						<span>Итого:</span>
+						<span class="total-price">0 ₽</span>
+					</div>
+					<button class="checkout-btn">Оформить заказ</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Модальное окно избранного -->
+	<div id="favoritesModal" class="modal">
+		<div class="modal-content favorites-modal-content">
+			<span class="close-modal">&times;</span>
+			<h2><i class="fas fa-heart"></i> Избранное</h2>
+			<div class="favorites-content">
+				<div class="favorites-empty" id="favoritesEmpty">
+					<i class="far fa-heart"></i>
+					<p>В избранном пока ничего нет</p>
+					<p>Добавляйте товары, которые понравились</p>
+				</div>
+				<div class="favorites-items" id="favoritesItems" style="display: none;">
+					<div class="favorite-item">
+						<img src="https://via.placeholder.com/80x80" alt="Товар" class="favorite-item-image">
+						<div class="favorite-item-info">
+							<h4 class="favorite-item-title">Чай маття премиум</h4>
+							<span class="favorite-item-price">899 ₽</span>
+						</div>
+						<div class="favorite-item-actions">
+							<button class="add-to-cart-btn">В корзину</button>
+							<button class="remove-favorite"><i class="fas fa-times"></i></button>
+						</div>
+					</div>
+					<!-- Другие товары будут добавляться динамически -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Модальное окно авторизации -->
+	<div id="authModal" class="modal">
+		<div class="modal-content auth-modal-content">
+			<span class="close-modal">&times;</span>
+			<h2><i class="fas fa-user"></i> Вход в аккаунт</h2>
+			<div class="auth-tabs">
+				<button class="auth-tab active" data-tab="login">Вход</button>
+				<button class="auth-tab" data-tab="register">Регистрация</button>
+			</div>
+
+			<form class="auth-form" id="loginForm" style="display: block;">
+				<div class="form-group">
+					<label for="loginEmail">Email</label>
+					<input type="email" id="loginEmail" placeholder="Ваш email" required>
+				</div>
+				<div class="form-group">
+					<label for="loginPassword">Пароль</label>
+					<input type="password" id="loginPassword" placeholder="Ваш пароль" required>
+					<a href="#" class="forgot-password">Забыли пароль?</a>
+				</div>
+				<button type="submit" class="auth-submit-btn">Войти</button>
+				<div class="social-auth">
+					<p>Или войдите через:</p>
+					<div class="social-buttons">
+						<button type="button" class="social-btn vk-btn">
+							<i class="fab fa-vk"></i> ВКонтакте
+						</button>
+						<button type="button" class="social-btn google-btn">
+							<i class="fab fa-google"></i> Google
+						</button>
+					</div>
+				</div>
+			</form>
+
+			<form class="auth-form" id="registerForm" style="display: none;">
+				<div class="form-group">
+					<label for="registerName">Имя</label>
+					<input type="text" id="registerName" placeholder="Ваше имя" required>
+				</div>
+				<div class="form-group">
+					<label for="registerEmail">Email</label>
+					<input type="email" id="registerEmail" placeholder="Ваш email" required>
+				</div>
+				<div class="form-group">
+					<label for="registerPassword">Пароль</label>
+					<input type="password" id="registerPassword" placeholder="Придумайте пароль" required>
+				</div>
+				<div class="form-group">
+					<label for="registerConfirmPassword">Повторите пароль</label>
+					<input type="password" id="registerConfirmPassword" placeholder="Повторите пароль" required>
+				</div>
+				<div class="form-group checkbox-group">
+					<input type="checkbox" id="registerAgreement" required>
+					<label for="registerAgreement">
+						Я согласен с <a href="#">политикой конфиденциальности</a> и <a href="#">правилами сайта</a>
+					</label>
+				</div>
+				<button type="submit" class="auth-submit-btn">Зарегистрироваться</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- Оверлей для мобильного меню -->
+	<div class="nav-overlay" id="navOverlay"></div>
+
+
+	<!-- Основной контент страницы избранного -->
+	<main class="container__main">
+
+		<!-- Заголовок страницы -->
+		<div class="favorites-page-header">
+			<h1 class="favorites-page-title">
+				<i class="fas fa-heart"></i>
+				Избранное
+			</h1>
+			<div class="favorites-page-info" id="favoritesTotalInfo">
+				<span class="favorites-items-count">4 товара</span>
+				<span class="favorites-total-amount">на сумму 9 846 ₽</span>
+			</div>
+		</div>
+
+		<!-- Действия с избранным -->
+		<div class="favorites-actions">
+			<div class="favorites-share">
+				<span>Поделиться подборкой:</span>
+				<div class="share-buttons">
+					<a href="#" class="share-btn vk" title="Поделиться ВКонтакте">
+						<i class="fab fa-vk"></i>
+					</a>
+					<a href="#" class="share-btn telegram" title="Поделиться в Telegram">
+						<i class="fab fa-telegram-plane"></i>
+					</a>
+					<a href="#" class="share-btn whatsapp" title="Поделиться в WhatsApp">
+						<i class="fab fa-whatsapp"></i>
+					</a>
+					<button class="share-btn copy-link" title="Скопировать ссылку" id="copyFavoritesLink">
+						<i class="fas fa-link"></i>
+					</button>
+				</div>
+			</div>
+			<button class="clear-favorites-btn" id="clearFavoritesBtn">
+				<i class="fas fa-trash-alt"></i>
+				Очистить избранное
+			</button>
+		</div>
+
+		<!-- Основная часть избранного -->
+		<div class="favorites-page-content" id="favoritesPageContent">
+			<!-- Содержимое избранного (будет показываться когда есть товары) -->
+			<div class="favorites-with-items" id="favoritesWithItems">
+				<!-- Сетка товаров в избранном -->
+				<div class="favorites-grid" id="favoritesGrid">
+					<!-- Товар 1: Аниме фигурка Наруто -->
+					<div class="favorite-card" data-id="1">
+						<div class="favorite-card-badges">
+							<span class="favorite-badge discount">-20%</span>
+							<span class="favorite-badge new">Новинка</span>
+						</div>
+						<button class="favorite-remove" data-id="1" title="Удалить из избранного">
+							<i class="fas fa-times"></i>
+						</button>
+						<div class="favorite-card-image">
+							<img src="https://via.placeholder.com/200x200" alt="Аниме фигурка Наруто">
+							<button class="favorite-quick-view" data-id="1">
+								<i class="fas fa-eye"></i> Быстрый просмотр
+							</button>
+						</div>
+						<div class="favorite-card-content">
+							<h3 class="favorite-card-title">
+								<a href="#">Аниме фигурка Наруто</a>
+							</h3>
+							<div class="favorite-card-category">Аниме фигурки</div>
+							<div class="favorite-card-rating">
+								<div class="stars">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star-half-alt"></i>
+								</div>
+								<span class="rating-count">124 отзыва</span>
+							</div>
+							<div class="favorite-card-prices">
+								<div class="favorite-card-price current">2 499 ₽</div>
+								<div class="favorite-card-price old">2 999 ₽</div>
+							</div>
+							<div class="favorite-card-stock in-stock">
+								<i class="fas fa-check-circle"></i> В наличии
+							</div>
+							<div class="favorite-card-actions">
+								<button class="add-to-cart-btn" data-id="1">
+									<i class="fas fa-shopping-cart"></i>
+									В корзину
+								</button>
+								<button class="add-to-compare" data-id="1" title="Добавить к сравнению">
+									<i class="fas fa-chart-bar"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Товар 2: Чай маття премиум -->
+					<div class="favorite-card" data-id="2">
+						<button class="favorite-remove" data-id="2" title="Удалить из избранного">
+							<i class="fas fa-times"></i>
+						</button>
+						<div class="favorite-card-image">
+							<img src="https://via.placeholder.com/200x200" alt="Чай маття премиум">
+							<button class="favorite-quick-view" data-id="2">
+								<i class="fas fa-eye"></i> Быстрый просмотр
+							</button>
+						</div>
+						<div class="favorite-card-content">
+							<h3 class="favorite-card-title">
+								<a href="#">Чай маття премиум</a>
+							</h3>
+							<div class="favorite-card-category">Японский чай</div>
+							<div class="favorite-card-rating">
+								<div class="stars">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+								</div>
+								<span class="rating-count">89 отзывов</span>
+							</div>
+							<div class="favorite-card-prices">
+								<div class="favorite-card-price current">899 ₽</div>
+							</div>
+							<div class="favorite-card-stock in-stock">
+								<i class="fas fa-check-circle"></i> В наличии
+							</div>
+							<div class="favorite-card-actions">
+								<button class="add-to-cart-btn" data-id="2">
+									<i class="fas fa-shopping-cart"></i>
+									В корзину
+								</button>
+								<button class="add-to-compare" data-id="2" title="Добавить к сравнению">
+									<i class="fas fa-chart-bar"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Товар 3: Моти клубничные -->
+					<div class="favorite-card" data-id="3">
+						<div class="favorite-card-badges">
+							<span class="favorite-badge hit">Хит продаж</span>
+						</div>
+						<button class="favorite-remove" data-id="3" title="Удалить из избранного">
+							<i class="fas fa-times"></i>
+						</button>
+						<div class="favorite-card-image">
+							<img src="https://via.placeholder.com/200x200" alt="Моти клубничные">
+							<button class="favorite-quick-view" data-id="3">
+								<i class="fas fa-eye"></i> Быстрый просмотр
+							</button>
+						</div>
+						<div class="favorite-card-content">
+							<h3 class="favorite-card-title">
+								<a href="#">Моти клубничные</a>
+							</h3>
+							<div class="favorite-card-category">Азиатские сладости</div>
+							<div class="favorite-card-rating">
+								<div class="stars">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="far fa-star"></i>
+								</div>
+								<span class="rating-count">56 отзывов</span>
+							</div>
+							<div class="favorite-card-prices">
+								<div class="favorite-card-price current">550 ₽</div>
+							</div>
+							<div class="favorite-card-stock low-stock">
+								<i class="fas fa-exclamation-triangle"></i> Осталось мало
+							</div>
+							<div class="favorite-card-actions">
+								<button class="add-to-cart-btn" data-id="3">
+									<i class="fas fa-shopping-cart"></i>
+									В корзину
+								</button>
+								<button class="add-to-compare" data-id="3" title="Добавить к сравнению">
+									<i class="fas fa-chart-bar"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Товар 4: Пиала для чая сакура -->
+					<div class="favorite-card" data-id="4">
+						<button class="favorite-remove" data-id="4" title="Удалить из избранного">
+							<i class="fas fa-times"></i>
+						</button>
+						<div class="favorite-card-image">
+							<img src="https://via.placeholder.com/200x200" alt="Пиала для чая сакура">
+							<button class="favorite-quick-view" data-id="4">
+								<i class="fas fa-eye"></i> Быстрый просмотр
+							</button>
+						</div>
+						<div class="favorite-card-content">
+							<h3 class="favorite-card-title">
+								<a href="#">Пиала для чая "Сакура"</a>
+							</h3>
+							<div class="favorite-card-category">Японская посуда</div>
+							<div class="favorite-card-rating">
+								<div class="stars">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="far fa-star"></i>
+								</div>
+								<span class="rating-count">34 отзыва</span>
+							</div>
+							<div class="favorite-card-prices">
+								<div class="favorite-card-price current">890 ₽</div>
+							</div>
+							<div class="favorite-card-stock in-stock">
+								<i class="fas fa-check-circle"></i> В наличии
+							</div>
+							<div class="favorite-card-actions">
+								<button class="add-to-cart-btn" data-id="4">
+									<i class="fas fa-shopping-cart"></i>
+									В корзину
+								</button>
+								<button class="add-to-compare" data-id="4" title="Добавить к сравнению">
+									<i class="fas fa-chart-bar"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Товар 5: Фигурка Саске (добавим еще один для примера) -->
+					<div class="favorite-card" data-id="5">
+						<div class="favorite-card-badges">
+							<span class="favorite-badge discount">-15%</span>
+						</div>
+						<button class="favorite-remove" data-id="5" title="Удалить из избранного">
+							<i class="fas fa-times"></i>
+						</button>
+						<div class="favorite-card-image">
+							<img src="https://via.placeholder.com/200x200" alt="Фигурка Саске">
+							<button class="favorite-quick-view" data-id="5">
+								<i class="fas fa-eye"></i> Быстрый просмотр
+							</button>
+						</div>
+						<div class="favorite-card-content">
+							<h3 class="favorite-card-title">
+								<a href="#">Фигурка Саске</a>
+							</h3>
+							<div class="favorite-card-category">Аниме фигурки</div>
+							<div class="favorite-card-rating">
+								<div class="stars">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="far fa-star"></i>
+								</div>
+								<span class="rating-count">67 отзывов</span>
+							</div>
+							<div class="favorite-card-prices">
+								<div class="favorite-card-price current">2 799 ₽</div>
+								<div class="favorite-card-price old">3 299 ₽</div>
+							</div>
+							<div class="favorite-card-stock in-stock">
+								<i class="fas fa-check-circle"></i> В наличии
+							</div>
+							<div class="favorite-card-actions">
+								<button class="add-to-cart-btn" data-id="5">
+									<i class="fas fa-shopping-cart"></i>
+									В корзину
+								</button>
+								<button class="add-to-compare" data-id="5" title="Добавить к сравнению">
+									<i class="fas fa-chart-bar"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Товар 6: Набор для чайной церемонии -->
+					<div class="favorite-card" data-id="6">
+						<button class="favorite-remove" data-id="6" title="Удалить из избранного">
+							<i class="fas fa-times"></i>
+						</button>
+						<div class="favorite-card-image">
+							<img src="https://via.placeholder.com/200x200" alt="Набор для чайной церемонии">
+							<button class="favorite-quick-view" data-id="6">
+								<i class="fas fa-eye"></i> Быстрый просмотр
+							</button>
+						</div>
+						<div class="favorite-card-content">
+							<h3 class="favorite-card-title">
+								<a href="#">Набор для чайной церемонии</a>
+							</h3>
+							<div class="favorite-card-category">Японская посуда</div>
+							<div class="favorite-card-rating">
+								<div class="stars">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+								</div>
+								<span class="rating-count">42 отзыва</span>
+							</div>
+							<div class="favorite-card-prices">
+								<div class="favorite-card-price current">3 450 ₽</div>
+							</div>
+							<div class="favorite-card-stock in-stock">
+								<i class="fas fa-check-circle"></i> В наличии
+							</div>
+							<div class="favorite-card-actions">
+								<button class="add-to-cart-btn" data-id="6">
+									<i class="fas fa-shopping-cart"></i>
+									В корзину
+								</button>
+								<button class="add-to-compare" data-id="6" title="Добавить к сравнению">
+									<i class="fas fa-chart-bar"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Пагинация (если товаров много) -->
+				<div class="favorites-pagination">
+					<button class="pagination-btn prev" disabled>
+						<i class="fas fa-chevron-left"></i>
+					</button>
+					<span class="pagination-current">1</span>
+					<span class="pagination-separator">из</span>
+					<span class="pagination-total">3</span>
+					<button class="pagination-btn next">
+						<i class="fas fa-chevron-right"></i>
+					</button>
+				</div>
+
+				<!-- Сопутствующие товары (рекомендации) -->
+				<div class="recommendations-section">
+					<h2 class="recommendations-title">
+						<i class="fas fa-magic"></i>
+						Похожие товары, которые могут вам понравиться
+					</h2>
+					<div class="recommendations-grid">
+						<div class="recommendation-item">
+							<img src="https://via.placeholder.com/150x150" alt="Фигурка Итачи"
+								class="recommendation-image">
+							<h3 class="recommendation-name">Фигурка Итачи</h3>
+							<div class="recommendation-price">3 199 ₽</div>
+							<button class="recommendation-add" data-id="201">
+								<i class="fas fa-heart"></i>
+								В избранное
+							</button>
+						</div>
+						<div class="recommendation-item">
+							<img src="https://via.placeholder.com/150x150" alt="Сенча японский чай"
+								class="recommendation-image">
+							<h3 class="recommendation-name">Сенча японский чай</h3>
+							<div class="recommendation-price">650 ₽</div>
+							<button class="recommendation-add" data-id="202">
+								<i class="fas fa-heart"></i>
+								В избранное
+							</button>
+						</div>
+						<div class="recommendation-item">
+							<img src="https://via.placeholder.com/150x150" alt="Дораяки" class="recommendation-image">
+							<h3 class="recommendation-name">Дораяки с красной фасолью</h3>
+							<div class="recommendation-price">320 ₽</div>
+							<button class="recommendation-add" data-id="203">
+								<i class="fas fa-heart"></i>
+								В избранное
+							</button>
+						</div>
+						<div class="recommendation-item">
+							<img src="https://via.placeholder.com/150x150" alt="Манга Атака титанов"
+								class="recommendation-image">
+							<h3 class="recommendation-name">Манга "Атака титанов"</h3>
+							<div class="recommendation-price">699 ₽</div>
+							<button class="recommendation-add" data-id="204">
+								<i class="fas fa-heart"></i>
+								В избранное
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Пустое избранное (будет показываться когда нет товаров) -->
+			<div class="favorites-empty-state" id="favoritesEmptyState" style="display: none;">
+				<div class="favorites-empty-icon">
+					<i class="far fa-heart"></i>
+				</div>
+				<h2 class="favorites-empty-title">В избранном пока ничего нет</h2>
+				<p class="favorites-empty-text">
+					Добавляйте товары в избранное, чтобы не потерять их.<br>
+					Они будут сохраняться в вашем личном списке.
+				</p>
+
+				<div class="favorites-empty-actions">
+					<a href="catalog.html" class="favorites-empty-btn primary">
+						<i class="fas fa-bars"></i>
+						Перейти в каталог
+					</a>
+					<a href="index.html" class="favorites-empty-btn secondary">
+						<i class="fas fa-home"></i>
+						На главную
+					</a>
+				</div>
+
+				<!-- Как добавить в избранное (инструкция) -->
+				<div class="how-to-add">
+					<h3 class="how-to-add-title">
+						<i class="fas fa-question-circle"></i>
+						Как добавить товар в избранное?
+					</h3>
+					<div class="how-to-add-steps">
+						<div class="step">
+							<div class="step-icon">
+								<i class="fas fa-search"></i>
+							</div>
+							<div class="step-text">
+								<strong>Шаг 1:</strong> Найдите понравившийся товар в каталоге
+							</div>
+						</div>
+						<div class="step">
+							<div class="step-icon">
+								<i class="far fa-heart"></i>
+							</div>
+							<div class="step-text">
+								<strong>Шаг 2:</strong> Нажмите на иконку сердечка у товара
+							</div>
+						</div>
+						<div class="step">
+							<div class="step-icon">
+								<i class="fas fa-check-circle"></i>
+							</div>
+							<div class="step-text">
+								<strong>Шаг 3:</strong> Товар сохранится в этом разделе
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Популярные категории для перехода -->
+				<div class="popular-categories">
+					<h3 class="popular-categories-title">Популярные категории</h3>
+					<div class="popular-categories-grid">
+						<a href="#" class="popular-category-item">
+							<i class="fas fa-user-ninja"></i>
+							<span>Аниме фигурки</span>
+						</a>
+						<a href="#" class="popular-category-item">
+							<i class="fas fa-mug-hot"></i>
+							<span>Японский чай</span>
+						</a>
+						<a href="#" class="popular-category-item">
+							<i class="fas fa-cookie-bite"></i>
+							<span>Азиатские сладости</span>
+						</a>
+						<a href="#" class="popular-category-item">
+							<i class="fas fa-utensils"></i>
+							<span>Японская посуда</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<!-- Подвал сайта -->
+	<footer>
+		<div class="container__footer">
+			<div class="footer-content">
+				<!-- Колонка 1: Каталог -->
+				<div class="footer-column">
+					<h3>Категории</h3>
+					<ul class="footer-links">
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Аниме фигурки</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Японский чай</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Азиатские сладости</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Манга и книги</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Аниме одежда</a></li>
+					</ul>
+				</div>
+
+				<!-- Колонка 2: Информация -->
+				<div class="footer-column">
+					<h3>Информация</h3>
+					<ul class="footer-links">
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Доставка и оплата</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Возврат товара</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Политика конфиденциальности</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> Публичная оферта</a></li>
+						<li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+					</ul>
+				</div>
+
+				<!-- Колонка 3: Контакты -->
+				<div class="footer-column">
+					<h3>Контакты</h3>
+					<div class="footer-contacts">
+						<div class="contact-item">
+							<i class="fas fa-map-marker-alt"></i>
+							<div>
+								<strong>Адрес магазина:</strong>
+								г. Надежд, ул. Сакурная, 33
+							</div>
+						</div>
+						<div class="contact-item">
+							<i class="fas fa-phone"></i>
+							<div>
+								<strong>Телефоны:</strong>
+								8 (888) 88-88-88<br>
+								7 (777) 777-77-77
+							</div>
+						</div>
+						<div class="contact-item">
+							<i class="fas fa-clock"></i>
+							<div>
+								<strong>Режим работы:</strong>
+								Пн-Пт: 10:00-20:00<br>
+								Сб-Вс: 11:00-19:00
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Колонка 4: Соцсети -->
+				<div class="footer-column">
+					<h3>Мы в соцсетях</h3>
+					<div class="social-links">
+						<a href="#" class="social-link vk" title="ВКонтакте">
+							<i class="fab fa-vk"></i>
+						</a>
+						<a href="#" class="social-link telegram" title="Telegram">
+							<i class="fab fa-telegram"></i>
+						</a>
+						<a href="#" class="social-link instagram" title="Instagram">
+							<i class="fab fa-instagram"></i>
+						</a>
+						<a href="#" class="social-link youtube" title="YouTube">
+							<i class="fab fa-youtube"></i>
+						</a>
+					</div>
+					<!-- Форма подписки на новости -->
+					<div class="newsletter">
+						<h4>Подписка на новости</h4>
+						<form class="subscribe-form">
+							<input type="email" placeholder="Ваш email" required>
+							<button type="submit">Подписаться</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer-bottom">
+				<div class="copyright">
+					© 2026 Комори. Азиатский магазинчик у дома.
+				</div>
+
+				<div class="payment-methods">
+					<i class="fab fa-cc-visa payment-method" title="Visa"></i>
+					<i class="fab fa-cc-mastercard payment-method" title="MasterCard"></i>
+					<i class="fab fa-cc-mir payment-method" title="Мир"></i>
+					<i class="fab fa-cc-paypal payment-method" title="PayPal"></i>
+				</div>
+
+				<div class="developer">
+					Сделано с <i class="fas fa-heart"></i> для ценителей азиатской культуры
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Модальное окно быстрого просмотра товара -->
+	<div id="quickViewModal" class="modal">
+		<div class="modal-content quick-view-content">
+			<span class="close-modal">&times;</span>
+			<div class="quick-view-container" id="quickViewContainer">
+				<!-- Контент будет загружаться динамически -->
+			</div>
+		</div>
+	</div>
+
+	<!-- Скрипты -->
+	<!-- Основной код -->
+	<script src="/js/main.js"></script>
+	<!-- Бургер меню -->
+	<script src="/js/burger.js"></script>
+	<!-- Звноки -->
+	<script src="/js/calls.js"></script>
+	<!-- Популярные категории -->
+	<script src="/js/catalog-expand.js"></script>
+	<!-- Корзина -->
+	<script src="/js/cart.js"></script>
+	<!-- Избранное -->
+	<script src="/js/favorites.js"></script>
+</body>
+
+</html>
