@@ -4,7 +4,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Комори - азиатский магазинчик у дома</title>
+	<title>Вход и регистрация - Комори | Азиатский магазинчик у дома</title>
+
+	<!-- Font Awesome для иконок -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 	<!-- Основной стиль -->
 	<link rel="stylesheet" href="/css/main.css">
@@ -16,11 +19,11 @@
 	<link rel="stylesheet" href="/css/burger-menu.css">
 	<!-- Все Категории -->
 	<link rel="stylesheet" href="/css/catalog-styles.css">
-	<!-- Стили для корзины -->
-	<link rel="stylesheet" href="/css/cart.css">
 	<!-- Библиотека -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+	<!-- Стили для авторизации -->
+	<link rel="stylesheet" href="/css/login.css">
 </head>
 
 <body>
@@ -317,354 +320,420 @@
 		<div class="nav-overlay" id="navOverlay"></div>
 	</div>
 
-	<!-- Основной контент страницы корзины -->
+	<!-- Основной контент страницы авторизации -->
 	<main class="container__main">
 
-		<!-- Заголовок страницы -->
-		<div class="cart-page-header">
-			<h1 class="cart-page-title">
-				<i class="fas fa-shopping-cart"></i>Корзина
-			</h1>
-			<div class="cart-page-info" id="cartTotalInfo">
-				<span class="cart-items-count">3 товара</span>
-				<span class="cart-total-amount">на сумму 5 397 ₽</span>
-			</div>
-		</div>
-
-		<!-- Основная часть корзины -->
-		<div class="cart-page-content" id="cartPageContent">
-			<!-- Содержимое корзины (будет показываться когда есть товары) -->
-			<div class="cart-with-items" id="cartWithItems">
-				<div class="cart-items-section">
-					<!-- Заголовки таблицы -->
-					<div class="cart-table-header">
-						<div class="cart-col-product">Товар</div>
-						<div class="cart-col-price">Цена</div>
-						<div class="cart-col-quantity">Количество</div>
-						<div class="cart-col-total">Сумма</div>
-						<div class="cart-col-remove"></div>
-					</div>
-
-					<!-- Список товаров в корзине -->
-					<div class="cart-items-list" id="cartItemsList">
-						<!-- Товар 1: Аниме фигурка Наруто -->
-						<div class="cart-item-row" data-id="1">
-							<div class="cart-col-product">
-								<div class="cart-product-info">
-									<img src="https://via.placeholder.com/100x100" alt="Аниме фигурка Наруто"
-										class="cart-product-image">
-									<div class="cart-product-details">
-										<h3 class="cart-product-title">
-											<a href="#">Аниме фигурка Наруто</a>
-										</h3>
-										<div class="cart-product-attributes">
-											<span class="cart-product-category">Аниме фигурки</span>
-											<span class="cart-product-stock in-stock">
-												<i class="fas fa-check-circle"></i> В наличии
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="cart-col-price">
-								<div class="cart-price-current">2 499 ₽</div>
-								<div class="cart-price-old">2 999 ₽</div>
-							</div>
-							<div class="cart-col-quantity">
-								<div class="cart-quantity-control">
-									<button class="cart-quantity-btn minus" data-id="1">-</button>
-									<input type="number" class="cart-quantity-input" value="1" min="1" max="99"
-										data-id="1">
-									<button class="cart-quantity-btn plus" data-id="1">+</button>
-								</div>
-							</div>
-							<div class="cart-col-total">
-								<div class="cart-item-total">2 499 ₽</div>
-							</div>
-							<div class="cart-col-remove">
-								<button class="cart-remove-item" data-id="1" title="Удалить товар">
-									<i class="fas fa-times"></i>
-								</button>
-							</div>
-						</div>
-
-						<!-- Товар 2: Чай маття премиум -->
-						<div class="cart-item-row" data-id="2">
-							<div class="cart-col-product">
-								<div class="cart-product-info">
-									<img src="https://via.placeholder.com/100x100" alt="Чай маття премиум"
-										class="cart-product-image">
-									<div class="cart-product-details">
-										<h3 class="cart-product-title">
-											<a href="#">Чай маття премиум</a>
-										</h3>
-										<div class="cart-product-attributes">
-											<span class="cart-product-category">Японский чай</span>
-											<span class="cart-product-stock in-stock">
-												<i class="fas fa-check-circle"></i> В наличии
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="cart-col-price">
-								<div class="cart-price-current">899 ₽</div>
-							</div>
-							<div class="cart-col-quantity">
-								<div class="cart-quantity-control">
-									<button class="cart-quantity-btn minus" data-id="2">-</button>
-									<input type="number" class="cart-quantity-input" value="2" min="1" max="99"
-										data-id="2">
-									<button class="cart-quantity-btn plus" data-id="2">+</button>
-								</div>
-							</div>
-							<div class="cart-col-total">
-								<div class="cart-item-total">1 798 ₽</div>
-							</div>
-							<div class="cart-col-remove">
-								<button class="cart-remove-item" data-id="2" title="Удалить товар">
-									<i class="fas fa-times"></i>
-								</button>
-							</div>
-						</div>
-
-						<!-- Товар 3: Моти клубничные -->
-						<div class="cart-item-row" data-id="3">
-							<div class="cart-col-product">
-								<div class="cart-product-info">
-									<img src="https://via.placeholder.com/100x100" alt="Моти клубничные"
-										class="cart-product-image">
-									<div class="cart-product-details">
-										<h3 class="cart-product-title">
-											<a href="#">Моти клубничные</a>
-										</h3>
-										<div class="cart-product-attributes">
-											<span class="cart-product-category">Азиатские сладости</span>
-											<span class="cart-product-stock low-stock">
-												<i class="fas fa-exclamation-triangle"></i> Осталось мало
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="cart-col-price">
-								<div class="cart-price-current">550 ₽</div>
-							</div>
-							<div class="cart-col-quantity">
-								<div class="cart-quantity-control">
-									<button class="cart-quantity-btn minus" data-id="3">-</button>
-									<input type="number" class="cart-quantity-input" value="2" min="1" max="5"
-										data-id="3">
-									<button class="cart-quantity-btn plus" data-id="3">+</button>
-								</div>
-							</div>
-							<div class="cart-col-total">
-								<div class="cart-item-total">1 100 ₽</div>
-							</div>
-							<div class="cart-col-remove">
-								<button class="cart-remove-item" data-id="3" title="Удалить товар">
-									<i class="fas fa-times"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-
-					<!-- Дополнительные действия с корзиной -->
-					<div class="cart-actions">
-						<a href="/index.html" class="continue-shopping-btn">
-							<i class="fas fa-arrow-left"></i>
-							Продолжить покупки
-						</a>
-						<button class="clear-cart-btn" id="clearCartBtn">
-							<i class="fas fa-trash-alt"></i>
-							Очистить корзину
-						</button>
-					</div>
-
-					<!-- Сопутствующие товары -->
-					<div class="related-products-section">
-						<h2 class="related-products-title">
-							<i class="fas fa-gift"></i>
-							Вам также может понравиться
-						</h2>
-						<div class="related-products-grid">
-							<div class="related-product-item">
-								<img src="https://via.placeholder.com/150x150" alt="Фигурка Саске"
-									class="related-product-image">
-								<h3 class="related-product-name">Фигурка Саске</h3>
-								<div class="related-product-price">2 799 ₽</div>
-								<button class="related-product-add" data-id="101">
-									<i class="fas fa-plus"></i>
-									Добавить
-								</button>
-							</div>
-							<div class="related-product-item">
-								<img src="https://via.placeholder.com/150x150" alt="Сенча японский чай"
-									class="related-product-image">
-								<h3 class="related-product-name">Сенча японский чай</h3>
-								<div class="related-product-price">650 ₽</div>
-								<button class="related-product-add" data-id="102">
-									<i class="fas fa-plus"></i>
-									Добавить
-								</button>
-							</div>
-							<div class="related-product-item">
-								<img src="https://via.placeholder.com/150x150" alt="Пиала для чая"
-									class="related-product-image">
-								<h3 class="related-product-name">Пиала для чая</h3>
-								<div class="related-product-price">890 ₽</div>
-								<button class="related-product-add" data-id="103">
-									<i class="fas fa-plus"></i>
-									Добавить
-								</button>
-							</div>
-							<div class="related-product-item">
-								<img src="https://via.placeholder.com/150x150" alt="Манга Токийский гуль"
-									class="related-product-image">
-								<h3 class="related-product-name">Манга Токийский гуль</h3>
-								<div class="related-product-price">599 ₽</div>
-								<button class="related-product-add" data-id="104">
-									<i class="fas fa-plus"></i>
-									Добавить
-								</button>
-							</div>
-						</div>
-					</div>
+		<!-- Контейнер для форм авторизации -->
+		<div class="auth-container">
+			<!-- Декоративные элементы -->
+			<div class="auth-decoration">
+				<div class="auth-decoration-sakura">
+					<i class="fas fa-leaf"></i>
+					<i class="fas fa-leaf"></i>
+					<i class="fas fa-leaf"></i>
 				</div>
-
-				<!-- Боковая панель с итогами и оформлением -->
-				<div class="cart-sidebar">
-
-					<!-- Промокод -->
-					<div class="promo-code-section">
-						<h4 class="promo-code-title">
-							<i class="fas fa-ticket-alt"></i>
-							Промокод
-						</h4>
-						<div class="promo-code-input-group">
-							<input type="text" class="promo-code-input" placeholder="Введите промокод"
-								id="promoCodeInput">
-							<button class="promo-code-apply" id="applyPromoBtn">Применить</button>
-						</div>
-						<div class="promo-code-message" id="promoMessage"></div>
+				<div class="auth-decoration-text">
+					<h2>Добро пожаловать в Комори!</h2>
+					<p>Азиатский магазинчик у дома</p>
+				</div>
+				<div class="auth-decoration-features">
+					<div class="feature">
+						<i class="fas fa-heart"></i>
+						<span>Избранное всегда с вами</span>
 					</div>
-
-					<!-- Блок итоговой суммы -->
-					<div class="cart-summary">
-						<h3 class="cart-summary-title">Ваш заказ</h3>
-
-						<div class="cart-summary-row">
-							<span>Товары (3 шт.)</span>
-							<span>5 397 ₽</span>
-						</div>
-
-						<div class="cart-summary-row discount-row">
-							<span>Скидка</span>
-							<span class="discount-amount">-500 ₽</span>
-						</div>
-
-						<div class="cart-summary-row delivery-row">
-							<span>Доставка</span>
-							<span class="delivery-free">Бесплатно</span>
-						</div>
-
-						<div class="cart-summary-total">
-							<span>Итого</span>
-							<span class="total-amount">4 897 ₽</span>
-						</div>
-
-						<button class="checkout-button" id="checkoutBtn">
-							<i class="fas fa-truck"></i>
-							Оформить заказ
-						</button>
-
-						<div class="payment-methods">
-							<p>Принимаем к оплате:</p>
-							<div class="payment-icons">
-								<i class="fab fa-cc-visa" title="Visa"></i>
-								<i class="fab fa-cc-mastercard" title="Mastercard"></i>
-								<i class="fab fa-cc-mir" title="Мир"></i>
-								<i class="fab fa-cc-paypal" title="PayPal"></i>
-								<i class="fas fa-mobile-alt" title="СБП"></i>
-							</div>
-						</div>
-
-						<div class="secure-checkout">
-							<i class="fas fa-lock"></i>
-							<span>Безопасная оплата</span>
-						</div>
+					<div class="feature">
+						<i class="fas fa-tag"></i>
+						<span>Персональные скидки</span>
 					</div>
-
-					<!-- Доставка -->
-					<div class="delivery-info">
-						<h4 class="delivery-info-title">
-							<i class="fas fa-shipping-fast"></i>
-							Информация о доставке
-						</h4>
-						<div class="delivery-info-text">
-							<p><i class="fas fa-check-circle"></i> Бесплатная доставка от 3 000 ₽</p>
-							<p><i class="fas fa-check-circle"></i> Срок доставки: 1-3 дня</p>
-							<p><i class="fas fa-check-circle"></i> Самовывоз из магазина - сегодня</p>
-						</div>
+					<div class="feature">
+						<i class="fas fa-clock"></i>
+						<span>История заказов</span>
+					</div>
+					<div class="feature">
+						<i class="fas fa-gift"></i>
+						<span>Бонусы за покупки</span>
 					</div>
 				</div>
 			</div>
 
-			<!-- Пустая корзина (будет показываться когда нет товаров) -->
-			<div class="cart-empty-state" id="cartEmptyState" style="display: none;">
-				<div class="cart-empty-icon">
-					<i class="fas fa-shopping-cart"></i>
-				</div>
-				<h2 class="cart-empty-title">Ваша корзина пуста</h2>
-				<p class="cart-empty-text">Но это никогда не поздно исправить :)</p>
-				<div class="cart-empty-actions">
-					<a href="catalog.html" class="cart-empty-btn primary">
-						<i class="fas fa-bars"></i>
-						Перейти в каталог
-					</a>
-					<a href="index.html" class="cart-empty-btn secondary">
-						<i class="fas fa-home"></i>
-						На главную
-					</a>
+			<!-- Основная форма -->
+			<div class="auth-main">
+				<!-- Переключатель вкладок -->
+				<div class="auth-tabs">
+					<button class="auth-tab active" id="loginTab" data-tab="login">
+						<i class="fas fa-sign-in-alt"></i>
+						Вход
+					</button>
+					<button class="auth-tab" id="registerTab" data-tab="register">
+						<i class="fas fa-user-plus"></i>
+						Регистрация
+					</button>
 				</div>
 
-				<!-- Рекомендации для пустой корзины -->
-				<div class="cart-empty-recommendations">
-					<h3 class="recommendations-title">Возможно, вас заинтересует</h3>
-					<div class="recommendations-grid">
-						<div class="recommendation-item">
-							<img src="https://via.placeholder.com/120x120" alt="Аниме фигурки"
-								class="recommendation-image">
-							<h4 class="recommendation-name">Аниме фигурки</h4>
-							<div class="recommendation-price">от 1 499 ₽</div>
-							<a href="#" class="recommendation-link">Посмотреть</a>
+				<!-- Форма входа -->
+				<div class="auth-form-container active" id="loginForm">
+					<form class="auth-form" id="loginFormElement">
+						<h2 class="auth-form-title">Вход в аккаунт</h2>
+
+						<!-- Поле email/телефон -->
+						<div class="auth-input-group">
+							<label for="loginIdentifier" class="auth-label">
+								<i class="fas fa-envelope"></i>
+								Email или номер телефона
+							</label>
+							<input type="text" id="loginIdentifier" class="auth-input"
+								placeholder="example@mail.ru или +7 (999) 999-99-99" required>
+							<span class="input-error" id="loginIdentifierError"></span>
 						</div>
-						<div class="recommendation-item">
-							<img src="https://via.placeholder.com/120x120" alt="Японский чай"
-								class="recommendation-image">
-							<h4 class="recommendation-name">Японский чай</h4>
-							<div class="recommendation-price">от 350 ₽</div>
-							<a href="#" class="recommendation-link">Посмотреть</a>
+
+						<!-- Поле пароль -->
+						<div class="auth-input-group">
+							<label for="loginPassword" class="auth-label">
+								<i class="fas fa-lock"></i>
+								Пароль
+							</label>
+							<div class="password-input-wrapper">
+								<input type="password" id="loginPassword" class="auth-input"
+									placeholder="Введите пароль" required>
+								<button type="button" class="password-toggle" title="Показать пароль">
+									<i class="fas fa-eye"></i>
+								</button>
+							</div>
+							<span class="input-error" id="loginPasswordError"></span>
 						</div>
-						<div class="recommendation-item">
-							<img src="https://via.placeholder.com/120x120" alt="Азиатские сладости"
-								class="recommendation-image">
-							<h4 class="recommendation-name">Азиатские сладости</h4>
-							<div class="recommendation-price">от 150 ₽</div>
-							<a href="#" class="recommendation-link">Посмотреть</a>
+
+						<!-- Дополнительные опции -->
+						<div class="auth-options">
+							<label class="checkbox-container">
+								<input type="checkbox" id="rememberMe">
+								<span class="checkmark"></span>
+								<span class="checkbox-text">Запомнить меня</span>
+							</label>
+							<a href="#" class="forgot-password-link" id="forgotPasswordBtn">
+								Забыли пароль?
+							</a>
 						</div>
-						<div class="recommendation-item">
-							<img src="https://via.placeholder.com/120x120" alt="Канцелярия кавай"
-								class="recommendation-image">
-							<h4 class="recommendation-name">Канцелярия кавай</h4>
-							<div class="recommendation-price">от 50 ₽</div>
-							<a href="#" class="recommendation-link">Посмотреть</a>
+
+						<!-- Кнопка входа -->
+						<button type="submit" class="auth-submit-btn" id="loginSubmitBtn">
+							<i class="fas fa-sign-in-alt"></i>
+							Войти
+						</button>
+
+						<!-- Разделитель -->
+						<div class="auth-divider">
+							<span>или войдите через</span>
+						</div>
+
+						<!-- Социальные сети -->
+						<div class="social-login">
+							<button type="button" class="social-btn vk" id="vkLogin">
+								<i class="fab fa-vk"></i>
+								ВКонтакте
+							</button>
+							<button type="button" class="social-btn google" id="googleLogin">
+								<i class="fab fa-google"></i>
+								Google
+							</button>
+							<button type="button" class="social-btn yandex" id="yandexLogin">
+								<i class="fab fa-yandex"></i>
+								Яндекс
+							</button>
+						</div>
+
+						<!-- Ссылка на регистрацию для мобильных -->
+						<div class="auth-switch-mobile">
+							Нет аккаунта?
+							<a href="#" id="switchToRegisterMobile">Зарегистрироваться</a>
+						</div>
+					</form>
+				</div>
+
+				<!-- Форма регистрации -->
+				<div class="auth-form-container" id="registerForm">
+					<form class="auth-form" id="registerFormElement">
+						<h2 class="auth-form-title">Создание аккаунта</h2>
+
+						<!-- Имя -->
+						<div class="auth-input-group">
+							<label for="registerName" class="auth-label">
+								<i class="fas fa-user"></i>
+								Ваше имя
+							</label>
+							<input type="text" id="registerName" class="auth-input" placeholder="Как к вам обращаться?"
+								required>
+							<span class="input-error" id="registerNameError"></span>
+						</div>
+
+						<!-- Email -->
+						<div class="auth-input-group">
+							<label for="registerEmail" class="auth-label">
+								<i class="fas fa-envelope"></i>
+								Email
+							</label>
+							<input type="email" id="registerEmail" class="auth-input" placeholder="example@mail.ru"
+								required>
+							<span class="input-error" id="registerEmailError"></span>
+						</div>
+
+						<!-- Телефон -->
+						<div class="auth-input-group">
+							<label for="registerPhone" class="auth-label">
+								<i class="fas fa-phone"></i>
+								Номер телефона
+							</label>
+							<input type="tel" id="registerPhone" class="auth-input" placeholder="+7 (999) 999-99-99"
+								required>
+							<span class="input-error" id="registerPhoneError"></span>
+						</div>
+
+						<!-- Пароль -->
+						<div class="auth-input-group">
+							<label for="registerPassword" class="auth-label">
+								<i class="fas fa-lock"></i>
+								Пароль
+							</label>
+							<div class="password-input-wrapper">
+								<input type="password" id="registerPassword" class="auth-input"
+									placeholder="Придумайте пароль" required>
+								<button type="button" class="password-toggle" title="Показать пароль">
+									<i class="fas fa-eye"></i>
+								</button>
+							</div>
+							<div class="password-strength" id="passwordStrength">
+								<div class="strength-bar"></div>
+								<div class="strength-bar"></div>
+								<div class="strength-bar"></div>
+							</div>
+							<span class="password-hint">Пароль должен содержать минимум 8 символов</span>
+							<span class="input-error" id="registerPasswordError"></span>
+						</div>
+
+						<!-- Подтверждение пароля -->
+						<div class="auth-input-group">
+							<label for="registerConfirmPassword" class="auth-label">
+								<i class="fas fa-lock"></i>
+								Подтвердите пароль
+							</label>
+							<div class="password-input-wrapper">
+								<input type="password" id="registerConfirmPassword" class="auth-input"
+									placeholder="Повторите пароль" required>
+								<button type="button" class="password-toggle" title="Показать пароль">
+									<i class="fas fa-eye"></i>
+								</button>
+							</div>
+							<span class="input-error" id="registerConfirmError"></span>
+						</div>
+
+						<!-- Согласие с правилами -->
+						<div class="auth-agreement">
+							<label class="checkbox-container">
+								<input type="checkbox" id="agreeTerms" checked>
+								<span class="checkmark"></span>
+								<span class="checkbox-text">
+									Я согласен с <a href="#" class="agreement-link">политикой конфиденциальности</a>
+									и <a href="#" class="agreement-link">правилами сайта</a>
+								</span>
+							</label>
+						</div>
+
+						<!-- Подписка на новости -->
+						<div class="auth-newsletter">
+							<label class="checkbox-container">
+								<input type="checkbox" id="subscribeNews">
+								<span class="checkmark"></span>
+								<span class="checkbox-text">
+									Хочу получать новости о новинках и скидках
+								</span>
+							</label>
+						</div>
+
+						<!-- Кнопка регистрации -->
+						<button type="submit" class="auth-submit-btn" id="registerSubmitBtn">
+							<i class="fas fa-user-plus"></i>
+							Зарегистрироваться
+						</button>
+
+						<!-- Разделитель -->
+						<div class="auth-divider">
+							<span>или зарегистрируйтесь через</span>
+						</div>
+
+						<!-- Социальные сети -->
+						<div class="social-login">
+							<button type="button" class="social-btn vk" id="vkRegister">
+								<i class="fab fa-vk"></i>
+								ВКонтакте
+							</button>
+							<button type="button" class="social-btn google" id="googleRegister">
+								<i class="fab fa-google"></i>
+								Google
+							</button>
+							<button type="button" class="social-btn yandex" id="yandexRegister">
+								<i class="fab fa-yandex"></i>
+								Яндекс
+							</button>
+						</div>
+
+						<!-- Ссылка на вход для мобильных -->
+						<div class="auth-switch-mobile">
+							Уже есть аккаунт?
+							<a href="#" id="switchToLoginMobile">Войти</a>
+						</div>
+					</form>
+				</div>
+
+				<!-- Дополнительная информация -->
+				<div class="auth-info">
+					<div class="auth-info-item">
+						<i class="fas fa-shield-alt"></i>
+						<div class="auth-info-text">
+							<strong>Безопасность</strong>
+							<span>Ваши данные защищены</span>
+						</div>
+					</div>
+					<div class="auth-info-item">
+						<i class="fas fa-headset"></i>
+						<div class="auth-info-text">
+							<strong>Поддержка 24/7</strong>
+							<span>Всегда готовы помочь</span>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<!-- Преимущества регистрации -->
+		<section class="auth-benefits">
+			<h2 class="auth-benefits-title">Преимущества регистрации</h2>
+			<div class="benefits-grid">
+				<div class="benefit-card">
+					<div class="benefit-icon">
+						<i class="fas fa-heart"></i>
+					</div>
+					<h3>Избранное</h3>
+					<p>Сохраняйте понравившиеся товары и возвращайтесь к ним позже</p>
+				</div>
+				<div class="benefit-card">
+					<div class="benefit-icon">
+						<i class="fas fa-history"></i>
+					</div>
+					<h3>История заказов</h3>
+					<p>Отслеживайте статус заказов и повторяйте их в один клик</p>
+				</div>
+				<div class="benefit-card">
+					<div class="benefit-icon">
+						<i class="fas fa-tags"></i>
+					</div>
+					<h3>Персональные скидки</h3>
+					<p>Получайте специальные предложения и бонусы</p>
+				</div>
+				<div class="benefit-card">
+					<div class="benefit-icon">
+						<i class="fas fa-star"></i>
+					</div>
+					<h3>Программа лояльности</h3>
+					<p>Копите баллы и оплачивайте ими до 30% покупок</p>
+				</div>
+				<div class="benefit-card">
+					<div class="benefit-icon">
+						<i class="fas fa-bolt"></i>
+					</div>
+					<h3>Быстрый заказ</h3>
+					<p>Оформляйте заказ в 2 клика с предзаполненными данными</p>
+				</div>
+				<div class="benefit-card">
+					<div class="benefit-icon">
+						<i class="fas fa-bell"></i>
+					</div>
+					<h3>Уведомления</h3>
+					<p>Узнавайте первыми о новинках и поступлении товаров</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Часто задаваемые вопросы -->
+		<section class="auth-faq">
+			<h2 class="auth-faq-title">Часто задаваемые вопросы</h2>
+			<div class="faq-grid">
+				<div class="faq-item">
+					<div class="faq-question">
+						<span>Зачем нужна регистрация?</span>
+						<i class="fas fa-chevron-down"></i>
+					</div>
+					<div class="faq-answer">
+						Регистрация позволяет сохранять историю заказов, добавлять товары в избранное, получать
+						персональные скидки и бонусы, а также ускорять процесс оформления заказа.
+					</div>
+				</div>
+				<div class="faq-item">
+					<div class="faq-question">
+						<span>Как восстановить пароль?</span>
+						<i class="fas fa-chevron-down"></i>
+					</div>
+					<div class="faq-answer">
+						Нажмите на ссылку "Забыли пароль?" под формой входа и следуйте инструкциям. Мы отправим ссылку
+						для сброса пароля на вашу почту или SMS.
+					</div>
+				</div>
+				<div class="faq-item">
+					<div class="faq-question">
+						<span>Безопасно ли хранить данные?</span>
+						<i class="fas fa-chevron-down"></i>
+					</div>
+					<div class="faq-answer">
+						Мы используем современные методы шифрования и защиты данных. Ваша информация надежно защищена и
+						не передается третьим лицам.
+					</div>
+				</div>
+				<div class="faq-item">
+					<div class="faq-question">
+						<span>Можно ли войти через соцсети?</span>
+						<i class="fas fa-chevron-down"></i>
+					</div>
+					<div class="faq-answer">
+						Да, вы можете войти или зарегистрироваться через ВКонтакте, Google или Яндекс. Это быстро и
+						удобно - не нужно запоминать еще один пароль.
+					</div>
+				</div>
+			</div>
+		</section>
 	</main>
+
+	<!-- Модальное окно восстановления пароля -->
+	<div id="forgotPasswordModal" class="modal">
+		<div class="modal-content forgot-modal-content">
+			<span class="close-modal">&times;</span>
+			<h2 class="forgot-modal-title">
+				<i class="fas fa-key"></i>
+				Восстановление пароля
+			</h2>
+			<p class="forgot-modal-text">
+				Введите email или номер телефона, указанный при регистрации.
+				Мы отправим инструкцию по восстановлению пароля.
+			</p>
+
+			<form id="forgotPasswordForm" class="forgot-form">
+				<div class="forgot-input-group">
+					<label for="forgotIdentifier">Email или телефон</label>
+					<input type="text" id="forgotIdentifier" class="forgot-input"
+						placeholder="example@mail.ru или +7 (999) 999-99-99" required>
+				</div>
+
+				<button type="submit" class="forgot-submit-btn">
+					<i class="fas fa-paper-plane"></i>
+					Отправить инструкцию
+				</button>
+			</form>
+
+			<div class="forgot-back">
+				<a href="#" id="backToLogin">
+					<i class="fas fa-arrow-left"></i>
+					Вернуться ко входу
+				</a>
+			</div>
+		</div>
+	</div>
 
 	<!-- Подвал сайта -->
 	<footer>
@@ -782,6 +851,8 @@
 	<script src="/js/catalog-expand.js"></script>
 	<!-- Корзина -->
 	<script src="/js/cart.js"></script>
+	<!-- Логин -->
+	<script src="/js/login.js"></script>
 </body>
 
 </html>

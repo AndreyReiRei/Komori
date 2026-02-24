@@ -121,48 +121,6 @@ header {
 	opacity: 0.9;
 }
 
-/* Кнопка заказа звонка */
-.callback-btn {
-	background: transparent;
-	color: #ffb7c5;
-	border: 1.5px solid rgba(255, 183, 197, 0.5);
-	padding: 10px 22px;
-	border-radius: 30px;
-	cursor: pointer;
-	font-weight: 500;
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	transition: all 0.3s ease;
-	font-size: 13px;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	position: relative;
-	overflow: hidden;
-	background: rgba(42, 42, 42, 0.5);
-	backdrop-filter: blur(5px);
-}
-
-.callback-btn:hover {
-	background: #ffb7c5;
-	color: #2a2a2a;
-	border-color: #ffb7c5;
-	transform: translateY(-2px);
-	box-shadow: 0 5px 15px rgba(255, 183, 197, 0.2);
-}
-
-.callback-btn:active {
-	transform: translateY(0);
-}
-
-.callback-btn i {
-	font-size: 16px;
-	transition: transform 0.3s ease;
-}
-
-.callback-btn:hover i {
-	transform: rotate(15deg);
-}
 
 /* Основная навигация для десктопа */
 @media (min-width: 769px) {
@@ -579,7 +537,6 @@ header {
 	}
 }
 
-
 /* СТИЛИ ДЛЯ БЛОКА ИКОНОК ПОЛЬЗОВАТЕЛЯ В ЧЕРНОЙ ШАПКЕ */
 /* ============================================ */
 
@@ -642,7 +599,7 @@ header {
 	transition: color 0.3s ease;
 }
 
-/* Бейджи для избранного и корзины */
+/* Бейджи для избранного, корзины и чата */
 .action-badge {
 	position: absolute;
 	top: -5px;
@@ -697,6 +654,86 @@ header {
 	background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
 }
 
+/* Чат поддержки - теперь с точно такими же стилями как у других */
+.chat-action .action-link {
+	/* Наследует все стили от .action-link */
+}
+
+.chat-action .action-link:hover {
+	/* Наследует все стили от .action-link:hover */
+}
+
+.chat-action .action-link:hover i {
+	color: #ffb7c5;
+	transform: scale(1.1);
+}
+
+.chat-action .action-badge {
+	background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+}
+
+/* Стили для мобильной кнопки чата - используем те же классы, что и у ссылок */
+.chat-mobile-btn {
+	/* Полностью копируем стили action-link */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	color: rgba(255, 255, 255, 0.9);
+	transition: all 0.3s ease;
+	padding: 8px 12px;
+	border-radius: 10px;
+	position: relative;
+	min-width: 70px;
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid transparent;
+	cursor: pointer;
+	font-family: inherit;
+	width: 100%;
+	height: 100%;
+}
+
+.chat-mobile-btn:hover {
+	/* Полностью копируем стили action-link:hover */
+	background: rgba(255, 183, 197, 0.1);
+	border-color: rgba(255, 183, 197, 0.3);
+	color: #ffb7c5;
+	transform: translateY(-2px);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.chat-mobile-btn:active {
+	transform: translateY(0);
+}
+
+.chat-mobile-btn i {
+	/* Полностью копируем стили action-link i */
+	font-size: 22px;
+	margin-bottom: 5px;
+	transition: all 0.3s ease;
+	color: rgba(255, 183, 197, 0.9);
+}
+
+.chat-mobile-btn:hover i {
+	/* Полностью копируем стили action-link:hover i */
+	transform: scale(1.1);
+	color: #ffb7c5;
+}
+
+.chat-mobile-btn .action-text {
+	/* Полностью копируем стили .action-text */
+	font-size: 12px;
+	font-weight: 500;
+	white-space: nowrap;
+	transition: color 0.3s ease;
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.chat-mobile-btn:hover .action-text {
+	color: #ffb7c5;
+}
+
 /* Авторизация */
 .auth-action .action-link:hover i {
 	color: #ffb7c5;
@@ -724,16 +761,19 @@ header {
 		gap: 15px;
 	}
 
-	.action-link {
+	.action-link,
+	.chat-mobile-btn {
 		min-width: 60px;
 		padding: 6px 10px;
 	}
 
-	.action-link i {
+	.action-link i,
+	.chat-mobile-btn i {
 		font-size: 20px;
 	}
 
-	.action-text {
+	.action-text,
+	.chat-mobile-btn .action-text {
 		font-size: 11px;
 	}
 
@@ -751,18 +791,21 @@ header {
 		gap: 10px;
 	}
 
-	.action-link {
+	.action-link,
+	.chat-mobile-btn {
 		min-width: 50px;
 		padding: 5px 8px;
 		background: rgba(255, 255, 255, 0.05);
 	}
 
-	.action-link i {
+	.action-link i,
+	.chat-mobile-btn i {
 		font-size: 18px;
 		margin-bottom: 3px;
 	}
 
-	.action-text {
+	.action-text,
+	.chat-mobile-btn .action-text {
 		font-size: 10px;
 	}
 
@@ -778,22 +821,25 @@ header {
 /* Очень маленькие экраны (Small Mobile) - 320px - 480px */
 @media (max-width: 480px) {
 	.user-actions {
-		gap: 8px;
-		margin-right: 10px;
+		gap: 5px;
+		margin-right: 8px;
 	}
 
-	.action-link {
-		min-width: 45px;
+	.action-link,
+	.chat-mobile-btn {
+		min-width: 40px;
 		padding: 4px 6px;
 		background: rgba(255, 255, 255, 0.05);
 	}
 
-	.action-link i {
+	.action-link i,
+	.chat-mobile-btn i {
 		font-size: 16px;
 		margin-bottom: 2px;
 	}
 
-	.action-text {
+	.action-text,
+	.chat-mobile-btn .action-text {
 		display: none;
 		/* Скрываем текст на очень маленьких экранах */
 	}
@@ -810,15 +856,58 @@ header {
 /* Супер маленькие экраны (Extra Small) - до 320px */
 @media (max-width: 320px) {
 	.user-actions {
-		gap: 5px;
+		gap: 3px;
+		margin-right: 5px;
 	}
 
-	.action-link {
+	.action-link,
+	.chat-mobile-btn {
 		padding: 3px 5px;
-		min-width: 40px;
+		min-width: 35px;
 	}
 
-	.action-link i {
+	.action-link i,
+	.chat-mobile-btn i {
 		font-size: 14px;
 	}
+}
+
+/* Стили для десктопной версии - скрываем мобильный чат */
+.chat-action-mobile {
+	display: none;
+}
+
+/* На мобильных устройствах показываем иконку чата */
+@media (max-width: 992px) {
+	.chat-action-mobile {
+		display: block;
+	}
+}
+
+/* Стили для бейджа чата */
+.chat-badge {
+	animation: badgePulse 2s infinite;
+}
+
+/* Анимация для нового сообщения */
+@keyframes messageNotification {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+
+	50% {
+		transform: scale(1.2);
+		opacity: 0.8;
+	}
+
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+.chat-badge.new-message {
+	animation: messageNotification 1s ease infinite;
+	background: linear-gradient(135deg, #ff4757 0%, #ff0000 100%);
 }
