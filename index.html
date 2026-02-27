@@ -15,7 +15,7 @@
 	<!-- Бургер меню -->
 	<link rel="stylesheet" href="css/burger-menu.css">
 	<!-- Помощь и звонок -->
-	<link rel="stylesheet" href="css/calls.css">
+	<link rel="stylesheet" href="css/support.css">
 	<!-- Аккардеон продукции -->
 	<link rel="stylesheet" href="css/products-accordion.css">
 	<!-- Все Категории -->
@@ -49,6 +49,15 @@
 
 				<!-- Блок иконок пользователя (корзина, избранное, вход) + ЧАТ для мобильных -->
 				<div class="user-actions">
+
+					<!-- ПОИСК -->
+					<div class="user-action-item search-action">
+						<button class="action-link search-btn" id="searchBtn">
+							<i class="fas fa-search"></i>
+							<span class="action-text">Поиск</span>
+						</button>
+					</div>
+
 					<!-- Избранное -->
 					<div class="user-action-item favorites-action">
 						<a href="/pages/favorites.html" class="action-link" id="favoritesBtn">
@@ -76,7 +85,7 @@
 					</div>
 				</div>
 
-				<!-- ЧАТ для мобильных -->
+				<!-- Поддержка для мобильных -->
 				<div class="user-action-item chat-action-mobile" id="mobileChatItem">
 					<button class="chat-mobile-btn action-link" id="mobileChatBtn">
 						<i class="fas fa-comment-dots"></i>
@@ -85,19 +94,8 @@
 					</button>
 				</div>
 
-				<!-- Контакты для десктопа -->
+				<!-- Поддержка для десктопа -->
 				<div class="header-contacts">
-					<div class="phone-numbers">
-						<div class="phone-number">
-							<i class="fas fa-phone"></i>
-							<span>8 (888) 888-88-88</span>
-						</div>
-						<div class="phone-number">
-							<i class="fas fa-mobile-alt"></i>
-							<span>7 (777) 777-77-77</span>
-						</div>
-					</div>
-
 					<!-- кнопка чата с поддержкой (только для десктопа) -->
 					<button class="chat-btn" id="chatBtn">
 						<i class="fas fa-comment-dots"></i>
@@ -796,12 +794,14 @@
 	<script src="js/main.js"></script>
 	<!-- Бургер меню -->
 	<script src="js/burger.js"></script>
-	<!-- Звноки -->
-	<script src="js/calls.js"></script>
+	<!-- Поддержка -->
+	<script src="js/support.js"></script>
 	<!-- Аккардеон продукции -->
 	<script src="js/products-accordion.js"></script>
 	<!-- Популярные категории -->
 	<script src="js/catalog-expand.js"></script>
+	<!-- Поиск -->
+	<script src="js/search.js"></script>
 	<!-- Корзина -->
 	<script src="js/cart.js"></script>
 

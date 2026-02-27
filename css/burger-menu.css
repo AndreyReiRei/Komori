@@ -1,75 +1,119 @@
 /* 
  * Стили для бургер-меню "Комори"
  * Адаптирован под азиатский стиль с розовой цветовой палитрой
+ * Минималистичный дизайн с элегантной анимацией
  */
 
-/* Бургер-иконка */
+/* ===== ОСНОВНЫЕ СТИЛИ БУРГЕР-МЕНЮ ===== */
 .burger-menu {
 	display: none;
+	/* Скрыто на десктопе по умолчанию */
 	cursor: pointer;
 	z-index: 1001;
 	position: relative;
+	margin-left: 12px;
+	padding: 10px;
+	/* Область касания */
 }
 
+/* Современная иконка бургер - минималистичный дизайн с анимацией */
 .burger-icon {
-	width: 32px;
-	height: 26px;
+	width: 28px;
+	height: 20px;
 	position: relative;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.burger-icon span {
-	display: block;
-	height: 3px;
-	width: 100%;
-	background-color: white;
-	border-radius: 3px;
+	transform: rotate(0deg);
 	transition: all 0.3s ease;
 }
 
-/* Мобильные стили - до 768px */
-@media (max-width: 768px) {
+/* Общие стили для всех полосок иконки */
+.burger-icon span {
+	display: block;
+	position: absolute;
+	height: 2px;
+	/* Тонкие полоски для элегантности */
+	width: 100%;
+	background: #ffb7c5;
+	/* Розовый цвет сакуры */
+	border-radius: 9px;
+	opacity: 1;
+	left: 0;
+	transform: rotate(0deg);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: 0 2px 5px rgba(255, 183, 197, 0.3);
+	/* Свечение */
+}
 
-	/* Бургер-меню */
+/* Позиционирование верхней полоски */
+.burger-icon span:nth-child(1) {
+	top: 0px;
+}
+
+/* Средняя полоска - короче для стиля (80% ширины) */
+.burger-icon span:nth-child(2) {
+	top: 9px;
+	width: 80%;
+}
+
+/* Нижняя полоска */
+.burger-icon span:nth-child(3) {
+	top: 18px;
+}
+
+/* Эффект при наведении - средняя полоска расширяется */
+.burger-menu:hover .burger-icon span:nth-child(2) {
+	width: 100%;
+}
+
+/* Изменение цвета при наведении на более яркий розовый */
+.burger-menu:hover .burger-icon span {
+	background: #ff6b6b;
+	box-shadow: 0 2px 8px rgba(255, 107, 107, 0.5);
+}
+
+/* Анимация открытия - превращение в крестик */
+.burger-menu.active .burger-icon span:nth-child(1) {
+	top: 9px;
+	transform: rotate(135deg);
+	background: #ff6b6b;
+}
+
+/* Средняя полоска исчезает */
+.burger-menu.active .burger-icon span:nth-child(2) {
+	opacity: 0;
+	left: -30px;
+	width: 0;
+}
+
+/* Нижняя полоска превращается во вторую часть крестика */
+.burger-menu.active .burger-icon span:nth-child(3) {
+	top: 9px;
+	transform: rotate(-135deg);
+	background: #ff6b6b;
+}
+
+/* При наведении на активный крестик - меняем цвет обратно на розовый */
+.burger-menu.active:hover .burger-icon span {
+	background: #ffb7c5;
+}
+
+/* ===== ПЛАНШЕТЫ И МОБИЛЬНЫЕ (до 992px) ===== */
+@media (max-width: 992px) {
+
+	/* Показываем бургер-меню */
 	.burger-menu {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 48px;
-		height: 48px;
-		background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-		border-radius: 8px;
-		border: 2px solid #ffb7c5;
-		transition: all 0.3s ease;
 	}
 
-	.burger-menu:hover {
-		background: linear-gradient(135deg, #333 0%, #222 100%);
-		border-color: #ff6b6b;
+	/* Скрываем десктопную навигацию */
+	.main-nav {
+		display: none;
 	}
+}
 
-	.burger-menu.active {
-		background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-		border-color: #ff6b6b;
-		z-index: 1002;
-	}
-
-	/* Анимация бургер-иконки */
-	.burger-menu.active .burger-icon span:nth-child(1) {
-		transform: rotate(45deg) translate(7px, 7px);
-		background-color: #ffb7c5;
-	}
-
-	.burger-menu.active .burger-icon span:nth-child(2) {
-		opacity: 0;
-	}
-
-	.burger-menu.active .burger-icon span:nth-child(3) {
-		transform: rotate(-45deg) translate(7px, -7px);
-		background-color: #ffb7c5;
-	}
+/* ===== МОБИЛЬНОЕ МЕНЮ (до 768px) ===== */
+@media (max-width: 768px) {
 
 	/* Мобильное меню */
 	.main-nav {
@@ -83,11 +127,11 @@
 		z-index: 1000;
 		height: 100vh;
 		overflow-y: auto;
-		background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-		box-shadow: -8px 0 30px rgba(0, 0, 0, 0.3);
-		border-left: 3px solid #ffb7c5;
+		background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+		box-shadow: -8px 0 30px rgba(0, 0, 0, 0.5);
+		border-left: 2px solid #ffb7c5;
 		transform: translateX(100%);
-		transition: transform 0.4s ease;
+		transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.main-nav.active {
@@ -106,24 +150,20 @@
 	.nav-list>li {
 		width: 100%;
 		list-style: none;
-		border-bottom: 1px solid #333;
-	}
-
-	.nav-list>li:last-child {
-		border-bottom: none;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 	}
 
 	/* Ссылки навигации */
 	.nav-link {
 		width: 100%;
-		padding: 20px 25px;
+		padding: 16px 25px;
 		display: flex;
 		align-items: center;
 		text-align: left;
-		color: #eee;
+		color: rgba(255, 255, 255, 0.9);
 		text-decoration: none;
 		transition: all 0.3s ease;
-		font-size: 16px;
+		font-size: 15px;
 		background: transparent;
 		border: none;
 		font-family: 'Segoe UI', Tahoma, 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
@@ -139,12 +179,11 @@
 		left: -100%;
 		width: 100%;
 		height: 100%;
-		background: linear-gradient(90deg, transparent, rgba(255, 183, 197, 0.1), transparent);
+		background: linear-gradient(90deg, transparent, rgba(255, 183, 197, 0.05), transparent);
 		transition: left 0.5s ease;
 	}
 
 	.nav-link:hover {
-		background: linear-gradient(135deg, rgba(255, 183, 197, 0.1) 0%, rgba(157, 123, 173, 0.1) 100%);
 		color: #ffb7c5;
 		padding-left: 30px;
 	}
@@ -154,16 +193,16 @@
 	}
 
 	.nav-link i:first-child {
-		margin-right: 18px;
+		margin-right: 15px;
 		width: 22px;
 		text-align: center;
-		font-size: 20px;
+		font-size: 18px;
 		color: #ffb7c5;
 		transition: transform 0.3s ease;
 	}
 
 	.nav-link:hover i:first-child {
-		transform: scale(1.1);
+		transform: scale(1.1) rotate(5deg);
 	}
 
 	.nav-link span {
@@ -171,62 +210,40 @@
 		font-weight: 500;
 	}
 
-	/* Специальные стили для пунктов */
+	/* Промо-ссылка */
 	.promo-link {
-		color: #ff6b6b !important;
+		color: #ffb7c5 !important;
 		font-weight: 600;
-		background: linear-gradient(135deg, rgba(42, 42, 42, 0.9) 0%, rgba(42, 42, 42, 0.9) 50%, rgba(255, 107, 107, 0.08) 100%);
-	}
-
-	.promo-link:hover {
-		background: linear-gradient(135deg, rgba(255, 107, 107, 0.15) 0%, rgba(255, 183, 197, 0.15) 100%);
-		color: #ff8a8a !important;
+		background: rgba(255, 183, 197, 0.03);
 	}
 
 	.promo-link i:first-child {
-		color: #ff6b6b;
-	}
-
-	/* Каталог */
-	.has-dropdown>.nav-link {
-		background: linear-gradient(135deg, rgba(42, 42, 42, 0.9) 0%, rgba(42, 42, 42, 0.9) 50%, rgba(157, 123, 173, 0.08) 100%);
-		border-left: 5px solid #9d7bad;
-		font-weight: 600;
-	}
-
-	.has-dropdown>.nav-link:hover {
-		background: linear-gradient(135deg, rgba(157, 123, 173, 0.15) 0%, rgba(255, 183, 197, 0.15) 100%);
-		border-left: 5px solid #ffb7c5;
-	}
-
-	.has-dropdown>.nav-link i:first-child {
-		color: #9d7bad;
-	}
-
-	.has-dropdown>.nav-link:hover i:first-child {
 		color: #ffb7c5;
+	}
+
+	/* Каталог с выпадающим меню */
+	.has-dropdown>.nav-link {
+		font-weight: 600;
+		border-left: 3px solid #ffb7c5;
 	}
 
 	/* Выпадающее меню */
 	.dropdown-menu {
 		display: none;
-		background: linear-gradient(135deg, #222 0%, #1a1a1a 100%);
-		padding: 15px 0;
+		background: rgba(0, 0, 0, 0.2);
+		padding: 8px 0;
 		margin: 0;
-		border-top: 1px solid #333;
-		border-bottom: 1px solid #333;
-		box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.2);
 	}
 
 	.dropdown-menu.active {
 		display: block;
-		animation: slideInRight 0.4s ease;
+		animation: slideInRight 0.3s ease;
 	}
 
 	@keyframes slideInRight {
 		from {
 			opacity: 0;
-			transform: translateX(-15px);
+			transform: translateX(-10px);
 		}
 
 		to {
@@ -240,55 +257,29 @@
 	}
 
 	.dropdown-menu li a {
-		padding: 16px 25px 16px 65px;
+		padding: 12px 25px 12px 62px;
 		display: flex;
 		align-items: center;
-		color: #ccc;
+		color: rgba(255, 255, 255, 0.8);
 		text-decoration: none;
 		transition: all 0.3s ease;
-		font-size: 15px;
+		font-size: 14px;
 		position: relative;
-		cursor: pointer;
-		border-bottom: 1px solid #2a2a2a;
-	}
-
-	.dropdown-menu li:last-child a {
-		border-bottom: none;
 	}
 
 	.dropdown-menu li a:hover {
-		background: linear-gradient(135deg, rgba(255, 183, 197, 0.1) 0%, rgba(157, 123, 173, 0.1) 100%);
-		color: white;
-		padding-left: 70px;
+		color: #ffb7c5;
+		padding-left: 67px;
+		background: rgba(255, 183, 197, 0.03);
 	}
 
 	.dropdown-menu li a i {
-		margin-right: 15px;
+		margin-right: 12px;
 		width: 18px;
 		text-align: center;
-		font-size: 16px;
-		color: #9d7bad;
-		transition: color 0.3s ease;
-	}
-
-	.dropdown-menu li a:hover i {
+		font-size: 14px;
 		color: #ffb7c5;
-	}
-
-	/* Декоративная полоска */
-	.dropdown-menu li a::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0;
-		bottom: 0;
-		width: 4px;
-		background-color: transparent;
-		transition: background-color 0.3s ease;
-	}
-
-	.dropdown-menu li a:hover::before {
-		background: linear-gradient(to bottom, #ffb7c5, #9d7bad);
+		opacity: 0.8;
 	}
 
 	/* Оверлей */
@@ -299,7 +290,8 @@
 		left: 0;
 		width: 100%;
 		height: 100vh;
-		background-color: rgba(26, 26, 26, 0.7);
+		background-color: rgba(0, 0, 0, 0.5);
+		backdrop-filter: blur(3px);
 		z-index: 999;
 	}
 
@@ -319,18 +311,43 @@
 	}
 }
 
-/* Планшеты (481px - 768px) */
+/* ===== МАЛЕНЬКИЕ ПЛАНШЕТЫ (481px - 768px) ===== */
 @media (min-width: 481px) and (max-width: 768px) {
 	.main-nav {
 		width: 40%;
+		min-width: 280px;
 	}
 }
 
-/* Маленькие экраны (до 480px) */
+/* ===== ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ (до 480px) ===== */
 @media (max-width: 480px) {
+	.burger-menu {
+		margin-left: 8px;
+		padding: 8px;
+	}
+
+	.burger-icon {
+		width: 24px;
+		height: 18px;
+	}
+
+	.burger-icon span:nth-child(2) {
+		top: 8px;
+	}
+
+	.burger-icon span:nth-child(3) {
+		top: 16px;
+	}
+
+	/* Адаптация анимации для маленьких экранов */
+	.burger-menu.active .burger-icon span:nth-child(1),
+	.burger-menu.active .burger-icon span:nth-child(3) {
+		top: 8px;
+	}
+
 	.main-nav {
 		width: 85%;
-		min-width: 280px;
+		min-width: 250px;
 	}
 
 	.nav-list {
@@ -338,42 +355,102 @@
 	}
 
 	.nav-link {
-		padding: 18px 20px;
-		font-size: 15px;
-	}
-
-	.dropdown-menu li a {
-		padding: 14px 20px 14px 55px;
+		padding: 14px 20px;
 		font-size: 14px;
 	}
 
+	.nav-link i:first-child {
+		font-size: 16px;
+		width: 20px;
+		margin-right: 12px;
+	}
+
+	.nav-link:hover {
+		padding-left: 25px;
+	}
+
+	.dropdown-menu li a {
+		padding: 10px 20px 10px 52px;
+		font-size: 13px;
+	}
+
 	.dropdown-menu li a:hover {
-		padding-left: 60px;
-	}
-
-	.burger-menu {
-		width: 44px;
-		height: 44px;
-	}
-
-	.burger-icon {
-		width: 28px;
-		height: 22px;
+		padding-left: 57px;
 	}
 }
 
-/* Десктоп - скрываем бургер-меню */
+/* ===== ЭКСТРА МАЛЕНЬКИЕ ЭКРАНЫ (до 360px) ===== */
+@media (max-width: 360px) {
+	.burger-menu {
+		margin-left: 5px;
+		padding: 6px;
+	}
+
+	.burger-icon {
+		width: 22px;
+		height: 16px;
+	}
+
+	.burger-icon span {
+		height: 1.8px;
+	}
+
+	.burger-icon span:nth-child(2) {
+		top: 7px;
+	}
+
+	.burger-icon span:nth-child(3) {
+		top: 14px;
+	}
+
+	.burger-menu.active .burger-icon span:nth-child(1),
+	.burger-menu.active .burger-icon span:nth-child(3) {
+		top: 7px;
+	}
+
+	.main-nav {
+		width: 90%;
+		min-width: 220px;
+	}
+
+	.nav-list {
+		padding-top: 75px;
+	}
+
+	.nav-link {
+		padding: 12px 16px;
+		font-size: 13px;
+	}
+
+	.nav-link i:first-child {
+		font-size: 15px;
+		width: 18px;
+		margin-right: 10px;
+	}
+
+	.dropdown-menu li a {
+		padding: 9px 16px 9px 46px;
+		font-size: 12px;
+	}
+}
+
+/* ===== ДЕСКТОП (от 769px) ===== */
 @media (min-width: 769px) {
 
 	.burger-menu,
 	.nav-overlay {
 		display: none !important;
 	}
+
+	.main-nav {
+		display: block !important;
+		/* Показываем десктопную навигацию */
+	}
 }
 
-/* Стилизация скроллбара */
+/* ===== СТИЛИЗАЦИЯ СКРОЛЛБАРА ===== */
 .main-nav::-webkit-scrollbar {
-	width: 8px;
+	width: 4px;
 }
 
 .main-nav::-webkit-scrollbar-track {
@@ -381,10 +458,10 @@
 }
 
 .main-nav::-webkit-scrollbar-thumb {
-	background: linear-gradient(to bottom, #ffb7c5, #9d7bad);
-	border-radius: 4px;
+	background: #ffb7c5;
+	border-radius: 2px;
 }
 
 .main-nav::-webkit-scrollbar-thumb:hover {
-	background: linear-gradient(to bottom, #ffcbd6, #b39bc5);
+	background: #ff6b6b;
 }

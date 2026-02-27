@@ -636,3 +636,235 @@
 		display: none;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+/* ===== МОДАЛЬНОЕ ОКНО ПОИСКА (ЧЕРНАЯ ТЕМА) ===== */
+
+/* Основной контейнер */
+.search-modal .modal-content {
+	max-width: 560px;
+	padding: 30px;
+	background: #1a1a1a;
+	border: 1px solid rgba(180, 40, 40, 0.3);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Шапка */
+.search-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 25px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid rgba(180, 40, 40, 0.2);
+}
+
+.search-header h2 {
+	margin: 0;
+	font-size: 22px;
+	font-weight: 500;
+	color: #fff;
+	letter-spacing: 0.3px;
+}
+
+.search-header h2 i {
+	color: #b42828;
+	margin-right: 10px;
+	font-size: 20px;
+}
+
+/* Кнопка закрытия */
+.close-search {
+	border: 1px solid rgba(180, 40, 40, 0.3);
+	font-size: 24px;
+	cursor: pointer;
+	color: #b42828;
+	width: 38px;
+	height: 38px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	transition: all 0.2s ease;
+}
+
+.close-search:hover {
+	background: rgba(180, 40, 40, 0.1);
+	color: #d63a3a;
+	border-color: #b42828;
+}
+
+/* Поле ввода */
+.search-input-wrapper {
+	display: flex;
+	gap: 12px;
+	margin-bottom: 25px;
+}
+
+.search-input-wrapper i {
+	display: none;
+	/* Убираем иконку для строгости */
+}
+
+.search-input-wrapper input {
+	flex: 1;
+	padding: 14px 18px;
+	background: #222;
+	border: 1px solid #333;
+	border-radius: 8px;
+	font-size: 15px;
+	color: #fff;
+	transition: all 0.2s ease;
+}
+
+.search-input-wrapper input::placeholder {
+	color: #666;
+	font-weight: 300;
+}
+
+.search-input-wrapper input:focus {
+	outline: none;
+	border-color: #b42828;
+	background: #2a2a2a;
+}
+
+/* Кнопка отправки */
+.search-submit-btn {
+	padding: 14px 28px;
+	background: #b42828;
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	font-size: 15px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	white-space: nowrap;
+}
+
+.search-submit-btn:hover {
+	background: rgba(180, 40, 40, 0.1);
+	color: #d63a3a;
+	border-color: #b42828;
+}
+
+/* Популярные запросы */
+.search-suggestions {
+	border-top: 1px solid #333;
+	padding-top: 20px;
+}
+
+.suggestions-title {
+	font-size: 13px;
+	color: #888;
+	margin-bottom: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+/* Теги */
+.suggestions-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.suggestion-tag {
+	padding: 8px 16px;
+	background: #222;
+	border: 1px solid #333;
+	border-radius: 6px;
+	font-size: 13px;
+	color: #ccc;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.suggestion-tag:hover {
+	background: #b42828;
+	color: #fff;
+	border-color: #b42828;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+
+/* Планшеты */
+@media (max-width: 992px) {
+	.search-modal .modal-content {
+		max-width: 520px;
+		padding: 25px;
+	}
+}
+
+/* Мобильные */
+@media (max-width: 768px) {
+	.search-modal .modal-content {
+		width: 92%;
+		padding: 20px;
+	}
+
+	.search-header h2 {
+		font-size: 20px;
+	}
+
+	.close-search {
+		width: 36px;
+		height: 36px;
+		font-size: 22px;
+	}
+
+	.search-input-wrapper {
+		flex-direction: column;
+	}
+
+	.search-submit-btn {
+		width: 100%;
+		padding: 12px;
+	}
+}
+
+/* Маленькие экраны */
+@media (max-width: 480px) {
+	.search-modal .modal-content {
+		padding: 18px;
+	}
+
+	.search-header h2 {
+		font-size: 18px;
+	}
+
+	.search-input-wrapper input {
+		padding: 12px 15px;
+		font-size: 14px;
+	}
+
+	.suggestion-tag {
+		padding: 6px 12px;
+		font-size: 12px;
+	}
+}
+
+/* Экстра-маленькие */
+@media (max-width: 360px) {
+	.search-modal .modal-content {
+		padding: 15px;
+	}
+
+	.suggestions-tags {
+		gap: 8px;
+	}
+
+	.suggestion-tag {
+		padding: 5px 10px;
+		font-size: 11px;
+	}
+}
