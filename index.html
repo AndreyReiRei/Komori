@@ -20,6 +20,8 @@
 	<link rel="stylesheet" href="css/products-accordion.css">
 	<!-- Все Категории -->
 	<link rel="stylesheet" href="css/catalog-styles.css">
+	<!-- Лого товаров  -->
+	<link rel="stylesheet" href="css/accordion-logo.css">
 	<!-- Библиотека -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -146,14 +148,8 @@
 					</li>
 					<li>
 						<a href="#" class="nav-link">
-							<i class="fas fa-shipping-fast"></i> <!-- Иконка доставки -->
-							<span>Доставка</span>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="nav-link">
-							<i class="fas fa-users"></i> <!-- Иконка людей -->
-							<span>Нашим друзьям</span>
+							<i class="fas fa-star"></i> <!-- Иконка доставки -->
+							<span>Коллекции</span>
 						</a>
 					</li>
 					<li>
@@ -163,15 +159,15 @@
 						</a>
 					</li>
 					<li>
-						<a href="/pages/info.html" class="nav-link">
-							<i class="fas fa-info-circle"></i>
-							<span>О нас</span>
+						<a href="#" class="nav-link">
+							<i class="fas fa-shipping-fast"></i> <!-- Иконка доставки -->
+							<span>Доставка</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-link">
+						<a href="/pages/info.html" class="nav-link">
 							<i class="fas fa-store"></i> <!-- Иконка магазина -->
-							<span>Магазин</span>
+							<span>О нас</span>
 						</a>
 					</li>
 				</ul>
@@ -200,9 +196,6 @@
 						</div>
 					</div>
 					<div class="chat-header-actions">
-						<button class="chat-minimize" id="minimizeChat" title="Свернуть">
-							<i class="fas fa-minus"></i>
-						</button>
 						<button class="chat-close" id="closeChat" title="Закрыть">
 							<i class="fas fa-times"></i>
 						</button>
@@ -431,17 +424,104 @@
 	<!-- Основное содержимое -->
 	<main>
 		<div class="container__main">
+
+
+
+			<!-- Главный скролл-аккордеон с товарами -->
+			<section class="accordion-logo">
+				<div class="accordion-logo__container">
+					<!-- Карточки товаров (всего 8) -->
+
+					<div class="accordion-item" style="background-image: url('image/kawai.jpg');">
+						<div class="item-content">
+							<h2>Для лучшей подруги</h2>
+							<p>Ты потрясающая!</p>
+							<span class="price">1 500 ₽</span>
+						</div>
+					</div>
+					<div class="accordion-item" style="background-image: url(image/figures.jpg);">
+						<div class="item-content">
+							<h2>Любимому мужу</h2>
+							<p>Спасибо, что ты есть</p>
+							<span class="price">2 000 ₽</span>
+						</div>
+					</div>
+					<div class="accordion-item" style="background-image: url(image/T-shirt.webp);">
+						<div class="item-content">
+							<h2>Маме</h2>
+							<p>Самой лучшей маме</p>
+							<span class="price">1 200 ₽</span>
+						</div>
+					</div>
+					<div class="accordion-item" style="background-image: url('image/BTS.jpg');">
+						<div class="item-content">
+							<h2>Коллеге</h2>
+							<p>Спасибо за работу</p>
+							<span class="price">1 000 ₽</span>
+						</div>
+					</div>
+					<div class="accordion-item" style="background-image: url('image/manga.jpg');">
+						<div class="item-content">
+							<h2>Для него</h2>
+							<p>Лучший подарок</p>
+							<span class="price">2 500 ₽</span>
+						</div>
+					</div>
+					<div class="accordion-item" style="background-image: url('image/tea.jpg');">
+						<div class="item-content">
+							<h2>Для неё</h2>
+							<p>С любовью и нежностью</p>
+							<span class="price">2 200 ₽</span>
+						</div>
+					</div>
+					<div class="accordion-item" style="background-image: url('image/sakura.jpg');">
+						<div class="item-content">
+							<h2>Универсальный</h2>
+							<p>На любой повод</p>
+							<span class="price">1 800 ₽</span>
+						</div>
+					</div>
+					<div class="accordion-item" style="background-image: url('image/offices.jpg');">
+						<div class="item-content">
+							<h2>Отличный</h2>
+							<p>Без повода</p>
+							<span class="price">5 800 ₽</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Навигационная полоска (стилизованные индикаторы) -->
+				<div class="custom-navigation">
+					<div class="nav-indicators">
+						<div class="nav-dot active" data-index="0"></div>
+						<div class="nav-dot" data-index="1"></div>
+						<div class="nav-dot" data-index="2"></div>
+						<div class="nav-dot" data-index="3"></div>
+						<div class="nav-dot" data-index="4"></div>
+						<div class="nav-dot" data-index="5"></div>
+						<div class="nav-dot" data-index="6"></div>
+						<div class="nav-dot" data-index="7"></div>
+					</div>
+				</div>
+			</section>
+
+
+
 			<!-- Горизонтальный скролл-аккордеон с товарами -->
+			<div class="promo-section">
+				<h2>Новинки / Колеекции / Скидки</h2>
+			</div>
+
 			<section class="products-accordion">
 				<div class="accordion-container">
 					<!-- Кнопки навигации на краях картинок -->
 
-					<!-- <button class="scroll-btn prev-btn" aria-label="Предыдущие товары">
+					<button class="scroll-btn prev-btn" aria-label="Предыдущие товары">
 						<i class="fas fa-chevron-left"></i>
 					</button>
 					<button class="scroll-btn next-btn" aria-label="Следующие товары">
 						<i class="fas fa-chevron-right"></i>
-					</button> -->
+					</button>
 
 					<!-- Товары  -->
 					<div class="products-scroll" id="productsScroll">
@@ -593,9 +673,9 @@
 						</div>
 					</div>
 				</div>
-
-
 			</section>
+
+
 
 			<!-- Секция предпросмотра каталога -->
 			<section class="catalog-preview">
@@ -804,6 +884,10 @@
 	<script src="js/search.js"></script>
 	<!-- Корзина -->
 	<script src="js/cart.js"></script>
+	<!-- Кнопки если нужны -->
+	<script src="/js/buttons.js"></script>
+	<!-- Аккардион лого -->
+	<script src="/js/accardion-logo.js"></script>
 
 </body>
 
