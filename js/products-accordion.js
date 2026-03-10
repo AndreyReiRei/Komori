@@ -1,7 +1,7 @@
 // Скрипт для горизонтального скролл-аккордеона товаров с автоматической прокруткой и навигационной полоской
 document.addEventListener( 'DOMContentLoaded', function () {
 	// ========== ПОЛУЧЕНИЕ ЭЛЕМЕНТОВ ==========
-	const productsScroll = document.getElementById( 'productsScroll' );
+	let productsScroll = document.getElementById( 'productsScroll' );
 	const navbarTrack = document.querySelector( '.navbar-track' );
 
 	// Проверка наличия основного элемента
@@ -358,59 +358,52 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		} );
 	}
 
-	// ========== ОБРАБОТЧИКИ СОБЫТИЙ ==========
-
 	/**
-	 * Обработчик скролла - срабатывает при любом скролле (ручном или программном)
+	 * Обновление обработчиков для кнопок "В корзину"
 	 */
-	productsScroll.addEventListener( 'scroll', function () {
-		// Обновляем индекс только при ручном скролле
-		// Флаг isScrolling = true во время программной прокрутки
-		updateCurrentIndex();
-	} );
-
-	/**
-	 * Остановка автоскролла при наведении на контейнер
-	 */
-	productsScroll.addEventListener( 'mouseenter', stopAutoScroll );
-
-	/**
-	 * Возобновление автоскролла при уходе мыши с контейнера
-	 */
-	productsScroll.addEventListener( 'mouseleave', startAutoScroll );
-
-	/**
-	 * Обработчики для кнопок "В корзину"
-	 * Добавляет анимацию и уведомление при клике
-	 */
-	document.querySelectorAll( '.product-btn' ).forEach( button => {
-		button.addEventListener( 'click', function ( e ) {
-			e.preventDefault();
-
-			// Получаем данные о товаре
-			const productCard = this.closest( '.product-card' );
-			const productTitle = productCard.querySelector( '.product-title' ).textContent;
-			const productPrice = productCard.querySelector( '.product-price' ).textContent;
-
-			// Показываем уведомление
-			showNotification( `Товар "${productTitle}" добавлен в корзину за ${productPrice}` );
-
-			// Анимация кнопки
-			const originalText = this.textContent;
-			const originalBg = this.style.background;
-
-			this.textContent = '✓ Добавлено!';
-			this.style.background = 'linear-gradient(135deg, #34c759 0%, #2db14d 100%)';
-			this.style.transform = 'scale(0.95)';
-
-			// Возвращаем исходное состояние через 1.5 секунды
-			setTimeout( () => {
-				this.textContent = originalText;
-				this.style.background = originalBg;
-				this.style.transform = 'scale(1)';
-			}, 1500 );
+	function updateCartButtons() {
+		document.querySelectorAll( '.product-btn' ).forEach( button => {
+			// Удаляем старые обработчики
+			button.removeEventListener( 'click', handleAddToCart );
+			// Добавляем новые
+			button.addEventListener( 'click', handleAddToCart );
 		} );
-	} );
+	}
+
+	/**
+	 * Обработчик добавления в корзину
+	 */
+	function handleAddToCart( e ) {
+		e.preventDefault();
+
+		// Получаем данные о товаре
+		const productCard = this.closest( '.product-card' );
+		const productTitle = productCard.querySelector( '.product-title' ).textContent;
+		const productPrice = productCard.querySelector( '.product-price' ).textContent;
+
+		// Если есть глобальный productManager, используем его
+		if ( window.productManager && productCard.dataset.id ) {
+			window.productManager.addToCart( productCard.dataset.id );
+		} else {
+			// Иначе показываем демо-уведомление
+			showNotification( `Товар "${productTitle}" добавлен в корзину за ${productPrice}` );
+		}
+
+		// Анимация кнопки
+		const originalText = this.textContent;
+		const originalBg = this.style.background;
+
+		this.textContent = '✓ Добавлено!';
+		this.style.background = 'linear-gradient(135deg, #34c759 0%, #2db14d 100%)';
+		this.style.transform = 'scale(0.95)';
+
+		// Возвращаем исходное состояние через 1.5 секунды
+		setTimeout( () => {
+			this.textContent = originalText;
+			this.style.background = originalBg;
+			this.style.transform = 'scale(1)';
+		}, 1500 );
+	}
 
 	/**
 	 * Функция показа уведомлений
@@ -486,6 +479,72 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		}, 3000 );
 	}
 
+	/**
+	 * Полная перезагрузка аккордеона
+	 */
+	function reloadAccordion() {
+		console.log( 'Перезагрузка аккордеона...' );
+
+		// Останавливаем автоскролл
+		stopAutoScroll();
+
+		// Небольшая задержка для обновления DOM
+		setTimeout( () => {
+			// Обновляем ссылку на контейнер (на случай если он был пересоздан)
+			productsScroll = document.getElementById( 'productsScroll' );
+
+			if ( !productsScroll ) {
+				console.error( 'Контейнер товаров не найден после перезагрузки' );
+				return;
+			}
+
+			// Обновляем измерения
+			updateMeasurements();
+
+			// Пересоздаем сегменты
+			createNavbarSegments();
+
+			// Добавляем обработчики
+			addProductHoverHandlers();
+			updateCartButtons();
+
+			// Сбрасываем индекс
+			currentIndex = 0;
+			updateActiveSegment();
+
+			// Прокручиваем в начало
+			if ( productsScroll ) {
+				productsScroll.scrollLeft = 0;
+			}
+
+			// Запускаем автоскролл
+			startAutoScroll();
+
+			console.log( 'Аккордеон перезагружен' );
+		}, 100 );
+	}
+
+	// ========== ОБРАБОТЧИКИ СОБЫТИЙ ==========
+
+	/**
+	 * Обработчик скролла - срабатывает при любом скролле (ручном или программном)
+	 */
+	productsScroll.addEventListener( 'scroll', function () {
+		// Обновляем индекс только при ручном скролле
+		// Флаг isScrolling = true во время программной прокрутки
+		updateCurrentIndex();
+	} );
+
+	/**
+	 * Остановка автоскролла при наведении на контейнер
+	 */
+	productsScroll.addEventListener( 'mouseenter', stopAutoScroll );
+
+	/**
+	 * Возобновление автоскролла при уходе мыши с контейнера
+	 */
+	productsScroll.addEventListener( 'mouseleave', startAutoScroll );
+
 	// ========== ИНИЦИАЛИЗАЦИЯ ==========
 
 	// Первоначальные измерения
@@ -496,6 +555,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	// Добавление обработчиков наведения на карточки
 	addProductHoverHandlers();
+
+	// Добавление обработчиков для кнопок
+	updateCartButtons();
 
 	// Обновление текущего индекса
 	updateCurrentIndex();
@@ -549,14 +611,28 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 				// Добавляем обработчики для новых карточек
 				addProductHoverHandlers();
+				updateCartButtons();
 
-				console.debug( 'DOM updated, segments recreated and hover handlers added' );
+				console.debug( 'DOM updated, segments recreated and handlers added' );
 			}
 		} );
 	} );
 
 	// Запускаем наблюдение за изменениями в контейнере товаров
 	observer.observe( productsScroll, { childList: true, subtree: false } );
+
+	// ========== СЛУШАЕМ ОБНОВЛЕНИЯ ТОВАРОВ ==========
+	// Слушаем кастомное событие обновления товаров
+	window.addEventListener( 'productsUpdated', function () {
+		reloadAccordion();
+	} );
+
+	// Слушаем изменения localStorage
+	window.addEventListener( 'storage', function ( e ) {
+		if ( e.key === 'products' ) {
+			reloadAccordion();
+		}
+	} );
 
 	// ========== ОТЛАДОЧНАЯ ИНФОРМАЦИЯ ==========
 	console.log( 'Скролл-аккордеон товаров инициализирован:', {
@@ -567,4 +643,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		currentIndex,
 		segmentsCount: segments.length
 	} );
+
+	// Добавляем метод для ручной перезагрузки
+	window.reloadProductsAccordion = reloadAccordion;
 } );

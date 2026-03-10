@@ -1,7 +1,149 @@
 /**
- * ФУНКЦИОНАЛ РАЗВОРАЧИВАНИЯ КАТЕГОРИЙ ТОВАРОВ
+ * ФУНКЦИОНАЛ РАЗВОРАЧИВАНИЯ КАТЕГОРИЙ ТОВАРОВ И ЗАГРУЗКИ ТОВАРОВ НА ГЛАВНУЮ
  * Для сайта "Комори" - азиатский магазинчик
  */
+
+// ========== ФУНКЦИИ ДЛЯ ЗАГРУЗКИ ТОВАРОВ ==========
+
+/**
+ * Загрузка товаров на главную страницу в секцию products-scroll
+ */
+function loadProductsToCatalog() {
+	const productsGrid = document.querySelector( '.products-scroll' );
+	if ( !productsGrid ) return;
+
+	const products = JSON.parse( localStorage.getItem( 'products' ) ) || [];
+
+	// Сохраняем текущие товары, если они есть, для демо-режима
+	const hasDemoProducts = productsGrid.children.length > 0 && products.length === 0;
+
+	if ( products.length === 0 && !hasDemoProducts ) {
+		// Если нет товаров, показываем демо-товары
+		loadDemoProducts( productsGrid );
+		return;
+	} else if ( products.length === 0 && hasDemoProducts ) {
+		// Если есть демо-товары, оставляем их
+		return;
+	}
+
+	// Очищаем текущие товары
+	productsGrid.innerHTML = '';
+
+	// Добавляем товары из хранилища
+	products.forEach( product => {
+		if ( product.status === 'in-stock' && product.quantity > 0 ) {
+			const productCard = createProductCard( product );
+			productsGrid.appendChild( productCard );
+		}
+	} );
+
+	// Если после фильтрации не осталось товаров, показываем демо
+	if ( productsGrid.children.length === 0 ) {
+		loadDemoProducts( productsGrid );
+	}
+}
+
+/**
+ * Загрузка демо-товаров для примера
+ * @param {HTMLElement} container - контейнер для товаров
+ */
+function loadDemoProducts( container ) {
+	// Демо-товары уже есть в HTML, просто убеждаемся что они отображаются
+	console.log( 'Используются демо-товары' );
+}
+
+/**
+ * Создание карточки товара из данных
+ * @param {Object} product - объект товара
+ * @returns {HTMLElement} - DOM элемент карточки
+ */
+function createProductCard( product ) {
+	const card = document.createElement( 'div' );
+	card.className = 'product-card';
+	card.dataset.id = product.id;
+	card.dataset.category = product.category;
+
+	const discount = product.oldPrice > product.price
+		? Math.round( ( 1 - product.price / product.oldPrice ) * 100 )
+		: 0;
+
+	// Определяем бейджи
+	let badges = '';
+	if ( product.isHit ) badges += '<span class="product-badge">Хит продаж</span>';
+	if ( product.isNew ) badges += '<span class="product-badge new">Новинка</span>';
+	if ( discount > 0 ) badges += `<span class="product-badge">-${discount}%</span>`;
+
+	card.innerHTML = `
+        <div class="product-image">
+            <img src="${product.image || 'https://via.placeholder.com/300x200/e0e0e0/666666?text=Нет+фото'}" 
+                 alt="${product.name}" 
+                 loading="lazy"
+                 onerror="this.src='https://via.placeholder.com/300x200/e0e0e0/666666?text=Ошибка+загрузки'">
+            ${badges}
+        </div>
+        <div class="product-content">
+            <h3 class="product-title">${product.name}</h3>
+            <p class="product-description">${product.description || ''}</p>
+            <div class="product-meta">
+                <span class="product-price">${product.price.toLocaleString()} ₽</span>
+                ${product.oldPrice > product.price
+			? `<span class="product-old-price">${product.oldPrice.toLocaleString()} ₽</span>`
+			: ''}
+            </div>
+            <button class="product-btn" onclick="window.productManager && productManager.addToCart('${product.id}')">
+                В корзину
+            </button>
+        </div>
+    `;
+
+	return card;
+}
+
+/**
+ * Получение названия категории по ключу
+ * @param {string} categoryKey - ключ категории
+ * @returns {string} - название категории
+ */
+function getCategoryName( categoryKey ) {
+	const categories = {
+		'figures': 'Аниме фигурки',
+		'tea': 'Японский чай',
+		'sweets': 'Азиатские сладости',
+		'manga': 'Манга и книги',
+		'clothing': 'Аниме одежда',
+		'tableware': 'Японская посуда',
+		'games': 'Японские игры',
+		'stationery': 'Канцелярия кавай',
+		'cosmetics': 'Косметика из Азии',
+		'decor': 'Азиатский декор',
+		'anime': 'Аниме на дисках',
+		'music': 'Азиатская музыка',
+		'other': 'Другое',
+		'electronics': 'Электроника',
+		'books': 'Книги'
+	};
+	return categories[categoryKey] || categoryKey;
+}
+
+/**
+ * Обновление товаров при изменении в localStorage
+ */
+function setupProductsSync() {
+	// Слушаем изменения в localStorage
+	window.addEventListener( 'storage', ( e ) => {
+		if ( e.key === 'products' ) {
+			console.log( 'Товары обновлены в localStorage, перезагружаем...' );
+			loadProductsToCatalog();
+		}
+	} );
+
+	// Также можно создать кастомное событие для обновления
+	window.addEventListener( 'productsUpdated', () => {
+		loadProductsToCatalog();
+	} );
+}
+
+// ========== КЛАСС ДЛЯ РАЗВОРАЧИВАНИЯ КАТЕГОРИЙ ==========
 
 class CatalogExpander {
 	constructor() {
@@ -14,6 +156,12 @@ class CatalogExpander {
 	}
 
 	init() {
+		// Загружаем товары в каталог
+		loadProductsToCatalog();
+
+		// Настраиваем синхронизацию
+		setupProductsSync();
+
 		if ( !this.showAllBtn || !this.catalogGrid ) return;
 
 		// Устанавливаем начальное состояние
@@ -27,6 +175,9 @@ class CatalogExpander {
 
 		// Инициализируем анимацию элементов
 		this.initCatalogAnimations();
+
+		// Добавляем кнопку обновления товаров (для отладки, можно убрать)
+		this.addRefreshButton();
 	}
 
 	setupInitialState() {
@@ -208,7 +359,9 @@ class CatalogExpander {
 	}
 }
 
-// Инициализация при загрузке документа
+// ========== ИНИЦИАЛИЗАЦИЯ ==========
+
+// Загружаем товары при загрузке страницы
 document.addEventListener( 'DOMContentLoaded', function () {
 	// Создаем экземпляр класса
 	const catalogExpander = new CatalogExpander();
@@ -224,4 +377,13 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	// Добавляем глобальную ссылку для отладки (можно удалить в продакшене)
 	window.catalogExpander = catalogExpander;
+
+	// Добавляем возможность ручного обновления через консоль
+	window.refreshProducts = loadProductsToCatalog;
+} );
+
+// Также загружаем товары после полной загрузки страницы
+window.addEventListener( 'load', function () {
+	// Небольшая задержка для уверенности
+	setTimeout( loadProductsToCatalog, 100 );
 } );
