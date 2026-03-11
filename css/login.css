@@ -810,21 +810,45 @@
 
 /* ====== АДАПТИВНОСТЬ ====== */
 
-/* Планшеты - до 1200px */
-@media (max-width: 1200px) {
+/* Десктоп (1201px - 1440px) */
+@media (1201px <=width < 1441px) {
+	.auth-container {
+		grid-template-columns: 1fr 1.4fr;
+		gap: 35px;
+	}
+
+	.benefits-grid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 25px;
+	}
+}
+
+/* Десктоп (993px - 1200px) */
+@media (993px <=width < 1201px) {
 	.auth-container {
 		grid-template-columns: 1fr 1.2fr;
+		gap: 30px;
+	}
+
+	.auth-decoration {
+		padding: 30px 20px;
+	}
+
+	.auth-decoration-text h2 {
+		font-size: 26px;
 	}
 
 	.benefits-grid {
 		grid-template-columns: repeat(2, 1fr);
+		gap: 20px;
 	}
 }
 
-/* Планшеты - до 992px */
-@media (max-width: 992px) {
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
 	.auth-container {
 		grid-template-columns: 1fr;
+		gap: 0;
 	}
 
 	.auth-decoration {
@@ -845,18 +869,25 @@
 	}
 
 	.benefits-grid {
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 20px;
+	}
+
+	.benefit-card {
+		padding: 25px;
 	}
 }
 
-/* Мобильные - до 768px */
-@media (max-width: 768px) {
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
 	.auth-main {
-		padding: 30px 20px;
+		padding: 30px 25px;
 	}
 
 	.auth-tabs {
 		gap: 10px;
+		flex-wrap: wrap;
+		justify-content: center;
 	}
 
 	.auth-tab {
@@ -881,10 +912,176 @@
 	.auth-info {
 		display: none;
 	}
+
+	.social-login {
+		grid-template-columns: 1fr;
+	}
+
+	.benefits-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.benefit-card {
+		padding: 25px;
+	}
+
+	.benefit-icon {
+		width: 60px;
+		height: 60px;
+	}
+
+	.benefit-icon i {
+		font-size: 26px;
+	}
+
+	.auth-benefits-title {
+		font-size: 26px;
+	}
+
+	.faq-question {
+		padding: 15px;
+	}
+
+	.faq-question span {
+		font-size: 15px;
+	}
 }
 
-/* Очень маленькие - до 480px */
-@media (max-width: 480px) {
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
+	.auth-main {
+		padding: 25px 20px;
+	}
+
+	.auth-tabs {
+		flex-direction: column;
+		gap: 5px;
+		align-items: stretch;
+	}
+
+	.auth-tab {
+		justify-content: center;
+	}
+
+	.auth-tab.active::after {
+		display: none;
+	}
+
+	.auth-form-title {
+		font-size: 22px;
+		margin-bottom: 20px;
+		text-align: center;
+	}
+
+	.auth-label {
+		font-size: 13px;
+	}
+
+	.auth-input {
+		padding: 12px 14px;
+		font-size: 14px;
+	}
+
+	.auth-options {
+		flex-direction: column;
+		gap: 12px;
+		align-items: flex-start;
+	}
+
+	.checkbox-text {
+		font-size: 13px;
+	}
+
+	.forgot-password-link {
+		font-size: 13px;
+	}
+
+	.auth-submit-btn {
+		padding: 14px;
+		font-size: 15px;
+	}
+
+	.auth-switch-mobile {
+		display: block;
+	}
+
+	.auth-info {
+		display: none;
+	}
+
+	.social-login {
+		grid-template-columns: 1fr;
+		gap: 8px;
+	}
+
+	.social-btn {
+		padding: 10px;
+		font-size: 13px;
+	}
+
+	.auth-divider span {
+		font-size: 13px;
+	}
+
+	.benefits-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.benefit-card {
+		padding: 25px 15px;
+	}
+
+	.benefit-card h3 {
+		font-size: 16px;
+	}
+
+	.benefit-card p {
+		font-size: 13px;
+	}
+
+	.auth-benefits {
+		margin: 40px 0;
+	}
+
+	.auth-benefits-title {
+		font-size: 24px;
+		margin-bottom: 30px;
+	}
+
+	.faq-question {
+		padding: 15px;
+	}
+
+	.faq-question span {
+		font-size: 14px;
+	}
+
+	.faq-answer {
+		font-size: 13px;
+	}
+
+	.forgot-modal-content {
+		padding: 30px 20px;
+	}
+
+	.forgot-modal-title {
+		font-size: 22px;
+	}
+
+	.forgot-modal-text {
+		font-size: 14px;
+	}
+
+	.forgot-submit-btn {
+		padding: 14px;
+		font-size: 15px;
+	}
+}
+
+/* Мобильные (до 481px) */
+@media (width < 481px) {
 	.auth-main {
 		padding: 20px 15px;
 	}
@@ -894,19 +1091,379 @@
 		gap: 5px;
 	}
 
+	.auth-tab {
+		justify-content: center;
+		padding: 8px 12px;
+		font-size: 13px;
+	}
+
+	.auth-tab i {
+		font-size: 16px;
+	}
+
 	.auth-tab.active::after {
 		display: none;
 	}
 
 	.auth-form-title {
 		font-size: 20px;
+		margin-bottom: 20px;
+		text-align: center;
+	}
+
+	.auth-label {
+		font-size: 13px;
+		gap: 6px;
+	}
+
+	.auth-label i {
+		font-size: 14px;
+	}
+
+	.auth-input {
+		padding: 12px;
+		font-size: 14px;
+	}
+
+	.password-toggle {
+		right: 10px;
+	}
+
+	.password-hint {
+		font-size: 11px;
+	}
+
+	.input-error {
+		font-size: 11px;
+	}
+
+	.auth-options {
+		flex-direction: column;
+		gap: 12px;
+		align-items: flex-start;
 	}
 
 	.checkbox-text {
+		font-size: 12px;
+	}
+
+	.forgot-password-link {
+		font-size: 12px;
+	}
+
+	.auth-submit-btn {
+		padding: 14px;
+		font-size: 14px;
+		margin: 15px 0;
+	}
+
+	.auth-divider span {
+		font-size: 12px;
+	}
+
+	.social-login {
+		grid-template-columns: 1fr;
+		gap: 8px;
+	}
+
+	.social-btn {
+		padding: 10px;
 		font-size: 13px;
 	}
 
+	.social-btn i {
+		font-size: 16px;
+	}
+
+	.auth-switch-mobile {
+		display: block;
+		font-size: 13px;
+	}
+
+	.auth-info {
+		display: none;
+	}
+
+	.benefits-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.benefit-card {
+		padding: 20px 15px;
+	}
+
+	.benefit-icon {
+		width: 60px;
+		height: 60px;
+		margin-bottom: 15px;
+	}
+
+	.benefit-icon i {
+		font-size: 26px;
+	}
+
+	.benefit-card h3 {
+		font-size: 16px;
+		margin-bottom: 8px;
+	}
+
+	.benefit-card p {
+		font-size: 13px;
+	}
+
+	.auth-benefits {
+		margin: 40px 0;
+	}
+
+	.auth-benefits-title {
+		font-size: 22px;
+		margin-bottom: 25px;
+	}
+
+	.auth-faq {
+		margin-bottom: 40px;
+	}
+
+	.auth-faq-title {
+		font-size: 20px;
+		margin-bottom: 20px;
+	}
+
+	.faq-question {
+		padding: 15px;
+	}
+
+	.faq-question span {
+		font-size: 14px;
+	}
+
+	.faq-question i {
+		font-size: 14px;
+	}
+
+	.faq-answer {
+		font-size: 13px;
+		line-height: 1.5;
+	}
+
+	.faq-item.active .faq-answer {
+		padding: 15px;
+	}
+
 	.forgot-modal-content {
-		padding: 25px 20px;
+		padding: 25px 15px;
+	}
+
+	.forgot-modal-title {
+		font-size: 20px;
+		margin-bottom: 10px;
+	}
+
+	.forgot-modal-text {
+		font-size: 13px;
+		margin-bottom: 20px;
+	}
+
+	.forgot-input-group label {
+		font-size: 13px;
+	}
+
+	.forgot-input {
+		padding: 12px;
+		font-size: 14px;
+	}
+
+	.forgot-submit-btn {
+		padding: 14px;
+		font-size: 14px;
+	}
+
+	.forgot-back a {
+		font-size: 13px;
+	}
+}
+
+/* Очень маленькие экраны (до 360px) */
+@media (width < 360px) {
+	.auth-main {
+		padding: 15px 10px;
+	}
+
+	.auth-tab {
+		padding: 8px;
+		font-size: 12px;
+	}
+
+	.auth-tab i {
+		font-size: 14px;
+	}
+
+	.auth-form-title {
+		font-size: 18px;
+	}
+
+	.auth-label {
+		font-size: 12px;
+	}
+
+	.auth-input {
+		padding: 10px;
+		font-size: 13px;
+	}
+
+	.auth-submit-btn {
+		padding: 12px;
+		font-size: 13px;
+	}
+
+	.social-btn {
+		padding: 8px;
+		font-size: 12px;
+	}
+
+	.social-btn i {
+		font-size: 14px;
+	}
+
+	.benefit-card {
+		padding: 15px 10px;
+	}
+
+	.benefit-icon {
+		width: 50px;
+		height: 50px;
+	}
+
+	.benefit-icon i {
+		font-size: 22px;
+	}
+
+	.benefit-card h3 {
+		font-size: 15px;
+	}
+
+	.benefit-card p {
+		font-size: 12px;
+	}
+
+	.auth-benefits-title {
+		font-size: 20px;
+	}
+
+	.faq-question {
+		padding: 12px;
+	}
+
+	.faq-question span {
+		font-size: 13px;
+	}
+
+	.faq-answer {
+		font-size: 12px;
+	}
+
+	.faq-item.active .faq-answer {
+		padding: 12px;
+	}
+
+	.forgot-modal-title {
+		font-size: 18px;
+	}
+
+	.forgot-modal-text {
+		font-size: 12px;
+	}
+
+	.forgot-input {
+		padding: 10px;
+		font-size: 13px;
+	}
+
+	.forgot-submit-btn {
+		padding: 12px;
+		font-size: 13px;
+	}
+}
+
+/* Ультраширокие экраны (1921px и выше) */
+@media (width >=1921px) {
+	.auth-container {
+		max-width: 1600px;
+		margin-left: auto;
+		margin-right: auto;
+		grid-template-columns: 1fr 1.5fr;
+		gap: 50px;
+	}
+
+	.auth-decoration {
+		padding: 50px 40px;
+	}
+
+	.auth-decoration-sakura i {
+		font-size: 56px;
+	}
+
+	.auth-decoration-text h2 {
+		font-size: 32px;
+	}
+
+	.auth-decoration-text p {
+		font-size: 18px;
+	}
+
+	.feature i {
+		font-size: 28px;
+		width: 50px;
+		height: 50px;
+	}
+
+	.feature span {
+		font-size: 16px;
+	}
+
+	.auth-main {
+		padding: 50px;
+	}
+
+	.auth-form-title {
+		font-size: 28px;
+		margin-bottom: 30px;
+	}
+
+	.auth-input {
+		padding: 16px 18px;
+		font-size: 16px;
+	}
+
+	.auth-submit-btn {
+		padding: 18px;
+		font-size: 18px;
+	}
+
+	.benefits-grid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 35px;
+	}
+
+	.benefit-card {
+		padding: 35px;
+	}
+
+	.benefit-icon {
+		width: 80px;
+		height: 80px;
+	}
+
+	.benefit-icon i {
+		font-size: 34px;
+	}
+
+	.benefit-card h3 {
+		font-size: 20px;
+	}
+
+	.benefit-card p {
+		font-size: 15px;
 	}
 }

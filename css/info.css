@@ -5,28 +5,42 @@
 	padding: 40px;
 	margin-bottom: 50px;
 	box-shadow: 0 10px 30px rgba(255, 183, 197, 0.15);
-	/* Тень розового цвета */
 	border: 1px solid #ffe6ea;
 	position: relative;
 	overflow: hidden;
 }
 
-/* Декоративный элемент в углу */
+/* Солнечные лучи на фоне */
 .promo-section::before {
 	content: '';
 	position: absolute;
-	top: -50px;
-	right: -50px;
-	width: 150px;
-	height: 150px;
-	background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ffb7c5" opacity="0.1" d="M50,0C22.4,0,0,22.4,0,50s22.4,50,50,50s50-22.4,50-50S77.6,0,50,0z M50,86.7 c-20.3,0-36.7-16.4-36.7-36.7S29.7,13.3,50,13.3S86.7,29.7,86.7,50S70.3,86.7,50,86.7z"/></svg>');
-	background-repeat: no-repeat;
+	top: -100px;
+	right: -100px;
+	width: 300px;
+	height: 300px;
+	background: radial-gradient(circle, rgba(255, 215, 140, 0.15) 0%, rgba(255, 215, 140, 0) 70%);
+	border-radius: 50%;
 	z-index: 0;
+	animation: sunRays 8s ease-in-out infinite;
+}
+
+@keyframes sunRays {
+
+	0%,
+	100% {
+		transform: scale(1);
+		opacity: 0.5;
+	}
+
+	50% {
+		transform: scale(1.1);
+		opacity: 0.8;
+	}
 }
 
 .promo-section h1 {
-	color: #ff6b6b;
-	/* Акцентный красный для заголовка */
+	color: #ff8c42;
+	/* Теплый оранжевый как закатное солнце */
 	margin-bottom: 30px;
 	font-size: 36px;
 	border-bottom: 3px solid #ffb7c5;
@@ -35,29 +49,23 @@
 	position: relative;
 	z-index: 1;
 	font-weight: 700;
-}
-
-/* Декоративный элемент под заголовком */
-.promo-section h1::after {
-	content: '✿';
-	position: absolute;
-	right: 0;
-	bottom: -12px;
-	color: #ffb7c5;
-	font-size: 24px;
+	text-shadow: 2px 2px 4px rgba(255, 140, 66, 0.1);
 }
 
 /* Контейнер для промо-контента */
 .promo-content {
-	display: flex;
-	gap: 50px;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 40px;
 	position: relative;
 	z-index: 1;
 }
 
 /* Основной текст промо */
 .promo-text {
-	flex: 2;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 30px;
 }
 
 .promo-text p {
@@ -68,33 +76,422 @@
 	text-align: justify;
 }
 
-
-.promo-card {
-	background: linear-gradient(135deg, #fbf1fcee 0%, #ebebfb 100%);
-	color: white;
-	padding: 35px;
+/* Акцент на первом абзаце */
+.promo-text p:first-child {
+	font-size: 18px;
+	font-weight: 500;
+	color: #ff8c42;
+	/* Солнечный акцент */
+	background: linear-gradient(135deg, #fff9f0, transparent);
+	padding: 20px;
 	border-radius: 15px;
-	box-shadow: 0 15px 35px rgba(57, 149, 255, 0.1);
-	border: 1px solid #333;
-	position: relative;
-	overflow: hidden;
+	border-left: 4px solid #ffb7c5;
 }
 
-/* Декоративный элемент на карточке */
+/* Карточки */
+.promo-card {
+	background: linear-gradient(135deg, #fff9f5 0%, #fff0e6 100%);
+	color: #2a2a2a;
+	padding: 30px;
+	border-radius: 20px;
+	box-shadow: 0 15px 35px rgba(255, 140, 66, 0.1);
+	border: 1px solid #ffe0cc;
+	position: relative;
+	overflow: hidden;
+	transition: all 0.4s ease;
+}
+
+.promo-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 20px 40px rgba(255, 140, 66, 0.15);
+	border-color: #ffb7c5;
+}
+
+/* Солнечный блик на карточке */
 .promo-card::before {
-	content: '🌸';
+	content: '';
 	position: absolute;
-	top: 15px;
-	right: 15px;
-	font-size: 24px;
-	opacity: 0.3;
+	top: -20px;
+	right: -20px;
+	width: 80px;
+	height: 80px;
+	background: radial-gradient(circle, rgba(255, 215, 140, 0.3) 0%, rgba(255, 215, 140, 0) 70%);
+	border-radius: 50%;
+	z-index: 0;
+	animation: sunGlow 5s ease-in-out infinite;
+}
+
+@keyframes sunGlow {
+
+	0%,
+	100% {
+		opacity: 0.3;
+		transform: scale(1);
+	}
+
+	50% {
+		opacity: 0.6;
+		transform: scale(1.1);
+	}
 }
 
 .promo-card h3 {
-	color: #ff6b6b;
-	/* Розовый сакуры для заголовка карточки */
-	margin-bottom: 25px;
-	font-size: 26px;
+	color: #ff8c42;
+	/* Солнечный оранжевый */
+	margin-bottom: 20px;
+	font-size: 24px;
 	border-bottom: 2px solid rgba(255, 183, 197, 0.3);
 	padding-bottom: 12px;
+	position: relative;
+	z-index: 1;
+	font-weight: 600;
+}
+
+.promo-card p {
+	color: #555;
+	line-height: 1.7;
+	margin-bottom: 15px;
+	position: relative;
+	z-index: 1;
+	font-size: 15px;
+}
+
+/* ====== АДАПТИВНОСТЬ ====== */
+
+/* Десктоп (1201px - 1440px) */
+@media (1201px <=width < 1441px) {
+	.promo-section {
+		padding: 35px;
+	}
+
+	.promo-section h1 {
+		font-size: 34px;
+	}
+
+	.promo-text {
+		gap: 25px;
+	}
+
+	.promo-card {
+		padding: 25px;
+	}
+
+	.promo-card h3 {
+		font-size: 22px;
+	}
+}
+
+/* Десктоп (993px - 1200px) */
+@media (993px <=width < 1201px) {
+	.promo-section {
+		padding: 30px;
+	}
+
+	.promo-section h1 {
+		font-size: 32px;
+	}
+
+	.promo-text {
+		grid-template-columns: 1fr 1fr;
+		gap: 20px;
+	}
+
+	.promo-text p:first-child {
+		font-size: 17px;
+		padding: 15px;
+	}
+
+	.promo-card {
+		padding: 25px;
+	}
+
+	.promo-card h3 {
+		font-size: 22px;
+		margin-bottom: 15px;
+	}
+
+	.promo-card p {
+		font-size: 14px;
+	}
+}
+
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
+	.promo-section {
+		padding: 30px 25px;
+	}
+
+	.promo-section h1 {
+		font-size: 28px;
+		margin-bottom: 25px;
+	}
+
+	.promo-text {
+		grid-template-columns: 1fr;
+		gap: 30px;
+	}
+
+	.promo-text p:first-child {
+		font-size: 16px;
+		padding: 15px;
+	}
+
+	.promo-text p {
+		font-size: 15px;
+		line-height: 1.7;
+	}
+
+	.promo-card {
+		padding: 25px;
+		margin-bottom: 10px;
+	}
+
+	.promo-card h3 {
+		font-size: 22px;
+	}
+
+	.promo-card p {
+		font-size: 14px;
+	}
+}
+
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
+	.promo-section {
+		padding: 25px 20px;
+	}
+
+	.promo-section h1 {
+		font-size: 24px;
+		margin-bottom: 20px;
+		padding-bottom: 12px;
+	}
+
+	.promo-text {
+		grid-template-columns: 1fr;
+		gap: 25px;
+	}
+
+	.promo-text p:first-child {
+		font-size: 15px;
+		padding: 15px;
+	}
+
+	.promo-text p {
+		font-size: 14px;
+		line-height: 1.6;
+		margin-bottom: 15px;
+	}
+
+	.promo-card {
+		padding: 20px;
+	}
+
+	.promo-card h3 {
+		font-size: 20px;
+		margin-bottom: 15px;
+	}
+
+	.promo-card p {
+		font-size: 14px;
+		line-height: 1.6;
+	}
+
+	/* Уменьшаем декоративные элементы */
+	.promo-section::before {
+		width: 200px;
+		height: 200px;
+		top: -70px;
+		right: -70px;
+	}
+}
+
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
+	.promo-section {
+		padding: 20px 15px;
+	}
+
+	.promo-section h1 {
+		font-size: 22px;
+		margin-bottom: 20px;
+		padding-bottom: 10px;
+	}
+
+	.promo-text {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.promo-text p:first-child {
+		font-size: 14px;
+		padding: 12px;
+	}
+
+	.promo-text p {
+		font-size: 14px;
+		line-height: 1.6;
+		text-align: left;
+	}
+
+	.promo-card {
+		padding: 18px;
+	}
+
+	.promo-card h3 {
+		font-size: 18px;
+		margin-bottom: 12px;
+	}
+
+	.promo-card p {
+		font-size: 13px;
+		line-height: 1.5;
+	}
+
+	/* Убираем крупные декоративные элементы */
+	.promo-section::before {
+		width: 150px;
+		height: 150px;
+		top: -50px;
+		right: -50px;
+	}
+}
+
+/* Мобильные (до 481px) */
+@media (width < 481px) {
+	.promo-section {
+		padding: 15px 12px;
+		margin-bottom: 30px;
+	}
+
+	.promo-section h1 {
+		font-size: 20px;
+		margin-bottom: 15px;
+		padding-bottom: 10px;
+	}
+
+	.promo-text {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.promo-text p:first-child {
+		font-size: 14px;
+		padding: 10px;
+		margin-bottom: 15px;
+	}
+
+	.promo-text p {
+		font-size: 13px;
+		line-height: 1.5;
+		text-align: left;
+		margin-bottom: 12px;
+	}
+
+	.promo-card {
+		padding: 15px;
+	}
+
+	.promo-card h3 {
+		font-size: 18px;
+		margin-bottom: 10px;
+		padding-bottom: 8px;
+	}
+
+	.promo-card p {
+		font-size: 13px;
+		line-height: 1.5;
+		margin-bottom: 8px;
+	}
+
+	/* Убираем декоративные элементы */
+	.promo-section::before {
+		width: 100px;
+		height: 100px;
+		top: -30px;
+		right: -30px;
+	}
+}
+
+/* Очень маленькие экраны (до 360px) */
+@media (width < 360px) {
+	.promo-section {
+		padding: 12px 10px;
+	}
+
+	.promo-section h1 {
+		font-size: 18px;
+	}
+
+	.promo-text p:first-child {
+		font-size: 13px;
+		padding: 8px;
+	}
+
+	.promo-text p {
+		font-size: 12px;
+		line-height: 1.4;
+	}
+
+	.promo-card {
+		padding: 12px;
+	}
+
+	.promo-card h3 {
+		font-size: 16px;
+	}
+
+	.promo-card p {
+		font-size: 12px;
+	}
+}
+
+/* Ультраширокие экраны (1921px и выше) */
+@media (width >=1921px) {
+	.promo-section {
+		padding: 50px;
+		max-width: 1600px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.promo-section h1 {
+		font-size: 42px;
+	}
+
+	.promo-text {
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
+	}
+
+	.promo-text p {
+		font-size: 18px;
+		line-height: 1.9;
+	}
+
+	.promo-text p:first-child {
+		font-size: 20px;
+		padding: 25px;
+	}
+
+	.promo-card {
+		padding: 35px;
+	}
+
+	.promo-card h3 {
+		font-size: 28px;
+	}
+
+	.promo-card p {
+		font-size: 17px;
+		line-height: 1.8;
+	}
+
+	/* Увеличиваем декоративные элементы */
+	.promo-section::before {
+		width: 400px;
+		height: 400px;
+		top: -150px;
+		right: -150px;
+	}
 }

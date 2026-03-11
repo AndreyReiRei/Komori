@@ -788,8 +788,26 @@
 
 /* ====== АДАПТИВНОСТЬ ====== */
 
-/* Планшеты (Tablet Landscape) - до 1200px */
-@media (max-width: 1200px) {
+/* Десктоп (1201px - 1440px) */
+@media (1201px <=width < 1441px) {
+	.cart-with-items {
+		grid-template-columns: 1fr 350px;
+		gap: 25px;
+	}
+
+	.related-products-grid {
+		grid-template-columns: repeat(4, 1fr);
+		gap: 18px;
+	}
+
+	.recommendations-grid {
+		grid-template-columns: repeat(4, 1fr);
+		gap: 18px;
+	}
+}
+
+/* Десктоп (993px - 1200px) */
+@media (993px <=width < 1201px) {
 	.cart-with-items {
 		grid-template-columns: 1fr 320px;
 		gap: 20px;
@@ -797,15 +815,17 @@
 
 	.related-products-grid {
 		grid-template-columns: repeat(3, 1fr);
+		gap: 18px;
 	}
 
 	.recommendations-grid {
 		grid-template-columns: repeat(3, 1fr);
+		gap: 18px;
 	}
 }
 
-/* Планшеты (Tablet Portrait) - до 992px */
-@media (max-width: 992px) {
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
 	.cart-with-items {
 		grid-template-columns: 1fr;
 	}
@@ -867,15 +887,76 @@
 
 	.related-products-grid {
 		grid-template-columns: repeat(2, 1fr);
+		gap: 18px;
 	}
 
 	.recommendations-grid {
 		grid-template-columns: repeat(2, 1fr);
+		gap: 18px;
 	}
 }
 
-/* Мобильные устройства - до 768px */
-@media (max-width: 768px) {
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
+	.cart-with-items {
+		grid-template-columns: 1fr;
+	}
+
+	.cart-table-header {
+		display: none;
+	}
+
+	.cart-item-row {
+		grid-template-columns: 1fr;
+		gap: 15px;
+		position: relative;
+		padding: 20px;
+	}
+
+	.cart-col-product {
+		grid-column: 1;
+	}
+
+	.cart-col-price,
+	.cart-col-quantity,
+	.cart-col-total,
+	.cart-col-remove {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-left: 0;
+	}
+
+	.cart-col-price::before,
+	.cart-col-quantity::before,
+	.cart-col-total::before {
+		content: attr(data-label);
+		font-weight: 600;
+		color: #666;
+	}
+
+	.cart-col-price::before {
+		content: "Цена:";
+	}
+
+	.cart-col-quantity::before {
+		content: "Количество:";
+	}
+
+	.cart-col-total::before {
+		content: "Сумма:";
+	}
+
+	.cart-col-remove {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+	}
+
+	.cart-quantity-control {
+		justify-content: flex-start;
+	}
+
 	.cart-page-header {
 		flex-direction: column;
 		align-items: flex-start;
@@ -913,7 +994,146 @@
 	}
 
 	.related-products-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+	}
+
+	.related-products-title {
+		font-size: 22px;
+	}
+
+	.recommendations-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+	}
+
+	.payment-icons {
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+}
+
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
+	.cart-with-items {
 		grid-template-columns: 1fr;
+	}
+
+	.cart-table-header {
+		display: none;
+	}
+
+	.cart-item-row {
+		grid-template-columns: 1fr;
+		gap: 15px;
+		position: relative;
+		padding: 20px;
+	}
+
+	.cart-col-product {
+		grid-column: 1;
+	}
+
+	.cart-col-price,
+	.cart-col-quantity,
+	.cart-col-total,
+	.cart-col-remove {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-left: 0;
+	}
+
+	.cart-col-price::before,
+	.cart-col-quantity::before,
+	.cart-col-total::before {
+		content: attr(data-label);
+		font-weight: 600;
+		color: #666;
+	}
+
+	.cart-col-price::before {
+		content: "Цена:";
+	}
+
+	.cart-col-quantity::before {
+		content: "Количество:";
+	}
+
+	.cart-col-total::before {
+		content: "Сумма:";
+	}
+
+	.cart-col-remove {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+	}
+
+	.cart-quantity-control {
+		justify-content: flex-start;
+	}
+
+	.cart-product-info {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.cart-product-image {
+		width: 120px;
+		height: 120px;
+	}
+
+	.cart-product-attributes {
+		align-items: center;
+	}
+
+	.cart-page-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 15px;
+	}
+
+	.cart-page-title {
+		font-size: 26px;
+	}
+
+	.cart-page-title i {
+		font-size: 30px;
+	}
+
+	.cart-page-info {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		text-align: center;
+	}
+
+	.cart-items-count {
+		border-right: none;
+		padding-right: 0;
+	}
+
+	.cart-actions {
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.continue-shopping-btn,
+	.clear-cart-btn {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.related-products-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.recommendations-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
 	}
 
 	.cart-empty-actions {
@@ -926,18 +1146,79 @@
 		justify-content: center;
 	}
 
-	.recommendations-grid {
-		grid-template-columns: 1fr;
-	}
-
 	.payment-icons {
 		justify-content: center;
 		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.promo-code-input-group {
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.promo-code-apply {
+		width: 100%;
 	}
 }
 
-/* Очень маленькие экраны - до 480px */
-@media (max-width: 480px) {
+/* Мобильные (до 481px) */
+@media (width < 481px) {
+	.cart-with-items {
+		grid-template-columns: 1fr;
+	}
+
+	.cart-table-header {
+		display: none;
+	}
+
+	.cart-item-row {
+		grid-template-columns: 1fr;
+		gap: 15px;
+		position: relative;
+		padding: 20px;
+	}
+
+	.cart-col-product {
+		grid-column: 1;
+	}
+
+	.cart-col-price,
+	.cart-col-quantity,
+	.cart-col-total,
+	.cart-col-remove {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-left: 0;
+	}
+
+	.cart-col-price::before,
+	.cart-col-quantity::before,
+	.cart-col-total::before {
+		content: attr(data-label);
+		font-weight: 600;
+		color: #666;
+	}
+
+	.cart-col-price::before {
+		content: "Цена:";
+	}
+
+	.cart-col-quantity::before {
+		content: "Количество:";
+	}
+
+	.cart-col-total::before {
+		content: "Сумма:";
+	}
+
+	.cart-col-remove {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+	}
+
 	.cart-product-info {
 		flex-direction: column;
 		text-align: center;
@@ -953,18 +1234,243 @@
 	}
 
 	.cart-quantity-control {
-		width: 100%;
+		justify-content: flex-start;
 	}
 
 	.cart-quantity-input {
 		width: 60px;
 	}
 
+	.cart-page-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 15px;
+	}
+
+	.cart-page-title {
+		font-size: 24px;
+	}
+
+	.cart-page-title i {
+		font-size: 28px;
+	}
+
+	.cart-page-info {
+		width: 100%;
+		flex-direction: column;
+		gap: 8px;
+		text-align: center;
+		font-size: 14px;
+	}
+
+	.cart-items-count {
+		border-right: none;
+		padding-right: 0;
+	}
+
+	.cart-total-amount {
+		font-size: 16px;
+	}
+
+	.cart-actions {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.continue-shopping-btn,
+	.clear-cart-btn {
+		width: 100%;
+		justify-content: center;
+		padding: 10px 20px;
+		font-size: 14px;
+	}
+
+	.related-products-grid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+
+	.related-products-title {
+		font-size: 20px;
+	}
+
+	.related-product-image {
+		width: 100px;
+		height: 100px;
+	}
+
+	.recommendations-grid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+
+	.cart-empty-actions {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.cart-empty-btn {
+		width: 100%;
+		justify-content: center;
+		padding: 10px 20px;
+	}
+
+	.cart-empty-title {
+		font-size: 24px;
+	}
+
+	.cart-empty-icon {
+		font-size: 60px;
+	}
+
+	.payment-icons {
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 8px;
+		font-size: 24px;
+	}
+
 	.promo-code-input-group {
 		flex-direction: column;
+		gap: 8px;
 	}
 
 	.promo-code-apply {
 		width: 100%;
+		padding: 10px;
+	}
+
+	.promo-code-input {
+		padding: 10px 12px;
+	}
+
+	.delivery-info-text p {
+		font-size: 13px;
+	}
+
+	.cart-summary {
+		padding: 20px;
+	}
+
+	.cart-summary-total {
+		font-size: 18px;
+	}
+
+	.cart-summary-total .total-amount {
+		font-size: 20px;
+	}
+}
+
+/* Очень маленькие экраны (до 360px) */
+@media (width < 360px) {
+	.cart-page-title {
+		font-size: 22px;
+	}
+
+	.cart-page-title i {
+		font-size: 26px;
+	}
+
+	.cart-product-image {
+		width: 100px;
+		height: 100px;
+	}
+
+	.cart-product-title {
+		font-size: 15px;
+	}
+
+	.cart-price-current {
+		font-size: 16px;
+	}
+
+	.cart-item-total {
+		font-size: 16px;
+	}
+
+	.cart-quantity-btn {
+		width: 28px;
+		height: 28px;
+		font-size: 14px;
+	}
+
+	.cart-quantity-input {
+		width: 50px;
+		height: 28px;
+		font-size: 13px;
+	}
+
+	.payment-icons {
+		font-size: 22px;
+		gap: 6px;
+	}
+
+	.checkout-button {
+		padding: 14px;
+		font-size: 15px;
+	}
+
+	.related-product-image {
+		width: 90px;
+		height: 90px;
+	}
+}
+
+/* Ультраширокие экраны (1921px и выше) */
+@media (width >=1921px) {
+	.cart-with-items {
+		grid-template-columns: 1fr 450px;
+		gap: 40px;
+	}
+
+	.cart-page-title {
+		font-size: 38px;
+	}
+
+	.cart-page-title i {
+		font-size: 42px;
+	}
+
+	.cart-product-title {
+		font-size: 18px;
+	}
+
+	.cart-price-current {
+		font-size: 20px;
+	}
+
+	.cart-item-total {
+		font-size: 20px;
+	}
+
+	.related-products-grid {
+		grid-template-columns: repeat(5, 1fr);
+		gap: 25px;
+	}
+
+	.recommendations-grid {
+		grid-template-columns: repeat(5, 1fr);
+		gap: 25px;
+	}
+
+	.cart-summary {
+		padding: 30px;
+	}
+
+	.cart-summary-title {
+		font-size: 22px;
+	}
+
+	.cart-summary-total {
+		font-size: 22px;
+	}
+
+	.cart-summary-total .total-amount {
+		font-size: 26px;
+	}
+
+	.payment-icons {
+		font-size: 32px;
+		gap: 15px;
 	}
 }

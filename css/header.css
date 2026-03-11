@@ -542,11 +542,13 @@ header {
 	}
 
 	.logo-text {
-		font-size: 18px;
+		display: none;
+		/* Прячем основной текст логотипа */
 	}
 
 	.logo-tagline {
-		font-size: 10px;
+		display: none;
+		/* Прячем теглайн */
 	}
 
 	.user-actions {
@@ -573,12 +575,33 @@ header {
 
 /* Мобильные L (481px - 576px) */
 @media (481px <=width < 577px) {
-	/* Стили для мобильных L при необходимости */
+	.logo-text {
+		display: none;
+		/* Прячем основной текст логотипа */
+	}
+
+	.logo-tagline {
+		display: none;
+		/* Прячем теглайн */
+	}
+
+	.logo-icon {
+		margin-right: 0;
+		/* Убираем отступы если нужны */
+	}
 }
 
 /* Большие мобильные (577px - 768px) */
 @media (577px <=width < 769px) {
-	/* Стили для больших мобильных при необходимости */
+	.logo-text {
+		display: none;
+		/* Прячем основной текст логотипа */
+	}
+
+	.logo-tagline {
+		display: none;
+		/* Прячем теглайн */
+	}
 }
 
 /* Планшеты (769px - 992px) */

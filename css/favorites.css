@@ -1,8 +1,3 @@
-/* 
- * Стили для страницы избранного
- * Сайт "Комори" - азиатский магазинчик
- */
-
 /* ====== ОСНОВНЫЕ СТИЛИ СТРАНИЦЫ ИЗБРАННОГО ====== */
 
 /* Заголовок страницы */
@@ -10,7 +5,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 30px;
+	margin-bottom: 40px;
 	padding: 20px 0;
 	border-bottom: 2px solid #ffe6ea;
 }
@@ -25,7 +20,7 @@
 }
 
 .favorites-page-title i {
-	color: #ff4757;
+	color: #ff6b6b;
 	font-size: 36px;
 }
 
@@ -48,7 +43,7 @@
 
 .favorites-total-amount {
 	font-weight: 700;
-	color: #ff4757;
+	color: #ff6b6b;
 	font-size: 18px;
 }
 
@@ -58,7 +53,8 @@
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 30px;
-	padding: 15px 0;
+	padding: 20px 0;
+	border-top: 1px solid #ffe6ea;
 	border-bottom: 1px solid #ffe6ea;
 }
 
@@ -117,7 +113,7 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
-	padding: 10px 20px;
+	padding: 12px 25px;
 	background: transparent;
 	color: #999;
 	border: 1px solid #ffe6ea;
@@ -194,8 +190,8 @@
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	width: 32px;
-	height: 32px;
+	width: 36px;
+	height: 36px;
 	border-radius: 50%;
 	background: white;
 	border: 1px solid #ffe6ea;
@@ -272,7 +268,7 @@
 
 .favorite-card-title {
 	font-size: 16px;
-	margin-bottom: 5px;
+	margin-bottom: 8px;
 	font-weight: 600;
 	line-height: 1.4;
 }
@@ -305,10 +301,6 @@
 	display: flex;
 	gap: 2px;
 	color: #f39c12;
-	font-size: 12px;
-}
-
-.stars i {
 	font-size: 12px;
 }
 
@@ -352,6 +344,10 @@
 
 .favorite-card-stock.low-stock {
 	color: #e67e22;
+}
+
+.favorite-card-stock i {
+	font-size: 12px;
 }
 
 /* Действия с товаром */
@@ -793,23 +789,44 @@
 
 /* ====== АДАПТИВНОСТЬ ====== */
 
-/* Планшеты - до 1200px */
-@media (max-width: 1200px) {
+/* Десктоп (1201px - 1440px) */
+@media (1201px <=width < 1441px) {
+	.favorites-grid {
+		grid-template-columns: repeat(4, 1fr);
+		gap: 22px;
+	}
+
+	.recommendations-grid {
+		grid-template-columns: repeat(4, 1fr);
+		gap: 18px;
+	}
+
+	.popular-categories-grid {
+		grid-template-columns: repeat(4, 1fr);
+		gap: 12px;
+	}
+}
+
+/* Десктоп (993px - 1200px) */
+@media (993px <=width < 1201px) {
 	.favorites-grid {
 		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
 	}
 
 	.recommendations-grid {
 		grid-template-columns: repeat(3, 1fr);
+		gap: 18px;
 	}
 
 	.popular-categories-grid {
 		grid-template-columns: repeat(2, 1fr);
+		gap: 12px;
 	}
 }
 
-/* Планшеты - до 992px */
-@media (max-width: 992px) {
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
 	.favorites-page-header {
 		flex-direction: column;
 		align-items: flex-start;
@@ -837,6 +854,7 @@
 		width: 100%;
 		flex-direction: column;
 		align-items: flex-start;
+		gap: 10px;
 	}
 
 	.clear-favorites-btn {
@@ -846,25 +864,109 @@
 
 	.favorites-grid {
 		grid-template-columns: repeat(2, 1fr);
+		gap: 18px;
 	}
 
 	.recommendations-grid {
 		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+	}
+
+	.popular-categories-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 12px;
 	}
 
 	.quick-view-container {
 		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.favorite-card-image img {
+		height: 180px;
 	}
 }
 
-/* Мобильные - до 768px */
-@media (max-width: 768px) {
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
+	.favorites-page-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 15px;
+	}
+
 	.favorites-page-title {
 		font-size: 28px;
 	}
 
 	.favorites-page-title i {
 		font-size: 32px;
+	}
+
+	.favorites-page-info {
+		width: 100%;
+		flex-direction: column;
+		gap: 8px;
+		text-align: center;
+	}
+
+	.favorites-items-count {
+		border-right: none;
+		padding-right: 0;
+	}
+
+	.favorites-actions {
+		flex-direction: column;
+		gap: 15px;
+		align-items: flex-start;
+	}
+
+	.favorites-share {
+		width: 100%;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+	}
+
+	.share-buttons {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.clear-favorites-btn {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.favorites-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+	}
+
+	.favorite-card-image img {
+		height: 160px;
+	}
+
+	.favorite-card-content {
+		padding: 15px;
+	}
+
+	.favorite-card-title {
+		font-size: 15px;
+	}
+
+	.favorite-card-price.current {
+		font-size: 18px;
+	}
+
+	.recommendations-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 12px;
+	}
+
+	.popular-categories-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 10px;
 	}
 
 	.favorites-empty-actions {
@@ -882,23 +984,87 @@
 		text-align: center;
 	}
 
-	.popular-categories-grid {
-		grid-template-columns: repeat(2, 1fr);
+	.step-icon {
+		margin-bottom: 5px;
+	}
+
+	.quick-view-title {
+		font-size: 22px;
+	}
+
+	.quick-view-price {
+		font-size: 24px;
 	}
 }
 
-/* Очень маленькие - до 480px */
-@media (max-width: 480px) {
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
+	.favorites-page-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 15px;
+	}
+
+	.favorites-page-title {
+		font-size: 26px;
+	}
+
+	.favorites-page-title i {
+		font-size: 30px;
+	}
+
+	.favorites-page-info {
+		width: 100%;
+		flex-direction: column;
+		gap: 8px;
+		text-align: center;
+		font-size: 15px;
+	}
+
+	.favorites-items-count {
+		border-right: none;
+		padding-right: 0;
+	}
+
+	.favorites-total-amount {
+		font-size: 16px;
+	}
+
+	.favorites-actions {
+		flex-direction: column;
+		gap: 15px;
+		align-items: flex-start;
+	}
+
+	.favorites-share {
+		width: 100%;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+	}
+
+	.share-buttons {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.clear-favorites-btn {
+		width: 100%;
+		justify-content: center;
+	}
+
 	.favorites-grid {
 		grid-template-columns: 1fr;
+		gap: 15px;
 	}
 
-	.recommendations-grid {
-		grid-template-columns: 1fr;
+	.favorite-card {
+		max-width: 400px;
+		margin: 0 auto;
 	}
 
-	.popular-categories-grid {
-		grid-template-columns: 1fr;
+	.favorite-card-image img {
+		height: 200px;
 	}
 
 	.favorite-card-actions {
@@ -908,5 +1074,431 @@
 	.add-to-compare {
 		width: 100%;
 		padding: 12px;
+	}
+
+	.recommendations-grid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+
+	.recommendation-item {
+		max-width: 300px;
+		margin: 0 auto;
+	}
+
+	.popular-categories-grid {
+		grid-template-columns: 1fr;
+		gap: 10px;
+	}
+
+	.popular-category-item {
+		flex-direction: row;
+		justify-content: flex-start;
+		padding: 12px 15px;
+	}
+
+	.favorites-pagination {
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.how-to-add {
+		padding: 20px;
+	}
+
+	.how-to-add-title {
+		font-size: 18px;
+	}
+
+	.step {
+		padding: 8px;
+	}
+
+	.step-text {
+		font-size: 13px;
+	}
+
+	.quick-view-content {
+		padding: 20px;
+	}
+
+	.quick-view-title {
+		font-size: 20px;
+	}
+
+	.quick-view-price {
+		font-size: 22px;
+	}
+
+	.quick-view-actions {
+		flex-direction: column;
+		gap: 10px;
+	}
+}
+
+/* Мобильные (до 481px) */
+@media (width < 481px) {
+	.favorites-page-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
+		margin-bottom: 30px;
+	}
+
+	.favorites-page-title {
+		font-size: 24px;
+	}
+
+	.favorites-page-title i {
+		font-size: 28px;
+	}
+
+	.favorites-page-info {
+		width: 100%;
+		flex-direction: column;
+		gap: 6px;
+		text-align: center;
+		font-size: 14px;
+		padding: 8px 15px;
+	}
+
+	.favorites-items-count {
+		border-right: none;
+		padding-right: 0;
+	}
+
+	.favorites-total-amount {
+		font-size: 15px;
+	}
+
+	.favorites-actions {
+		flex-direction: column;
+		gap: 12px;
+		align-items: flex-start;
+		padding: 15px 0;
+	}
+
+	.favorites-share {
+		width: 100%;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+	.favorites-share span {
+		font-size: 13px;
+	}
+
+	.share-buttons {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.share-btn {
+		width: 32px;
+		height: 32px;
+		font-size: 14px;
+	}
+
+	.clear-favorites-btn {
+		width: 100%;
+		justify-content: center;
+		padding: 10px 20px;
+		font-size: 14px;
+	}
+
+	.favorites-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.favorite-card {
+		max-width: 100%;
+	}
+
+	.favorite-card-image img {
+		height: 180px;
+	}
+
+	.favorite-card-content {
+		padding: 15px;
+	}
+
+	.favorite-card-title {
+		font-size: 15px;
+	}
+
+	.favorite-card-price.current {
+		font-size: 18px;
+	}
+
+	.favorite-card-actions {
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.add-to-cart-btn {
+		padding: 10px;
+		font-size: 13px;
+	}
+
+	.add-to-compare {
+		width: 100%;
+		padding: 10px;
+	}
+
+	.recommendations-section {
+		margin-top: 40px;
+		padding-top: 30px;
+	}
+
+	.recommendations-title {
+		font-size: 20px;
+		margin-bottom: 20px;
+	}
+
+	.recommendations-grid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+
+	.recommendation-item {
+		padding: 12px;
+	}
+
+	.recommendation-image {
+		width: 100px;
+		height: 100px;
+	}
+
+	.recommendation-name {
+		font-size: 13px;
+	}
+
+	.recommendation-price {
+		font-size: 15px;
+	}
+
+	.popular-categories-grid {
+		grid-template-columns: 1fr;
+		gap: 8px;
+	}
+
+	.popular-category-item {
+		flex-direction: row;
+		justify-content: flex-start;
+		padding: 10px 12px;
+	}
+
+	.popular-category-item i {
+		font-size: 20px;
+	}
+
+	.popular-category-item span {
+		font-size: 13px;
+	}
+
+	.favorites-pagination {
+		flex-wrap: wrap;
+		gap: 8px;
+		margin: 30px 0;
+	}
+
+	.pagination-btn {
+		width: 36px;
+		height: 36px;
+	}
+
+	.favorites-empty-state {
+		padding: 40px 15px;
+	}
+
+	.favorites-empty-icon {
+		font-size: 60px;
+	}
+
+	.favorites-empty-title {
+		font-size: 24px;
+	}
+
+	.favorites-empty-text {
+		font-size: 14px;
+		margin-bottom: 25px;
+	}
+
+	.favorites-empty-actions {
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.favorites-empty-btn {
+		width: 100%;
+		justify-content: center;
+		padding: 10px 20px;
+		font-size: 14px;
+	}
+
+	.how-to-add {
+		padding: 20px 15px;
+	}
+
+	.how-to-add-title {
+		font-size: 18px;
+		margin-bottom: 20px;
+	}
+
+	.step {
+		flex-direction: column;
+		text-align: center;
+		padding: 12px;
+	}
+
+	.step-icon {
+		width: 36px;
+		height: 36px;
+		font-size: 16px;
+		margin-bottom: 5px;
+	}
+
+	.step-text {
+		font-size: 13px;
+	}
+
+	.quick-view-content {
+		padding: 15px;
+	}
+
+	.quick-view-container {
+		gap: 15px;
+	}
+
+	.quick-view-title {
+		font-size: 20px;
+	}
+
+	.quick-view-price {
+		font-size: 22px;
+	}
+
+	.quick-view-actions {
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.quick-view-add-to-cart {
+		padding: 12px;
+		font-size: 14px;
+	}
+}
+
+/* Очень маленькие экраны (до 360px) */
+@media (width < 360px) {
+	.favorites-page-title {
+		font-size: 22px;
+	}
+
+	.favorites-page-title i {
+		font-size: 26px;
+	}
+
+	.favorites-page-info {
+		font-size: 13px;
+		padding: 6px 12px;
+	}
+
+	.favorite-card-image img {
+		height: 160px;
+	}
+
+	.favorite-card-title {
+		font-size: 14px;
+	}
+
+	.favorite-card-price.current {
+		font-size: 16px;
+	}
+
+	.favorite-card-price.old {
+		font-size: 12px;
+	}
+
+	.add-to-cart-btn {
+		font-size: 12px;
+	}
+
+	.share-btn {
+		width: 28px;
+		height: 28px;
+		font-size: 12px;
+	}
+
+	.pagination-btn {
+		width: 32px;
+		height: 32px;
+	}
+
+	.pagination-current,
+	.pagination-total,
+	.pagination-separator {
+		font-size: 14px;
+	}
+
+	.recommendation-image {
+		width: 90px;
+		height: 90px;
+	}
+
+	.recommendation-price {
+		font-size: 14px;
+	}
+
+	.popular-category-item i {
+		font-size: 18px;
+	}
+
+	.popular-category-item span {
+		font-size: 12px;
+	}
+}
+
+/* Ультраширокие экраны (1921px и выше) */
+@media (width >=1921px) {
+	.favorites-grid {
+		grid-template-columns: repeat(5, 1fr);
+		gap: 30px;
+	}
+
+	.favorites-page-title {
+		font-size: 38px;
+	}
+
+	.favorites-page-title i {
+		font-size: 42px;
+	}
+
+	.favorite-card-title {
+		font-size: 18px;
+	}
+
+	.favorite-card-price.current {
+		font-size: 22px;
+	}
+
+	.recommendations-grid {
+		grid-template-columns: repeat(5, 1fr);
+		gap: 25px;
+	}
+
+	.recommendations-title {
+		font-size: 28px;
+	}
+
+	.popular-categories-grid {
+		grid-template-columns: repeat(5, 1fr);
+		gap: 20px;
+	}
+
+	.popular-categories-title {
+		font-size: 20px;
 	}
 }

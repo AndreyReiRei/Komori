@@ -662,16 +662,16 @@
 
 /* ===== АДАПТИВНОСТЬ ===== */
 
-/* Планшеты горизонтально / Маленький десктоп (993px - 1200px) */
-@media (max-width: 1200px) {
+/* Десктоп (993px - 1200px) */
+@media (993px <=width < 1201px) {
 	.search-modal .modal-content {
 		max-width: 520px;
 		padding: 25px;
 	}
 }
 
-/* Планшеты вертикально (769px - 992px) */
-@media (max-width: 992px) {
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
 
 	/* Скрываем десктопную кнопку чата */
 	.chat-btn {
@@ -683,8 +683,8 @@
 	}
 }
 
-/* Мобильные (481px - 768px) */
-@media (max-width: 768px) {
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
 
 	/* Чат на мобильных */
 	.modal-content.chat-modal {
@@ -733,24 +733,132 @@
 	}
 }
 
-/* Маленькие мобильные (321px - 480px) */
-@media (max-width: 480px) {
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
 
 	/* Чат */
+	.modal-content.chat-modal {
+		max-width: 100%;
+		border-radius: 0;
+		border-left: none;
+		animation: modalSlideIn 0.3s ease;
+	}
+
+	.chat-header {
+		padding: 15px 20px;
+	}
+
+	.quick-action span {
+		font-size: 11px;
+	}
+
+	.quick-action i {
+		font-size: 16px;
+	}
+
+	.message-content-wrapper {
+		max-width: 80%;
+	}
+
+	/* Поиск */
+	.search-modal .modal-content {
+		padding: 20px;
+		margin: 20% auto;
+		width: 95%;
+	}
+
+	.search-header h2 {
+		font-size: 19px;
+	}
+
+	.search-input-wrapper {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.search-submit-btn {
+		width: 100%;
+		padding: 12px;
+	}
+
+	.form-actions {
+		flex-direction: column;
+		gap: 8px;
+	}
+}
+
+/* Мобильные (до 481px) */
+@media (width < 481px) {
+
+	/* Чат */
+	.modal-content.chat-modal {
+		max-width: 100%;
+		border-radius: 0;
+		border-left: none;
+		animation: modalSlideIn 0.3s ease;
+	}
+
+	.chat-header {
+		padding: 12px 15px;
+	}
+
+	.chat-avatar {
+		width: 40px;
+		height: 40px;
+	}
+
+	.chat-avatar i {
+		font-size: 20px;
+	}
+
+	.chat-title h3 {
+		font-size: 16px;
+	}
+
+	.quick-action {
+		padding: 8px;
+	}
+
 	.quick-action span {
 		display: none;
 	}
 
 	.quick-action i {
 		font-size: 18px;
+		margin: 0;
 	}
 
 	.message-content-wrapper {
 		max-width: 85%;
 	}
 
+	.message-avatar {
+		width: 30px;
+		height: 30px;
+	}
+
+	.message-text {
+		padding: 10px 12px;
+		font-size: 13px;
+	}
+
+	.input-wrapper input {
+		padding: 10px 12px;
+		font-size: 13px;
+	}
+
+	.send-btn {
+		width: 42px;
+		height: 42px;
+	}
+
+	.send-btn i {
+		font-size: 16px;
+	}
+
 	.form-actions {
 		flex-direction: column;
+		gap: 8px;
 	}
 
 	/* Поиск */
@@ -764,32 +872,186 @@
 		font-size: 18px;
 	}
 
+	.search-input-wrapper {
+		flex-direction: column;
+		gap: 8px;
+	}
+
 	.search-input-wrapper input {
 		padding: 12px 15px;
+		font-size: 14px;
+	}
+
+	.search-submit-btn {
+		width: 100%;
+		padding: 12px;
+		font-size: 14px;
+	}
+
+	.close-search {
+		width: 34px;
+		height: 34px;
+		font-size: 20px;
+	}
+
+	.close-modal {
+		top: 12px;
+		right: 15px;
+		width: 34px;
+		height: 34px;
+		font-size: 20px;
 	}
 
 	.suggestion-tag {
 		padding: 6px 12px;
 		font-size: 12px;
 	}
+
+	.suggestions-tags {
+		gap: 8px;
+	}
 }
 
-/* Экстра-маленькие (до 320px) */
-@media (max-width: 320px) {
+/* Очень маленькие экраны (до 360px) */
+@media (width < 360px) {
+
+	/* Чат */
+	.chat-avatar {
+		width: 35px;
+		height: 35px;
+	}
+
+	.chat-avatar i {
+		font-size: 18px;
+	}
+
+	.chat-title h3 {
+		font-size: 15px;
+	}
+
+	.chat-status {
+		font-size: 11px;
+	}
+
+	.message-avatar {
+		width: 28px;
+		height: 28px;
+	}
+
+	.message-text {
+		padding: 8px 10px;
+		font-size: 12px;
+	}
+
+	.message-time {
+		font-size: 9px;
+	}
+
+	/* Поиск */
 	.search-modal .modal-content {
 		padding: 15px;
 	}
 
+	.search-header h2 {
+		font-size: 16px;
+	}
+
 	.suggestions-tags {
-		gap: 8px;
+		gap: 6px;
 	}
 
 	.suggestion-tag {
 		padding: 5px 10px;
 		font-size: 11px;
 	}
+
+	.close-search {
+		width: 32px;
+		height: 32px;
+		font-size: 18px;
+	}
 }
 
+/* Ультраширокие экраны (1921px и выше) */
+@media (width >=1921px) {
+	.search-modal .modal-content {
+		max-width: 650px;
+		padding: 40px;
+		margin: 12% auto;
+	}
+
+	.search-header h2 {
+		font-size: 26px;
+	}
+
+	.search-input-wrapper input {
+		padding: 16px 20px;
+		font-size: 17px;
+	}
+
+	.search-submit-btn {
+		padding: 16px 32px;
+		font-size: 17px;
+	}
+
+	.suggestion-tag {
+		padding: 10px 20px;
+		font-size: 15px;
+	}
+
+	.suggestions-title {
+		font-size: 15px;
+	}
+
+	.modal-content.chat-modal {
+		max-width: 550px;
+	}
+
+	.chat-header {
+		padding: 30px 25px;
+	}
+
+	.chat-avatar {
+		width: 55px;
+		height: 55px;
+	}
+
+	.chat-avatar i {
+		font-size: 28px;
+	}
+
+	.chat-title h3 {
+		font-size: 20px;
+	}
+
+	.message-text {
+		padding: 14px 18px;
+		font-size: 15px;
+	}
+
+	.message-time {
+		font-size: 12px;
+	}
+
+	.quick-action {
+		padding: 12px;
+		font-size: 15px;
+	}
+
+	.input-wrapper input {
+		padding: 14px 18px;
+		font-size: 15px;
+	}
+
+	.send-btn {
+		width: 50px;
+		height: 50px;
+	}
+
+	.send-btn i {
+		font-size: 20px;
+	}
+}
 
 /* Скрываем иконку поиска в модальном окне, если она там не нужна */
 .search-modal .fa-search {
