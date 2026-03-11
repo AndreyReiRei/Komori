@@ -1,8 +1,6 @@
 /* Стили для подвала сайта "Комори" */
 
-/* Стандартные шрифты */
 footer {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 	background: linear-gradient(135deg, #141414 0%, #310f0f 50%, #141414 100%);
 	color: #fff;
 	padding: clamp(40px, 5vw, 70px) 0 clamp(30px, 4vw, 45px);
@@ -379,16 +377,24 @@ footer::after {
 
 /* ====== АДАПТИВНОСТЬ ====== */
 
-/* Ноутбуки */
-@media (max-width: 1200px) {
+/* Ноутбуки и большие десктопы (1201px - 1440px) */
+@media (1201px <=width < 1441px) {
 	.footer-content {
 		grid-template-columns: 1.8fr 1.3fr 1.3fr 2fr;
 		gap: 30px;
 	}
 }
 
-/* Планшеты */
-@media (max-width: 992px) {
+/* Десктоп (993px - 1200px) */
+@media (993px <=width < 1201px) {
+	.footer-content {
+		grid-template-columns: 1.8fr 1.3fr 1.3fr 2fr;
+		gap: 25px;
+	}
+}
+
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
 	.footer-content {
 		grid-template-columns: repeat(2, 1fr);
 		gap: 40px;
@@ -406,10 +412,10 @@ footer::after {
 	}
 }
 
-/* Мобильные */
-@media (max-width: 768px) {
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
 	.footer-content {
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(2, 1fr);
 		gap: 30px;
 	}
 
@@ -428,10 +434,43 @@ footer::after {
 	.payment-method {
 		font-size: 24px;
 	}
+
+	.footer-bottom {
+		flex-direction: column;
+		gap: 15px;
+	}
 }
 
-/* Маленькие мобильные */
-@media (max-width: 480px) {
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
+	.footer-content {
+		grid-template-columns: 1fr;
+		gap: 30px;
+	}
+
+	.footer-column {
+		text-align: left;
+	}
+
+	.social-links {
+		justify-content: flex-start;
+		gap: 10px;
+	}
+
+	.social-link {
+		width: 42px;
+		height: 42px;
+		font-size: 19px;
+	}
+
+	.payment-methods {
+		gap: 12px;
+	}
+
+	.payment-method {
+		font-size: 24px;
+	}
+
 	.footer-bottom {
 		flex-direction: column;
 		gap: 15px;
@@ -450,8 +489,21 @@ footer::after {
 		width: 100%;
 		height: 48px;
 	}
+}
+
+/* Мобильные (до 481px) */
+@media (width < 481px) {
+	.footer-content {
+		grid-template-columns: 1fr;
+		gap: 25px;
+	}
+
+	.footer-column {
+		text-align: left;
+	}
 
 	.social-links {
+		justify-content: flex-start;
 		gap: 8px;
 	}
 
@@ -459,5 +511,105 @@ footer::after {
 		width: 40px;
 		height: 40px;
 		font-size: 18px;
+	}
+
+	.payment-methods {
+		gap: 10px;
+	}
+
+	.payment-method {
+		font-size: 22px;
+	}
+
+	.footer-bottom {
+		flex-direction: column;
+		gap: 15px;
+	}
+
+	.payment-methods {
+		order: -1;
+		margin-bottom: 10px;
+	}
+
+	.input-group {
+		flex-direction: column;
+	}
+
+	.subscribe-form button {
+		width: 100%;
+		height: 46px;
+	}
+}
+
+/* Очень маленькие экраны (до 360px) */
+@media (width < 360px) {
+	.footer-content {
+		gap: 20px;
+	}
+
+	.footer-column h3 {
+		font-size: 15px;
+	}
+
+	.footer-links a {
+		font-size: 12px;
+	}
+
+	.social-links {
+		gap: 6px;
+	}
+
+	.social-link {
+		width: 36px;
+		height: 36px;
+		font-size: 16px;
+	}
+
+	.payment-method {
+		font-size: 20px;
+	}
+
+	.subscribe-form input {
+		padding: 12px 15px;
+		font-size: 13px;
+	}
+
+	.subscribe-form button {
+		height: 44px;
+	}
+
+	.copyright,
+	.developer {
+		font-size: 11px;
+	}
+}
+
+/* Ультраширокие экраны (1921px и выше) */
+@media (width >=1921px) {
+	.container__footer {
+		max-width: 1600px;
+	}
+
+	.footer-content {
+		grid-template-columns: 2fr 1.5fr 1.5fr 2.2fr;
+		gap: 60px;
+	}
+
+	.footer-column h3 {
+		font-size: 22px;
+	}
+
+	.footer-links a {
+		font-size: 15px;
+	}
+
+	.social-link {
+		width: 48px;
+		height: 48px;
+		font-size: 22px;
+	}
+
+	.payment-method {
+		font-size: 32px;
 	}
 }

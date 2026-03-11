@@ -1,4 +1,5 @@
 /* Основные стили для секции аккордеона */
+
 .accordion-logo {
 	position: relative;
 	width: 100%;
@@ -121,8 +122,8 @@
 
 /* Активное состояние: черная полоска с темно-красными краями */
 .nav-dot.active {
-	background-color: black;
-	border-color: #8b0000;
+	background: linear-gradient(135deg, #141414 0%, #ff4757 50%, #141414 100%);
+	border-color: #000000;
 	border-width: 1px;
 	transform: scaleY(1.5);
 	margin-top: -3px;
@@ -136,25 +137,257 @@
 	border-color: #a52a2a;
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
+/* ===== АДАПТИВНОСТЬ ===== */
+
+/* Десктоп (993px - 1200px) */
+@media (993px <=width < 1201px) {
+	.item-content {
+		padding: 2.5rem;
+		max-width: 550px;
+	}
+
+	.item-content h2 {
+		font-size: 3.2rem;
+	}
+
+	.item-content p {
+		font-size: 1.4rem;
+	}
+
+	.item-content .price {
+		font-size: 1.8rem;
+		padding: 0.7rem 1.8rem;
+	}
+}
+
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
+	.accordion-logo {
+		height: 70vh;
+	}
+
+	.item-content {
+		padding: 2rem;
+		max-width: 500px;
+	}
+
+	.item-content h2 {
+		font-size: 2.8rem;
+		letter-spacing: 1.5px;
+	}
+
+	.item-content p {
+		font-size: 1.3rem;
+		margin-bottom: 1.2rem;
+	}
+
+	.item-content .price {
+		font-size: 1.6rem;
+		padding: 0.6rem 1.6rem;
+	}
+
+	.nav-indicators {
+		max-width: 80%;
+		gap: 6px;
+	}
+
+	.nav-dot {
+		min-width: 18px;
+	}
+}
+
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
+	.accordion-logo {
+		height: 60vh;
+	}
+
+	.item-content {
+		padding: 1.8rem;
+		max-width: 450px;
+	}
+
 	.item-content h2 {
 		font-size: 2.5rem;
+		letter-spacing: 1px;
 	}
 
 	.item-content p {
 		font-size: 1.2rem;
+		margin-bottom: 1rem;
 	}
 
 	.item-content .price {
 		font-size: 1.5rem;
+		padding: 0.5rem 1.5rem;
 	}
 
 	.nav-indicators {
 		max-width: 90%;
+		gap: 6px;
 	}
 
 	.nav-dot {
 		min-width: 15px;
+		height: 5px;
+	}
+}
+
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
+	.accordion-logo {
+		height: 50vh;
+	}
+
+	.item-content {
+		padding: 1.5rem;
+		max-width: 100%;
+	}
+
+	.item-content h2 {
+		font-size: 2.2rem;
+		letter-spacing: 0.5px;
+	}
+
+	.item-content p {
+		font-size: 1.1rem;
+		margin-bottom: 0.8rem;
+	}
+
+	.item-content .price {
+		font-size: 1.3rem;
+		padding: 0.4rem 1.2rem;
+	}
+
+	.custom-navigation {
+		bottom: 0.8rem;
+	}
+
+	.nav-indicators {
+		max-width: 95%;
+		gap: 5px;
+		padding: 0 5px;
+	}
+
+	.nav-dot {
+		min-width: 12px;
+		height: 5px;
+	}
+}
+
+/* Мобильные (до 481px) */
+@media (width < 481px) {
+	.accordion-logo {
+		height: 45vh;
+	}
+
+	.item-content {
+		padding: 1.2rem;
+		max-width: 100%;
+	}
+
+	.item-content h2 {
+		font-size: 1.8rem;
+		letter-spacing: 0.5px;
+	}
+
+	.item-content p {
+		font-size: 1rem;
+		margin-bottom: 0.6rem;
+	}
+
+	.item-content .price {
+		font-size: 1.1rem;
+		padding: 0.3rem 1rem;
+	}
+
+	.custom-navigation {
+		bottom: 0.5rem;
+	}
+
+	.nav-indicators {
+		max-width: 100%;
+		gap: 4px;
+		padding: 0 3px;
+	}
+
+	.nav-dot {
+		min-width: 10px;
+		height: 4px;
+		border-radius: 4px;
+	}
+
+	.nav-dot.active {
+		transform: scaleY(1.3);
+		margin-top: -2px;
+	}
+}
+
+/* Очень маленькие экраны (до 360px) */
+@media (width < 360px) {
+	.accordion-logo {
+		height: 40vh;
+	}
+
+	.item-content {
+		padding: 1rem;
+	}
+
+	.item-content h2 {
+		font-size: 1.5rem;
+	}
+
+	.item-content p {
+		font-size: 0.9rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.item-content .price {
+		font-size: 1rem;
+		padding: 0.25rem 0.8rem;
+	}
+
+	.nav-dot {
+		min-width: 8px;
+		height: 3px;
+	}
+}
+
+/* Ультраширокие экраны (1921px и выше) */
+@media (width >=1921px) {
+	.accordion-logo {
+		height: 70vh;
+		max-height: 900px;
+	}
+
+	.item-content {
+		padding: 4rem;
+		max-width: 800px;
+	}
+
+	.item-content h2 {
+		font-size: 4.5rem;
+		letter-spacing: 3px;
+	}
+
+	.item-content p {
+		font-size: 2rem;
+		margin-bottom: 2rem;
+	}
+
+	.item-content .price {
+		font-size: 2.5rem;
+		padding: 1rem 2.5rem;
+	}
+
+	.nav-dot {
+		height: 8px;
+		min-width: 30px;
+		border-radius: 8px;
+	}
+
+	.nav-dot.active {
+		transform: scaleY(1.5);
+		margin-top: -4px;
 	}
 }

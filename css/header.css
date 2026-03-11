@@ -271,7 +271,7 @@ header {
 }
 
 /* ===== ОСНОВНАЯ НАВИГАЦИЯ (ДЕСКТОП) ===== */
-@media (min-width: 769px) {
+@media (width >=769px) {
 	.main-nav {
 		background: rgba(20, 20, 20, 0.98);
 		border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -440,44 +440,8 @@ header {
 
 /* ===== АДАПТИВНОСТЬ ===== */
 
-/* Большие десктопы */
-@media (min-width: 1201px) {
-	.container__header {
-		padding: 0 50px;
-	}
-
-	.nav-link {
-		font-size: 16px;
-		padding: 20px 15px;
-	}
-}
-
-/* Очень большие экраны */
-@media (min-width: 1800px) {
-	.container__header {
-		padding: 0 80px;
-	}
-
-	.nav-link {
-		font-size: 17px;
-		padding: 22px 20px;
-	}
-}
-
-/* Малые десктопы */
-@media (max-width: 1200px) and (min-width: 993px) {
-	.container__header {
-		padding: 0 30px;
-	}
-
-	.nav-link {
-		padding: 18px 10px;
-		font-size: 14px;
-	}
-}
-
-/* Планшеты и мобильные (до 992px) */
-@media (max-width: 992px) {
+/* Планшеты и мобильные (до 993px) */
+@media (width < 993px) {
 	.container__header {
 		padding: 0 20px;
 	}
@@ -561,8 +525,8 @@ header {
 	}
 }
 
-/* Маленькие мобильные (до 480px) */
-@media (max-width: 480px) {
+/* Мобильные (до 481px) */
+@media (width < 481px) {
 	.container__header {
 		padding: 0 15px;
 	}
@@ -607,40 +571,78 @@ header {
 	}
 }
 
-/* Очень маленькие экраны (до 360px) */
-@media (max-width: 360px) {
-	.logo-text {
-		font-size: 16px;
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
+	/* Стили для мобильных L при необходимости */
+}
+
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
+	/* Стили для больших мобильных при необходимости */
+}
+
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
+	/* Дополнительные стили для планшетов */
+
+	.nav-link {
+		padding: 18px 8px;
+		font-size: 13px;
+		gap: 4px;
 	}
 
-	.logo-tagline {
-		font-size: 9px;
-	}
-
-	.logo-icon {
-		width: 34px;
-		height: 34px;
-		font-size: 20px;
-	}
-
-	.user-actions {
-		gap: 3px;
-		margin-right: 5px;
-	}
-
-	.action-link i,
-	.chat-mobile-btn i,
-	.search-btn i {
-		font-size: 16px;
-	}
-
-	.action-badge {
-		font-size: 8px;
+	.nav-link i:first-child {
+		font-size: 12px;
 		min-width: 14px;
-		height: 14px;
+	}
+}
+
+/* Десктоп (993px - 1200px) */
+@media (993px <=width < 1201px) {
+	.container__header {
+		padding: 0 30px;
 	}
 
-	main {
-		margin-top: 64px;
+	.nav-link {
+		padding: 18px 10px;
+		font-size: 14px;
+	}
+}
+
+/* Большой десктоп (1201px - 1440px) */
+@media (1201px <=width < 1441px) {
+	.container__header {
+		padding: 0 50px;
+	}
+
+	.nav-link {
+		font-size: 16px;
+		padding: 20px 15px;
+	}
+}
+
+/* Очень большой десктоп (1441px - 1920px) */
+@media (1441px <=width < 1921px) {
+	.container__header {
+		padding: 0 80px;
+	}
+
+	.nav-link {
+		font-size: 17px;
+		padding: 22px 20px;
+	}
+}
+
+/* Ультраширокие (1921px и выше) */
+@media (width >=1921px) {
+	.container__header {
+		padding: 0 100px;
+		max-width: 2200px;
+		margin: 0 auto;
+	}
+
+	.nav-link {
+		font-size: 18px;
+		padding: 24px 25px;
 	}
 }

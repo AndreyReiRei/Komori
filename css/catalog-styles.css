@@ -1,56 +1,96 @@
 /* СТИЛИ ДЛЯ КАТЕГОРИЙ ТОВАРОВ */
-/* ============================================ */
 
 /* Основные стили секции предпросмотра каталога */
 .catalog-preview {
-	margin-bottom: 70px;
+	margin-bottom: clamp(50px, 8vw, 70px);
 	position: relative;
+	padding: 0 20px;
+	background-color: #fff9fb;
+	/* Светлый фон для секции */
 }
 
 .catalog-preview h2 {
-	color: #2a2a2a;
-	margin-bottom: 45px;
-	font-size: 34px;
+	color: #ffffff;
+	/* Темный цвет для контраста */
+	margin-bottom: clamp(35px, 5vw, 45px);
+	font-size: clamp(28px, 5vw, 38px);
 	text-align: center;
 	position: relative;
 	padding-bottom: 20px;
 	font-weight: 700;
+	letter-spacing: -0.02em;
+	text-shadow: 2px 2px 4px rgb(50, 0, 0);
+	/* Черная тень для читаемости */
 }
 
-/* Декоративная линия под заголовком */
+/* Современный акцент под заголовком */
 .catalog-preview h2::after {
 	content: '';
 	position: absolute;
 	bottom: 0;
 	left: 50%;
 	transform: translateX(-50%);
-	width: 120px;
-	height: 3px;
-	background: linear-gradient(90deg, #ffb7c5, #ff6b6b, #ffb7c5);
+	width: 80px;
+	height: 4px;
+	background: linear-gradient(90deg, #ffb7c5, #ff6b6b, #9d7bad);
+	border-radius: 4px;
+	box-shadow: 0 2px 10px rgba(255, 183, 197, 0.5);
 }
 
 /* Сетка каталога */
 .catalog-grid {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	gap: 30px;
-	transition: grid-template-rows 0.5s ease;
+	gap: clamp(20px, 2.5vw, 30px);
+	transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	max-width: 1400px;
+	margin: 0 auto;
 }
 
 /* Элемент каталога */
 .catalog-item {
-	background-color: white;
-	border-radius: 15px;
-	padding: 35px 25px;
+	background: #ffffff;
+	/* Белый фон для карточек */
+	border: 1px solid rgba(255, 183, 197, 0.2);
+	border-radius: 24px;
+	padding: clamp(25px, 3.5vw, 35px) clamp(15px, 2.5vw, 25px);
 	text-align: center;
-	box-shadow: 0 8px 20px rgba(255, 183, 197, 0.15);
-	transition: all 0.4s ease;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+	/* Черная тень */
+	transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 	cursor: pointer;
-	border: 2px solid transparent;
 	position: relative;
 	overflow: hidden;
 	animation: fadeInUp 0.6s ease forwards;
 	opacity: 0;
+	animation-delay: calc(var(--item-index, 0) * 0.1s);
+}
+
+/* Убираем стеклянный эффект, делаем простой белый фон */
+.catalog-item {
+	background: #ffffff;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+
+/* Градиентный бордер при наведении */
+.catalog-item::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: 24px;
+	padding: 2px;
+	background: linear-gradient(135deg, #ffb7c5, #ff6b6b, #9d7bad);
+	-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+	-webkit-mask-composite: xor;
+	mask-composite: exclude;
+	opacity: 0;
+	transition: opacity 0.4s ease;
+	pointer-events: none;
+}
+
+.catalog-item:hover::before {
+	opacity: 1;
 }
 
 /* Анимация появления элементов */
@@ -76,62 +116,81 @@
 	to {
 		opacity: 0;
 		transform: translateY(20px);
-		display: none;
 	}
+}
+
+.catalog-item.hiding {
+	animation: fadeOutDown 0.4s ease forwards;
+	pointer-events: none;
 }
 
 /* Анимация при наведении на элемент каталога */
 .catalog-item:hover {
-	transform: translateY(-12px);
-	box-shadow: 0 20px 40px rgba(255, 183, 197, 0.25);
-	border-color: #ffb7c5;
+	transform: translateY(-8px) scale(1.02);
+	box-shadow: 0 20px 40px rgba(255, 107, 107, 0.15);
+	/* Розовая тень при наведении */
+	border-color: transparent;
 }
 
-/* Декоративный элемент на элементе каталога */
-.catalog-item::before {
+/* Свечение при наведении */
+.catalog-item::after {
 	content: '';
 	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	height: 5px;
-	background: linear-gradient(90deg, #ffb7c5, #ff6b6b);
-	transform: scaleX(0);
-	transition: transform 0.4s ease;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(255, 183, 197, 0.1), transparent);
+	transform: translate(-50%, -50%);
+	transition: width 0.6s ease, height 0.6s ease;
+	z-index: -1;
 }
 
-.catalog-item:hover::before {
-	transform: scaleX(1);
+.catalog-item:hover::after {
+	width: 300px;
+	height: 300px;
 }
 
 /* Иконки в элементах каталога */
 .catalog-item i {
-	font-size: 52px;
+	font-size: clamp(40px, 5vw, 52px);
 	color: #ff6b6b;
-	margin-bottom: 25px;
-	transition: all 0.4s ease;
+	/* Более яркий цвет для иконок */
+	margin-bottom: clamp(15px, 2.5vw, 25px);
+	transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 	display: block;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+	/* Черная тень для иконок */
 }
 
 .catalog-item:hover i {
-	transform: scale(1.15) rotate(5deg);
+	transform: scale(1.15) translateY(-5px);
 	color: #ff4757;
+	/* Еще ярче при наведении */
+	text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Заголовок элемента каталога */
 .catalog-item h3 {
 	color: #2a2a2a;
-	font-size: 20px;
+	/* Темно-серый для контраста */
+	font-size: clamp(16px, 2vw, 20px);
 	font-weight: 600;
 	line-height: 1.4;
-	margin-bottom: 10px;
+	margin-bottom: 8px;
+	letter-spacing: -0.02em;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+	/* Легкая тень */
 }
 
 /* Описание элемента каталога */
 .catalog-item p {
-	color: #666;
-	font-size: 14px;
-	line-height: 1.5;
+	color: #4a4a4a;
+	/* Темно-серый для читаемости */
+	font-size: clamp(12px, 1.5vw, 14px);
+	line-height: 1.6;
+	font-weight: 400;
 	opacity: 0.9;
 }
 
@@ -150,43 +209,66 @@
 /* Футер с кнопкой */
 .accordion-footer {
 	text-align: center;
-	margin-top: 50px;
-	padding-top: 30px;
-	border-top: 2px dashed #ffe6ea;
+	margin-top: clamp(40px, 6vw, 60px);
+	position: relative;
 }
 
-/* Кнопка "Показать все" */
+/* Современная кнопка */
 .show-all-btn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	gap: 10px;
-	background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+	gap: 12px;
+	background: linear-gradient(135deg, #ff6b6b, #ff4757);
 	color: white;
-	padding: 15px 30px;
-	border-radius: 50px;
+	padding: clamp(12px, 2vw, 16px) clamp(24px, 3vw, 36px);
+	border-radius: 60px;
 	text-decoration: none;
 	font-weight: 600;
-	transition: all 0.3s ease;
-	box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
+	transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+	box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
 	border: none;
 	cursor: pointer;
-	font-size: 16px;
+	font-size: clamp(14px, 1.8vw, 16px);
 	min-width: 200px;
+	position: relative;
+	overflow: hidden;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+	/* Тень для текста кнопки */
+}
+
+/* Эффект пульсации для кнопки */
+.show-all-btn::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+	transform: translate(-50%, -50%);
+	transition: width 0.6s ease, height 0.6s ease;
 }
 
 .show-all-btn:hover {
-	transform: translateY(-3px);
-	box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
-	background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+	transform: translateY(-3px) scale(1.02);
+	box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+	background: linear-gradient(135deg, #ff4757, #ff3742);
+}
+
+.show-all-btn:hover::before {
+	width: 300px;
+	height: 300px;
 }
 
 .show-all-btn:active {
-	transform: translateY(0);
+	transform: translateY(0) scale(0.98);
 }
 
 .show-all-btn i {
-	transition: transform 0.3s ease;
+	transition: transform 0.4s ease;
+	font-size: 1.1em;
 }
 
 .show-all-btn.expanded i {
@@ -212,50 +294,62 @@
 }
 
 /* ============================================ */
-/* АДАПТИВНОСТЬ */
+/* АДАПТИВНОСТЬ - СОВРЕМЕННЫЙ ПОДХОД */
 /* ============================================ */
 
-/* Большие экраны (Desktop) - 1201px и выше */
-/* Базовые стили уже установлены */
-
-/* Средние экраны (Tablet Landscape / Small Desktop) - 992px - 1200px */
-@media (max-width: 1200px) and (min-width: 993px) {
+/* Ультраширокие экраны (1921px и выше) */
+@media (width >=1921px) {
 	.catalog-grid {
-		grid-template-columns: repeat(3, 1fr);
-		gap: 28px;
-	}
-
-	.catalog-grid.expanded {
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(5, 1fr);
+		max-width: 1800px;
 	}
 
 	.catalog-item {
-		padding: 30px 20px;
+		padding: 40px 30px;
 	}
 
 	.catalog-item i {
-		font-size: 48px;
-		margin-bottom: 22px;
+		font-size: 60px;
 	}
 
 	.catalog-item h3 {
-		font-size: 19px;
-	}
-
-	.catalog-preview h2 {
-		font-size: 32px;
+		font-size: 22px;
 	}
 }
 
-/* Планшеты (Tablet Portrait) - 768px - 992px */
-@media (max-width: 992px) and (min-width: 769px) {
+/* Очень большой десктоп (1441px - 1920px) */
+@media (1441px <=width < 1921px) {
 	.catalog-grid {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 25px;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 30px;
 	}
 
-	.catalog-grid.expanded {
-		grid-template-columns: repeat(2, 1fr);
+	.catalog-item {
+		padding: 35px 25px;
+	}
+
+	.catalog-item i {
+		font-size: 52px;
+	}
+}
+
+/* Большой десктоп (1201px - 1440px) */
+@media (1201px <=width < 1441px) {
+	.catalog-grid {
+		grid-template-columns: repeat(4, 1fr);
+		gap: 28px;
+	}
+
+	.catalog-item {
+		padding: 30px 22px;
+	}
+}
+
+/* Десктоп (993px - 1200px) */
+@media (993px <=width < 1201px) {
+	.catalog-grid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 25px;
 	}
 
 	.catalog-item {
@@ -263,29 +357,19 @@
 	}
 
 	.catalog-item i {
-		font-size: 46px;
-		margin-bottom: 20px;
+		font-size: 48px;
 	}
 
 	.catalog-item h3 {
 		font-size: 18px;
 	}
-
-	.catalog-preview h2 {
-		font-size: 30px;
-		margin-bottom: 35px;
-	}
 }
 
-/* Мобильные устройства (Mobile) - 481px - 768px */
-@media (max-width: 768px) and (min-width: 481px) {
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
 	.catalog-grid {
 		grid-template-columns: repeat(2, 1fr);
-		gap: 20px;
-	}
-
-	.catalog-grid.expanded {
-		grid-template-columns: repeat(2, 1fr);
+		gap: 22px;
 	}
 
 	.catalog-item {
@@ -302,26 +386,15 @@
 	}
 
 	.catalog-preview h2 {
-		font-size: 28px;
-		margin-bottom: 30px;
-	}
-
-	.show-all-btn {
-		padding: 14px 28px;
-		font-size: 15px;
-		min-width: 180px;
+		font-size: 30px;
 	}
 }
 
-/* Очень маленькие экраны (Small Mobile) - 320px - 480px */
-@media (max-width: 480px) {
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
 	.catalog-grid {
-		grid-template-columns: 1fr;
-		gap: 20px;
-	}
-
-	.catalog-grid.expanded {
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 18px;
 	}
 
 	.catalog-item {
@@ -330,7 +403,7 @@
 
 	.catalog-item i {
 		font-size: 40px;
-		margin-bottom: 15px;
+		margin-bottom: 16px;
 	}
 
 	.catalog-item h3 {
@@ -338,7 +411,73 @@
 	}
 
 	.catalog-item p {
-		font-size: 13px;
+		font-size: 12px;
+	}
+
+	.catalog-preview h2 {
+		font-size: 28px;
+		margin-bottom: 30px;
+	}
+
+	.show-all-btn {
+		min-width: 180px;
+	}
+}
+
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
+	.catalog-grid {
+		grid-template-columns: 1fr;
+		gap: 20px;
+		max-width: 400px;
+		margin: 0 auto;
+	}
+
+	.catalog-item {
+		padding: 25px 20px;
+	}
+
+	.catalog-item i {
+		font-size: 44px;
+	}
+
+	.catalog-item h3 {
+		font-size: 18px;
+	}
+
+	.catalog-preview h2 {
+		font-size: 26px;
+	}
+
+	.show-all-btn {
+		min-width: 160px;
+	}
+}
+
+/* Мобильные (до 481px) */
+@media (width < 481px) {
+	.catalog-grid {
+		grid-template-columns: 1fr;
+		gap: 16px;
+		max-width: 320px;
+		margin: 0 auto;
+	}
+
+	.catalog-item {
+		padding: 20px 15px;
+	}
+
+	.catalog-item i {
+		font-size: 40px;
+		margin-bottom: 12px;
+	}
+
+	.catalog-item h3 {
+		font-size: 16px;
+	}
+
+	.catalog-item p {
+		font-size: 12px;
 	}
 
 	.catalog-preview h2 {
@@ -347,21 +486,29 @@
 	}
 
 	.show-all-btn {
-		padding: 12px 25px;
+		padding: 12px 20px;
 		font-size: 14px;
-		min-width: 160px;
+		min-width: 140px;
+		gap: 8px;
 	}
 
 	.accordion-footer {
-		margin-top: 40px;
-		padding-top: 25px;
+		margin-top: 35px;
 	}
 }
 
-/* Супер маленькие экраны (Extra Small) - до 320px */
-@media (max-width: 320px) {
+/* Очень маленькие экраны (до 360px) */
+@media (width < 360px) {
 	.catalog-item {
-		padding: 20px 12px;
+		padding: 18px 12px;
+	}
+
+	.catalog-item i {
+		font-size: 36px;
+	}
+
+	.catalog-item h3 {
+		font-size: 15px;
 	}
 
 	.catalog-preview h2 {
@@ -369,8 +516,8 @@
 	}
 
 	.show-all-btn {
-		padding: 10px 20px;
+		padding: 10px 16px;
 		font-size: 13px;
-		min-width: 140px;
+		min-width: 130px;
 	}
 }

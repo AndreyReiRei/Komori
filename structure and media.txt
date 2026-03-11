@@ -1,0 +1,62 @@
+/project/
+│
+├── index.html
+├── pages/
+│   ├── cart.html
+│   ├── catalog.html
+│   ├── favorites.html
+│   ├── info.html
+│   ├── login.html
+│   ├── product-management.html
+├── css/
+│   ├── main.css
+│   ├── header.css
+│   ├── footer.css
+│   ├── products-accordion.css
+│   └── burger-menu.css
+└── js/
+    ├── accardion-logo.js
+    ├── burger.js
+	├── buttons.js
+	├── cart.js
+    ├── catalog-expand.js
+	├── favorites.js
+	├── login.js
+    ├── product-management.js
+    ├── products-accordion.js
+	├── search.js
+	├── support.js
+    └── main.js
+
+
+
+
+
+
+Диапазонные медиазапросы:
+
+/* Мобильные */
+@media (width < 481px) { }
+
+/* Мобильные L */
+@media (481px <= width < 577px) { }
+
+/* Большие мобильные */
+@media (577px <= width < 769px) { }
+
+/* Планшеты */
+@media (769px <= width < 993px) { }
+
+/* Десктоп */
+@media (993px <= width < 1201px) { }
+
+/* Большой десктоп */
+@media (1201px <= width < 1441px) { }
+
+/* Очень большой десктоп */
+@media (1441px <= width < 1921px) { }
+
+/* Ультраширокие */
+@media (width >= 1921px) { }
+
+
