@@ -1,7 +1,4 @@
-/* 
- * Стили для шапки сайта "Комори"
- * Используется цветовая палитра: розовый сакуры (#ffb7c5), белый, глубокий черный (#1a1a1a)
- */
+/* Стили для шапки сайта "Комори" */
 
 /* ===== ОСНОВНЫЕ СТИЛИ ШАПКИ ===== */
 header {
@@ -10,14 +7,33 @@ header {
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 	position: relative;
 	z-index: 100;
-	border-bottom: 2px solid #ffb7c5;
+	/* border-bottom: 2px solid #ffb7c5; */
+	padding: 3px;
+}
+
+/* Декоративная полоска */
+header::before {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: linear-gradient(90deg,
+			#ffb7c5 0%,
+			#000000 25%,
+			#ffb7c5 50%,
+			#000000 75%,
+			#ffb7c5 100%);
+	background-size: 200% 100%;
+	animation: gradientShift 8s ease infinite;
 }
 
 /* Контейнер шапки */
 .container__header {
 	width: 100%;
 	margin: 0 auto;
-	padding: 0 20px;
+	padding: 0 10px;
 }
 
 /* Верхняя часть шапки */
@@ -443,7 +459,7 @@ header {
 /* Планшеты и мобильные (до 993px) */
 @media (width < 993px) {
 	.container__header {
-		padding: 0 20px;
+		padding: 0 8px;
 	}
 
 	.header-top {
@@ -528,7 +544,7 @@ header {
 /* Мобильные (до 481px) */
 @media (width < 481px) {
 	.container__header {
-		padding: 0 15px;
+		padding: 0 5px;
 	}
 
 	.logo a {
@@ -623,7 +639,7 @@ header {
 /* Десктоп (993px - 1200px) */
 @media (993px <=width < 1201px) {
 	.container__header {
-		padding: 0 30px;
+		padding: 0 10px;
 	}
 
 	.nav-link {
@@ -635,7 +651,7 @@ header {
 /* Большой десктоп (1201px - 1440px) */
 @media (1201px <=width < 1441px) {
 	.container__header {
-		padding: 0 50px;
+		padding: 0 10px;
 	}
 
 	.nav-link {
@@ -647,7 +663,7 @@ header {
 /* Очень большой десктоп (1441px - 1920px) */
 @media (1441px <=width < 1921px) {
 	.container__header {
-		padding: 0 80px;
+		padding: 0 10px;
 	}
 
 	.nav-link {
@@ -659,7 +675,7 @@ header {
 /* Ультраширокие (1921px и выше) */
 @media (width >=1921px) {
 	.container__header {
-		padding: 0 100px;
+		padding: 0 10px;
 		max-width: 2200px;
 		margin: 0 auto;
 	}

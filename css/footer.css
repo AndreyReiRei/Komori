@@ -1,7 +1,9 @@
 /* Стили для подвала сайта "Комори" */
 
 footer {
-	background: linear-gradient(135deg, #141414 0%, #310f0f 50%, #141414 100%);
+	/* background: linear-gradient(135deg, #141414 0%, #310f0f 50%, #141414 100%); */
+	background: #140000;
+	background-image: repeating-linear-gradient(45deg, rgba(255, 183, 197, 0.02) 0px, rgba(255, 183, 197, 0.02) 2px, transparent 2px, transparent 6px);
 	color: #fff;
 	padding: clamp(40px, 5vw, 70px) 0 clamp(30px, 4vw, 45px);
 	margin-top: 80px;
@@ -570,7 +572,7 @@ footer::after {
 	}
 
 	.subscribe-form input {
-		padding: 12px 15px;
+		padding: 12px 10px;
 		font-size: 13px;
 	}
 
