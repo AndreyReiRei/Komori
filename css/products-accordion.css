@@ -603,9 +603,9 @@
 	}
 
 	/* Скрываем кнопки навигации на мобильных */
-	.accordion-container .scroll-btn {
-		display: block;
-	}
+	/* .accordion-container .scroll-btn {
+		display: none;
+	} */
 
 	/* Навигационная полоска */
 	.scroll-navbar {
@@ -627,10 +627,6 @@
 @media (481px <=width < 577px) {
 	.products-accordion {
 		padding: 30px 0 40px;
-	}
-
-	.accordion-container .scroll-btn {
-		display: block;
 	}
 
 	.products-scroll {
@@ -712,10 +708,6 @@
 @media (width < 481px) {
 	.products-accordion {
 		padding: 25px 0 35px;
-	}
-
-	.accordion-container .scroll-btn {
-		display: block;
 	}
 
 	.promo-section h2 {
@@ -805,10 +797,6 @@
 		padding: 8px 8px 15px;
 	}
 
-	.accordion-container .scroll-btn {
-		display: block;
-	}
-
 	.product-card {
 		width: 200px;
 	}
@@ -848,5 +836,12 @@
 	.navbar-segment {
 		min-width: 12px;
 		height: 5px;
+	}
+}
+
+/* Скрыть кнопки на всех тач-устройствах */
+@media (hover: none) and (pointer: coarse) {
+	.scroll-btn {
+		display: none !important;
 	}
 }
