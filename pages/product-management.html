@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Управление товарами - Комори</title>
+	<title>Комори</title>
 
 	<!-- Основной стиль -->
 	<link rel="stylesheet" href="/css/main.css">
@@ -16,11 +16,14 @@
 	<link rel="stylesheet" href="/css/burger-menu.css">
 	<!-- Помощь и звонок -->
 	<link rel="stylesheet" href="/css/support.css">
+	<!-- Аккардеон продукции -->
+	<link rel="stylesheet" href="/css/products-accordion.css">
+	<!-- Все Категории -->
+	<link rel="stylesheet" href="/css/catalog-styles.css">
+	<!-- Стили данной страницы -->
+	<link rel="stylesheet" href="/css/product-management.css">
 	<!-- Библиотека -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<!-- Стили для управления товарами -->
-	<link rel="stylesheet" href="/css/product-management.css">
-
 </head>
 
 <body>
@@ -126,7 +129,7 @@
 			<nav class="main-nav" id="mainNav">
 				<ul class="nav-list">
 					<li class="has-dropdown">
-						<a href="#" class="nav-link">
+						<a href="/pages/catalog.html" class="nav-link">
 							<i class="fas fa-bars"></i> <!-- Иконка меню -->
 							<span>Каталог товаров</span>
 							<i class="fas fa-chevron-down dropdown-arrow"></i>
@@ -497,239 +500,112 @@
 		</div>
 	</main>
 
-	<!-- Модальное окно для добавления/редактирования товара -->
-	<div class="modal" id="productModal">
-		<div class="modal-content product-modal-content">
-			<div class="modal-header">
-				<h2 id="modalTitle">Добавить товар</h2>
-				<span class="close-modal" id="closeModal">&times;</span>
-			</div>
-
-			<form id="productForm">
-				<div class="form-tabs">
-					<button type="button" class="form-tab active" data-tab="main">Основное</button>
-					<button type="button" class="form-tab" data-tab="details">Детали</button>
-					<button type="button" class="form-tab" data-tab="images">Изображения</button>
+	<!-- Подвал сайта -->
+	<footer>
+		<div class="container__footer">
+			<div class="footer-content">
+				<!-- Колонка 1: Каталог -->
+				<div class="footer-column">
+					<h3><i class="fas fa-compass"></i> Каталог</h3>
+					<ul class="footer-links">
+						<li><a href="#"><i class="fas fa-dragon"></i> Аниме фигурки</a></li>
+						<li><a href="#"><i class="fas fa-leaf"></i> Японский чай</a></li>
+						<li><a href="#"><i class="fas fa-candy-cane"></i> Азиатские сладости</a></li>
+						<li><a href="#"><i class="fas fa-bowl-food"></i> Японская посуда</a></li>
+						<li><a href="#"><i class="fas fa-book-open"></i> Манга и книги</a></li>
+						<li><a href="#"><i class="fas fa-shirt"></i> Аниме одежда</a></li>
+						<li><a href="#"><i class="fas fa-gamepad"></i> Японские игры</a></li>
+						<li><a href="#"><i class="fas fa-pen-fancy"></i> Канцелярия кавай</a></li>
+						<li><a href="#"><i class="fas fa-wand-sparkles"></i> Косметика из Азии</a></li>
+						<li><a href="#"><i class="fas fa-torii-gate"></i> Азиатский декор</a></li>
+						<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
+						<li><a href="#"><i class="fas fa-headphones-simple"></i> Азиатская поп-музыка</a></li>
+					</ul>
 				</div>
 
-				<!-- Вкладка: Основное -->
-				<div class="form-tab-content active" data-tab="main">
-					<div class="form-group">
-						<label for="productName">Название товара *</label>
-						<input type="text" id="productName" placeholder="Например: Фигурка Наруто Узумаки" required>
-					</div>
-
-					<div class="form-row">
-						<div class="form-group">
-							<label for="productCategory">Категория</label>
-							<select id="productCategory">
-								<option value="figures">Аниме фигурки</option>
-								<option value="tea">Японский чай</option>
-								<option value="sweets">Азиатские сладости</option>
-								<option value="manga">Манга и книги</option>
-								<option value="clothing">Аниме одежда</option>
-								<option value="tableware">Японская посуда</option>
-								<option value="games">Японские игры</option>
-								<option value="stationery">Канцелярия кавай</option>
-								<option value="cosmetics">Косметика из Азии</option>
-								<option value="decor">Азиатский декор</option>
-								<option value="anime">Аниме на дисках</option>
-								<option value="music">Азиатская музыка</option>
-								<option value="other">Другое</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="productSKU">Артикул (SKU)</label>
-							<input type="text" id="productSKU" placeholder="Например: FIG-NAR-001">
-						</div>
-					</div>
-
-					<div class="form-row">
-						<div class="form-group">
-							<label for="productPrice">Цена *</label>
-							<input type="number" id="productPrice" min="0" step="0.01" required>
-						</div>
-						<div class="form-group">
-							<label for="productOldPrice">Старая цена (для скидки)</label>
-							<input type="number" id="productOldPrice" min="0" step="0.01">
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="productDescription">Описание</label>
-						<textarea id="productDescription" rows="4"
-							placeholder="Подробное описание товара..."></textarea>
-					</div>
+				<!-- Колонка 2: Информация -->
+				<div class="footer-column">
+					<h3><i class="fas fa-circle-info"></i> Информация</h3>
+					<ul class="footer-links">
+						<li><a href="#"><i class="fas fa-store"></i> О нас</a></li>
+						<li><a href="#"><i class="fas fa-question-circle"></i> Частые вопросы</a></li>
+						<li><a href="#"><i class="fas fa-truck-fast"></i> Оплата и доставка</a></li>
+						<li><a href="#"><i class="fas fa-rotate-left"></i> Обмен и возврат</a></li>
+						<li><a href="#"><i class="fas fa-address-book"></i> Контакты</a></li>
+						<li><a href="#"><i class="fas fa-shield"></i> Политика конфиденциальности</a></li>
+					</ul>
 				</div>
 
-				<!-- Вкладка: Детали -->
-				<div class="form-tab-content" data-tab="details">
-					<div class="form-row">
-						<div class="form-group">
-							<label for="productStatus">Статус наличия</label>
-							<select id="productStatus">
-								<option value="in-stock">В наличии</option>
-								<option value="out-of-stock">Нет в наличии</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="productQuantity">Количество</label>
-							<input type="number" id="productQuantity" min="0" value="1">
-						</div>
+				<!-- Колонка 3: Профиль -->
+				<div class="footer-column">
+					<h3><i class="fas fa-user-astronaut"></i> Профиль</h3>
+					<ul class="footer-links profile-links">
+						<li><a href="/pages/login.html"><i class="fas fa-user-circle"></i> Мой аккаунт</a></li>
+						<li><a href="/pages/favorites.html"><i class="fas fa-heart"></i> Избранное</a></li>
+						<li><a href="/pages/cart.html"><i class="fas fa-bag-shopping"></i> Корзина</a></li>
+					</ul>
+				</div>
+
+				<!-- Колонка 4: Соцсети и подписка -->
+				<div class="footer-column">
+					<h3><i class="fas fa-hashtag"></i> Мы в соцсетях</h3>
+					<div class="social-links">
+						<a href="#" class="social-link vk" title="ВКонтакте">
+							<i class="fab fa-vk"></i>
+						</a>
+						<a href="#" class="social-link telegram" title="Telegram">
+							<i class="fab fa-telegram-plane"></i>
+						</a>
+						<a href="#" class="social-link instagram" title="Instagram">
+							<i class="fab fa-instagram"></i>
+						</a>
+						<a href="#" class="social-link youtube" title="YouTube">
+							<i class="fab fa-youtube"></i>
+						</a>
+						<a href="#" class="social-link tiktok" title="TikTok">
+							<i class="fab fa-tiktok"></i>
+						</a>
 					</div>
 
-					<div class="form-group">
-						<label>Специальные метки</label>
-						<div class="badges-group">
-							<label class="badge-checkbox">
-								<input type="checkbox" id="productIsNew">
-								<span class="badge new">Новинка</span>
+					<!-- Форма подписки на новости -->
+					<div class="newsletter">
+						<h4><i class="far fa-paper-plane"></i> Подписка на новости</h4>
+						<form class="subscribe-form">
+							<div class="input-group">
+								<input type="email" placeholder="Ваш email" required>
+								<button type="submit">
+									<i class="fas fa-arrow-right"></i>
+								</button>
+							</div>
+							<label class="checkbox">
+								<input type="checkbox" checked>
+								<span>Соглашаюсь на обработку персональных данных</span>
 							</label>
-							<label class="badge-checkbox">
-								<input type="checkbox" id="productIsHit">
-								<span class="badge hit">Хит продаж</span>
-							</label>
-							<label class="badge-checkbox">
-								<input type="checkbox" id="productIsSale">
-								<span class="badge sale">Распродажа</span>
-							</label>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label>Характеристики</label>
-						<div id="specifications">
-							<!-- Здесь будут динамические поля характеристик -->
-						</div>
-						<button type="button" class="btn-secondary btn-small" id="addSpecBtn">
-							<i class="fas fa-plus"></i> Добавить характеристику
-						</button>
+						</form>
 					</div>
 				</div>
+			</div>
 
-				<!-- Вкладка: Изображения -->
-				<div class="form-tab-content" data-tab="images">
-					<div class="form-group">
-						<label>Основное изображение</label>
-						<div class="image-upload-area" id="imagePreview"
-							onclick="window.productManager.selectImageFromFolder()">
-							<img src="#" alt="Preview" style="display: none;">
-							<i class="fas fa-cloud-upload-alt"></i>
-							<span>Нажмите для загрузки или перетащите файл</span>
-						</div>
-						<input type="file" id="productImageFile" accept="image/*" style="display: none;">
-						<small class="form-hint">Поддерживаются форматы: JPG, PNG, GIF (макс. 5MB)</small>
-					</div>
-
-					<div class="form-group">
-						<label>Или выберите из папки image</label>
-						<select id="imageFromFolder" class="form-control">
-							<option value="">-- Выберите изображение --</option>
-							<option value="/image/figures.jpg">Фигурки</option>
-							<option value="/image/tea.jpg">Чай</option>
-							<option value="/image/swits.jpg">Сладости</option>
-							<option value="/image/manga.jpg">Манга</option>
-							<option value="/image/T-shirt.webp">Футболка</option>
-							<option value="/image/sakura.jpg">Сакура</option>
-							<option value="/image/offices.jpg">Канцелярия</option>
-							<option value="/image/BTS.jpg">K-POP</option>
-							<option value="/image/kawai.jpg">Кавай</option>
-						</select>
-					</div>
-
-					<div class="form-group">
-						<label>Или укажите URL изображения</label>
-						<input type="url" id="productImageUrl" placeholder="https://example.com/image.jpg">
-					</div>
+			<div class="footer-bottom">
+				<div class="copyright">
+					<i class="far fa-copyright"></i> 2026 Комори. Азиатский магазинчик у дома
 				</div>
 
-				<div class="form-actions">
-					<button type="button" class="btn-secondary" id="cancelModalBtn">Отмена</button>
-					<button type="submit" class="btn-primary" id="saveProductBtn">Сохранить товар</button>
+				<div class="payment-methods">
+					<i class="fab fa-cc-visa payment-method" title="Visa"></i>
+					<i class="fab fa-cc-mastercard payment-method" title="MasterCard"></i>
+					<i class="fab fa-cc-mir payment-method" title="Мир"></i>
+					<i class="fab fa-cc-paypal payment-method" title="PayPal"></i>
+					<i class="fab fa-cc-apple-pay payment-method" title="Apple Pay"></i>
+					<i class="fab fa-google-pay payment-method" title="Google Pay"></i>
 				</div>
-			</form>
-		</div>
-	</div>
 
-	<!-- Модальное окно подтверждения удаления -->
-	<div class="modal" id="deleteModal">
-		<div class="modal-content small">
-			<div class="modal-header">
-				<h2>Подтверждение удаления</h2>
-				<span class="close-modal" id="closeDeleteModal">&times;</span>
-			</div>
-			<div class="modal-body">
-				<p>Вы уверены, что хотите удалить товар "<span id="deleteProductName"></span>"?</p>
-				<p class="warning-text">Это действие нельзя отменить.</p>
-			</div>
-			<div class="modal-footer">
-				<button class="btn-secondary" id="cancelDeleteBtn">Отмена</button>
-				<button class="btn-danger" id="confirmDeleteBtn">Удалить</button>
-			</div>
-		</div>
-	</div>
-
-	<!-- Модальное окно корзины (предпросмотр) -->
-	<div class="modal" id="cartPreviewModal">
-		<div class="modal-content small">
-			<div class="modal-header">
-				<h2><i class="fas fa-shopping-cart"></i> Корзина</h2>
-				<span class="close-modal" id="closeCartPreview">&times;</span>
-			</div>
-			<div class="modal-body">
-				<div id="cartPreviewItems"></div>
-			</div>
-			<div class="modal-footer">
-				<div class="cart-preview-total">
-					<span>Итого:</span>
-					<span id="cartPreviewTotal">0 ₽</span>
+				<div class="developer">
+					Сделано с <i class="fas fa-heart pulse"></i> для ценителей азиатской культуры
 				</div>
-				<button class="btn-secondary" id="clearCartBtn">Очистить</button>
-				<button class="btn-primary" id="checkoutBtn">Оформить</button>
 			</div>
 		</div>
-	</div>
-
-	<!-- Модальное окно оформления заказа -->
-	<div class="modal" id="checkoutModal">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h2>Оформление заказа</h2>
-				<span class="close-modal" id="closeCheckoutModal">&times;</span>
-			</div>
-			<div class="modal-body">
-				<div id="checkoutItems"></div>
-				<div class="checkout-total" id="checkoutTotal"></div>
-
-				<form id="checkoutForm">
-					<div class="form-group">
-						<label for="checkoutName">Имя *</label>
-						<input type="text" id="checkoutName" required>
-					</div>
-					<div class="form-group">
-						<label for="checkoutPhone">Телефон *</label>
-						<input type="tel" id="checkoutPhone" required>
-					</div>
-					<div class="form-group">
-						<label for="checkoutEmail">Email *</label>
-						<input type="email" id="checkoutEmail" required>
-					</div>
-					<div class="form-group">
-						<label for="checkoutAddress">Адрес доставки</label>
-						<textarea id="checkoutAddress" rows="2"></textarea>
-					</div>
-					<div class="form-group">
-						<label for="checkoutComment">Комментарий к заказу</label>
-						<textarea id="checkoutComment" rows="2"></textarea>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button class="btn-secondary" id="cancelCheckoutBtn">Отмена</button>
-				<button class="btn-primary" id="confirmCheckoutBtn">Подтвердить заказ</button>
-			</div>
-		</div>
-	</div>
+	</footer>
 
 	<!-- Подключение JavaScript -->
 
@@ -749,49 +625,8 @@
 	<script src="/js/cart.js"></script>
 	<!-- Кнопки если нужны -->
 	<script src="/js/buttons.js"></script>
-	<!-- Аккардион лого -->
-	<script src="/js/accardion-logo.js"></script>
 	<!-- Управление товарами -->
 	<script src="/js/product-management.js"></script>
-	<script>
-
-
-
-
-		// Инициализация менеджера товаров
-		document.addEventListener( 'DOMContentLoaded', () => {
-			window.productManager = new ProductManager();
-		} );
-	</script>
-
-	<script>
-		// Проверка, что кнопка существует и работает
-		document.addEventListener( 'DOMContentLoaded', function () {
-			console.log( 'Страница управления товарами загружена' );
-
-			// Проверяем наличие кнопки
-			const addBtn = document.getElementById( 'addProductBtn' );
-			if ( addBtn ) {
-				console.log( 'Кнопка добавления товара найдена' );
-
-				// Добавляем прямой обработчик для теста
-				addBtn.addEventListener( 'click', function ( e ) {
-					console.log( 'Прямой обработчик: клик по кнопке' );
-				} );
-			} else {
-				console.error( 'Кнопка добавления товара НЕ найдена!' );
-			}
-
-			// Проверяем наличие ProductManager
-			setTimeout( () => {
-				if ( window.productManager ) {
-					console.log( 'ProductManager доступен глобально' );
-				} else {
-					console.error( 'ProductManager не инициализирован' );
-				}
-			}, 500 );
-		} );
-	</script>
 </body>
 
 </html>
