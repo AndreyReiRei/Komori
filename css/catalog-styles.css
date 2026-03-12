@@ -410,10 +410,6 @@
 	.show-all-btn {
 		min-width: 180px;
 	}
-
-	.scroll-btn {
-		display: block;
-	}
 }
 
 /* Мобильные L (481px - 576px) */
@@ -443,10 +439,6 @@
 
 	.show-all-btn {
 		min-width: 160px;
-	}
-
-	.scroll-btn {
-		display: block;
 	}
 }
 
@@ -488,10 +480,6 @@
 		gap: 8px;
 	}
 
-	.scroll-btn {
-		display: block;
-	}
-
 	.accordion-footer {
 		margin-top: 35px;
 	}
@@ -519,9 +507,5 @@
 		padding: 10px 16px;
 		font-size: 13px;
 		min-width: 130px;
-	}
-
-	.scroll-btn {
-		display: block;
 	}
 }
