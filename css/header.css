@@ -154,11 +154,11 @@ header::before {
 	justify-content: center;
 	text-decoration: none;
 	color: rgba(255, 255, 255, 0.9);
-	transition: all 0.3s ease;
+	/* transition: all 0.3s ease; */
 	padding: 8px 12px;
 	border-radius: 10px;
 	min-width: 70px;
-	background: rgba(255, 255, 255, 0.02);
+	/* background: rgba(255, 255, 255, 0.02); */
 	border: 1px solid transparent;
 }
 
@@ -176,7 +176,7 @@ header::before {
 .chat-mobile-btn:hover,
 .search-btn:hover {
 	background: rgba(58, 45, 47, 0.712);
-	transform: translateY(-2px);
+	transform: translateY(1px);
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
@@ -223,7 +223,7 @@ header::before {
 	position: absolute;
 	top: -5px;
 	right: 5px;
-	background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+	background: linear-gradient(135deg, #fe0000 0%, #ffb7c5d2 30%, #fe0000 100%);
 	color: white;
 	font-size: 11px;
 	font-weight: 700;

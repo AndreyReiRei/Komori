@@ -12,14 +12,19 @@
 	<link rel="stylesheet" href="/css/header.css">
 	<!-- Подвал -->
 	<link rel="stylesheet" href="/css/footer.css">
+
 	<!-- Бургер меню -->
-	<link rel="stylesheet" href="/css/burger-menu.css">
+	<link rel="stylesheet" href="/css/pages/burger-menu.css">
 	<!-- Помощь и звонок -->
-	<link rel="stylesheet" href="/css/support.css">
+	<link rel="stylesheet" href="/css/pages/support.css">
 	<!-- Аккардеон продукции -->
-	<link rel="stylesheet" href="/css/products-accordion.css">
+	<link rel="stylesheet" href="/css/pages/products-accordion.css">
 	<!-- Все Категории -->
-	<link rel="stylesheet" href="/css/catalog-styles.css">
+	<link rel="stylesheet" href="/css/pages/catalog-styles.css">
+	<!-- Лого товаров  -->
+	<link rel="stylesheet" href="/css/pages/accordion-logo.css">
+	<!-- Стили данной страницы -->
+	<link rel="stylesheet" href="/css/pages/product-management.css">
 	<!-- Библиотека -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -53,7 +58,7 @@
 
 					<!-- Product management -->
 					<div class="user-action-item admin-action">
-						<a href="/pages/product-management.html" class="action-link">
+						<a href="/pages html/product-management.html" class="action-link">
 							<i class="fas fa-cog"></i>
 							<span class="action-text">Управление товарами</span>
 						</a>
@@ -70,7 +75,7 @@
 
 					<!-- Избранное -->
 					<div class="user-action-item favorites-action">
-						<a href="/pages/favorites.html" class="action-link" id="favoritesBtn">
+						<a href="/pages html/favorites.html" class="action-link" id="favoritesBtn">
 							<i class="far fa-heart"></i>
 							<span class="action-text">Избранное</span>
 							<span class="action-badge" id="favoritesCount">0</span>
@@ -79,7 +84,7 @@
 
 					<!-- Корзина -->
 					<div class="user-action-item cart-action">
-						<a href="/pages/cart.html" class="action-link" id="cartBtn">
+						<a href="/pages html/cart.html" class="action-link" id="cartBtn">
 							<i class="fas fa-shopping-cart"></i>
 							<span class="action-text">Корзина</span>
 							<span class="action-badge" id="cartCount">0</span>
@@ -88,7 +93,7 @@
 
 					<!-- Вход/Регистрация -->
 					<div class="user-action-item auth-action">
-						<a href="/pages/login.html" class="action-link" id="authBtn">
+						<a href="/pages html/login.html" class="action-link" id="authBtn">
 							<i class="far fa-user"></i>
 							<span class="action-text" id="authText">Войти</span>
 						</a>
@@ -127,25 +132,43 @@
 			<nav class="main-nav" id="mainNav">
 				<ul class="nav-list">
 					<li class="has-dropdown">
-						<a href="/pages/catalog.html" class="nav-link">
+						<a href="/pages html/catalog.html" class="nav-link">
 							<i class="fas fa-bars"></i> <!-- Иконка меню -->
 							<span>Каталог товаров</span>
 							<i class="fas fa-chevron-down dropdown-arrow"></i>
 						</a>
 						<!-- Обновленное подменю для азиатского магазина -->
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fas fa-user-ninja"></i> Аниме фигурки</a></li>
-							<li><a href="#"><i class="fas fa-mug-hot"></i> Японский чай</a></li>
-							<li><a href="#"><i class="fas fa-cookie-bite"></i> Азиатские сладости</a></li>
-							<li><a href="#"><i class="fas fa-utensils"></i> Японская посуда</a></li>
-							<li><a href="#"><i class="fas fa-book"></i> Манга и книги</a></li>
-							<li><a href="#"><i class="fas fa-tshirt"></i> Аниме одежда</a></li>
-							<li><a href="#"><i class="fas fa-gamepad"></i> Японские игры</a></li>
-							<li><a href="#"><i class="fas fa-palette"></i> Канцелярия кавай</a></li>
-							<li><a href="#"><i class="fas fa-spray-can"></i> Косметика из Азии</a></li>
-							<li><a href="#"><i class="fas fa-home"></i> Азиатский декор</a></li>
-							<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
-							<li><a href="#"><i class="fas fa-music"></i> Азиатская популярная музыка </a></li>
+							<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-user-ninja"></i>
+									Аниме
+									фигурки</a></li>
+							<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-mug-hot"></i> Японский
+									чай</a>
+							</li>
+							<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-cookie-bite"></i>
+									Азиатские
+									сладости</a></li>
+							<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-utensils"></i> Японская
+									посуда</a></li>
+							<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book"></i> Манга и
+									книги</a>
+							</li>
+							<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-tshirt"></i> Аниме
+									одежда</a></li>
+							<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
+									игры</a></li>
+							<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-palette"></i>
+									Канцелярия
+									кавай</a></li>
+							<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-spray-can"></i>
+									Косметика
+									из Азии</a></li>
+							<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-home"></i> Азиатский
+									декор</a></li>
+							<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
+									дисках</a></li>
+							<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-music"></i> Азиатская
+									популярная музыка </a></li>
 						</ul>
 					</li>
 					<li>
@@ -173,7 +196,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="/pages/info.html" class="nav-link">
+						<a href="/pages html/info.html" class="nav-link">
 							<i class="fas fa-store"></i> <!-- Иконка магазина -->
 							<span>О нас</span>
 						</a>
@@ -429,7 +452,226 @@
 		<div class="nav-overlay" id="navOverlay"></div>
 	</div>
 
+	<!-- Модальное окно для добавления/редактирования товара -->
+	<div class="modal" id="productModal">
+		<div class="modal-content product-modal-content">
+			<div class="modal-header">
+				<h2 id="modalTitle"><i class="fas fa-box"></i> Добавить товар</h2>
+				<span class="close-modal" id="closeModal">&times;</span>
+			</div>
 
+			<div class="form-tabs">
+				<button class="form-tab active" data-tab="main">
+					<i class="fas fa-info-circle"></i> Основное
+				</button>
+				<button class="form-tab" data-tab="price">
+					<i class="fas fa-ruble-sign"></i> Цена и наличие
+				</button>
+				<button class="form-tab" data-tab="image">
+					<i class="fas fa-image"></i> Изображение
+				</button>
+			</div>
+
+			<form id="productForm">
+				<!-- Вкладка Основное -->
+				<div class="form-tab-content active" data-tab="main">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="productName">Название товара *</label>
+							<input type="text" id="productName" required placeholder="Введите название товара">
+						</div>
+
+						<div class="form-group">
+							<label for="productCategory">Категория</label>
+							<select id="productCategory">
+								<option value="figures">Аниме фигурки</option>
+								<option value="tea">Японский чай</option>
+								<option value="sweets">Азиатские сладости</option>
+								<option value="manga">Манга и книги</option>
+								<option value="clothing">Аниме одежда</option>
+								<option value="tableware">Японская посуда</option>
+								<option value="games">Японские игры</option>
+								<option value="stationery">Канцелярия кавай</option>
+								<option value="cosmetics">Косметика из Азии</option>
+								<option value="decor">Азиатский декор</option>
+								<option value="other">Другое</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="productSKU">Артикул</label>
+							<input type="text" id="productSKU" placeholder="Например: FIG-NAR-001">
+						</div>
+
+						<div class="form-group">
+							<label for="productDescription">Описание</label>
+							<textarea id="productDescription" rows="4"
+								placeholder="Подробное описание товара"></textarea>
+						</div>
+					</div>
+				</div>
+
+				<!-- Вкладка Цена и наличие -->
+				<div class="form-tab-content" data-tab="price">
+					<div class="modal-body">
+						<div class="form-row">
+							<div class="form-group">
+								<label for="productPrice">Цена *</label>
+								<input type="number" id="productPrice" required min="0" step="1" placeholder="0">
+							</div>
+
+							<div class="form-group">
+								<label for="productOldPrice">Старая цена (для скидки)</label>
+								<input type="number" id="productOldPrice" min="0" step="1" placeholder="0">
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group">
+								<label for="productStatus">Статус</label>
+								<select id="productStatus">
+									<option value="in-stock">В наличии</option>
+									<option value="out-of-stock">Нет в наличии</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="productQuantity">Количество</label>
+								<input type="number" id="productQuantity" min="0" value="1">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label>Бейджи</label>
+							<div class="badges-group">
+								<label class="badge-checkbox">
+									<input type="checkbox" id="productIsNew"> Новинка
+								</label>
+								<label class="badge-checkbox">
+									<input type="checkbox" id="productIsHit"> Хит продаж
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Вкладка Изображение -->
+				<div class="form-tab-content" data-tab="image">
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Загрузить изображение</label>
+							<div class="image-upload-area" id="uploadImageBtn">
+								<div id="imagePreview">
+									<img src="" alt="Preview" style="display: none;">
+									<i class="fas fa-cloud-upload-alt"></i>
+									<span>Нажмите для загрузки или перетащите файл</span>
+								</div>
+							</div>
+							<input type="file" id="productImageFile" accept="image/*" style="display: none;">
+						</div>
+
+						<div class="form-group">
+							<label for="productImageUrl">Или укажите ссылку на изображение</label>
+							<input type="url" id="productImageUrl" placeholder="https://example.com/image.jpg">
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn-secondary" id="cancelModalBtn">Отмена</button>
+					<button type="submit" class="btn-primary">Сохранить товар</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Модальное окно подтверждения удаления -->
+	<div class="modal" id="deleteModal">
+		<div class="modal-content small">
+			<div class="modal-header">
+				<h2><i class="fas fa-trash-alt"></i> Удаление товара</h2>
+				<span class="close-modal" id="closeDeleteModal">&times;</span>
+			</div>
+			<div class="modal-body">
+				<p>Вы уверены, что хотите удалить товар</p>
+				<p><strong id="deleteProductName"></strong>?</p>
+				<p class="text-warning">Это действие нельзя отменить.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn-secondary" id="cancelDeleteBtn">Отмена</button>
+				<button type="button" class="btn-danger" id="confirmDeleteBtn">Удалить</button>
+			</div>
+		</div>
+	</div>
+
+	<main>
+		<div class="container__main">
+			<!-- Модуль управления товарами -->
+			<div class="products-module">
+				<!-- Шапка модуля -->
+				<div class="module-header">
+					<h1><i class="fas fa-box"></i> Управление товарами</h1>
+					<button class="btn-primary" id="addProductBtn">
+						<i class="fas fa-plus"></i> Добавить товар
+					</button>
+				</div>
+
+				<!-- Фильтры и поиск -->
+				<div class="filters-section">
+					<div class="search-box">
+						<i class="fas fa-search"></i>
+						<input type="text" id="searchInput" placeholder="Поиск товаров...">
+					</div>
+
+					<div class="filter-group">
+						<select id="categoryFilter">
+							<option value="all">Все категории</option>
+							<option value="figures">Аниме фигурки</option>
+							<option value="tea">Японский чай</option>
+							<option value="sweets">Азиатские сладости</option>
+							<option value="manga">Манга и книги</option>
+							<option value="clothing">Аниме одежда</option>
+							<option value="tableware">Японская посуда</option>
+							<option value="games">Японские игры</option>
+							<option value="stationery">Канцелярия кавай</option>
+							<option value="cosmetics">Косметика из Азии</option>
+							<option value="decor">Азиатский декор</option>
+							<option value="anime">Аниме на дисках</option>
+							<option value="music">Азиатская музыка</option>
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<select id="statusFilter">
+							<option value="all">Все статусы</option>
+							<option value="in-stock">В наличии</option>
+							<option value="out-of-stock">Нет в наличии</option>
+						</select>
+					</div>
+
+					<div class="sort-group">
+						<select id="sortBy">
+							<option value="default">По умолчанию</option>
+							<option value="name-asc">По названию (А-Я)</option>
+							<option value="name-desc">По названию (Я-А)</option>
+							<option value="price-asc">По цене (возр.)</option>
+							<option value="price-desc">По цене (убыв.)</option>
+							<option value="quantity-asc">По количеству (возр.)</option>
+							<option value="quantity-desc">По количеству (убыв.)</option>
+						</select>
+						<button class="sort-order-btn" id="sortOrderBtn">
+							<i class="fas fa-arrow-up-wide-short"></i>
+						</button>
+					</div>
+				</div>
+
+				<!-- Сетка товаров -->
+				<div class="products-grid" id="productsGrid">
+					<!-- Товары будут загружаться сюда -->
+				</div>
+			</div>
+		</div>
+	</main>
 
 	<!-- Подвал сайта -->
 	<footer>
@@ -540,26 +782,34 @@
 
 	<!-- Подключение JavaScript -->
 
+
+	<!-- Единое хранилище данных -->
+	<script src="/js/core/store.js"></script>
+	<!-- Работа с изображениями и утилиты  -->
+	<script src="/js/core/api.js"></script>
 	<!-- Основной код -->
 	<script src="/js/main.js"></script>
+	<!-- Управление товарами (админка) -->
+	<script src="/js/pages/product-management.js"></script>
+	<!-- Каталог товаров -->
+	<script src="/js/pages/catalog.js"></script>
 	<!-- Бургер меню -->
-	<script src="/js/burger.js"></script>
+	<script src="/js/pages/burger.js"></script>
+
 	<!-- Поддержка -->
-	<script src="/js/support.js"></script>
+	<script src="/js/pages/support.js"></script>
+	<!-- Аккардион лого -->
+	<script src="/js/pages/accardion-logo.js"></script>
 	<!-- Аккардеон продукции -->
-	<script src="/js/products-accordion.js"></script>
-	<!-- Популярные категории -->
-	<script src="/js/catalog-expand.js"></script>
+	<script src="/js/pages/products-accordion.js"></script>
 	<!-- Поиск -->
-	<script src="/js/search.js"></script>
-	<!-- Корзина -->
-	<script src="/js/cart.js"></script>
-	<!-- Избранное -->
-	<script src="/js/favorites.js"></script>
+	<script src="/js/pages/search.js"></script>
+	<!-- Корзина и избранное -->
+	<script src="/js/pages/cart-favorites.js"></script>
+
+
 	<!-- Кнопки если нужны -->
-	<script src="/js/buttons.js"></script>
-	<!-- Управление товарами -->
-	<script src="/js/product-management.js"></script>
+	<script src="js/pages/buttons.js"></script>
 </body>
 
 </html>

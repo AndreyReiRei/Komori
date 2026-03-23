@@ -1,4 +1,8 @@
-// Скрипт для горизонтального скролл-аккордеона товаров с автоматической прокруткой и навигационной полоской
+/**
+ * Скрипт для горизонтального скролл-аккордеона товаров с навигационной полоской
+ * Только навигация и скролл
+ */
+
 document.addEventListener( 'DOMContentLoaded', function () {
 	// ========== ПОЛУЧЕНИЕ ЭЛЕМЕНТОВ ==========
 	let productsScroll = document.getElementById( 'productsScroll' );
@@ -38,26 +42,23 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	 * Вызывается при загрузке, изменении размера окна и обновлении контента
 	 */
 	function updateMeasurements() {
-		const card = productsScroll.querySelector( '.product-card' );
-		if ( card ) {
-			// Получаем значение gap из стилей контейнера
-			const style = window.getComputedStyle( productsScroll );
-			const gap = parseInt( style.gap ) || 30; // По умолчанию 30px
+		const cards = productsScroll.querySelectorAll( '.product-card' );
+		if ( cards.length === 0 ) return;
 
-			// Полная ширина карточки включая отступ справа
-			cardWidth = card.offsetWidth + gap;
-		}
+		const card = cards[0];
+		// Получаем значение gap из стилей контейнера
+		const style = window.getComputedStyle( productsScroll );
+		const gap = parseInt( style.gap ) || 30; // По умолчанию 30px
+
+		// Полная ширина карточки включая отступ справа
+		cardWidth = card.offsetWidth + gap;
 
 		// Обновляем общую статистику
-		totalItems = productsScroll.querySelectorAll( '.product-card' ).length;
+		totalItems = cards.length;
 		visibleItems = Math.floor( productsScroll.clientWidth / cardWidth );
 
 		// Максимальный индекс = общее количество "экранов" минус 1
-		// Например: 8 товаров, видно 2 => (8 - 2) = 6 (индексы от 0 до 6)
 		maxIndex = Math.max( 0, totalItems - visibleItems );
-
-		// Для отладки (можно удалить в продакшене)
-		console.debug( 'Measurements:', { cardWidth, totalItems, visibleItems, maxIndex } );
 	}
 
 	/**
@@ -115,18 +116,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		// Активируем текущий сегмент
 		if ( segments[currentIndex] ) {
 			segments[currentIndex].classList.add( 'active' );
-
-			// Добавляем анимацию пульсации только для ручного взаимодействия
-			if ( config.animationEnabled && !isScrolling ) {
-				segments[currentIndex].style.animation = 'pulse 0.3s ease';
-
-				// Убираем анимацию после завершения
-				setTimeout( () => {
-					if ( segments[currentIndex] ) {
-						segments[currentIndex].style.animation = '';
-					}
-				}, 300 );
-			}
 		}
 	}
 
@@ -274,8 +263,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		// Запускаем новый таймер
 		autoScrollTimer = setInterval( autoScrollNext, interval );
-
-		console.debug( `Auto-scroll started with interval: ${interval}ms (hover: ${isHovering})` );
 	}
 
 	/**
@@ -285,7 +272,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		if ( autoScrollTimer ) {
 			clearInterval( autoScrollTimer );
 			autoScrollTimer = null;
-			console.debug( 'Auto-scroll stopped' );
 		}
 	}
 
@@ -307,12 +293,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		// Перезапускаем автоскролл с новым интервалом
 		stopAutoScroll();
 		startAutoScroll();
-
-		// Добавляем легкий визуальный эффект на карточку
-		document.querySelectorAll( '.product-card' ).forEach( card => {
-			card.style.transition = 'all 0.3s ease';
-			card.style.boxShadow = '0 15px 35px rgba(255, 183, 197, 0.3)';
-		} );
 	}
 
 	/**
@@ -325,7 +305,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		}
 
 		// Добавляем небольшую задержку перед возвратом к обычной скорости
-		// чтобы случайное движение мыши не вызывало частые переключения
 		hoverTimer = setTimeout( () => {
 			// Сбрасываем флаг наведения
 			isHovering = false;
@@ -334,13 +313,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			stopAutoScroll();
 			startAutoScroll();
 
-			// Убираем визуальный эффект
-			document.querySelectorAll( '.product-card' ).forEach( card => {
-				card.style.boxShadow = '';
-			} );
-
 			hoverTimer = null;
-		}, 300 ); // Задержка 300мс перед возвратом к обычной скорости
+		}, 300 );
 	}
 
 	/**
@@ -359,169 +333,32 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	}
 
 	/**
-	 * Обновление обработчиков для кнопок "В корзину"
+	 * Обновление навигации при изменении количества товаров
+	 * Без перезагрузки всего аккордеона
 	 */
-	function updateCartButtons() {
-		document.querySelectorAll( '.product-btn' ).forEach( button => {
-			// Удаляем старые обработчики
-			button.removeEventListener( 'click', handleAddToCart );
-			// Добавляем новые
-			button.addEventListener( 'click', handleAddToCart );
-		} );
-	}
+	function updateNavigation() {
+		// Сохраняем текущую позицию
+		const oldScrollLeft = productsScroll.scrollLeft;
 
-	/**
-	 * Обработчик добавления в корзину
-	 */
-	function handleAddToCart( e ) {
-		e.preventDefault();
+		// Обновляем измерения
+		updateMeasurements();
 
-		// Получаем данные о товаре
-		const productCard = this.closest( '.product-card' );
-		const productTitle = productCard.querySelector( '.product-title' ).textContent;
-		const productPrice = productCard.querySelector( '.product-price' ).textContent;
+		// Пересоздаем сегменты навигации
+		createNavbarSegments();
 
-		// Если есть глобальный productManager, используем его
-		if ( window.productManager && productCard.dataset.id ) {
-			window.productManager.addToCart( productCard.dataset.id );
-		} else {
-			// Иначе показываем демо-уведомление
-			showNotification( `Товар "${productTitle}" добавлен в корзину за ${productPrice}` );
+		// Корректируем индекс, если он вышел за пределы
+		if ( currentIndex > maxIndex ) {
+			currentIndex = Math.max( 0, maxIndex );
 		}
 
-		// Анимация кнопки
-		const originalText = this.textContent;
-		const originalBg = this.style.background;
-
-		this.textContent = '✓ Добавлено!';
-		this.style.background = 'linear-gradient(135deg, #34c759 0%, #2db14d 100%)';
-		this.style.transform = 'scale(0.95)';
-
-		// Возвращаем исходное состояние через 1.5 секунды
-		setTimeout( () => {
-			this.textContent = originalText;
-			this.style.background = originalBg;
-			this.style.transform = 'scale(1)';
-		}, 1500 );
-	}
-
-	/**
-	 * Функция показа уведомлений
-	 * @param {string} message - текст уведомления
-	 */
-	function showNotification( message ) {
-		// Создаем элемент уведомления
-		const notification = document.createElement( 'div' );
-		notification.className = 'product-notification';
-		notification.textContent = message;
-
-		// Стили для уведомления
-		notification.style.cssText = `
-			position: fixed;
-			top: 100px;
-			right: 20px;
-			background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
-			color: white;
-			padding: 15px 25px;
-			border-radius: 10px;
-			box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
-			z-index: 9999;
-			animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
-			max-width: 400px;
-			font-weight: 500;
-			letter-spacing: 0.5px;
-			border-left: 5px solid white;
-		`;
-
-		// Предотвращаем влияние уведомления на состояние наведения
-		notification.addEventListener( 'mouseenter', ( e ) => e.stopPropagation() );
-
-		// Добавляем стили анимации, если их еще нет
-		if ( !document.querySelector( '#notification-styles' ) ) {
-			const style = document.createElement( 'style' );
-			style.id = 'notification-styles';
-			style.textContent = `
-				@keyframes slideIn {
-					from {
-						transform: translateX(100%);
-						opacity: 0;
-					}
-					to {
-						transform: translateX(0);
-						opacity: 1;
-					}
-				}
-				@keyframes fadeOut {
-					from {
-						opacity: 1;
-					}
-					to {
-						opacity: 0;
-					}
-				}
-				@keyframes pulse {
-					0% { transform: scale(1); }
-					50% { transform: scale(1.1); box-shadow: 0 0 15px rgba(255, 107, 107, 0.6); }
-					100% { transform: scale(1); }
-				}
-			`;
-			document.head.appendChild( style );
+		// Восстанавливаем позицию скролла или корректируем её
+		if ( cardWidth > 0 ) {
+			const newScrollLeft = Math.min( oldScrollLeft, maxIndex * cardWidth );
+			productsScroll.scrollLeft = newScrollLeft;
 		}
 
-		// Добавляем уведомление на страницу
-		document.body.appendChild( notification );
-
-		// Удаляем через 3 секунды
-		setTimeout( () => {
-			if ( notification.parentNode ) {
-				notification.parentNode.removeChild( notification );
-			}
-		}, 3000 );
-	}
-
-	/**
-	 * Полная перезагрузка аккордеона
-	 */
-	function reloadAccordion() {
-		console.log( 'Перезагрузка аккордеона...' );
-
-		// Останавливаем автоскролл
-		stopAutoScroll();
-
-		// Небольшая задержка для обновления DOM
-		setTimeout( () => {
-			// Обновляем ссылку на контейнер (на случай если он был пересоздан)
-			productsScroll = document.getElementById( 'productsScroll' );
-
-			if ( !productsScroll ) {
-				console.error( 'Контейнер товаров не найден после перезагрузки' );
-				return;
-			}
-
-			// Обновляем измерения
-			updateMeasurements();
-
-			// Пересоздаем сегменты
-			createNavbarSegments();
-
-			// Добавляем обработчики
-			addProductHoverHandlers();
-			updateCartButtons();
-
-			// Сбрасываем индекс
-			currentIndex = 0;
-			updateActiveSegment();
-
-			// Прокручиваем в начало
-			if ( productsScroll ) {
-				productsScroll.scrollLeft = 0;
-			}
-
-			// Запускаем автоскролл
-			startAutoScroll();
-
-			console.log( 'Аккордеон перезагружен' );
-		}, 100 );
+		// Обновляем активный сегмент
+		updateActiveSegment();
 	}
 
 	// ========== ОБРАБОТЧИКИ СОБЫТИЙ ==========
@@ -531,7 +368,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	 */
 	productsScroll.addEventListener( 'scroll', function () {
 		// Обновляем индекс только при ручном скролле
-		// Флаг isScrolling = true во время программной прокрутки
 		updateCurrentIndex();
 	} );
 
@@ -556,9 +392,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	// Добавление обработчиков наведения на карточки
 	addProductHoverHandlers();
 
-	// Добавление обработчиков для кнопок
-	updateCartButtons();
-
 	// Обновление текущего индекса
 	updateCurrentIndex();
 
@@ -568,54 +401,34 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	// ========== ОБРАБОТЧИК ИЗМЕНЕНИЯ РАЗМЕРА ОКНА ==========
 	let resizeTimer;
 	window.addEventListener( 'resize', function () {
-		// Используем debounce для оптимизации
 		clearTimeout( resizeTimer );
 		resizeTimer = setTimeout( () => {
-			// Запоминаем текущий индекс
-			const oldIndex = currentIndex;
-
-			// Обновляем измерения
-			updateMeasurements();
-
-			// Пересоздаем сегменты (они могут измениться по количеству)
-			createNavbarSegments();
-
-			// Корректируем индекс, если он вышел за пределы
-			if ( currentIndex > maxIndex ) {
-				currentIndex = maxIndex;
-			}
-
-			// Восстанавливаем позицию скролла
-			if ( cardWidth > 0 ) {
-				smoothScrollTo( currentIndex * cardWidth, true );
-			}
-
-			// Обновляем активный сегмент
-			updateActiveSegment();
+			updateNavigation();
 
 			// Перезапускаем автоскролл
 			stopAutoScroll();
 			startAutoScroll();
-		}, 250 ); // Ждем 250мс после последнего изменения размера
+		}, 250 );
 	} );
 
 	// ========== НАБЛЮДАТЕЛЬ ЗА ИЗМЕНЕНИЯМИ В DOM ==========
 	// MutationObserver отслеживает добавление/удаление товаров
 	const observer = new MutationObserver( function ( mutations ) {
+		let shouldUpdate = false;
+
 		mutations.forEach( function ( mutation ) {
-			if ( mutation.type === 'childList' ) {
-				// Обновляем все при изменении списка товаров
-				updateMeasurements();
-				createNavbarSegments();
-				updateCurrentIndex();
-
-				// Добавляем обработчики для новых карточек
-				addProductHoverHandlers();
-				updateCartButtons();
-
-				console.debug( 'DOM updated, segments recreated and handlers added' );
+			if ( mutation.type === 'childList' && mutation.addedNodes.length > 0 || mutation.removedNodes.length > 0 ) {
+				shouldUpdate = true;
 			}
 		} );
+
+		if ( shouldUpdate ) {
+			// Обновляем навигацию без перезагрузки
+			updateNavigation();
+
+			// Добавляем обработчики для новых карточек
+			addProductHoverHandlers();
+		}
 	} );
 
 	// Запускаем наблюдение за изменениями в контейнере товаров
@@ -623,27 +436,13 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	// ========== СЛУШАЕМ ОБНОВЛЕНИЯ ТОВАРОВ ==========
 	// Слушаем кастомное событие обновления товаров
-	window.addEventListener( 'productsUpdated', function () {
-		reloadAccordion();
+	window.addEventListener( 'store:productsUpdated', function () {
+		// Просто обновляем навигацию без перезагрузки
+		updateNavigation();
+
+		// Добавляем обработчики для новых карточек
+		addProductHoverHandlers();
 	} );
 
-	// Слушаем изменения localStorage
-	window.addEventListener( 'storage', function ( e ) {
-		if ( e.key === 'products' ) {
-			reloadAccordion();
-		}
-	} );
-
-	// ========== ОТЛАДОЧНАЯ ИНФОРМАЦИЯ ==========
-	console.log( 'Скролл-аккордеон товаров инициализирован:', {
-		totalItems,
-		visibleItems,
-		maxIndex,
-		cardWidth,
-		currentIndex,
-		segmentsCount: segments.length
-	} );
-
-	// Добавляем метод для ручной перезагрузки
-	window.reloadProductsAccordion = reloadAccordion;
+	console.log( 'Скролл-аккордеон товаров инициализирован' );
 } );

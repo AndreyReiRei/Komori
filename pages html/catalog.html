@@ -12,14 +12,19 @@
 	<link rel="stylesheet" href="/css/header.css">
 	<!-- Подвал -->
 	<link rel="stylesheet" href="/css/footer.css">
+
 	<!-- Бургер меню -->
-	<link rel="stylesheet" href="/css/burger-menu.css">
+	<link rel="stylesheet" href="/css/pages/burger-menu.css">
 	<!-- Помощь и звонок -->
-	<link rel="stylesheet" href="/css/support.css">
+	<link rel="stylesheet" href="/css/pages/support.css">
 	<!-- Аккардеон продукции -->
-	<link rel="stylesheet" href="/css/products-accordion.css">
+	<link rel="stylesheet" href="/css/pages/products-accordion.css">
 	<!-- Все Категории -->
-	<link rel="stylesheet" href="/css/catalog-styles.css">
+	<link rel="stylesheet" href="/css/pages/catalog-styles.css">
+	<!-- Лого товаров  -->
+	<link rel="stylesheet" href="/css/pages/accordion-logo.css">
+	<!-- Стили данной страницы -->
+
 	<!-- Библиотека -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -53,7 +58,7 @@
 
 					<!-- Product management -->
 					<div class="user-action-item admin-action">
-						<a href="/pages/product-management.html" class="action-link">
+						<a href="/pages html/product-management.html" class="action-link">
 							<i class="fas fa-cog"></i>
 							<span class="action-text">Управление товарами</span>
 						</a>
@@ -70,7 +75,7 @@
 
 					<!-- Избранное -->
 					<div class="user-action-item favorites-action">
-						<a href="/pages/favorites.html" class="action-link" id="favoritesBtn">
+						<a href="/pages html/favorites.html" class="action-link" id="favoritesBtn">
 							<i class="far fa-heart"></i>
 							<span class="action-text">Избранное</span>
 							<span class="action-badge" id="favoritesCount">0</span>
@@ -79,7 +84,7 @@
 
 					<!-- Корзина -->
 					<div class="user-action-item cart-action">
-						<a href="/pages/cart.html" class="action-link" id="cartBtn">
+						<a href="/pages html/cart.html" class="action-link" id="cartBtn">
 							<i class="fas fa-shopping-cart"></i>
 							<span class="action-text">Корзина</span>
 							<span class="action-badge" id="cartCount">0</span>
@@ -88,7 +93,7 @@
 
 					<!-- Вход/Регистрация -->
 					<div class="user-action-item auth-action">
-						<a href="/pages/login.html" class="action-link" id="authBtn">
+						<a href="/pages html/login.html" class="action-link" id="authBtn">
 							<i class="far fa-user"></i>
 							<span class="action-text" id="authText">Войти</span>
 						</a>
@@ -127,25 +132,43 @@
 			<nav class="main-nav" id="mainNav">
 				<ul class="nav-list">
 					<li class="has-dropdown">
-						<a href="/pages/catalog.html" class="nav-link">
+						<a href="/pages html/catalog.html" class="nav-link">
 							<i class="fas fa-bars"></i> <!-- Иконка меню -->
 							<span>Каталог товаров</span>
 							<i class="fas fa-chevron-down dropdown-arrow"></i>
 						</a>
 						<!-- Обновленное подменю для азиатского магазина -->
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fas fa-user-ninja"></i> Аниме фигурки</a></li>
-							<li><a href="#"><i class="fas fa-mug-hot"></i> Японский чай</a></li>
-							<li><a href="#"><i class="fas fa-cookie-bite"></i> Азиатские сладости</a></li>
-							<li><a href="#"><i class="fas fa-utensils"></i> Японская посуда</a></li>
-							<li><a href="#"><i class="fas fa-book"></i> Манга и книги</a></li>
-							<li><a href="#"><i class="fas fa-tshirt"></i> Аниме одежда</a></li>
-							<li><a href="#"><i class="fas fa-gamepad"></i> Японские игры</a></li>
-							<li><a href="#"><i class="fas fa-palette"></i> Канцелярия кавай</a></li>
-							<li><a href="#"><i class="fas fa-spray-can"></i> Косметика из Азии</a></li>
-							<li><a href="#"><i class="fas fa-home"></i> Азиатский декор</a></li>
-							<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
-							<li><a href="#"><i class="fas fa-music"></i> Азиатская популярная музыка </a></li>
+							<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-user-ninja"></i>
+									Аниме
+									фигурки</a></li>
+							<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-mug-hot"></i> Японский
+									чай</a>
+							</li>
+							<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-cookie-bite"></i>
+									Азиатские
+									сладости</a></li>
+							<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-utensils"></i> Японская
+									посуда</a></li>
+							<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book"></i> Манга и
+									книги</a>
+							</li>
+							<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-tshirt"></i> Аниме
+									одежда</a></li>
+							<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
+									игры</a></li>
+							<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-palette"></i>
+									Канцелярия
+									кавай</a></li>
+							<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-spray-can"></i>
+									Косметика
+									из Азии</a></li>
+							<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-home"></i> Азиатский
+									декор</a></li>
+							<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
+									дисках</a></li>
+							<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-music"></i> Азиатская
+									популярная музыка </a></li>
 						</ul>
 					</li>
 					<li>
@@ -173,7 +196,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="/pages/info.html" class="nav-link">
+						<a href="/pages html/info.html" class="nav-link">
 							<i class="fas fa-store"></i> <!-- Иконка магазина -->
 							<span>О нас</span>
 						</a>
@@ -429,7 +452,277 @@
 		<div class="nav-overlay" id="navOverlay"></div>
 	</div>
 
+	<!-- Основное содержимое -->
+	<main>
+		<div class="container__main">
 
+			<!-- Секция предпросмотра каталога -->
+			<section class="catalog-preview">
+				<h2>Все категории</h2>
+
+				<div class="catalog-grid">
+					<!-- Аниме фигурки -->
+					<div class="catalog-item">
+						<i class="fas fa-user-ninja"></i>
+						<h3>Аниме фигурки</h3>
+						<p>Статуэтки любимых персонажей</p>
+						<a href="/pages html/catalog pages/figurines.html" class="catalog-link-overlay"></a>
+					</div>
+
+					<!-- Японский чай -->
+					<div class="catalog-item">
+						<i class="fas fa-mug-hot"></i>
+						<h3>Японский чай</h3>
+						<p>Сэнтя, маття, улуны</p>
+						<a href="/pages/catalog pages/tea.html" class="catalog-link-overlay"></a>
+					</div>
+					<!-- Азиатские сладости -->
+					<div class="catalog-item">
+						<i class="fas fa-cookie-bite"></i>
+						<h3>Азиатские сладости</h3>
+						<p>Мочи, рамен, сэйю</p>
+						<a href="/pages/catalog pages/sweets.html" class="catalog-link-overlay"></a>
+					</div>
+					<!-- Манга и книги -->
+					<div class="catalog-item">
+						<i class="fas fa-book"></i>
+						<h3>Манга и книги</h3>
+						<p>Комиксы и литература</p>
+						<a href="/pages/catalog pages/manga.html" class="catalog-link-overlay"></a>
+					</div>
+					<!-- Японская посуда -->
+					<div class="catalog-item">
+						<i class="fas fa-utensils"></i>
+						<h3>Японская посуда</h3>
+						<p>Пиалы, чайные наборы</p>
+						<a href="/pages/catalog pages/dishes.html" class="catalog-link-overlay"></a>
+					</div>
+					<!-- Аниме одежда -->
+					<div class="catalog-item">
+						<i class="fas fa-tshirt"></i>
+						<h3>Аниме одежда</h3>
+						<p>Футболки, худи, аксессуары</p>
+						<a href="/pages/catalog pages/clothes.html" class="catalog-link-overlay"></a>
+					</div>
+					<!-- Японские игры -->
+					<div class="catalog-item">
+						<i class="fas fa-gamepad"></i>
+						<h3>Японские игры</h3>
+						<p>Настольные и видеоигры</p>
+						<a href="/pages/catalog pages/games.html" class="catalog-link-overlay"></a>
+					</div>
+					<!-- Канцелярия кавай -->
+					<div class="catalog-item">
+						<i class="fas fa-palette"></i>
+						<h3>Канцелярия кавай</h3>
+						<p>Тетради, ручки, наклейки</p>
+						<a href="/pages/catalog pages/office.html" class="catalog-link-overlay"></a>
+					</div>
+
+					<!-- ДОБАВЛЕННЫЕ КАТЕГОРИИ (изначально скрыты) -->
+					<div class="catalog-item hidden-category">
+						<i class="fas fa-spa"></i>
+						<h3>Косметика из Азии</h3>
+						<p>Корейская косметика, японские средства</p>
+						<a href="/pages/catalog pages/cosmetics.html" class="catalog-link-overlay"></a>
+					</div>
+					<div class="catalog-item hidden-category">
+						<i class="fas fa-home"></i>
+						<h3>Азиатский декор</h3>
+						<p>Вазы, ширмы, предметы интерьера</p>
+						<a href="/pages/catalog pages/decor.html" class="catalog-link-overlay"></a>
+					</div>
+					<div class="catalog-item hidden-category">
+						<i class="fas fa-compact-disc"></i>
+						<h3>Аниме на дисках</h3>
+						<p>DVD, Blu-ray коллекции</p>
+						<a href="/pages/catalog pages/disks.html" class="catalog-link-overlay"></a>
+					</div>
+					<div class="catalog-item hidden-category">
+						<i class="fas fa-music"></i>
+						<h3>Азиатская популярная музыка</h3>
+						<p>K-pop, J-pop, OST аниме</p>
+						<a href="/pages/catalog pages/music.html" class="catalog-link-overlay"></a>
+					</div>
+				</div>
+				<!-- Кнопка "Показать все" -->
+				<div class="accordion-footer">
+					<button class="show-all-btn">
+						<span>Показать все товары</span>
+						<i class="fas fa-arrow-right"></i>
+					</button>
+				</div>
+			</section>
+
+
+			<!-- Горизонтальный скролл-аккордеон с товарами -->
+			<div class="promo-section">
+				<h2>Новинки / Колеекции / Скидки</h2>
+			</div>
+			<section class="products-accordion">
+				<div class="accordion-container">
+					<!-- Кнопки навигации на краях картинок -->
+
+					<button class="scroll-btn prev-btn" aria-label="Предыдущие товары">
+						<i class="fas fa-chevron-left"></i>
+					</button>
+					<button class="scroll-btn next-btn" aria-label="Следующие товары">
+						<i class="fas fa-chevron-right"></i>
+					</button>
+
+					<!-- Товары  -->
+					<div class="products-scroll" id="productsScroll">
+						<!-- Товар 1 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="/image/figures.jpg" alt="Аниме фигурка Наруто" loading="lazy">
+								<span class="product-badge">Хит продаж</span>
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Фигурка Наруто Узумаки</h3>
+								<p class="product-description">Детализированная фигурка главного героя из аниме "Наруто"
+								</p>
+								<div class="product-meta">
+									<span class="product-price">1 890 ₽</span>
+									<span class="product-old-price">2 390 ₽</span>
+									<span class="product-discount">-21%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 2 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="/image/tea.jpg" alt="Японский чай маття" loading="lazy">
+								<span class="product-badge new">Новинка</span>
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Маття премиум</h3>
+								<p class="product-description">Настоящий японский зелёный чай высшего сорта</p>
+								<div class="product-meta">
+									<span class="product-price">890 ₽</span>
+									<span class="product-old-price">1 190 ₽</span>
+									<span class="product-discount">-25%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 3 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="/image/T-shirt.webp" alt="Аниме футболка" loading="lazy">
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Футболка Атака Титанов</h3>
+								<p class="product-description">Хлопковая футболка с принтом из культового аниме</p>
+								<div class="product-meta">
+									<span class="product-price">1 290 ₽</span>
+									<span class="product-old-price">1 590 ₽</span>
+									<span class="product-discount">-19%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 4 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="/image/swits.jpg" alt="Японские сладости" loading="lazy">
+								<span class="product-badge">Бестселлер</span>
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Набор японских сладостей</h3>
+								<p class="product-description">Ассорти из моти, рамена и традиционных десертов</p>
+								<div class="product-meta">
+									<span class="product-price">1 490 ₽</span>
+									<span class="product-old-price">1 990 ₽</span>
+									<span class="product-discount">-25%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 5 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="/image/manga.jpg" alt="Манга Наруто" loading="lazy">
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Манга Наруто (том 1)</h3>
+								<p class="product-description">Первый том легендарной манги на русском языке</p>
+								<div class="product-meta">
+									<span class="product-price">690 ₽</span>
+									<span class="product-old-price">890 ₽</span>
+									<span class="product-discount">-22%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 6 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="/image/sakura.jpg" alt="Японская посуда" loading="lazy">
+								<span class="product-badge new">Новинка</span>
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Чайный набор сакура</h3>
+								<p class="product-description">Керамический набор для чайной церемонии</p>
+								<div class="product-meta">
+									<span class="product-price">2 990 ₽</span>
+									<span class="product-old-price">3 590 ₽</span>
+									<span class="product-discount">-17%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 7 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="/image/offices.jpg" alt="Канцелярия кавай" loading="lazy">
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">Набор канцелярии кавай</h3>
+								<p class="product-description">Тетради, ручки и наклейки в японском стиле</p>
+								<div class="product-meta">
+									<span class="product-price">1 190 ₽</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+
+						<!-- Товар 8 -->
+						<div class="product-card">
+							<div class="product-image">
+								<img src="/image/BTS.jpg" alt="K-POP мерч" loading="lazy">
+								<span class="product-badge">Хит</span>
+							</div>
+							<div class="product-content">
+								<h3 class="product-title">K-POP альбом BTS</h3>
+								<p class="product-description">Ограниченное издание с фотокарточками</p>
+								<div class="product-meta">
+									<span class="product-price">2 490 ₽</span>
+									<span class="product-old-price">2 990 ₽</span>
+									<span class="product-discount">-17%</span>
+								</div>
+								<button class="product-btn">В корзину</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Навигационная полоска с делениями -->
+					<div class="scroll-navbar">
+						<div class="navbar-track">
+							<!-- Сегменты будут создаваться динамически через JavaScript -->
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
 
 	<!-- Подвал сайта -->
 	<footer>
@@ -542,24 +835,31 @@
 
 	<!-- Основной код -->
 	<script src="/js/main.js"></script>
+	<!-- Единое хранилище данных -->
+	<script src="/js/core/store.js"></script>
+	<!-- Работа с изображениями и утилиты  -->
+	<script src="/js/core/api.js"></script>
+	<!-- Управление товарами (админка) -->
+	<script src="/js/pages/product-management.js"></script>
+	<!-- Каталог товаров -->
+	<script src="/js/pages/catalog.js"></script>
 	<!-- Бургер меню -->
-	<script src="/js/burger.js"></script>
+	<script src="/js/pages/burger.js"></script>
+
 	<!-- Поддержка -->
-	<script src="/js/support.js"></script>
+	<script src="/js/pages/support.js"></script>
+	<!-- Аккардион лого -->
+	<script src="/js/pages/accardion-logo.js"></script>
 	<!-- Аккардеон продукции -->
-	<script src="/js/products-accordion.js"></script>
-	<!-- Популярные категории -->
-	<script src="/js/catalog-expand.js"></script>
+	<script src="/js/pages/products-accordion.js"></script>
 	<!-- Поиск -->
-	<script src="/js/search.js"></script>
-	<!-- Корзина -->
-	<script src="/js/cart.js"></script>
-	<!-- Избранное -->
-	<script src="/js/favorites.js"></script>
+	<script src="/js/pages/search.js"></script>
+	<!-- Корзина и избранное -->
+	<script src="/js/pages/cart-favorites.js"></script>
+
+
 	<!-- Кнопки если нужны -->
-	<script src="/js/buttons.js"></script>
-	<!-- Управление товарами -->
-	<script src="/js/product-management.js"></script>
+	<script src="js/pages/buttons.js"></script>
 </body>
 
 </html>
