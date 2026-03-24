@@ -12,16 +12,14 @@
 	<link rel="stylesheet" href="/css/header.css">
 	<!-- Подвал -->
 	<link rel="stylesheet" href="/css/footer.css">
+
 	<!-- Бургер меню -->
-	<link rel="stylesheet" href="/css/burger-menu.css">
+	<link rel="stylesheet" href="/css/page elements/burger-menu.css">
 	<!-- Помощь и звонок -->
-	<link rel="stylesheet" href="/css/support.css">
-	<!-- Аккардеон продукции -->
-	<link rel="stylesheet" href="/css/products-accordion.css">
-	<!-- Все Категории -->
-	<link rel="stylesheet" href="/css/catalog-styles.css">
+	<link rel="stylesheet" href="/css/page elements/support.css">
+
 	<!-- Стили данной страницы -->
-	<link rel="stylesheet" href="/css/login.css">
+	<link rel="stylesheet" href="/css/pages html/login.css">
 	<!-- Библиотека -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -55,7 +53,7 @@
 
 					<!-- Product management -->
 					<div class="user-action-item admin-action">
-						<a href="/pages/product-management.html" class="action-link">
+						<a href="/pages html/product-management.html" class="action-link">
 							<i class="fas fa-cog"></i>
 							<span class="action-text">Управление товарами</span>
 						</a>
@@ -72,7 +70,7 @@
 
 					<!-- Избранное -->
 					<div class="user-action-item favorites-action">
-						<a href="/pages/favorites.html" class="action-link" id="favoritesBtn">
+						<a href="/pages html/favorites.html" class="action-link" id="favoritesBtn">
 							<i class="far fa-heart"></i>
 							<span class="action-text">Избранное</span>
 							<span class="action-badge" id="favoritesCount">0</span>
@@ -81,7 +79,7 @@
 
 					<!-- Корзина -->
 					<div class="user-action-item cart-action">
-						<a href="/pages/cart.html" class="action-link" id="cartBtn">
+						<a href="/pages html/cart.html" class="action-link" id="cartBtn">
 							<i class="fas fa-shopping-cart"></i>
 							<span class="action-text">Корзина</span>
 							<span class="action-badge" id="cartCount">0</span>
@@ -90,7 +88,7 @@
 
 					<!-- Вход/Регистрация -->
 					<div class="user-action-item auth-action">
-						<a href="/pages/login.html" class="action-link" id="authBtn">
+						<a href="/pages html/login.html" class="action-link" id="authBtn">
 							<i class="far fa-user"></i>
 							<span class="action-text" id="authText">Войти</span>
 						</a>
@@ -129,53 +127,71 @@
 			<nav class="main-nav" id="mainNav">
 				<ul class="nav-list">
 					<li class="has-dropdown">
-						<a href="/pages/catalog.html" class="nav-link">
+						<a href="/pages html/catalog.html" class="nav-link">
 							<i class="fas fa-bars"></i> <!-- Иконка меню -->
 							<span>Каталог товаров</span>
 							<i class="fas fa-chevron-down dropdown-arrow"></i>
 						</a>
 						<!-- Обновленное подменю для азиатского магазина -->
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fas fa-user-ninja"></i> Аниме фигурки</a></li>
-							<li><a href="#"><i class="fas fa-mug-hot"></i> Японский чай</a></li>
-							<li><a href="#"><i class="fas fa-cookie-bite"></i> Азиатские сладости</a></li>
-							<li><a href="#"><i class="fas fa-utensils"></i> Японская посуда</a></li>
-							<li><a href="#"><i class="fas fa-book"></i> Манга и книги</a></li>
-							<li><a href="#"><i class="fas fa-tshirt"></i> Аниме одежда</a></li>
-							<li><a href="#"><i class="fas fa-gamepad"></i> Японские игры</a></li>
-							<li><a href="#"><i class="fas fa-palette"></i> Канцелярия кавай</a></li>
-							<li><a href="#"><i class="fas fa-spray-can"></i> Косметика из Азии</a></li>
-							<li><a href="#"><i class="fas fa-home"></i> Азиатский декор</a></li>
-							<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
-							<li><a href="#"><i class="fas fa-music"></i> Азиатская популярная музыка </a></li>
+							<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-user-ninja"></i>
+									Аниме
+									фигурки</a></li>
+							<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-mug-hot"></i> Японский
+									чай</a>
+							</li>
+							<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-cookie-bite"></i>
+									Азиатские
+									сладости</a></li>
+							<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-utensils"></i> Японская
+									посуда</a></li>
+							<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book"></i> Манга и
+									книги</a>
+							</li>
+							<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-tshirt"></i> Аниме
+									одежда</a></li>
+							<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
+									игры</a></li>
+							<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-palette"></i>
+									Канцелярия
+									кавай</a></li>
+							<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-spray-can"></i>
+									Косметика
+									из Азии</a></li>
+							<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-home"></i> Азиатский
+									декор</a></li>
+							<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
+									дисках</a></li>
+							<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-music"></i> Азиатская
+									популярная музыка </a></li>
 						</ul>
 					</li>
 					<li>
-						<a href="#" class="nav-link promo-link">
+						<a href="/pages html/catalog pages/special offers.html" class="nav-link promo-link">
 							<i class="fas fa-tags"></i> <!-- Иконка ценника -->
 							<span>Акции и скидки</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-link">
+						<a href="/pages html/catalog pages/collections.html" class="nav-link">
 							<i class="fas fa-star"></i> <!-- Иконка доставки -->
 							<span>Коллекции</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-link">
+						<a href="/pages html/pages info/rising sun news.html" class="nav-link">
 							<i class="fas fa-newspaper"></i>
 							<span>Новости восходящего солнца</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-link">
+						<a href="/pages html/pages info/Payment and delivery.html" class="nav-link">
 							<i class="fas fa-shipping-fast"></i> <!-- Иконка доставки -->
 							<span>Доставка</span>
 						</a>
 					</li>
 					<li>
-						<a href="/pages/info.html" class="nav-link">
+						<a href="/pages html/pages info/About us.html" class="nav-link">
 							<i class="fas fa-store"></i> <!-- Иконка магазина -->
 							<span>О нас</span>
 						</a>
@@ -437,36 +453,6 @@
 
 		<!-- Контейнер для форм авторизации -->
 		<div class="auth-container">
-			<!-- Декоративные элементы -->
-			<div class="auth-decoration">
-				<div class="auth-decoration-sakura">
-					<i class="fas fa-leaf"></i>
-					<i class="fas fa-leaf"></i>
-					<i class="fas fa-leaf"></i>
-				</div>
-				<div class="auth-decoration-text">
-					<h2>Добро пожаловать в Комори!</h2>
-					<p>Азиатский магазинчик у дома</p>
-				</div>
-				<div class="auth-decoration-features">
-					<div class="feature">
-						<i class="fas fa-heart"></i>
-						<span>Избранное всегда с вами</span>
-					</div>
-					<div class="feature">
-						<i class="fas fa-tag"></i>
-						<span>Персональные скидки</span>
-					</div>
-					<div class="feature">
-						<i class="fas fa-clock"></i>
-						<span>История заказов</span>
-					</div>
-					<div class="feature">
-						<i class="fas fa-gift"></i>
-						<span>Бонусы за покупки</span>
-					</div>
-				</div>
-			</div>
 
 			<!-- Основная форма -->
 			<div class="auth-main">
@@ -763,53 +749,6 @@
 				</div>
 			</div>
 		</section>
-
-		<!-- Часто задаваемые вопросы -->
-		<section class="auth-faq">
-			<h2 class="auth-faq-title">Часто задаваемые вопросы</h2>
-			<div class="faq-grid">
-				<div class="faq-item">
-					<div class="faq-question">
-						<span>Зачем нужна регистрация?</span>
-						<i class="fas fa-chevron-down"></i>
-					</div>
-					<div class="faq-answer">
-						Регистрация позволяет сохранять историю заказов, добавлять товары в избранное, получать
-						персональные скидки и бонусы, а также ускорять процесс оформления заказа.
-					</div>
-				</div>
-				<div class="faq-item">
-					<div class="faq-question">
-						<span>Как восстановить пароль?</span>
-						<i class="fas fa-chevron-down"></i>
-					</div>
-					<div class="faq-answer">
-						Нажмите на ссылку "Забыли пароль?" под формой входа и следуйте инструкциям. Мы отправим ссылку
-						для сброса пароля на вашу почту или SMS.
-					</div>
-				</div>
-				<div class="faq-item">
-					<div class="faq-question">
-						<span>Безопасно ли хранить данные?</span>
-						<i class="fas fa-chevron-down"></i>
-					</div>
-					<div class="faq-answer">
-						Мы используем современные методы шифрования и защиты данных. Ваша информация надежно защищена и
-						не передается третьим лицам.
-					</div>
-				</div>
-				<div class="faq-item">
-					<div class="faq-question">
-						<span>Можно ли войти через соцсети?</span>
-						<i class="fas fa-chevron-down"></i>
-					</div>
-					<div class="faq-answer">
-						Да, вы можете войти или зарегистрироваться через ВКонтакте, Google или Яндекс. Это быстро и
-						удобно - не нужно запоминать еще один пароль.
-					</div>
-				</div>
-			</div>
-		</section>
 	</main>
 
 	<!-- Подвал сайта -->
@@ -820,18 +759,30 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-compass"></i> Каталог</h3>
 					<ul class="footer-links">
-						<li><a href="#"><i class="fas fa-dragon"></i> Аниме фигурки</a></li>
-						<li><a href="#"><i class="fas fa-leaf"></i> Японский чай</a></li>
-						<li><a href="#"><i class="fas fa-candy-cane"></i> Азиатские сладости</a></li>
-						<li><a href="#"><i class="fas fa-bowl-food"></i> Японская посуда</a></li>
-						<li><a href="#"><i class="fas fa-book-open"></i> Манга и книги</a></li>
-						<li><a href="#"><i class="fas fa-shirt"></i> Аниме одежда</a></li>
-						<li><a href="#"><i class="fas fa-gamepad"></i> Японские игры</a></li>
-						<li><a href="#"><i class="fas fa-pen-fancy"></i> Канцелярия кавай</a></li>
-						<li><a href="#"><i class="fas fa-wand-sparkles"></i> Косметика из Азии</a></li>
-						<li><a href="#"><i class="fas fa-torii-gate"></i> Азиатский декор</a></li>
-						<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
-						<li><a href="#"><i class="fas fa-headphones-simple"></i> Азиатская поп-музыка</a></li>
+						<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-dragon"></i> Аниме
+								фигурки</a></li>
+						<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-leaf"></i> Японский чай</a>
+						</li>
+						<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-candy-cane"></i> Азиатские
+								сладости</a></li>
+						<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-bowl-food"></i> Японская
+								посуда</a></li>
+						<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book-open"></i> Манга и
+								книги</a></li>
+						<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-shirt"></i> Аниме
+								одежда</a></li>
+						<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
+								игры</a></li>
+						<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-pen-fancy"></i> Канцелярия
+								кавай</a></li>
+						<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-wand-sparkles"></i>
+								Косметика из Азии</a></li>
+						<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-torii-gate"></i> Азиатский
+								декор</a></li>
+						<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
+								дисках</a></li>
+						<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-headphones-simple"></i>
+								Азиатская поп-музыка</a></li>
 					</ul>
 				</div>
 
@@ -839,12 +790,17 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-circle-info"></i> Информация</h3>
 					<ul class="footer-links">
-						<li><a href="#"><i class="fas fa-store"></i> О нас</a></li>
-						<li><a href="#"><i class="fas fa-question-circle"></i> Частые вопросы</a></li>
-						<li><a href="#"><i class="fas fa-truck-fast"></i> Оплата и доставка</a></li>
-						<li><a href="#"><i class="fas fa-rotate-left"></i> Обмен и возврат</a></li>
-						<li><a href="#"><i class="fas fa-address-book"></i> Контакты</a></li>
-						<li><a href="#"><i class="fas fa-shield"></i> Политика конфиденциальности</a></li>
+						<li><a href="/pages html/pages info/About us.html"><i class="fas fa-store"></i> О нас</a></li>
+						<li><a href="/pages html/pages info/Asked Questions.html"><i class="fas fa-question-circle"></i>
+								Частые вопросы</a></li>
+						<li><a href="/pages html/pages info/Payment and delivery.html"><i class="fas fa-truck-fast"></i>
+								Оплата и доставка</a></li>
+						<li><a href="/pages html/pages info/Exchange and Refund.html"><i class="fas fa-rotate-left"></i>
+								Обмен и возврат</a></li>
+						<li><a href="/pages html/pages info/Contacts.html"><i class="fas fa-address-book"></i>
+								Контакты</a></li>
+						<li><a href="/pages html/pages info/Privacy policy.html"><i class="fas fa-shield"></i> Политика
+								конфиденциальности</a></li>
 					</ul>
 				</div>
 
@@ -852,9 +808,9 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-user-astronaut"></i> Профиль</h3>
 					<ul class="footer-links profile-links">
-						<li><a href="/pages/login.html"><i class="fas fa-user-circle"></i> Мой аккаунт</a></li>
-						<li><a href="/pages/favorites.html"><i class="fas fa-heart"></i> Избранное</a></li>
-						<li><a href="/pages/cart.html"><i class="fas fa-bag-shopping"></i> Корзина</a></li>
+						<li><a href="/pages html/login.html"><i class="fas fa-user-circle"></i> Мой аккаунт</a></li>
+						<li><a href="/pages html/favorites.html"><i class="fas fa-heart"></i> Избранное</a></li>
+						<li><a href="/pages html/cart.html"><i class="fas fa-bag-shopping"></i> Корзина</a></li>
 					</ul>
 				</div>
 
@@ -923,24 +879,26 @@
 
 	<!-- Основной код -->
 	<script src="/js/main.js"></script>
+	<!-- Единое хранилище данных -->
+	<script src="/js/core/store.js"></script>
+	<!-- Работа с изображениями и утилиты  -->
+	<script src="/js/core/api.js"></script>
+	<!-- Управление товарами (админка) -->
+	<script src="/js/pages/product-management.js"></script>
+	<!-- Каталог товаров -->
+	<script src="/js/pages/catalog.js"></script>
 	<!-- Бургер меню -->
-	<script src="/js/burger.js"></script>
+	<script src="/js/pages/burger.js"></script>
+
 	<!-- Поддержка -->
-	<script src="/js/support.js"></script>
-	<!-- Аккардеон продукции -->
-	<script src="/js/products-accordion.js"></script>
-	<!-- Популярные категории -->
-	<script src="/js/catalog-expand.js"></script>
+	<script src="/js/pages/support.js"></script>
+
 	<!-- Поиск -->
-	<script src="/js/search.js"></script>
-	<!-- Корзина -->
-	<script src="/js/cart.js"></script>
-	<!-- Кнопки если нужны -->
-	<script src="/js/buttons.js"></script>
-	<!-- Управление товарами -->
-	<script src="/js/product-management.js"></script>
-	<!-- Логин -->
-	<script src="/js/login.js"></script>
+	<script src="/js/pages/search.js"></script>
+	<!-- Корзина и избранное -->
+	<script src="/js/pages/cart-favorites.js"></script>
+	<!-- Скрипт данной страницы  -->
+	<script src="/js/pages/login.js"></script>
 </body>
 
 </html>

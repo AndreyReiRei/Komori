@@ -5,8 +5,8 @@
 
 /* ====== ОСНОВНОЙ КОНТЕЙНЕР ====== */
 .auth-container {
-	display: grid;
-	grid-template-columns: 1fr 1.5fr;
+	display: flex;
+	justify-content: center;
 	gap: 40px;
 	margin: 40px 0 60px;
 	background: white;
@@ -14,130 +14,7 @@
 	overflow: hidden;
 	box-shadow: 0 10px 30px rgba(255, 183, 197, 0.2);
 	border: 1px solid #ffe6ea;
-}
 
-/* ====== ДЕКОРАТИВНАЯ ЛЕВАЯ ЧАСТЬ ====== */
-.auth-decoration {
-	background: linear-gradient(135deg, #ffb7c5 0%, #ff6b6b 100%);
-	padding: 40px 30px;
-	color: white;
-	display: flex;
-	flex-direction: column;
-	position: relative;
-	overflow: hidden;
-}
-
-.auth-decoration::before {
-	content: '';
-	position: absolute;
-	top: -50px;
-	right: -50px;
-	width: 200px;
-	height: 200px;
-	background: rgba(255, 255, 255, 0.1);
-	border-radius: 50%;
-}
-
-.auth-decoration::after {
-	content: '';
-	position: absolute;
-	bottom: -50px;
-	left: -50px;
-	width: 200px;
-	height: 200px;
-	background: rgba(255, 255, 255, 0.1);
-	border-radius: 50%;
-}
-
-.auth-decoration-sakura {
-	position: relative;
-	z-index: 1;
-	display: flex;
-	justify-content: center;
-	gap: 20px;
-	margin-bottom: 30px;
-}
-
-.auth-decoration-sakura i {
-	font-size: 48px;
-	opacity: 0.8;
-	animation: float 3s ease-in-out infinite;
-}
-
-.auth-decoration-sakura i:nth-child(1) {
-	animation-delay: 0s;
-}
-
-.auth-decoration-sakura i:nth-child(2) {
-	animation-delay: 0.5s;
-}
-
-.auth-decoration-sakura i:nth-child(3) {
-	animation-delay: 1s;
-}
-
-@keyframes float {
-
-	0%,
-	100% {
-		transform: translateY(0);
-	}
-
-	50% {
-		transform: translateY(-10px);
-	}
-}
-
-.auth-decoration-text {
-	position: relative;
-	z-index: 1;
-	text-align: center;
-	margin-bottom: 40px;
-}
-
-.auth-decoration-text h2 {
-	font-size: 28px;
-	margin-bottom: 10px;
-	font-weight: 700;
-}
-
-.auth-decoration-text p {
-	font-size: 16px;
-	opacity: 0.9;
-}
-
-.auth-decoration-features {
-	position: relative;
-	z-index: 1;
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-}
-
-.feature {
-	display: flex;
-	align-items: center;
-	gap: 15px;
-	padding: 10px;
-	background: rgba(255, 255, 255, 0.1);
-	border-radius: 10px;
-	backdrop-filter: blur(5px);
-}
-
-.feature i {
-	font-size: 24px;
-	width: 40px;
-	height: 40px;
-	background: rgba(255, 255, 255, 0.2);
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.feature span {
-	font-size: 14px;
-	font-weight: 500;
 }
 
 /* ====== ОСНОВНАЯ ЧАСТЬ С ФОРМАМИ ====== */
@@ -573,6 +450,8 @@
 	font-size: 12px;
 	color: #999;
 }
+
+
 
 /* ====== ПРЕИМУЩЕСТВА РЕГИСТРАЦИИ ====== */
 .auth-benefits {
@@ -1389,7 +1268,7 @@
 /* Ультраширокие экраны (1921px и выше) */
 @media (width >=1921px) {
 	.auth-container {
-		max-width: 1600px;
+		max-width: 100%;
 		margin-left: auto;
 		margin-right: auto;
 		grid-template-columns: 1fr 1.5fr;

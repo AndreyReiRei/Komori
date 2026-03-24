@@ -1,3 +1,5 @@
+/* ===== СТРАНИЦА КАТЕГОРИИ ===== */
+
 class CategoryPage {
 	constructor( categoryKey, categoryName ) {
 		this.categoryKey = categoryKey;

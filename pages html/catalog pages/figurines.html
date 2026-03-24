@@ -14,26 +14,20 @@
 	<link rel="stylesheet" href="/css/footer.css">
 
 	<!-- Бургер меню -->
-	<link rel="stylesheet" href="/css/pages/burger-menu.css">
+	<link rel="stylesheet" href="/css/page elements/burger-menu.css">
 	<!-- Помощь и звонок -->
-	<link rel="stylesheet" href="/css/pages/support.css">
-	<!-- Аккардеон продукции -->
-	<link rel="stylesheet" href="/css/pages/products-accordion.css">
+	<link rel="stylesheet" href="/css/page elements/support.css">
 	<!-- Все Категории -->
-	<link rel="stylesheet" href="/css/pages/catalog-styles.css">
-	<!-- Лого товаров -->
-	<link rel="stylesheet" href="/css/pages/accordion-logo.css">
-	<!-- Стили для страницы категории -->
-	<link rel="stylesheet" href="/css/pages/category-page.css">
-	<!-- Основной стиль -->
-	<link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" href="/css/page elements/catalog-styles.css">
+	<!-- Стили для данной страницы -->
+	<link rel="stylesheet" href="/css/pages html/category-page.css">
 	<!-- Библиотека -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="category-page">
 
-	<!-- Шапка сайта (такая же как на главной) -->
+	<!-- Шапка сайта  -->
 	<header>
 		<div class="container__header">
 			<div class="header-top">
@@ -171,7 +165,7 @@
 		</div>
 	</header>
 
-	<!-- Модальные окна (такие же как на главной) -->
+	<!-- Модальные окна -->
 	<div class="modal__windows">
 		<!-- Модальное окно чата с поддержкой -->
 		<div class="modal" id="chatModal">
@@ -407,7 +401,7 @@
 		</div>
 	</main>
 
-	<!-- Подвал сайта (такой же как на главной) -->
+	<!-- Подвал сайта -->
 	<footer>
 		<div class="container__footer">
 			<div class="footer-content">
@@ -516,14 +510,25 @@
 	</footer>
 
 	<!-- Подключение JavaScript -->
-	<script src="/js/core/store.js"></script>
-	<script src="/js/core/api.js"></script>
+
+	<!-- Основной код -->
 	<script src="/js/main.js"></script>
-	<script src="/js/pages/category-page.js"></script>
+	<!-- Единое хранилище данных -->
+	<script src="/js/core/store.js"></script>
+	<!-- Работа с изображениями и утилиты  -->
+	<script src="/js/core/api.js"></script>
+
+	<!-- Бургер меню -->
 	<script src="/js/pages/burger.js"></script>
+	<!-- Поддержка -->
 	<script src="/js/pages/support.js"></script>
+	<!-- Поиск -->
 	<script src="/js/pages/search.js"></script>
+	<!-- Избранное -->
 	<script src="/js/pages/cart-favorites.js"></script>
+
+	<!-- Страницы категорий товаров -->
+	<script src="/js/pages/category-page.js"></script>
 
 </body>
 
