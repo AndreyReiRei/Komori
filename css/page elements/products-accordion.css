@@ -65,27 +65,18 @@
 
 /* Заголовок секции */
 .promo-section h2 {
-	color: var(--text-primary);
-	margin: clamp(15px, 4vw, 25px);
-	font-size: clamp(24px, 5vw, 38px);
+	color: #ffffff;
+	margin-top: clamp(5px, 4vw, 15px);
+	font-size: clamp(28px, 5vw, 38px);
 	text-align: center;
 	position: relative;
+	padding-bottom: 20px;
 	font-weight: 700;
 	letter-spacing: -0.02em;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+	text-shadow: 2px 2px 4px rgb(50, 0, 0);
+	/* Черная тень для читаемости */
 }
 
-.promo-section h2::after {
-	content: '';
-	position: absolute;
-	bottom: -10px;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 80px;
-	height: 4px;
-	background: var(--primary-gradient);
-	border-radius: var(--radius-full);
-}
 
 /* Контейнер для скролла */
 .accordion-container {

@@ -12,7 +12,6 @@
 
 .catalog-preview h2 {
 	color: #ffffff;
-	/* Темный цвет для контраста */
 	margin: clamp(15px, 4vw, 25px);
 	font-size: clamp(28px, 5vw, 38px);
 	text-align: center;
