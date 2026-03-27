@@ -447,6 +447,7 @@
 		<div class="nav-overlay" id="navOverlay"></div>
 	</div>
 
+
 	<!-- Основной контент страницы корзины -->
 	<main class="container__main">
 
@@ -461,7 +462,7 @@
 			</div>
 		</div>
 
-		<!-- Основная часть корзины -->
+		<!-- Основная часть корзины с классом cart-page-content -->
 		<div class="cart-page-content" id="cartPageContent">
 			<!-- Содержимое корзины (будет показываться когда есть товары) -->
 			<div class="cart-with-items" id="cartWithItems">
@@ -477,126 +478,7 @@
 
 					<!-- Список товаров в корзине -->
 					<div class="cart-items-list" id="cartItemsList">
-						<!-- Товар 1: Аниме фигурка Наруто -->
-						<div class="cart-item-row" data-id="1">
-							<div class="cart-col-product">
-								<div class="cart-product-info">
-									<img src="https://via.placeholder.com/100x100" alt="Аниме фигурка Наруто"
-										class="cart-product-image">
-									<div class="cart-product-details">
-										<h3 class="cart-product-title">
-											<a href="#">Аниме фигурка Наруто</a>
-										</h3>
-										<div class="cart-product-attributes">
-											<span class="cart-product-category">Аниме фигурки</span>
-											<span class="cart-product-stock in-stock">
-												<i class="fas fa-check-circle"></i> В наличии
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="cart-col-price">
-								<div class="cart-price-current">2 499 ₽</div>
-								<div class="cart-price-old">2 999 ₽</div>
-							</div>
-							<div class="cart-col-quantity">
-								<div class="cart-quantity-control">
-									<button class="cart-quantity-btn minus" data-id="1">-</button>
-									<input type="number" class="cart-quantity-input" value="1" min="1" max="99"
-										data-id="1">
-									<button class="cart-quantity-btn plus" data-id="1">+</button>
-								</div>
-							</div>
-							<div class="cart-col-total">
-								<div class="cart-item-total">2 499 ₽</div>
-							</div>
-							<div class="cart-col-remove">
-								<button class="cart-remove-item" data-id="1" title="Удалить товар">
-									<i class="fas fa-times"></i>
-								</button>
-							</div>
-						</div>
-
-						<!-- Товар 2: Чай маття премиум -->
-						<div class="cart-item-row" data-id="2">
-							<div class="cart-col-product">
-								<div class="cart-product-info">
-									<img src="https://via.placeholder.com/100x100" alt="Чай маття премиум"
-										class="cart-product-image">
-									<div class="cart-product-details">
-										<h3 class="cart-product-title">
-											<a href="#">Чай маття премиум</a>
-										</h3>
-										<div class="cart-product-attributes">
-											<span class="cart-product-category">Японский чай</span>
-											<span class="cart-product-stock in-stock">
-												<i class="fas fa-check-circle"></i> В наличии
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="cart-col-price">
-								<div class="cart-price-current">899 ₽</div>
-							</div>
-							<div class="cart-col-quantity">
-								<div class="cart-quantity-control">
-									<button class="cart-quantity-btn minus" data-id="2">-</button>
-									<input type="number" class="cart-quantity-input" value="2" min="1" max="99"
-										data-id="2">
-									<button class="cart-quantity-btn plus" data-id="2">+</button>
-								</div>
-							</div>
-							<div class="cart-col-total">
-								<div class="cart-item-total">1 798 ₽</div>
-							</div>
-							<div class="cart-col-remove">
-								<button class="cart-remove-item" data-id="2" title="Удалить товар">
-									<i class="fas fa-times"></i>
-								</button>
-							</div>
-						</div>
-
-						<!-- Товар 3: Моти клубничные -->
-						<div class="cart-item-row" data-id="3">
-							<div class="cart-col-product">
-								<div class="cart-product-info">
-									<img src="https://via.placeholder.com/100x100" alt="Моти клубничные"
-										class="cart-product-image">
-									<div class="cart-product-details">
-										<h3 class="cart-product-title">
-											<a href="#">Моти клубничные</a>
-										</h3>
-										<div class="cart-product-attributes">
-											<span class="cart-product-category">Азиатские сладости</span>
-											<span class="cart-product-stock low-stock">
-												<i class="fas fa-exclamation-triangle"></i> Осталось мало
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="cart-col-price">
-								<div class="cart-price-current">550 ₽</div>
-							</div>
-							<div class="cart-col-quantity">
-								<div class="cart-quantity-control">
-									<button class="cart-quantity-btn minus" data-id="3">-</button>
-									<input type="number" class="cart-quantity-input" value="2" min="1" max="5"
-										data-id="3">
-									<button class="cart-quantity-btn plus" data-id="3">+</button>
-								</div>
-							</div>
-							<div class="cart-col-total">
-								<div class="cart-item-total">1 100 ₽</div>
-							</div>
-							<div class="cart-col-remove">
-								<button class="cart-remove-item" data-id="3" title="Удалить товар">
-									<i class="fas fa-times"></i>
-								</button>
-							</div>
-						</div>
+						<!-- Товары будут загружаться динамически -->
 					</div>
 
 					<!-- Дополнительные действия с корзиной -->
@@ -610,61 +492,10 @@
 							Очистить корзину
 						</button>
 					</div>
-
-					<!-- Сопутствующие товары -->
-					<div class="related-products-section">
-						<h2 class="related-products-title">
-							<i class="fas fa-gift"></i>
-							Вам также может понравиться
-						</h2>
-						<div class="related-products-grid">
-							<div class="related-product-item">
-								<img src="https://via.placeholder.com/150x150" alt="Фигурка Саске"
-									class="related-product-image">
-								<h3 class="related-product-name">Фигурка Саске</h3>
-								<div class="related-product-price">2 799 ₽</div>
-								<button class="related-product-add" data-id="101">
-									<i class="fas fa-plus"></i>
-									Добавить
-								</button>
-							</div>
-							<div class="related-product-item">
-								<img src="https://via.placeholder.com/150x150" alt="Сенча японский чай"
-									class="related-product-image">
-								<h3 class="related-product-name">Сенча японский чай</h3>
-								<div class="related-product-price">650 ₽</div>
-								<button class="related-product-add" data-id="102">
-									<i class="fas fa-plus"></i>
-									Добавить
-								</button>
-							</div>
-							<div class="related-product-item">
-								<img src="https://via.placeholder.com/150x150" alt="Пиала для чая"
-									class="related-product-image">
-								<h3 class="related-product-name">Пиала для чая</h3>
-								<div class="related-product-price">890 ₽</div>
-								<button class="related-product-add" data-id="103">
-									<i class="fas fa-plus"></i>
-									Добавить
-								</button>
-							</div>
-							<div class="related-product-item">
-								<img src="https://via.placeholder.com/150x150" alt="Манга Токийский гуль"
-									class="related-product-image">
-								<h3 class="related-product-name">Манга Токийский гуль</h3>
-								<div class="related-product-price">599 ₽</div>
-								<button class="related-product-add" data-id="104">
-									<i class="fas fa-plus"></i>
-									Добавить
-								</button>
-							</div>
-						</div>
-					</div>
 				</div>
 
 				<!-- Боковая панель с итогами и оформлением -->
 				<div class="cart-sidebar">
-
 					<!-- Промокод -->
 					<div class="promo-code-section">
 						<h4 class="promo-code-title">
@@ -682,32 +513,26 @@
 					<!-- Блок итоговой суммы -->
 					<div class="cart-summary">
 						<h3 class="cart-summary-title">Ваш заказ</h3>
-
 						<div class="cart-summary-row">
-							<span>Товары (3 шт.)</span>
-							<span>5 397 ₽</span>
+							<span>Товары (<span id="cartItemsCount">0</span> шт.)</span>
+							<span id="cartSubtotal">0 ₽</span>
 						</div>
-
 						<div class="cart-summary-row discount-row">
 							<span>Скидка</span>
-							<span class="discount-amount">-500 ₽</span>
+							<span class="discount-amount">-0 ₽</span>
 						</div>
-
 						<div class="cart-summary-row delivery-row">
 							<span>Доставка</span>
 							<span class="delivery-free">Бесплатно</span>
 						</div>
-
 						<div class="cart-summary-total">
 							<span>Итого</span>
-							<span class="total-amount">4 897 ₽</span>
+							<span class="total-amount" id="cartTotal">0 ₽</span>
 						</div>
-
 						<button class="checkout-button" id="checkoutBtn">
 							<i class="fas fa-truck"></i>
 							Оформить заказ
 						</button>
-
 						<div class="payment-methods">
 							<p>Принимаем к оплате:</p>
 							<div class="payment-icons">
@@ -718,7 +543,6 @@
 								<i class="fas fa-mobile-alt" title="СБП"></i>
 							</div>
 						</div>
-
 						<div class="secure-checkout">
 							<i class="fas fa-lock"></i>
 							<span>Безопасная оплата</span>
@@ -757,40 +581,13 @@
 						На главную
 					</a>
 				</div>
+			</div>
 
-				<!-- Рекомендации для пустой корзины -->
-				<div class="cart-empty-recommendations">
-					<h3 class="recommendations-title">Возможно, вас заинтересует</h3>
-					<div class="recommendations-grid">
-						<div class="recommendation-item">
-							<img src="https://via.placeholder.com/120x120" alt="Аниме фигурки"
-								class="recommendation-image">
-							<h4 class="recommendation-name">Аниме фигурки</h4>
-							<div class="recommendation-price">от 1 499 ₽</div>
-							<a href="#" class="recommendation-link">Посмотреть</a>
-						</div>
-						<div class="recommendation-item">
-							<img src="https://via.placeholder.com/120x120" alt="Японский чай"
-								class="recommendation-image">
-							<h4 class="recommendation-name">Японский чай</h4>
-							<div class="recommendation-price">от 350 ₽</div>
-							<a href="#" class="recommendation-link">Посмотреть</a>
-						</div>
-						<div class="recommendation-item">
-							<img src="https://via.placeholder.com/120x120" alt="Азиатские сладости"
-								class="recommendation-image">
-							<h4 class="recommendation-name">Азиатские сладости</h4>
-							<div class="recommendation-price">от 150 ₽</div>
-							<a href="#" class="recommendation-link">Посмотреть</a>
-						</div>
-						<div class="recommendation-item">
-							<img src="https://via.placeholder.com/120x120" alt="Канцелярия кавай"
-								class="recommendation-image">
-							<h4 class="recommendation-name">Канцелярия кавай</h4>
-							<div class="recommendation-price">от 50 ₽</div>
-							<a href="#" class="recommendation-link">Посмотреть</a>
-						</div>
-					</div>
+			<!-- Рекомендации -->
+			<div class="favorites-and-cart-recommendations" id="favoritesRecommendations">
+				<h3 class="recommendations-title">Возможно, вас заинтересует</h3>
+				<div class="recommendations-grid" id="recommendationsGrid">
+					<!-- Рекомендации будут загружаться динамически -->
 				</div>
 			</div>
 		</div>
@@ -806,11 +603,14 @@
 					<ul class="footer-links">
 						<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-dragon"></i> Аниме
 								фигурки</a></li>
-						<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-leaf"></i> Японский чай</a>
+						<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-leaf"></i> Японский
+								чай</a>
 						</li>
-						<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-candy-cane"></i> Азиатские
+						<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-candy-cane"></i>
+								Азиатские
 								сладости</a></li>
-						<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-bowl-food"></i> Японская
+						<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-bowl-food"></i>
+								Японская
 								посуда</a></li>
 						<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book-open"></i> Манга и
 								книги</a></li>
@@ -818,11 +618,13 @@
 								одежда</a></li>
 						<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
 								игры</a></li>
-						<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-pen-fancy"></i> Канцелярия
+						<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-pen-fancy"></i>
+								Канцелярия
 								кавай</a></li>
 						<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-wand-sparkles"></i>
 								Косметика из Азии</a></li>
-						<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-torii-gate"></i> Азиатский
+						<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-torii-gate"></i>
+								Азиатский
 								декор</a></li>
 						<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
 								дисках</a></li>
@@ -835,7 +637,8 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-circle-info"></i> Информация</h3>
 					<ul class="footer-links">
-						<li><a href="/pages html/pages info/About us.html"><i class="fas fa-store"></i> О нас</a></li>
+						<li><a href="/pages html/pages info/About us.html"><i class="fas fa-store"></i> О нас</a>
+						</li>
 						<li><a href="/pages html/pages info/Asked Questions.html"><i class="fas fa-question-circle"></i>
 								Частые вопросы</a></li>
 						<li><a href="/pages html/pages info/Payment and delivery.html"><i class="fas fa-truck-fast"></i>
@@ -844,7 +647,8 @@
 								Обмен и возврат</a></li>
 						<li><a href="/pages html/pages info/Contacts.html"><i class="fas fa-address-book"></i>
 								Контакты</a></li>
-						<li><a href="/pages html/pages info/Privacy policy.html"><i class="fas fa-shield"></i> Политика
+						<li><a href="/pages html/pages info/Privacy policy.html"><i class="fas fa-shield"></i>
+								Политика
 								конфиденциальности</a></li>
 					</ul>
 				</div>

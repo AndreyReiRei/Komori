@@ -73,7 +73,7 @@
 					<!-- Избранное -->
 					<div class="user-action-item favorites-action">
 						<a href="/pages html/favorites.html" class="action-link" id="favoritesBtn">
-							<i class="far fa-heart"></i>
+							<i class="fas fa-heart"></i>
 							<span class="action-text">Избранное</span>
 							<span class="action-badge" id="favoritesCount">0</span>
 						</a>
@@ -89,9 +89,10 @@
 					</div>
 
 					<!-- Вход/Регистрация -->
-					<div class="user-action-item auth-action">
+					<div class="user-action-item auth-action" id="authAction">
 						<a href="/pages html/login.html" class="action-link" id="authBtn">
-							<i class="far fa-user"></i>
+							<img id="headerAvatar" class="header-avatar" src="" alt="Аватар" style="display: none;">
+							<i class="far fa-user" id="headerAvatarIcon"></i>
 							<span class="action-text" id="authText">Войти</span>
 						</a>
 					</div>
@@ -942,6 +943,8 @@
 	<script src="js/pages/search.js"></script>
 	<!-- Корзина и избранное -->
 	<script src="js/pages/cart-favorites.js"></script>
+	<!-- Аторизация -->
+	<script src="/js/pages/login.js"></script>
 
 
 	<!-- Кнопки если нужны -->

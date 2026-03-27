@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Избранное - Комори</title>
+	<title>Мой профиль - Комори</title>
 
 	<!-- Основной стиль -->
 	<link rel="stylesheet" href="/css/main.css">
@@ -19,12 +19,12 @@
 	<link rel="stylesheet" href="/css/page elements/support.css">
 
 	<!-- Стили данной страницы -->
-	<link rel="stylesheet" href="/css/pages html/favorites.css">
+	<link rel="stylesheet" href="/css/pages html/profile.css">
 	<!-- Библиотека -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body class="favorites-page"> <!-- Добавлен класс для определения страницы -->
+<body>
 
 	<!-- Шапка сайта -->
 	<header>
@@ -35,10 +35,7 @@
 					<a href="/">
 						<div class="logo-icon">
 							<div class="logo-complex">
-								<!-- <i class="fas fa-moon"></i> -->
 								<i class="fas fa-leaf"></i>
-								<!-- <i class="fas fa-mug-hot"></i> -->
-
 							</div>
 						</div>
 						<div class="logo-text">Комори
@@ -47,10 +44,8 @@
 					</a>
 				</div>
 
-				<!-- Блок иконок пользователя (корзина, избранное, вход) + ЧАТ для мобильных -->
+				<!-- Блок иконок пользователя -->
 				<div class="user-actions">
-
-
 					<!-- Product management -->
 					<div class="user-action-item admin-action">
 						<a href="/pages html/product-management.html" class="action-link">
@@ -58,7 +53,6 @@
 							<span class="action-text">Управление товарами</span>
 						</a>
 					</div>
-
 
 					<!-- ПОИСК -->
 					<div class="user-action-item search-action">
@@ -87,9 +81,10 @@
 					</div>
 
 					<!-- Вход/Регистрация -->
-					<div class="user-action-item auth-action">
+					<div class="user-action-item auth-action" id="authAction">
 						<a href="/pages html/login.html" class="action-link" id="authBtn">
-							<i class="far fa-user"></i>
+							<img id="headerAvatar" class="header-avatar" src="" alt="Аватар" style="display: none;">
+							<i class="far fa-user" id="headerAvatarIcon"></i>
 							<span class="action-text" id="authText">Войти</span>
 						</a>
 					</div>
@@ -106,7 +101,6 @@
 
 				<!-- Поддержка для десктопа -->
 				<div class="header-contacts">
-					<!-- кнопка чата с поддержкой (только для десктопа) -->
 					<button class="chat-btn" id="chatBtn">
 						<i class="fas fa-comment-dots"></i>
 						<span>Чат с поддержкой</span>
@@ -123,85 +117,58 @@
 				</div>
 			</div>
 
-			<!-- Основная навигация для десктопа -->
+			<!-- Основная навигация -->
 			<nav class="main-nav" id="mainNav">
 				<ul class="nav-list">
 					<li class="has-dropdown">
 						<a href="/pages html/catalog.html" class="nav-link">
-							<i class="fas fa-bars"></i> <!-- Иконка меню -->
+							<i class="fas fa-bars"></i>
 							<span>Каталог товаров</span>
 							<i class="fas fa-chevron-down dropdown-arrow"></i>
 						</a>
-						<!-- Обновленное подменю для азиатского магазина -->
 						<ul class="dropdown-menu">
 							<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-user-ninja"></i>
-									Аниме
-									фигурки</a></li>
+									Аниме фигурки</a></li>
 							<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-mug-hot"></i> Японский
-									чай</a>
-							</li>
+									чай</a></li>
 							<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-cookie-bite"></i>
-									Азиатские
-									сладости</a></li>
+									Азиатские сладости</a></li>
 							<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-utensils"></i> Японская
 									посуда</a></li>
 							<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book"></i> Манга и
-									книги</a>
-							</li>
+									книги</a></li>
 							<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-tshirt"></i> Аниме
 									одежда</a></li>
 							<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
 									игры</a></li>
 							<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-palette"></i>
-									Канцелярия
-									кавай</a></li>
+									Канцелярия кавай</a></li>
 							<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-spray-can"></i>
-									Косметика
-									из Азии</a></li>
+									Косметика из Азии</a></li>
 							<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-home"></i> Азиатский
 									декор</a></li>
 							<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
 									дисках</a></li>
 							<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-music"></i> Азиатская
-									популярная музыка </a></li>
+									музыка</a></li>
 						</ul>
 					</li>
-					<li>
-						<a href="/pages html/catalog pages/special offers.html" class="nav-link promo-link">
-							<i class="fas fa-tags"></i> <!-- Иконка ценника -->
-							<span>Акции и скидки</span>
-						</a>
-					</li>
-					<li>
-						<a href="/pages html/catalog pages/collections.html" class="nav-link">
-							<i class="fas fa-star"></i> <!-- Иконка доставки -->
-							<span>Коллекции</span>
-						</a>
-					</li>
-					<li>
-						<a href="/pages html/pages info/rising sun news.html" class="nav-link">
-							<i class="fas fa-newspaper"></i>
-							<span>Новости восходящего солнца</span>
-						</a>
-					</li>
-					<li>
-						<a href="/pages html/pages info/Payment and delivery.html" class="nav-link">
-							<i class="fas fa-shipping-fast"></i> <!-- Иконка доставки -->
-							<span>Доставка</span>
-						</a>
-					</li>
-					<li>
-						<a href="/pages html/pages info/About us.html" class="nav-link">
-							<i class="fas fa-store"></i> <!-- Иконка магазина -->
-							<span>О нас</span>
-						</a>
-					</li>
+					<li><a href="/pages html/catalog pages/special offers.html" class="nav-link promo-link"><i
+								class="fas fa-tags"></i><span>Акции и скидки</span></a></li>
+					<li><a href="/pages html/catalog pages/collections.html" class="nav-link"><i
+								class="fas fa-star"></i><span>Коллекции</span></a></li>
+					<li><a href="/pages html/pages info/rising sun news.html" class="nav-link"><i
+								class="fas fa-newspaper"></i><span>Новости восходящего солнца</span></a></li>
+					<li><a href="/pages html/pages info/Payment and delivery.html" class="nav-link"><i
+								class="fas fa-shipping-fast"></i><span>Доставка</span></a></li>
+					<li><a href="/pages html/pages info/About us.html" class="nav-link"><i
+								class="fas fa-store"></i><span>О нас</span></a></li>
 				</ul>
 			</nav>
 		</div>
 	</header>
 
-	<!-- Модальные окна -->
+	<!-- Модальные окна (такие же как на других страницах) -->
 	<div class="modal__windows">
 		<!-- Модальное окно чата с поддержкой -->
 		<div class="modal" id="chatModal">
@@ -293,137 +260,208 @@
 			</div>
 		</div>
 
-		<!-- Модальное окно авторизации -->
-		<div id="authModal" class="modal">
-			<div class="modal-content auth-modal-content">
-				<span class="close-modal">&times;</span>
-				<h2><i class="fas fa-user"></i> Вход в аккаунт</h2>
-				<div class="auth-tabs">
-					<button class="auth-tab active" data-tab="login">Вход</button>
-					<button class="auth-tab" data-tab="register">Регистрация</button>
-				</div>
-				<form class="auth-form" id="loginForm">
-					<div class="form-group">
-						<label for="loginEmail">Email</label>
-						<input type="email" id="loginEmail" placeholder="Ваш email" required>
-					</div>
-					<div class="form-group">
-						<label for="loginPassword">Пароль</label>
-						<input type="password" id="loginPassword" placeholder="Ваш пароль" required>
-						<a href="#" class="forgot-password">Забыли пароль?</a>
-					</div>
-					<button type="submit" class="auth-submit-btn">Войти</button>
-					<div class="social-auth">
-						<p>Или войдите через:</p>
-						<div class="social-buttons">
-							<button type="button" class="social-btn vk-btn"><i class="fab fa-vk"></i> ВКонтакте</button>
-							<button type="button" class="social-btn google-btn"><i class="fab fa-google"></i>
-								Google</button>
-						</div>
-					</div>
-				</form>
-				<form class="auth-form" id="registerForm" style="display: none;">
-					<div class="form-group">
-						<label for="registerName">Имя</label>
-						<input type="text" id="registerName" placeholder="Ваше имя" required>
-					</div>
-					<div class="form-group">
-						<label for="registerEmail">Email</label>
-						<input type="email" id="registerEmail" placeholder="Ваш email" required>
-					</div>
-					<div class="form-group">
-						<label for="registerPassword">Пароль</label>
-						<input type="password" id="registerPassword" placeholder="Придумайте пароль" required>
-					</div>
-					<div class="form-group">
-						<label for="registerConfirmPassword">Повторите пароль</label>
-						<input type="password" id="registerConfirmPassword" placeholder="Повторите пароль" required>
-					</div>
-					<div class="form-group checkbox-group">
-						<input type="checkbox" id="registerAgreement" required>
-						<label for="registerAgreement">Я согласен с <a href="#">политикой конфиденциальности</a></label>
-					</div>
-					<button type="submit" class="auth-submit-btn">Зарегистрироваться</button>
-				</form>
-			</div>
-		</div>
-
 		<!-- Оверлей для мобильного меню -->
 		<div class="nav-overlay" id="navOverlay"></div>
 	</div>
 
-	<!-- Основной контент страницы избранного -->
+	<!-- Основной контент страницы профиля -->
 	<main class="container__main">
-		<div class="favorites-page-content">
+		<div class="profile-page">
 			<!-- Заголовок страницы -->
-			<div class="favorites-page-header">
-				<h1 class="favorites-page-title">
-					<i class="fas fa-heart"></i>
-					Избранное
-				</h1>
-				<div class="favorites-page-info" id="favoritesCount">
-					<span class="favorites-items-count" id="favoritesCount">товары</span>
-					<span class="favorites-total-amount" id="favoritesTotal">на сумму 0 ₽</span>
-				</div>
-			</div>
-
-			<!-- Действия с избранным -->
-			<div class="favorites-actions">
-				<div class="favorites-share">
-					<span>Поделиться подборкой:</span>
-					<div class="share-buttons">
-						<a href="#" class="share-btn vk" title="Поделиться ВКонтакте">
-							<i class="fab fa-vk"></i>
-						</a>
-						<a href="#" class="share-btn telegram" title="Поделиться в Telegram">
-							<i class="fab fa-telegram-plane"></i>
-						</a>
-						<a href="#" class="share-btn whatsapp" title="Поделиться в WhatsApp">
-							<i class="fab fa-whatsapp"></i>
-						</a>
-						<button class="share-btn copy-link" title="Скопировать ссылку" id="copyFavoritesLink">
-							<i class="fas fa-link"></i>
-						</button>
+			<!-- Шапка профиля -->
+			<div class="profile-header">
+				<div class="profile-avatar">
+					<img id="profileAvatar" src="" alt="Аватар" style="display: none;">
+					<i id="avatarPlaceholder" class="fas fa-user-circle"></i>
+					<div class="avatar-overlay" id="changeAvatarBtn">
+						<i class="fas fa-camera"></i>
 					</div>
+					<input type="file" id="avatarUpload" accept="image/*">
 				</div>
-				<button class="clear-favorites-btn" id="clearFavoritesBtn">
-					<i class="fas fa-trash-alt"></i>
-					Очистить избранное
+				<div class="profile-info">
+					<h1 id="userName">Загрузка...</h1>
+					<p class="user-email" id="userEmail">-</p>
+					<p class="user-phone" id="userPhone">-</p>
+				</div>
+				<button class="edit-profile-btn" id="editProfileBtn">
+					<i class="fas fa-pen"></i>
+					Редактировать профиль
 				</button>
 			</div>
 
-			<!-- Контейнер для товаров избранного (ВАЖНО: правильные ID) -->
-			<div class="favorites-items" id="favoritesItems">
-				<!-- Товары будут загружаться динамически через JavaScript -->
+			<!-- Навигация по профилю -->
+			<div class="profile-nav">
+				<button class="profile-nav-btn active" data-tab="overview">
+					<i class="fas fa-chart-line"></i>
+					Обзор
+				</button>
+				<button class="profile-nav-btn" data-tab="orders">
+					<i class="fas fa-shopping-bag"></i>
+					Мои заказы
+				</button>
+				<button class="profile-nav-btn" data-tab="favorites">
+					<i class="fas fa-heart"></i>
+					Избранное
+				</button>
+				<button class="profile-nav-btn" data-tab="settings">
+					<i class="fas fa-sliders-h"></i>
+					Настройки
+				</button>
 			</div>
 
-			<!-- Пустое избранное (показывается когда нет товаров) -->
-			<div class="favorites-empty" id="favoritesEmpty">
-				<i class="far fa-heart"></i>
-				<p>В избранном пока ничего нет</p>
-				<p>Добавляйте товары, которые понравились</p>
-				<div class="favorites-empty-actions">
-					<a href="/pages html/catalog.html" class="btn-primary">
-						<i class="fas fa-bars"></i>
-						Перейти в каталог
-					</a>
+			<!-- Контент вкладок -->
+			<div class="profile-content">
+				<!-- Вкладка Обзор -->
+				<div class="profile-tab active" id="overviewTab">
+					<!-- Статистика -->
+					<div class="stats-grid">
+						<div class="stat-card">
+							<div class="stat-icon">
+								<i class="fas fa-shopping-bag"></i>
+							</div>
+							<div class="stat-info">
+								<div class="stat-value" id="ordersCount">0</div>
+								<div class="stat-label">Всего заказов</div>
+							</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-icon">
+								<i class="fas fa-ruble-sign"></i>
+							</div>
+							<div class="stat-info">
+								<div class="stat-value" id="totalSpent">0 ₽</div>
+								<div class="stat-label">Потрачено всего</div>
+							</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-icon">
+								<i class="fas fa-calendar-alt"></i>
+							</div>
+							<div class="stat-info">
+								<div class="stat-value" id="memberSince">-</div>
+								<div class="stat-label">С нами с</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Последние заказы -->
+					<div class="recent-orders">
+						<h2>Последние заказы</h2>
+						<div class="orders-list" id="recentOrdersList">
+							<div class="empty-orders">
+								<i class="fas fa-shopping-bag"></i>
+								<p>У вас пока нет заказов</p>
+								<a href="/pages html/catalog.html" class="btn-primary">Перейти в каталог</a>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
 
-			<div class="favorites-and-cart-recommendations" id="favoritesRecommendations">
-				<h3 class="recommendations-title">Возможно, вас заинтересует</h3>
-				<div class="recommendations-grid" id="recommendationsGrid">
-					<!-- Рекомендации будут загружаться динамически -->
+				<!-- Вкладка Мои заказы -->
+				<div class="profile-tab" id="ordersTab">
+					<h2>История заказов</h2>
+					<div class="orders-list" id="allOrdersList">
+						<div class="empty-orders">
+							<i class="fas fa-shopping-bag"></i>
+							<p>У вас пока нет заказов</p>
+							<a href="/pages html/catalog.html" class="btn-primary">Перейти в каталог</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Вкладка Избранное -->
+				<div class="profile-tab" id="favoritesTab">
+					<h2>Избранные товары</h2>
+					<div class="favorites-grid" id="profileFavoritesGrid">
+						<div class="empty-favorites">
+							<i class="far fa-heart"></i>
+							<p>В избранном пока ничего нет</p>
+							<a href="/pages html/catalog.html" class="btn-primary">Добавить товары</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Вкладка Настройки -->
+				<div class="profile-tab" id="settingsTab">
+					<h2>Настройки профиля</h2>
+					<form class="profile-settings-form" id="profileSettingsForm">
+						<div class="form-group">
+							<label for="profileName">Имя</label>
+							<input type="text" id="profileName" class="profile-input">
+						</div>
+
+						<div class="form-group">
+							<label for="profileEmail">Email</label>
+							<input type="email" id="profileEmail" class="profile-input">
+						</div>
+
+						<div class="form-group">
+							<label for="profilePhone">Телефон</label>
+							<input type="tel" id="profilePhone" class="profile-input">
+						</div>
+
+						<div class="form-group">
+							<label for="profilePassword">Новый пароль</label>
+							<input type="password" id="profilePassword" class="profile-input"
+								placeholder="Оставьте пустым, если не хотите менять">
+						</div>
+
+						<div class="form-group">
+							<label for="profileConfirmPassword">Подтвердите пароль</label>
+							<input type="password" id="profileConfirmPassword" class="profile-input">
+						</div>
+
+						<div class="form-group checkbox-group">
+							<input type="checkbox" id="profileSubscribe">
+							<label for="profileSubscribe">Получать новости о новинках и скидках</label>
+						</div>
+
+						<div class="form-actions">
+							<button type="submit" class="btn-primary">Сохранить изменения</button>
+							<button type="button" class="btn-secondary" id="changePasswordBtn">Изменить
+								пароль</button>
+							<button type="button" class="btn-danger" id="logoutBtn">Выйти из аккаунта</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 	</main>
 
+	<!-- Модальное окно изменения пароля -->
+	<div class="modal" id="changePasswordModal">
+		<div class="modal-content small">
+			<div class="modal-header">
+				<h2>Изменение пароля</h2>
+				<span class="close-modal">&times;</span>
+			</div>
+			<div class="modal-body">
+				<form id="changePasswordForm">
+					<div class="form-group">
+						<label for="oldPassword">Текущий пароль</label>
+						<input type="password" id="oldPassword" required>
+					</div>
+					<div class="form-group">
+						<label for="newPassword">Новый пароль</label>
+						<input type="password" id="newPassword" required minlength="8">
+					</div>
+					<div class="form-group">
+						<label for="confirmNewPassword">Подтвердите новый пароль</label>
+						<input type="password" id="confirmNewPassword" required>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn-secondary" id="cancelChangePassword">Отмена</button>
+				<button type="button" class="btn-primary" id="submitChangePassword">Изменить</button>
+			</div>
+		</div>
+	</div>
+
 	<!-- Подвал сайта -->
 	<footer>
 		<div class="container__footer">
 			<div class="footer-content">
-				<!-- Колонка 1: Каталог -->
 				<div class="footer-column">
 					<h3><i class="fas fa-compass"></i> Каталог</h3>
 					<ul class="footer-links">
@@ -454,7 +492,6 @@
 					</ul>
 				</div>
 
-				<!-- Колонка 2: Информация -->
 				<div class="footer-column">
 					<h3><i class="fas fa-circle-info"></i> Информация</h3>
 					<ul class="footer-links">
@@ -472,46 +509,32 @@
 					</ul>
 				</div>
 
-				<!-- Колонка 3: Профиль -->
 				<div class="footer-column">
 					<h3><i class="fas fa-user-astronaut"></i> Профиль</h3>
 					<ul class="footer-links profile-links">
-						<li><a href="/pages html/login.html"><i class="fas fa-user-circle"></i> Мой аккаунт</a></li>
+						<li><a href="/pages html/profile.html"><i class="fas fa-user-circle"></i> Мой аккаунт</a></li>
 						<li><a href="/pages html/favorites.html"><i class="fas fa-heart"></i> Избранное</a></li>
 						<li><a href="/pages html/cart.html"><i class="fas fa-bag-shopping"></i> Корзина</a></li>
 					</ul>
 				</div>
 
-				<!-- Колонка 4: Соцсети и подписка -->
 				<div class="footer-column">
 					<h3><i class="fas fa-hashtag"></i> Мы в соцсетях</h3>
 					<div class="social-links">
-						<a href="#" class="social-link vk" title="ВКонтакте">
-							<i class="fab fa-vk"></i>
-						</a>
-						<a href="#" class="social-link telegram" title="Telegram">
-							<i class="fab fa-telegram-plane"></i>
-						</a>
-						<a href="#" class="social-link instagram" title="Instagram">
-							<i class="fab fa-instagram"></i>
-						</a>
-						<a href="#" class="social-link youtube" title="YouTube">
-							<i class="fab fa-youtube"></i>
-						</a>
-						<a href="#" class="social-link tiktok" title="TikTok">
-							<i class="fab fa-tiktok"></i>
-						</a>
+						<a href="#" class="social-link vk" title="ВКонтакте"><i class="fab fa-vk"></i></a>
+						<a href="#" class="social-link telegram" title="Telegram"><i
+								class="fab fa-telegram-plane"></i></a>
+						<a href="#" class="social-link instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+						<a href="#" class="social-link youtube" title="YouTube"><i class="fab fa-youtube"></i></a>
+						<a href="#" class="social-link tiktok" title="TikTok"><i class="fab fa-tiktok"></i></a>
 					</div>
 
-					<!-- Форма подписки на новости -->
 					<div class="newsletter">
 						<h4><i class="far fa-paper-plane"></i> Подписка на новости</h4>
 						<form class="subscribe-form">
 							<div class="input-group">
 								<input type="email" placeholder="Ваш email" required>
-								<button type="submit">
-									<i class="fas fa-arrow-right"></i>
-								</button>
+								<button type="submit"><i class="fas fa-arrow-right"></i></button>
 							</div>
 							<label class="checkbox">
 								<input type="checkbox" checked>
@@ -526,7 +549,6 @@
 				<div class="copyright">
 					<i class="far fa-copyright"></i> 2026 Комори. Азиатский магазинчик у дома
 				</div>
-
 				<div class="payment-methods">
 					<i class="fab fa-cc-visa payment-method" title="Visa"></i>
 					<i class="fab fa-cc-mastercard payment-method" title="MasterCard"></i>
@@ -535,7 +557,6 @@
 					<i class="fab fa-cc-apple-pay payment-method" title="Apple Pay"></i>
 					<i class="fab fa-google-pay payment-method" title="Google Pay"></i>
 				</div>
-
 				<div class="developer">
 					Сделано с <i class="fas fa-heart pulse"></i> для ценителей азиатской культуры
 				</div>
@@ -544,28 +565,15 @@
 	</footer>
 
 	<!-- Подключение JavaScript -->
-
-	<!-- Основной код -->
-	<script src="/js/main.js"></script>
-	<!-- Единое хранилище данных -->
 	<script src="/js/core/store.js"></script>
-	<!-- Работа с изображениями и утилиты  -->
 	<script src="/js/core/api.js"></script>
-	<!-- Управление товарами (админка) -->
-	<script src="/js/pages/product-management.js"></script>
-	<!-- Каталог товаров -->
-	<script src="/js/pages/catalog.js"></script>
-	<!-- Бургер меню -->
+	<script src="/js/main.js"></script>
 	<script src="/js/pages/burger.js"></script>
-
-	<!-- Поддержка -->
 	<script src="/js/pages/support.js"></script>
-
-	<!-- Поиск -->
 	<script src="/js/pages/search.js"></script>
-	<!-- Корзина и избранное -->
 	<script src="/js/pages/cart-favorites.js"></script>
-
+	<script src="/js/pages/profile.js"></script>
+	<script src="/js/pages/login.js"></script>
 </body>
 
 </html>

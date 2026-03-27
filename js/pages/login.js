@@ -5,20 +5,92 @@
 
 class AuthPage {
 	constructor() {
+		// Загружаем список пользователей из localStorage
+		this.users = this.loadUsers();
 		this.init();
 	}
 
+	// ========== ЗАГРУЗКА И СОХРАНЕНИЕ ПОЛЬЗОВАТЕЛЕЙ ==========
+
+	/**
+	 * Загрузка пользователей из localStorage
+	 */
+	loadUsers() {
+		const savedUsers = localStorage.getItem( 'komori_users' );
+		return savedUsers ? JSON.parse( savedUsers ) : [];
+	}
+
+	/**
+	 * Сохранение пользователей в localStorage
+	 */
+	saveUsers() {
+		localStorage.setItem( 'komori_users', JSON.stringify( this.users ) );
+	}
+
+	/**
+	 * Проверка авторизации при загрузке страницы
+	 */
+	checkAuthStatus() {
+		const currentUser = localStorage.getItem( 'komori_current_user' );
+		if ( currentUser ) {
+			const user = JSON.parse( currentUser );
+			this.updateUIForLoggedInUser( user );
+		}
+	}
+
+	/**
+	 * Обновление интерфейса для авторизованного пользователя
+	 * @param {Object} user - объект пользователя
+	 */
+	updateUIForLoggedInUser( user ) {
+		const authText = document.getElementById( 'authText' );
+		const authBtn = document.getElementById( 'authBtn' );
+		const headerAvatar = document.getElementById( 'headerAvatar' );
+		const headerAvatarIcon = document.getElementById( 'headerAvatarIcon' );
+
+		// Меняем текст кнопки на имя пользователя
+		if ( authText ) {
+			authText.textContent = user.name;
+		}
+
+		// Меняем ссылку на страницу профиля
+		if ( authBtn ) {
+			authBtn.href = '/pages html/profile.html';
+		}
+
+		// Отображаем аватар в шапке, если он есть
+		if ( headerAvatar && headerAvatarIcon ) {
+			if ( user.avatar ) {
+				headerAvatar.src = user.avatar;
+				headerAvatar.style.display = 'block';
+				headerAvatarIcon.style.display = 'none';
+			} else {
+				headerAvatar.style.display = 'none';
+				headerAvatarIcon.style.display = 'block';
+			}
+		}
+	}
+
+	// ========== ИНИЦИАЛИЗАЦИЯ ==========
+
+	/**
+	 * Инициализация страницы
+	 */
 	init() {
 		this.bindTabs();
 		this.bindPasswordToggles();
 		this.bindForms();
 		this.bindPasswordStrength();
 		this.bindForgotPassword();
-		this.bindFaq();
 		this.checkUrlParams();
+		this.checkAuthStatus(); // Проверяем, авторизован ли пользователь
 	}
 
+	/**
+	 * Переключение между вкладками "Вход" и "Регистрация"
+	 */
 	bindTabs() {
+		// Получаем элементы вкладок и форм
 		const loginTab = document.getElementById( 'loginTab' );
 		const registerTab = document.getElementById( 'registerTab' );
 		const loginForm = document.getElementById( 'loginForm' );
@@ -26,39 +98,56 @@ class AuthPage {
 		const switchToRegister = document.getElementById( 'switchToRegisterMobile' );
 		const switchToLogin = document.getElementById( 'switchToLoginMobile' );
 
+		console.log( 'Найдены элементы:', { loginTab, registerTab, loginForm, registerForm } );
+
 		if ( loginTab && registerTab && loginForm && registerForm ) {
-			loginTab.addEventListener( 'click', () => {
+
+			// Функция переключения на вкладку входа
+			const showLoginTab = () => {
+				console.log( 'Переключение на вкладку Входа' );
 				loginTab.classList.add( 'active' );
 				registerTab.classList.remove( 'active' );
 				loginForm.classList.add( 'active' );
 				registerForm.classList.remove( 'active' );
 				this.clearErrors();
-			} );
+			};
 
-			registerTab.addEventListener( 'click', () => {
+			// Функция переключения на вкладку регистрации
+			const showRegisterTab = () => {
+				console.log( 'Переключение на вкладку Регистрации' );
 				registerTab.classList.add( 'active' );
 				loginTab.classList.remove( 'active' );
 				registerForm.classList.add( 'active' );
 				loginForm.classList.remove( 'active' );
 				this.clearErrors();
-			} );
+			};
 
+			// Добавляем обработчики событий
+			loginTab.addEventListener( 'click', showLoginTab );
+			registerTab.addEventListener( 'click', showRegisterTab );
+
+			// Мобильные переключатели
 			if ( switchToRegister ) {
 				switchToRegister.addEventListener( 'click', ( e ) => {
 					e.preventDefault();
-					registerTab.click();
+					showRegisterTab();
 				} );
 			}
 
 			if ( switchToLogin ) {
 				switchToLogin.addEventListener( 'click', ( e ) => {
 					e.preventDefault();
-					loginTab.click();
+					showLoginTab();
 				} );
 			}
+		} else {
+			console.error( 'Не найдены элементы вкладок:', { loginTab, registerTab, loginForm, registerForm } );
 		}
 	}
 
+	/**
+	 * Переключение видимости пароля (глазик)
+	 */
 	bindPasswordToggles() {
 		document.querySelectorAll( '.password-toggle' ).forEach( btn => {
 			btn.addEventListener( 'click', function () {
@@ -70,6 +159,9 @@ class AuthPage {
 		} );
 	}
 
+	/**
+	 * Привязка обработчиков отправки форм
+	 */
 	bindForms() {
 		const loginForm = document.getElementById( 'loginFormElement' );
 		const registerForm = document.getElementById( 'registerFormElement' );
@@ -83,6 +175,9 @@ class AuthPage {
 		}
 	}
 
+	/**
+	 * Проверка сложности пароля в реальном времени
+	 */
 	bindPasswordStrength() {
 		const passwordInput = document.getElementById( 'registerPassword' );
 		if ( passwordInput ) {
@@ -95,53 +190,38 @@ class AuthPage {
 		}
 	}
 
+	/**
+	 * Обработка восстановления пароля
+	 */
 	bindForgotPassword() {
 		const forgotBtn = document.getElementById( 'forgotPasswordBtn' );
 		const modal = document.getElementById( 'forgotPasswordModal' );
-		const closeBtn = modal.querySelector( '.close-modal' );
-		const backToLogin = document.getElementById( 'backToLogin' );
-		const forgotForm = document.getElementById( 'forgotPasswordForm' );
 
 		if ( forgotBtn && modal ) {
 			forgotBtn.addEventListener( 'click', ( e ) => {
 				e.preventDefault();
-				modal.style.display = 'block';
+				modal.style.display = 'flex';
 			} );
 		}
 
-		if ( closeBtn && modal ) {
-			closeBtn.addEventListener( 'click', () => {
+		// Закрытие модального окна
+		const closeModal = document.querySelector( '#forgotPasswordModal .close-modal' );
+		if ( closeModal && modal ) {
+			closeModal.addEventListener( 'click', () => {
 				modal.style.display = 'none';
 			} );
 		}
 
-		if ( backToLogin && modal ) {
-			backToLogin.addEventListener( 'click', ( e ) => {
-				e.preventDefault();
-				modal.style.display = 'none';
-			} );
-		}
-
-		window.addEventListener( 'click', ( e ) => {
-			if ( e.target === modal ) {
-				modal.style.display = 'none';
-			}
-		} );
-
+		// Обработка формы восстановления
+		const forgotForm = document.getElementById( 'forgotPasswordForm' );
 		if ( forgotForm ) {
 			forgotForm.addEventListener( 'submit', ( e ) => this.handleForgotPassword( e ) );
 		}
 	}
 
-	bindFaq() {
-		document.querySelectorAll( '.faq-question' ).forEach( question => {
-			question.addEventListener( 'click', function () {
-				const item = this.closest( '.faq-item' );
-				item.classList.toggle( 'active' );
-			} );
-		} );
-	}
-
+	/**
+	 * Проверка параметров URL (для автоматического переключения на регистрацию)
+	 */
 	checkUrlParams() {
 		const urlParams = new URLSearchParams( window.location.search );
 		const tab = urlParams.get( 'tab' );
@@ -152,15 +232,21 @@ class AuthPage {
 		}
 	}
 
+	// ========== ОБРАБОТКА ФОРМ ==========
+
+	/**
+	 * Обработка входа пользователя
+	 */
 	handleLogin( e ) {
 		e.preventDefault();
 
 		const identifier = document.getElementById( 'loginIdentifier' );
 		const password = document.getElementById( 'loginPassword' );
+		const rememberMe = document.getElementById( 'rememberMe' );
 
 		let isValid = true;
 
-		// Валидация
+		// Валидация поля ввода (email/телефон)
 		if ( !identifier.value.trim() ) {
 			this.showError( 'loginIdentifierError', 'Введите email или номер телефона' );
 			identifier.classList.add( 'error' );
@@ -170,6 +256,7 @@ class AuthPage {
 			identifier.classList.remove( 'error' );
 		}
 
+		// Валидация пароля
 		if ( !password.value ) {
 			this.showError( 'loginPasswordError', 'Введите пароль' );
 			password.classList.add( 'error' );
@@ -184,23 +271,46 @@ class AuthPage {
 		}
 
 		if ( isValid ) {
-			// Имитация отправки формы
-			const submitBtn = document.getElementById( 'loginSubmitBtn' );
-			submitBtn.disabled = true;
-			submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Вход...';
+			// Поиск пользователя в базе
+			const user = this.users.find( u =>
+				( u.email === identifier.value || u.phone === identifier.value ) &&
+				u.password === password.value
+			);
 
-			setTimeout( () => {
-				// Здесь должен быть реальный запрос к серверу
+			if ( user ) {
 				this.showNotification( 'Вход выполнен успешно!', 'success' );
 
-				// Перенаправление на главную
+				// Сохраняем текущего пользователя
+				localStorage.setItem( 'komori_current_user', JSON.stringify( user ) );
+
+				// Сохраняем аватар в отдельное хранилище для быстрого доступа
+				if ( user.avatar ) {
+					localStorage.setItem( 'komori_current_avatar', user.avatar );
+				}
+
+				// Если отмечено "Запомнить меня"
+				if ( rememberMe && rememberMe.checked ) {
+					localStorage.setItem( 'komori_remembered_user', JSON.stringify( user ) );
+				}
+
+				// Перенаправление на главную страницу
 				setTimeout( () => {
-					window.location.href = 'index.html';
+					window.location.href = '/index.html';
 				}, 1500 );
-			}, 1500 );
+			} else {
+				this.showNotification( 'Неверный email/телефон или пароль', 'error' );
+				const submitBtn = document.getElementById( 'loginSubmitBtn' );
+				if ( submitBtn ) {
+					submitBtn.disabled = false;
+					submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Войти';
+				}
+			}
 		}
 	}
 
+	/**
+	 * Обработка регистрации нового пользователя
+	 */
 	handleRegister( e ) {
 		e.preventDefault();
 
@@ -210,6 +320,7 @@ class AuthPage {
 		const password = document.getElementById( 'registerPassword' );
 		const confirm = document.getElementById( 'registerConfirmPassword' );
 		const agree = document.getElementById( 'agreeTerms' );
+		const subscribe = document.getElementById( 'subscribeNews' );
 
 		let isValid = true;
 
@@ -237,6 +348,10 @@ class AuthPage {
 			this.showError( 'registerEmailError', 'Введите корректный email' );
 			email.classList.add( 'error' );
 			isValid = false;
+		} else if ( this.users.some( u => u.email === email.value ) ) {
+			this.showError( 'registerEmailError', 'Этот email уже зарегистрирован' );
+			email.classList.add( 'error' );
+			isValid = false;
 		} else {
 			this.clearError( 'registerEmailError' );
 			email.classList.remove( 'error' );
@@ -250,6 +365,10 @@ class AuthPage {
 			isValid = false;
 		} else if ( !phoneRegex.test( phone.value.replace( /\s/g, '' ) ) ) {
 			this.showError( 'registerPhoneError', 'Введите корректный номер телефона' );
+			phone.classList.add( 'error' );
+			isValid = false;
+		} else if ( this.users.some( u => u.phone === phone.value ) ) {
+			this.showError( 'registerPhoneError', 'Этот телефон уже зарегистрирован' );
 			phone.classList.add( 'error' );
 			isValid = false;
 		} else {
@@ -271,7 +390,7 @@ class AuthPage {
 			password.classList.remove( 'error' );
 		}
 
-		// Валидация подтверждения
+		// Проверка совпадения паролей
 		if ( password.value !== confirm.value ) {
 			this.showError( 'registerConfirmError', 'Пароли не совпадают' );
 			confirm.classList.add( 'error' );
@@ -281,30 +400,40 @@ class AuthPage {
 			confirm.classList.remove( 'error' );
 		}
 
-		// Проверка согласия
+		// Проверка согласия с правилами
 		if ( !agree.checked ) {
 			this.showNotification( 'Необходимо согласиться с правилами сайта', 'error' );
 			isValid = false;
 		}
 
 		if ( isValid ) {
-			// Имитация отправки формы
-			const submitBtn = document.getElementById( 'registerSubmitBtn' );
-			submitBtn.disabled = true;
-			submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Регистрация...';
+			// Создаем нового пользователя
+			const newUser = {
+				id: Date.now(),
+				name: name.value.trim(),
+				email: email.value.trim(),
+				phone: phone.value.trim(),
+				password: password.value,
+				subscribe: subscribe.checked,
+				avatar: null, // Аватар пока пустой
+				createdAt: new Date().toISOString()
+			};
 
+			this.users.push( newUser );
+			this.saveUsers();
+
+			this.showNotification( 'Регистрация прошла успешно!', 'success' );
+
+			// Перенаправление на страницу входа
 			setTimeout( () => {
-				// Здесь должен быть реальный запрос к серверу
-				this.showNotification( 'Регистрация прошла успешно!', 'success' );
-
-				// Перенаправление на страницу входа
-				setTimeout( () => {
-					window.location.href = 'login.html?tab=login';
-				}, 1500 );
-			}, 2000 );
+				window.location.href = '/pages html/login.html?tab=login';
+			}, 1500 );
 		}
 	}
 
+	/**
+	 * Обработка восстановления пароля
+	 */
 	handleForgotPassword( e ) {
 		e.preventDefault();
 
@@ -320,11 +449,17 @@ class AuthPage {
 		submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
 
 		setTimeout( () => {
-			// Здесь должен быть реальный запрос к серверу
-			alert( 'Инструкция по восстановлению пароля отправлена на ваш email/телефон' );
+			// Поиск пользователя
+			const user = this.users.find( u => u.email === identifier.value || u.phone === identifier.value );
+
+			if ( user ) {
+				alert( `Инструкция по восстановлению пароля отправлена на ${user.email}` );
+			} else {
+				alert( 'Пользователь с таким email/телефоном не найден' );
+			}
 
 			const modal = document.getElementById( 'forgotPasswordModal' );
-			modal.style.display = 'none';
+			if ( modal ) modal.style.display = 'none';
 
 			submitBtn.disabled = false;
 			submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Отправить инструкцию';
@@ -333,6 +468,11 @@ class AuthPage {
 		}, 1500 );
 	}
 
+	// ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
+
+	/**
+	 * Проверка сложности пароля (отображает полоски)
+	 */
 	checkPasswordStrength( password ) {
 		const bars = document.querySelectorAll( '.strength-bar' );
 
@@ -372,6 +512,9 @@ class AuthPage {
 		} );
 	}
 
+	/**
+	 * Проверка совпадения паролей
+	 */
 	checkPasswordMatch() {
 		const password = document.getElementById( 'registerPassword' );
 		const confirm = document.getElementById( 'registerConfirmPassword' );
@@ -385,6 +528,9 @@ class AuthPage {
 		}
 	}
 
+	/**
+	 * Показать ошибку валидации
+	 */
 	showError( elementId, message ) {
 		const errorElement = document.getElementById( elementId );
 		if ( errorElement ) {
@@ -392,6 +538,9 @@ class AuthPage {
 		}
 	}
 
+	/**
+	 * Очистить ошибку валидации
+	 */
 	clearError( elementId ) {
 		const errorElement = document.getElementById( elementId );
 		if ( errorElement ) {
@@ -399,90 +548,24 @@ class AuthPage {
 		}
 	}
 
+	/**
+	 * Очистить все ошибки
+	 */
 	clearErrors() {
 		document.querySelectorAll( '.input-error' ).forEach( el => el.textContent = '' );
 		document.querySelectorAll( '.auth-input' ).forEach( el => el.classList.remove( 'error' ) );
 	}
 
+	/**
+	 * Показать всплывающее уведомление
+	 */
 	showNotification( message, type = 'info' ) {
-		// Проверяем, есть ли уже контейнер для уведомлений
 		let container = document.querySelector( '.notification-container' );
 
 		if ( !container ) {
 			container = document.createElement( 'div' );
 			container.className = 'notification-container';
 			document.body.appendChild( container );
-
-			// Добавляем стили для уведомлений
-			const style = document.createElement( 'style' );
-			style.textContent = `
-                .notification-container {
-                    position: fixed;
-                    top: 100px;
-                    right: 20px;
-                    z-index: 9999;
-                }
-                
-                .notification {
-                    background: white;
-                    border-radius: 10px;
-                    padding: 15px 25px;
-                    margin-bottom: 10px;
-                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    animation: slideIn 0.3s ease forwards;
-                    border-left: 4px solid;
-                }
-                
-                .notification.success {
-                    border-left-color: #2ecc71;
-                }
-                
-                .notification.success i {
-                    color: #2ecc71;
-                }
-                
-                .notification.info {
-                    border-left-color: #3498db;
-                }
-                
-                .notification.info i {
-                    color: #3498db;
-                }
-                
-                .notification.error {
-                    border-left-color: #e74c3c;
-                }
-                
-                .notification.error i {
-                    color: #e74c3c;
-                }
-                
-                @keyframes slideIn {
-                    from {
-                        opacity: 0;
-                        transform: translateX(100px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateX(0);
-                    }
-                }
-                
-                @keyframes fadeOut {
-                    from {
-                        opacity: 1;
-                        transform: translateX(0);
-                    }
-                    to {
-                        opacity: 0;
-                        transform: translateX(100px);
-                    }
-                }
-            `;
-			document.head.appendChild( style );
 		}
 
 		const notification = document.createElement( 'div' );
@@ -510,4 +593,5 @@ class AuthPage {
 // Инициализация при загрузке страницы
 document.addEventListener( 'DOMContentLoaded', function () {
 	window.authPage = new AuthPage();
+	console.log( 'Страница авторизации инициализирована' );
 } );

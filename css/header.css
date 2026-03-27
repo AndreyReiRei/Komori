@@ -685,3 +685,35 @@ header::before {
 		padding: 24px 25px;
 	}
 }
+
+
+
+/* Аватар в шапке */
+.header-avatar {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-right: 5px;
+}
+
+.user-action-item .action-link {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+/* Адаптивность аватара в шапке */
+@media (max-width: 768px) {
+	.header-avatar {
+		width: 24px;
+		height: 24px;
+	}
+}
+
+@media (max-width: 576px) {
+	.header-avatar {
+		width: 20px;
+		height: 20px;
+	}
+}
