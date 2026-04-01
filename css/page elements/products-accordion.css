@@ -207,7 +207,8 @@
 	border-radius: 50%;
 	background: var(--bg-primary);
 	border: 2px solid var(--border-light);
-	color: var(--primary);
+	color: var(--text-muted);
+	/* Серый цвет для неактивного состояния */
 	cursor: pointer;
 	display: flex;
 	align-items: center;
@@ -215,7 +216,6 @@
 	transition: all var(--transition-bounce);
 	z-index: 3;
 	box-shadow: var(--shadow-sm);
-	text-shadow: 1px 1px 3px #9e0000;
 	padding: 0;
 	font-size: 20px;
 }
@@ -231,6 +231,8 @@
 	border-color: var(--primary);
 	background: var(--bg-primary);
 	box-shadow: var(--shadow-glow);
+	color: var(--primary);
+	/* При наведении становится красным */
 }
 
 .favorite-btn:hover i,
@@ -238,17 +240,31 @@
 	transform: scale(1.1);
 }
 
+/* АКТИВНОЕ СОСТОЯНИЕ (товар в избранном) - сердечко КРАСНОЕ */
 .favorite-btn.active {
-	background: var(--text-white);
-
-	border-color: transparent;
-	color: var(--primary-gradient);
+	background: var(--bg-primary);
+	border-color: var(--primary);
+	color: var(--primary);
+	/* Красный цвет для активного состояния */
 	box-shadow: var(--shadow-glow);
 }
 
 .favorite-btn.active i,
 .favorite-btn.active svg {
-	color: var(--text-white);
+	color: var(--primary);
+	/* Красный цвет иконки */
+}
+
+/* НЕАКТИВНОЕ СОСТОЯНИЕ (товар НЕ в избранном) - сердечко БЕЛОЕ/СЕРОЕ */
+.favorite-btn:not(.active) {
+	color: var(--text-muted);
+	/* Серый/белый цвет */
+}
+
+.favorite-btn:not(.active) i,
+.favorite-btn:not(.active) svg {
+	color: var(--text-muted);
+	/* Серый/белый цвет иконки */
 }
 
 .favorite-btn:active {
@@ -279,6 +295,10 @@
 	75% {
 		transform: scale(1.2);
 	}
+}
+
+.favorite-btn.active i {
+	animation: heartBeat 0.4s ease;
 }
 
 .favorite-btn.active i {

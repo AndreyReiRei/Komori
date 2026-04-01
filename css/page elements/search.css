@@ -1,0 +1,739 @@
+/* ===== СТИЛИ ДЛЯ МОДАЛЬНОГО ОКНА ПОИСКА ===== */
+/* Все стили, связанные с поиском */
+
+.search-modal .modal-content {
+	max-width: 560px;
+	padding: 30px;
+	margin: 10% auto;
+	background: #1a1a1a;
+	border: 1px solid rgba(180, 40, 40, 0.3);
+	border-radius: 20px;
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+	animation: modalSlideIn 0.4s ease;
+	color: #fff;
+}
+
+/* Шапка поиска */
+.search-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 25px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid rgba(180, 40, 40, 0.2);
+}
+
+.search-header h2 {
+	margin: 0;
+	font-size: 22px;
+	font-weight: 500;
+	color: #fff;
+}
+
+.search-header h2 i {
+	color: #b42828;
+	margin-right: 10px;
+}
+
+/* Поле ввода поиска */
+.search-input-wrapper {
+	display: flex;
+	gap: 12px;
+	margin-bottom: 25px;
+}
+
+.search-input-wrapper input {
+	flex: 1;
+	padding: 14px 18px;
+	background: #222;
+	border: 1px solid #333;
+	border-radius: 8px;
+	font-size: 15px;
+	color: #fff;
+	transition: all 0.2s ease;
+}
+
+.search-input-wrapper input:focus {
+	outline: none;
+	border-color: #b42828;
+	background: #2a2a2a;
+}
+
+/* Контейнер результатов поиска */
+.search-results-container {
+	max-height: 400px;
+	overflow-y: auto;
+	margin: 15px 0;
+}
+
+/* Список результатов */
+.search-results-list {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+/* Элемент результата */
+.search-result-item {
+	display: flex;
+	gap: 15px;
+	padding: 15px;
+	background: #1a1a1a;
+	border-radius: 8px;
+	border: 1px solid #333;
+	transition: all 0.3s ease;
+}
+
+.search-result-item:hover {
+	transform: translateX(5px);
+	border-color: #b42828;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Изображение товара */
+.result-item-image {
+	flex-shrink: 0;
+	width: 80px;
+	height: 80px;
+	border-radius: 4px;
+	overflow: hidden;
+	background: #252525;
+}
+
+.result-item-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* Информация о товаре */
+.result-item-info {
+	flex: 1;
+}
+
+.result-item-category {
+	font-size: 12px;
+	color: #b42828;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: 4px;
+}
+
+.result-item-category mark {
+	background: rgba(180, 40, 40, 0.3);
+	color: #b42828;
+	padding: 0 2px;
+	border-radius: 2px;
+}
+
+.result-item-title {
+	font-size: 16px;
+	font-weight: 600;
+	color: #fff;
+	margin-bottom: 4px;
+}
+
+.result-item-title mark {
+	background: rgba(180, 40, 40, 0.3);
+	color: #b42828;
+	padding: 0 2px;
+	border-radius: 2px;
+}
+
+.result-item-sku {
+	font-size: 12px;
+	color: #999;
+	margin-bottom: 4px;
+}
+
+.result-item-price {
+	margin-top: 8px;
+}
+
+.result-item-price .current-price {
+	font-size: 18px;
+	font-weight: 700;
+	color: #b42828;
+}
+
+.result-item-price .old-price {
+	font-size: 14px;
+	color: #999;
+	text-decoration: line-through;
+	margin-left: 8px;
+}
+
+.result-item-status {
+	font-size: 12px;
+	margin-top: 4px;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.result-item-status.in-stock {
+	color: #2ecc71;
+}
+
+.result-item-status.out-of-stock {
+	color: #ff4757;
+}
+
+/* Кнопки действий */
+.result-item-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	justify-content: center;
+}
+
+.result-view-btn,
+.result-cart-btn {
+	padding: 8px 12px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: 500;
+	transition: all 0.2s ease;
+}
+
+.result-view-btn {
+	background: #3498db;
+	color: white;
+}
+
+.result-view-btn:hover {
+	background: #2980b9;
+	transform: translateY(-2px);
+}
+
+.result-cart-btn {
+	background: #b42828;
+	color: white;
+}
+
+.result-cart-btn:hover:not(:disabled) {
+	background: #d63a3a;
+	transform: translateY(-2px);
+}
+
+.result-cart-btn.disabled,
+.result-cart-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* Сообщение об отсутствии результатов */
+.no-results-message {
+	text-align: center;
+	padding: 40px 20px;
+	color: #999;
+}
+
+.no-results-message i {
+	font-size: 48px;
+	margin-bottom: 15px;
+	opacity: 0.5;
+}
+
+.no-results-message p {
+	margin-bottom: 10px;
+}
+
+.no-results-message .suggestion-text a {
+	color: #b42828;
+	text-decoration: none;
+}
+
+.no-results-message .suggestion-text a:hover {
+	text-decoration: underline;
+}
+
+/* Заголовок с количеством результатов */
+.results-header {
+	padding: 10px 0;
+	font-size: 14px;
+	color: #ccc;
+	border-bottom: 1px solid #333;
+	margin-bottom: 15px;
+}
+
+/* Популярные запросы */
+.search-suggestions {
+	border-top: 1px solid #333;
+	padding-top: 20px;
+}
+
+.suggestions-title {
+	font-size: 13px;
+	color: #888;
+	margin-bottom: 12px;
+	text-transform: uppercase;
+}
+
+.suggestions-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.suggestion-tag {
+	padding: 8px 16px;
+	background: #222;
+	border: 1px solid #333;
+	border-radius: 6px;
+	font-size: 13px;
+	color: #ccc;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.suggestion-tag:hover {
+	background: #b42828;
+	color: #fff;
+	border-color: #b42828;
+}
+
+/* ===== АДАПТИВНОСТЬ ДЛЯ ПОИСКА ===== */
+
+/* Десктоп (993px - 1200px) */
+@media (993px <=width < 1201px) {
+	.search-modal .modal-content {
+		max-width: 520px;
+		padding: 25px;
+	}
+}
+
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
+	.search-modal .modal-content {
+		max-width: 480px;
+	}
+}
+
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
+	.search-modal .modal-content {
+		width: 92%;
+		padding: 20px;
+		margin: 15% auto;
+	}
+
+	.search-header h2 {
+		font-size: 20px;
+	}
+
+	.search-input-wrapper {
+		flex-direction: column;
+	}
+
+	.search-submit-btn {
+		width: 100%;
+		padding: 12px;
+	}
+
+	.close-search {
+		width: 36px;
+		height: 36px;
+	}
+
+	.close-modal {
+		top: 15px;
+		right: 18px;
+	}
+}
+
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
+	.search-modal .modal-content {
+		padding: 20px;
+		margin: 20% auto;
+		width: 95%;
+	}
+
+	.search-header h2 {
+		font-size: 19px;
+	}
+
+	.search-input-wrapper {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.search-submit-btn {
+		width: 100%;
+		padding: 12px;
+	}
+
+	.form-actions {
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.search-result-item {
+		flex-direction: column;
+	}
+
+	.result-item-image {
+		width: 100%;
+		height: 120px;
+	}
+
+	.result-item-actions {
+		flex-direction: row;
+		margin-top: 10px;
+	}
+
+	.result-view-btn,
+	.result-cart-btn {
+		flex: 1;
+	}
+}
+
+/* Мобильные (до 481px) */
+@media (width < 481px) {
+	.search-modal .modal-content {
+		padding: 18px;
+		margin: 20% auto;
+		width: 95%;
+	}
+
+	.search-header h2 {
+		font-size: 18px;
+	}
+
+	.search-input-wrapper {
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.search-input-wrapper input {
+		padding: 12px 15px;
+		font-size: 14px;
+	}
+
+	.search-submit-btn {
+		width: 100%;
+		padding: 12px;
+		font-size: 14px;
+	}
+
+	.close-search {
+		width: 34px;
+		height: 34px;
+		font-size: 20px;
+	}
+
+	.close-modal {
+		top: 12px;
+		right: 15px;
+		width: 34px;
+		height: 34px;
+		font-size: 20px;
+	}
+
+	.suggestion-tag {
+		padding: 6px 12px;
+		font-size: 12px;
+	}
+
+	.suggestions-tags {
+		gap: 8px;
+	}
+
+	.search-result-item {
+		flex-direction: column;
+	}
+
+	.result-item-image {
+		width: 100%;
+		height: 120px;
+	}
+
+	.result-item-actions {
+		flex-direction: row;
+		margin-top: 10px;
+	}
+
+	.result-view-btn,
+	.result-cart-btn {
+		flex: 1;
+		padding: 10px;
+	}
+}
+
+/* Очень маленькие экраны (до 360px) */
+@media (width < 360px) {
+	.search-modal .modal-content {
+		padding: 15px;
+	}
+
+	.search-header h2 {
+		font-size: 16px;
+	}
+
+	.suggestions-tags {
+		gap: 6px;
+	}
+
+	.suggestion-tag {
+		padding: 5px 10px;
+		font-size: 11px;
+	}
+
+	.close-search {
+		width: 32px;
+		height: 32px;
+		font-size: 18px;
+	}
+
+	.result-item-price .current-price {
+		font-size: 16px;
+	}
+}
+
+/* Ультраширокие экраны (1921px и выше) */
+@media (width >=1921px) {
+	.search-modal .modal-content {
+		max-width: 650px;
+		padding: 40px;
+		margin: 12% auto;
+	}
+
+	.search-header h2 {
+		font-size: 26px;
+	}
+
+	.search-input-wrapper input {
+		padding: 16px 20px;
+		font-size: 17px;
+	}
+
+	.search-submit-btn {
+		padding: 16px 32px;
+		font-size: 17px;
+	}
+
+	.suggestion-tag {
+		padding: 10px 20px;
+		font-size: 15px;
+	}
+
+	.suggestions-title {
+		font-size: 15px;
+	}
+}
+
+/* Очень большой десктоп (1441px - 1920px) */
+@media (1441px <=width < 1921px) {
+	.search-modal .modal-content {
+		max-width: 600px;
+	}
+}
+
+/* Большой десктоп (1201px - 1440px) */
+@media (1201px <=width < 1441px) {
+	.search-modal .modal-content {
+		max-width: 560px;
+	}
+}
+
+/* Скрываем иконку поиска в модальном окне, если она там не нужна */
+.search-modal .fa-search {
+	display: none;
+}
+
+/* ===== ОБЩИЕ СТИЛИ ДЛЯ МОДАЛЬНЫХ ОКОН ===== */
+/* Этот файл содержит общие стили для всех модальных окон */
+
+/* Базовый контейнер модального окна */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 2000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	backdrop-filter: blur(5px);
+}
+
+/* Анимации */
+@keyframes modalSlideIn {
+	from {
+		opacity: 0;
+		transform: translateY(-30px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes modalSlideInRight {
+	from {
+		opacity: 0;
+		transform: translateX(100px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes messageAppear {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes pulse {
+
+	0%,
+	100% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.5;
+	}
+}
+
+/* ===== ОБЩИЕ СТИЛИ ДЛЯ КНОПОК ===== */
+
+/* Базовые стили для всех кнопок закрытия */
+.close-modal,
+.close-search,
+.chat-close {
+	background: rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 183, 197, 0.3);
+	color: rgba(255, 255, 255, 0.8);
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s ease;
+	font-size: 22px;
+}
+
+.close-modal:hover,
+.close-search:hover,
+.chat-close:hover {
+	background: rgba(255, 183, 197, 0.2);
+	color: #ffb7c5;
+	transform: scale(1.1);
+}
+
+/* Специфичные стили для разных кнопок закрытия */
+.close-modal {
+	position: absolute;
+	top: 20px;
+	right: 25px;
+}
+
+.chat-close {
+	width: 35px;
+	height: 35px;
+}
+
+/* Базовые стили для кнопок отправки/действий */
+.send-btn,
+.search-submit-btn,
+.btn-submit {
+	background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+	color: white;
+	border: none;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.send-btn:hover,
+.search-submit-btn:hover,
+.btn-submit:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* Индивидуальные стили для каждой кнопки */
+.send-btn {
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+}
+
+.send-btn i {
+	font-size: 18px;
+}
+
+.search-submit-btn {
+	padding: 14px 28px;
+	border-radius: 8px;
+	font-size: 15px;
+	font-weight: 500;
+	white-space: nowrap;
+	background: #b42828;
+}
+
+.search-submit-btn:hover {
+	background: rgba(180, 40, 40, 0.1);
+	color: #d63a3a;
+	border: 1px solid #b42828;
+}
+
+.btn-submit {
+	flex: 1;
+	padding: 12px;
+	border-radius: 10px;
+	font-weight: 500;
+	gap: 8px;
+}
+
+/* Базовые стили для кнопок отмены */
+.btn-cancel {
+	flex: 1;
+	padding: 12px;
+	background: #2a2a2a;
+	color: rgba(255, 255, 255, 0.7);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 10px;
+	cursor: pointer;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+	background: #333;
+	color: white;
+}

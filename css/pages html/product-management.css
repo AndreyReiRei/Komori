@@ -1,44 +1,63 @@
 /* ===== ПЕРЕМЕННЫЕ ===== */
 :root {
-	/* Основные цвета */
-	--primary: #667eea;
-	--primary-dark: #5a67d8;
-	--primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-	--secondary: #764ba2;
+	/* Основные цвета - ИЗМЕНЕНО в соответствии со стилем избранного */
+	--primary: #ff3366;
+	/* Основной акцентный цвет (как в избранном) */
+	--primary-dark: #e62e5c;
+	/* Темный вариант акцентного */
+	--primary-gradient: linear-gradient(135deg, #ff3366 0%, #ff6b6b 100%);
+	/* Градиент на основе акцентного */
+	--secondary: #ff6b6b;
+	/* Вторичный акцентный цвет */
 	--success: #2ecc71;
+	/* Зеленый (оставлен для статусов) */
 	--danger: #ff4757;
+	/* Красный (оставлен для опасных действий) */
 	--warning: #ff9800;
+	/* Оранжевый (оставлен) */
 	--info: #3498db;
+	/* Синий (оставлен для кнопок "Редактировать") */
 
-	/* Нейтральные цвета */
-	--text-primary: #2c3e50;
-	--text-secondary: #4a5568;
-	--text-muted: #718096;
-	--text-light: #a0aec0;
+	/* Нейтральные цвета - ИЗМЕНЕНО на темную схему */
+	--text-primary: #ffffff;
+	/* Основной текст - белый */
+	--text-secondary: #cccccc;
+	/* Второстепенный текст - светло-серый */
+	--text-muted: #999999;
+	/* Приглушенный текст - серый */
+	--text-light: #666666;
+	/* Очень светлый текст - темно-серый */
 	--text-white: #ffffff;
+	/* Белый текст */
 
-	/* Фоны */
-	--bg-primary: #ffffff;
-	--bg-secondary: #f7fafc;
-	--bg-tertiary: #edf2f7;
-	--bg-modal: rgba(0, 0, 0, 0.7);
+	/* Фоны - ИЗМЕНЕНО на темные тона */
+	--bg-primary: #1a1a1a;
+	/* Основной фон (карточки, модалки) - как в избранном */
+	--bg-secondary: #0d0d0d;
+	/* Вторичный фон (хедеры, футеры) - темнее основного */
+	--bg-tertiary: #252525;
+	/* Третичный фон (для наведений) */
+	--bg-modal: rgba(0, 0, 0, 0.9);
+	/* Фон модального окна - более темный */
 
-	/* Границы */
-	--border-light: #e2e8f0;
-	--border-focus: #667eea;
+	/* Границы - ИЗМЕНЕНО */
+	--border-light: #333333;
+	/* Цвет границ - темно-серый */
+	--border-focus: #ff3366;
+	/* Цвет границы при фокусе - акцентный */
 
-	/* Тени */
-	--shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-	--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-	--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-	--shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+	/* Тени - ИЗМЕНЕНО для лучшей видимости на темном фоне */
+	--shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+	--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+	--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+	--shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
 
-	/* Анимации */
+	/* Анимации (без изменений) */
 	--transition-fast: 0.2s ease;
 	--transition-base: 0.3s ease;
 	--transition-slow: 0.5s ease;
 
-	/* Скругления */
+	/* Скругления (без изменений) */
 	--radius-sm: 4px;
 	--radius-md: 8px;
 	--radius-lg: 12px;
@@ -55,17 +74,20 @@
 	padding: clamp(20px, 3vw, 30px) 0;
 }
 
-/* Шапка модуля */
+/* Шапка модуля - ИЗМЕНЕНО под новый стиль */
 .module-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: clamp(20px, 3vw, 30px);
 	padding: clamp(15px, 2vw, 20px);
-	background: var(--primary-gradient);
+	background: var(--bg-secondary);
+	/* Темный фон, как в избранном */
 	border-radius: var(--radius-lg);
 	color: var(--text-white);
 	box-shadow: var(--shadow-md);
+	border: 1px solid var(--border-light);
+	/* Добавлена граница */
 }
 
 .module-header h1 {
@@ -74,10 +96,14 @@
 	display: flex;
 	align-items: center;
 	gap: 10px;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+	/* Тень как у заголовка избранного */
 }
 
 .module-header h1 i {
 	font-size: clamp(24px, 3.5vw, 28px);
+	color: var(--primary);
+	/* Иконка акцентным цветом */
 }
 
 /* ===== КНОПКИ ===== */
@@ -100,14 +126,17 @@
 }
 
 .btn-primary {
-	background: var(--primary-gradient);
+	background: var(--primary);
+	/* Сплошной цвет вместо градиента */
 	color: var(--text-white);
 }
 
 .btn-primary:hover {
+	background: var(--primary-dark);
+	/* Затемнение при наведении */
 	transform: translateY(-2px);
-	box-shadow: var(--shadow-lg);
-	filter: brightness(1.1);
+	box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+	/* Тень как в избранном */
 }
 
 .btn-primary:active {
@@ -115,14 +144,16 @@
 }
 
 .btn-secondary {
-	background: var(--bg-secondary);
+	background: var(--bg-tertiary);
+	/* Темный фон */
 	color: var(--text-secondary);
 	border: 1px solid var(--border-light);
 }
 
 .btn-secondary:hover {
-	background: var(--bg-tertiary);
-	color: var(--text-primary);
+	background: var(--bg-primary);
+	color: var(--text-white);
+	border-color: var(--primary);
 }
 
 .btn-danger {
@@ -140,7 +171,7 @@
 	transform: translateY(0);
 }
 
-/* ===== ФИЛЬТРЫ ===== */
+/* ===== ФИЛЬТРЫ - ИЗМЕНЕНО под темную тему ===== */
 .filters-section {
 	display: flex;
 	gap: 15px;
@@ -181,7 +212,7 @@
 .search-box input:focus {
 	outline: none;
 	border-color: var(--primary);
-	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+	box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.1);
 }
 
 .search-box input::placeholder {
@@ -211,7 +242,7 @@
 .sort-group select:focus {
 	outline: none;
 	border-color: var(--primary);
-	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+	box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.1);
 }
 
 .sort-group {
@@ -251,15 +282,17 @@
 	margin-top: 20px;
 }
 
-/* ===== КАРТОЧКА ТОВАРА ===== */
+/* ===== КАРТОЧКА ТОВАРА - ИЗМЕНЕНО под стиль избранного ===== */
 .product-card {
 	background: var(--bg-primary);
+	/* #1a1a1a */
 	border-radius: var(--radius-lg);
 	overflow: hidden;
 	box-shadow: var(--shadow-md);
 	transition: all var(--transition-base);
 	position: relative;
 	border: 1px solid var(--border-light);
+	/* #333333 */
 	display: flex;
 	flex-direction: column;
 }
@@ -267,9 +300,11 @@
 .product-card:hover {
 	transform: translateY(-5px);
 	box-shadow: var(--shadow-xl);
+	border-color: var(--primary);
+	/* Акцентная граница при наведении */
 }
 
-/* Бейджи */
+/* Бейджи - ИЗМЕНЕНО */
 .product-badges {
 	position: absolute;
 	top: 10px;
@@ -282,7 +317,8 @@
 
 .badge {
 	padding: 4px 10px;
-	border-radius: 20px;
+	border-radius: 4px;
+	/* Меньше скругление, как в избранном */
 	font-size: 11px;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -303,13 +339,15 @@
 	background: var(--danger);
 }
 
-/* Изображение */
+/* Изображение - ИЗМЕНЕНО */
 .product-image {
 	width: 100%;
 	height: 200px;
 	overflow: hidden;
 	position: relative;
-	background: var(--bg-tertiary);
+	background: var(--bg-secondary);
+	/* #0d0d0d */
+	border-bottom: 1px solid var(--border-light);
 }
 
 .product-image img {
@@ -323,7 +361,7 @@
 	transform: scale(1.05);
 }
 
-/* Информация */
+/* Информация - ИЗМЕНЕНО */
 .product-info {
 	padding: 20px;
 	flex: 1;
@@ -332,6 +370,7 @@
 .product-category {
 	font-size: 12px;
 	color: var(--primary);
+	/* Акцентный цвет */
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 	margin-bottom: 5px;
@@ -342,6 +381,7 @@
 	font-size: 18px;
 	font-weight: 600;
 	color: var(--text-primary);
+	/* Белый */
 	margin-bottom: 8px;
 	line-height: 1.3;
 }
@@ -355,6 +395,7 @@
 .product-description {
 	font-size: 14px;
 	color: var(--text-secondary);
+	/* Светло-серый */
 	margin-bottom: 15px;
 	line-height: 1.5;
 	display: -webkit-box;
@@ -363,7 +404,7 @@
 	overflow: hidden;
 }
 
-/* Цена */
+/* Цена - ИЗМЕНЕНО */
 .product-price {
 	display: flex;
 	align-items: center;
@@ -375,16 +416,17 @@
 .current-price {
 	font-size: 22px;
 	font-weight: 700;
-	color: var(--text-primary);
+	color: var(--primary);
+	/* Акцентный цвет для цены */
 }
 
 .old-price {
 	font-size: 16px;
-	color: var(--text-muted);
+	color: var(--text-light);
 	text-decoration: line-through;
 }
 
-/* Наличие */
+/* Наличие - ИЗМЕНЕНО */
 .product-stock {
 	display: flex;
 	align-items: center;
@@ -414,13 +456,14 @@
 	color: var(--text-secondary);
 }
 
-/* Действия */
+/* Действия - ИЗМЕНЕНО */
 .product-actions {
 	display: flex;
 	gap: 8px;
 	border-top: 1px solid var(--border-light);
 	padding: 15px 20px;
 	background: var(--bg-secondary);
+	/* #0d0d0d */
 }
 
 .product-actions button {
@@ -459,7 +502,7 @@
 	box-shadow: var(--shadow-sm);
 }
 
-/* ===== ПУСТОЕ СОСТОЯНИЕ ===== */
+/* ===== ПУСТОЕ СОСТОЯНИЕ - ИЗМЕНЕНО под темную тему ===== */
 .empty-state {
 	grid-column: 1 / -1;
 	text-align: center;
@@ -471,8 +514,9 @@
 
 .empty-state i {
 	font-size: clamp(40px, 6vw, 60px);
-	color: var(--text-light);
+	color: var(--primary);
 	margin-bottom: 20px;
+	opacity: 0.6;
 }
 
 .empty-state p {
@@ -481,7 +525,7 @@
 	margin-bottom: 20px;
 }
 
-/* ===== МОДАЛЬНЫЕ ОКНА ===== */
+/* ===== МОДАЛЬНЫЕ ОКНА - ИЗМЕНЕНО под темную тему ===== */
 .modal {
 	display: none;
 	position: fixed;
@@ -522,13 +566,14 @@
 	width: 90%;
 	max-width: 700px;
 	position: relative;
+	border: 1px solid var(--border-light);
 }
 
 .modal-content.small {
 	max-width: 400px;
 }
 
-/* Шапка модального окна */
+/* Шапка модального окна - ИЗМЕНЕНО */
 .modal-header {
 	padding: 20px 25px;
 	border-bottom: 2px solid var(--border-light);
@@ -569,16 +614,16 @@
 }
 
 .close-modal:hover {
-	color: var(--text-primary);
+	color: var(--primary);
 	background: var(--bg-tertiary);
 }
 
-/* Тело модального окна */
+/* Тело модального окна - ИЗМЕНЕНО */
 .modal-body {
 	padding: clamp(15px, 2vw, 25px);
 }
 
-/* Подвал модального окна */
+/* Подвал модального окна - ИЗМЕНЕНО */
 .modal-footer {
 	padding: 20px 25px;
 	border-top: 1px solid var(--border-light);
@@ -592,7 +637,7 @@
 	z-index: 10;
 }
 
-/* ===== ВКЛАДКИ ФОРМЫ ===== */
+/* ===== ВКЛАДКИ ФОРМЫ - ИЗМЕНЕНО ===== */
 .form-tabs {
 	display: flex;
 	gap: 5px;
@@ -630,7 +675,7 @@
 	margin-right: 8px;
 }
 
-/* Контент вкладок */
+/* Контент вкладок - ИЗМЕНЕНО */
 .form-tab-content {
 	display: none;
 	padding: 0 25px 25px;
@@ -653,7 +698,7 @@
 	}
 }
 
-/* ===== ФОРМЫ ===== */
+/* ===== ФОРМЫ - ИЗМЕНЕНО ===== */
 form {
 	width: 100%;
 }
@@ -673,7 +718,7 @@ form {
 	display: block;
 	margin-bottom: 8px;
 	font-weight: 500;
-	color: var(--text-primary);
+	color: var(--text-secondary);
 	font-size: 14px;
 }
 
@@ -695,7 +740,7 @@ form {
 .form-group textarea:focus {
 	outline: none;
 	border-color: var(--primary);
-	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+	box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.1);
 }
 
 .form-group input::placeholder,
@@ -709,7 +754,7 @@ form {
 	font-family: inherit;
 }
 
-/* ===== ЗАГРУЗКА ИЗОБРАЖЕНИЯ ===== */
+/* ===== ЗАГРУЗКА ИЗОБРАЖЕНИЯ - ИЗМЕНЕНО ===== */
 .image-upload-area {
 	border: 2px dashed var(--border-light);
 	border-radius: var(--radius-lg);
@@ -749,7 +794,7 @@ form {
 	font-size: 14px;
 }
 
-/* ===== ЧЕКБОКСЫ ДЛЯ БЕЙДЖЕЙ ===== */
+/* ===== ЧЕКБОКСЫ ДЛЯ БЕЙДЖЕЙ - ИЗМЕНЕНО ===== */
 .badges-group {
 	display: flex;
 	gap: 15px;
@@ -780,7 +825,7 @@ form {
 	accent-color: var(--primary);
 }
 
-/* ===== УВЕДОМЛЕНИЯ ===== */
+/* ===== УВЕДОМЛЕНИЯ - ИЗМЕНЕНО ===== */
 .notification-container {
 	position: fixed;
 	top: 20px;
@@ -792,7 +837,7 @@ form {
 }
 
 .notification {
-	background: var(--primary-gradient);
+	background: var(--primary);
 	color: var(--text-white);
 	padding: 15px 25px;
 	border-radius: var(--radius-md);
@@ -802,6 +847,7 @@ form {
 	max-width: 350px;
 	font-weight: 500;
 	line-height: 1.4;
+	border-left: 4px solid var(--text-white);
 }
 
 @keyframes slideIn {
@@ -817,6 +863,8 @@ form {
 }
 
 /* ===== АДАПТИВНОСТЬ ===== */
+/* Все медиа-запросы остаются без изменений, так как они не влияют на цветовую схему,
+   но для полноты картины они здесь присутствуют. */
 
 /* Ультраширокие экраны (1921px и выше) */
 @media (width >=1921px) {

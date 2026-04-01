@@ -1,198 +1,5 @@
-/* ===== ОБЩИЕ СТИЛИ ДЛЯ МОДАЛЬНЫХ ОКОН ===== */
-
-/* Базовый контейнер модального окна */
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 2000;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.7);
-	backdrop-filter: blur(5px);
-}
-
-/* Анимации */
-@keyframes modalSlideIn {
-	from {
-		opacity: 0;
-		transform: translateY(-30px);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-@keyframes modalSlideInRight {
-	from {
-		opacity: 0;
-		transform: translateX(100px);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
-}
-
-@keyframes messageAppear {
-	from {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-@keyframes slideUp {
-	from {
-		opacity: 0;
-		transform: translateY(20px);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-@keyframes pulse {
-
-	0%,
-	100% {
-		opacity: 1;
-	}
-
-	50% {
-		opacity: 0.5;
-	}
-}
-
-/* ===== ОБЩИЕ СТИЛИ ДЛЯ КНОПОК ===== */
-
-/* Базовые стили для всех кнопок закрытия */
-.close-modal,
-.close-search,
-.chat-close {
-	background: rgba(255, 255, 255, 0.1);
-	border: 1px solid rgba(255, 183, 197, 0.3);
-	color: rgba(255, 255, 255, 0.8);
-	width: 38px;
-	height: 38px;
-	border-radius: 50%;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: all 0.3s ease;
-	font-size: 22px;
-}
-
-.close-modal:hover,
-.close-search:hover,
-.chat-close:hover {
-	background: rgba(255, 183, 197, 0.2);
-	color: #ffb7c5;
-	transform: scale(1.1);
-}
-
-/* Специфичные стили для разных кнопок закрытия */
-.close-modal {
-	position: absolute;
-	top: 20px;
-	right: 25px;
-}
-
-.chat-close {
-	width: 35px;
-	height: 35px;
-}
-
-/* Базовые стили для кнопок отправки/действий */
-.send-btn,
-.search-submit-btn,
-.btn-submit {
-	background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
-	color: white;
-	border: none;
-	cursor: pointer;
-	transition: all 0.3s ease;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.send-btn:hover,
-.search-submit-btn:hover,
-.btn-submit:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-}
-
-/* Индивидуальные стили для каждой кнопки */
-.send-btn {
-	width: 45px;
-	height: 45px;
-	border-radius: 50%;
-}
-
-.send-btn i {
-	font-size: 18px;
-}
-
-.search-submit-btn {
-	padding: 14px 28px;
-	border-radius: 8px;
-	font-size: 15px;
-	font-weight: 500;
-	white-space: nowrap;
-	background: #b42828;
-	/* Специфичный цвет для поиска */
-}
-
-.search-submit-btn:hover {
-	background: rgba(180, 40, 40, 0.1);
-	color: #d63a3a;
-	border: 1px solid #b42828;
-}
-
-.btn-submit {
-	flex: 1;
-	padding: 12px;
-	border-radius: 10px;
-	font-weight: 500;
-	gap: 8px;
-}
-
-/* Базовые стили для кнопок отмены */
-.btn-cancel {
-	flex: 1;
-	padding: 12px;
-	background: #2a2a2a;
-	color: rgba(255, 255, 255, 0.7);
-	border: 1px solid rgba(255, 255, 255, 0.1);
-	border-radius: 10px;
-	cursor: pointer;
-	font-weight: 500;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 8px;
-	transition: all 0.3s ease;
-}
-
-.btn-cancel:hover {
-	background: #333;
-	color: white;
-}
-
-/* ===== МОДАЛЬНОЕ ОКНО ЧАТА ===== */
+/* ===== СТИЛИ ДЛЯ ЧАТА ПОДДЕРЖКИ ===== */
+/* Все стили, связанные с модальным окном чата */
 
 /* Контент модального окна чата */
 .modal-content.chat-modal {
@@ -510,104 +317,7 @@
 	box-shadow: 0 5px 15px rgba(255, 183, 197, 0.2);
 }
 
-/* ===== МОДАЛЬНОЕ ОКНО ПОИСКА ===== */
-
-.search-modal .modal-content {
-	max-width: 560px;
-	padding: 30px;
-	margin: 10% auto;
-	background: #1a1a1a;
-	border: 1px solid rgba(180, 40, 40, 0.3);
-	border-radius: 20px;
-	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-	animation: modalSlideIn 0.4s ease;
-	color: #fff;
-}
-
-/* Шапка поиска */
-.search-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 25px;
-	padding-bottom: 15px;
-	border-bottom: 1px solid rgba(180, 40, 40, 0.2);
-}
-
-.search-header h2 {
-	margin: 0;
-	font-size: 22px;
-	font-weight: 500;
-	color: #fff;
-}
-
-.search-header h2 i {
-	color: #b42828;
-	margin-right: 10px;
-}
-
-/* Поле ввода поиска */
-.search-input-wrapper {
-	display: flex;
-	gap: 12px;
-	margin-bottom: 25px;
-}
-
-.search-input-wrapper input {
-	flex: 1;
-	padding: 14px 18px;
-	background: #222;
-	border: 1px solid #333;
-	border-radius: 8px;
-	font-size: 15px;
-	color: #fff;
-	transition: all 0.2s ease;
-}
-
-.search-input-wrapper input:focus {
-	outline: none;
-	border-color: #b42828;
-	background: #2a2a2a;
-}
-
-/* Популярные запросы */
-.search-suggestions {
-	border-top: 1px solid #333;
-	padding-top: 20px;
-}
-
-.suggestions-title {
-	font-size: 13px;
-	color: #888;
-	margin-bottom: 12px;
-	text-transform: uppercase;
-}
-
-.suggestions-tags {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-}
-
-.suggestion-tag {
-	padding: 8px 16px;
-	background: #222;
-	border: 1px solid #333;
-	border-radius: 6px;
-	font-size: 13px;
-	color: #ccc;
-	cursor: pointer;
-	transition: all 0.2s ease;
-}
-
-.suggestion-tag:hover {
-	background: #b42828;
-	color: #fff;
-	border-color: #b42828;
-}
-
-/* ===== ОБЩИЕ СТИЛИ ДЛЯ ФОРМ ===== */
-
+/* ===== ОБЩИЕ СТИЛИ ДЛЯ ФОРМ В ЧАТЕ ===== */
 .form-group {
 	position: relative;
 	margin-bottom: 15px;
@@ -660,15 +370,7 @@
 	margin-top: 20px;
 }
 
-/* ===== АДАПТИВНОСТЬ ===== */
-
-/* Десктоп (993px - 1200px) */
-@media (993px <=width < 1201px) {
-	.search-modal .modal-content {
-		max-width: 520px;
-		padding: 25px;
-	}
-}
+/* ===== АДАПТИВНОСТЬ ДЛЯ ЧАТА ===== */
 
 /* Планшеты (769px - 992px) */
 @media (769px <=width < 993px) {
@@ -677,16 +379,10 @@
 	.chat-btn {
 		display: none;
 	}
-
-	.search-modal .modal-content {
-		max-width: 480px;
-	}
 }
 
 /* Большие мобильные (577px - 768px) */
 @media (577px <=width < 769px) {
-
-	/* Чат на мобильных */
 	.modal-content.chat-modal {
 		max-width: 100%;
 		border-radius: 0;
@@ -701,42 +397,10 @@
 	.quick-action span {
 		font-size: 12px;
 	}
-
-	/* Поиск на мобильных */
-	.search-modal .modal-content {
-		width: 92%;
-		padding: 20px;
-		margin: 15% auto;
-	}
-
-	.search-header h2 {
-		font-size: 20px;
-	}
-
-	.search-input-wrapper {
-		flex-direction: column;
-	}
-
-	.search-submit-btn {
-		width: 100%;
-		padding: 12px;
-	}
-
-	.close-search {
-		width: 36px;
-		height: 36px;
-	}
-
-	.close-modal {
-		top: 15px;
-		right: 18px;
-	}
 }
 
 /* Мобильные L (481px - 576px) */
 @media (481px <=width < 577px) {
-
-	/* Чат */
 	.modal-content.chat-modal {
 		max-width: 100%;
 		border-radius: 0;
@@ -759,38 +423,10 @@
 	.message-content-wrapper {
 		max-width: 80%;
 	}
-
-	/* Поиск */
-	.search-modal .modal-content {
-		padding: 20px;
-		margin: 20% auto;
-		width: 95%;
-	}
-
-	.search-header h2 {
-		font-size: 19px;
-	}
-
-	.search-input-wrapper {
-		flex-direction: column;
-		gap: 10px;
-	}
-
-	.search-submit-btn {
-		width: 100%;
-		padding: 12px;
-	}
-
-	.form-actions {
-		flex-direction: column;
-		gap: 8px;
-	}
 }
 
 /* Мобильные (до 481px) */
 @media (width < 481px) {
-
-	/* Чат */
 	.modal-content.chat-modal {
 		max-width: 100%;
 		border-radius: 0;
@@ -860,62 +496,10 @@
 		flex-direction: column;
 		gap: 8px;
 	}
-
-	/* Поиск */
-	.search-modal .modal-content {
-		padding: 18px;
-		margin: 20% auto;
-		width: 95%;
-	}
-
-	.search-header h2 {
-		font-size: 18px;
-	}
-
-	.search-input-wrapper {
-		flex-direction: column;
-		gap: 8px;
-	}
-
-	.search-input-wrapper input {
-		padding: 12px 15px;
-		font-size: 14px;
-	}
-
-	.search-submit-btn {
-		width: 100%;
-		padding: 12px;
-		font-size: 14px;
-	}
-
-	.close-search {
-		width: 34px;
-		height: 34px;
-		font-size: 20px;
-	}
-
-	.close-modal {
-		top: 12px;
-		right: 15px;
-		width: 34px;
-		height: 34px;
-		font-size: 20px;
-	}
-
-	.suggestion-tag {
-		padding: 6px 12px;
-		font-size: 12px;
-	}
-
-	.suggestions-tags {
-		gap: 8px;
-	}
 }
 
 /* Очень маленькие экраны (до 360px) */
 @media (width < 360px) {
-
-	/* Чат */
 	.chat-avatar {
 		width: 35px;
 		height: 35px;
@@ -946,63 +530,10 @@
 	.message-time {
 		font-size: 9px;
 	}
-
-	/* Поиск */
-	.search-modal .modal-content {
-		padding: 15px;
-	}
-
-	.search-header h2 {
-		font-size: 16px;
-	}
-
-	.suggestions-tags {
-		gap: 6px;
-	}
-
-	.suggestion-tag {
-		padding: 5px 10px;
-		font-size: 11px;
-	}
-
-	.close-search {
-		width: 32px;
-		height: 32px;
-		font-size: 18px;
-	}
 }
 
 /* Ультраширокие экраны (1921px и выше) */
 @media (width >=1921px) {
-	.search-modal .modal-content {
-		max-width: 650px;
-		padding: 40px;
-		margin: 12% auto;
-	}
-
-	.search-header h2 {
-		font-size: 26px;
-	}
-
-	.search-input-wrapper input {
-		padding: 16px 20px;
-		font-size: 17px;
-	}
-
-	.search-submit-btn {
-		padding: 16px 32px;
-		font-size: 17px;
-	}
-
-	.suggestion-tag {
-		padding: 10px 20px;
-		font-size: 15px;
-	}
-
-	.suggestions-title {
-		font-size: 15px;
-	}
-
 	.modal-content.chat-modal {
 		max-width: 550px;
 	}
@@ -1053,7 +584,16 @@
 	}
 }
 
-/* Скрываем иконку поиска в модальном окне, если она там не нужна */
-.search-modal .fa-search {
-	display: none;
+/* Очень большой десктоп (1441px - 1920px) - наследует стили десктопа */
+@media (1441px <=width < 1921px) {
+	.modal-content.chat-modal {
+		max-width: 500px;
+	}
+}
+
+/* Большой десктоп (1201px - 1440px) */
+@media (1201px <=width < 1441px) {
+	.modal-content.chat-modal {
+		max-width: 480px;
+	}
 }

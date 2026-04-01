@@ -1,19 +1,29 @@
 /**
  * ProductManager - класс для управления товарами (админка)
  * Для сайта "Комори" - азиатский магазинчик
+ * 
+ * Основные функции:
+ * - Отображение списка товаров с фильтрацией и сортировкой
+ * - Добавление/редактирование/удаление товаров
+ * - Управление изображениями товаров
  */
 
 class ProductManager {
 	constructor() {
 		console.log( 'ProductManager инициализируется...' );
 
+		// ID текущего редактируемого товара (null = создание нового)
 		this.currentProductId = null;
+
+		// Объект для хранения текущих настроек сортировки
+		// by: поле для сортировки (name, price, quantity, default)
+		// order: направление сортировки (asc - по возрастанию, desc - по убыванию)
 		this.currentSort = {
 			by: 'default',
 			order: 'asc'
 		};
 
-		// Ждем загрузку DOM
+		// Ждем загрузку DOM перед инициализацией
 		if ( document.readyState === 'loading' ) {
 			document.addEventListener( 'DOMContentLoaded', () => this.init() );
 		} else {
@@ -21,15 +31,19 @@ class ProductManager {
 		}
 	}
 
+	/**
+	 * Инициализация менеджера
+	 * Вызывается после загрузки DOM
+	 */
 	init() {
 		console.log( 'ProductManager инициализация...' );
 
-		this.renderProducts();
-		this.bindEvents();
-		this.initFormTabs();
-		this.initImageUpload();
+		this.renderProducts();      // Отображаем список товаров
+		this.bindEvents();          // Привязываем обработчики событий
+		this.initFormTabs();        // Инициализируем вкладки формы
+		this.initImageUpload();     // Инициализируем загрузку изображений
 
-		// Слушаем обновления товаров
+		// Слушаем глобальное событие обновления товаров (из store.js)
 		window.addEventListener( 'store:productsUpdated', () => {
 			console.log( 'Товары обновлены, перерисовываем...' );
 			this.renderProducts();
@@ -38,7 +52,12 @@ class ProductManager {
 		console.log( 'ProductManager готов!' );
 	}
 
-	// ========== ОТОБРАЖЕНИЕ ТОВАРОВ ==========
+	// ==================== ОТОБРАЖЕНИЕ ТОВАРОВ ====================
+
+	/**
+	 * Рендерит список товаров на странице
+	 * Получает фильтры, сортирует товары и отображает их в сетке
+	 */
 	renderProducts() {
 		const grid = document.getElementById( 'productsGrid' );
 		if ( !grid ) {
@@ -46,21 +65,32 @@ class ProductManager {
 			return;
 		}
 
+		// Получаем текущие значения фильтров из полей ввода
 		const filters = this.getFilters();
+
+		// Получаем товары из хранилища с применением фильтров
 		let products = store.getProducts( filters );
 
-		// Применяем сортировку
+		// Применяем сортировку к полученным товарам
 		products = this.sortProducts( products );
 
+		// Если товаров нет - показываем пустое состояние
 		if ( products.length === 0 ) {
 			grid.innerHTML = this.getEmptyStateHTML();
 			return;
 		}
 
+		// Рендерим карточки товаров
 		grid.innerHTML = products.map( product => this.renderProductCard( product ) ).join( '' );
+
+		// Привязываем обработчики событий к кнопкам в карточках
 		this.attachProductEvents();
 	}
 
+	/**
+	 * Получает текущие значения фильтров из DOM-элементов
+	 * @returns {Object} Объект с фильтрами (поиск, категория, статус)
+	 */
 	getFilters() {
 		return {
 			search: document.getElementById( 'searchInput' )?.value || '',
@@ -71,30 +101,48 @@ class ProductManager {
 		};
 	}
 
+	/**
+	 * Сортирует массив товаров согласно текущим настройкам
+	 * @param {Array} products - массив товаров для сортировки
+	 * @returns {Array} Отсортированный массив товаров
+	 */
 	sortProducts( products ) {
+		// Если сортировка по умолчанию - возвращаем исходный порядок
 		if ( this.currentSort.by === 'default' ) return products;
 
+		// Создаем копию массива, чтобы не мутировать оригинал
 		return [...products].sort( ( a, b ) => {
 			let comparison = 0;
 
+			// Определяем поле для сравнения в зависимости от выбранной сортировки
 			switch ( this.currentSort.by ) {
 				case 'name':
-					comparison = a.name.localeCompare( b.name );
+					// Сортировка по названию (алфавитная)
+					comparison = a.name.localeCompare( b.name, 'ru' );
 					break;
 				case 'price':
+					// Сортировка по цене (числовое сравнение)
 					comparison = a.price - b.price;
 					break;
 				case 'quantity':
+					// Сортировка по количеству на складе
 					comparison = a.quantity - b.quantity;
 					break;
 				default:
 					return 0;
 			}
 
+			// Учитываем направление сортировки
+			// asc (по возрастанию): оставляем как есть
+			// desc (по убыванию): инвертируем результат
 			return this.currentSort.order === 'asc' ? comparison : -comparison;
 		} );
 	}
 
+	/**
+	 * Возвращает HTML для пустого состояния (нет товаров)
+	 * @returns {string} HTML-разметка пустого состояния
+	 */
 	getEmptyStateHTML() {
 		return `
             <div class="empty-state">
@@ -107,24 +155,33 @@ class ProductManager {
         `;
 	}
 
+	/**
+	 * Создает HTML-разметку для карточки товара
+	 * @param {Object} product - объект с данными товара
+	 * @returns {string} HTML-разметка карточки
+	 */
 	renderProductCard( product ) {
+		// Вычисляем доступное количество (общее количество минус количество в корзине)
 		const cartItem = store.cart.find( item => item.id === product.id );
 		const inCartQuantity = cartItem ? cartItem.quantity : 0;
 		const availableQuantity = product.quantity - inCartQuantity;
 
 		return `
             <div class="product-card" data-id="${product.id}">
+                <!-- Бейджи товара (новинка, хит, скидка) -->
                 <div class="product-badges">
                     ${product.isNew ? '<span class="badge new">Новинка</span>' : ''}
                     ${product.isHit ? '<span class="badge hit">Хит</span>' : ''}
                     ${product.oldPrice ? '<span class="badge sale">Скидка</span>' : ''}
                 </div>
+                <!-- Изображение товара -->
                 <div class="product-image">
                     <img src="${API.getSafeImageUrl( product.image )}" 
                          alt="${product.name}"
                          loading="lazy"
                          onerror="this.onerror=null; this.src='${API.getFallbackSvg( product.name )}'">
                 </div>
+                <!-- Информация о товаре -->
                 <div class="product-info">
                     <div class="product-category">${store.getCategoryName( product.category )}</div>
                     <div class="product-name">${product.name}</div>
@@ -142,6 +199,7 @@ class ProductManager {
                         ${product.quantity > 0 ? `<span class="product-quantity">${availableQuantity} шт.</span>` : ''}
                     </div>
                 </div>
+                <!-- Кнопки действий с товаром -->
                 <div class="product-actions">
                     <button class="edit-btn" data-id="${product.id}">
                         <i class="fas fa-edit"></i> Редактировать
@@ -154,8 +212,12 @@ class ProductManager {
         `;
 	}
 
+	/**
+	 * Привязывает обработчики событий к кнопкам в карточках товаров
+	 * (редактирование и удаление)
+	 */
 	attachProductEvents() {
-		// Редактирование
+		// Обработчики для кнопок "Редактировать"
 		document.querySelectorAll( '.edit-btn' ).forEach( btn => {
 			btn.removeEventListener( 'click', this.handleEdit );
 			this.handleEdit = ( e ) => {
@@ -167,7 +229,7 @@ class ProductManager {
 			btn.addEventListener( 'click', this.handleEdit );
 		} );
 
-		// Удаление
+		// Обработчики для кнопок "Удалить"
 		document.querySelectorAll( '.delete-btn' ).forEach( btn => {
 			btn.removeEventListener( 'click', this.handleDelete );
 			this.handleDelete = ( e ) => {
@@ -180,11 +242,16 @@ class ProductManager {
 		} );
 	}
 
-	// ========== ФИЛЬТРЫ И СОРТИРОВКА ==========
+	// ==================== ФИЛЬТРЫ И СОРТИРОВКА ====================
+
+	/**
+	 * Привязывает все обработчики событий к элементам управления
+	 * (кнопки, поля ввода, селекты)
+	 */
 	bindEvents() {
 		console.log( 'Привязка событий...' );
 
-		// Кнопка добавления товара
+		// ----- Кнопка добавления товара -----
 		const addBtn = document.getElementById( 'addProductBtn' );
 		if ( addBtn ) {
 			addBtn.removeEventListener( 'click', this.handleAddClick );
@@ -197,7 +264,7 @@ class ProductManager {
 			console.warn( 'Кнопка addProductBtn не найдена' );
 		}
 
-		// Поиск
+		// ----- Поле поиска (событие input - при каждом вводе символа) -----
 		const searchInput = document.getElementById( 'searchInput' );
 		if ( searchInput ) {
 			searchInput.removeEventListener( 'input', this.handleSearch );
@@ -205,7 +272,7 @@ class ProductManager {
 			searchInput.addEventListener( 'input', this.handleSearch );
 		}
 
-		// Фильтры
+		// ----- Фильтр по категории -----
 		const categoryFilter = document.getElementById( 'categoryFilter' );
 		if ( categoryFilter ) {
 			categoryFilter.removeEventListener( 'change', this.handleFilterChange );
@@ -213,6 +280,7 @@ class ProductManager {
 			categoryFilter.addEventListener( 'change', this.handleFilterChange );
 		}
 
+		// ----- Фильтр по статусу (наличие) -----
 		const statusFilter = document.getElementById( 'statusFilter' );
 		if ( statusFilter ) {
 			statusFilter.removeEventListener( 'change', this.handleFilterChange );
@@ -220,36 +288,73 @@ class ProductManager {
 			statusFilter.addEventListener( 'change', this.handleFilterChange );
 		}
 
-		// Сортировка
+		// ----- ИСПРАВЛЕНО: Выбор типа сортировки (по названию, цене, количеству) -----
 		const sortBy = document.getElementById( 'sortBy' );
 		if ( sortBy ) {
 			sortBy.removeEventListener( 'change', this.handleSortChange );
 			this.handleSortChange = ( e ) => {
-				const [by, order] = e.target.value.split( '-' );
-				this.currentSort.by = by;
-				if ( order ) this.currentSort.order = order;
+				// Получаем значение из select (например: "price-asc", "name-desc")
+				const value = e.target.value;
+
+				// Разбиваем строку на [тип_сортировки, направление]
+				// Если направление не указано (как в "default"), используем asc
+				const parts = value.split( '-' );
+				const sortByField = parts[0];           // "price", "name", "quantity" или "default"
+				const sortOrder = parts[1] || 'asc';    // "asc" или "desc"
+
+				// Сохраняем настройки сортировки
+				this.currentSort.by = sortByField;
+				this.currentSort.order = sortOrder;
+
+				// Обновляем иконку на кнопке сортировки
+				this.updateSortOrderIcon();
+
+				// Перерисовываем товары с новыми настройками
 				this.renderProducts();
 			};
 			sortBy.addEventListener( 'change', this.handleSortChange );
 		}
 
+		// ----- ИСПРАВЛЕНО: Кнопка переключения направления сортировки (возрастание/убывание) -----
 		const sortOrderBtn = document.getElementById( 'sortOrderBtn' );
 		if ( sortOrderBtn ) {
 			sortOrderBtn.removeEventListener( 'click', this.handleSortOrder );
 			this.handleSortOrder = () => {
-				this.currentSort.order = this.currentSort.order === 'asc' ? 'desc' : 'asc';
-				const icon = sortOrderBtn.querySelector( 'i' );
-				if ( icon ) {
-					icon.className = this.currentSort.order === 'asc'
-						? 'fas fa-arrow-up-wide-short'
-						: 'fas fa-arrow-down-wide-short';
+				// НОВАЯ ЛОГИКА: проверяем, выбран ли тип сортировки
+				const sortBySelect = document.getElementById( 'sortBy' );
+				const currentValue = sortBySelect ? sortBySelect.value : 'default';
+
+				// Если выбран "по умолчанию" - активируем сортировку по названию (А-Я)
+				if ( currentValue === 'default' ) {
+					// Устанавливаем сортировку по названию в порядке возрастания
+					this.currentSort.by = 'name';
+					this.currentSort.order = 'asc';
+
+					// Обновляем select
+					if ( sortBySelect ) {
+						sortBySelect.value = 'name-asc';
+					}
+				} else {
+					// Если уже выбрана какая-то сортировка - просто меняем направление
+					this.currentSort.order = this.currentSort.order === 'asc' ? 'desc' : 'asc';
+
+					// Обновляем значение в select, сохраняя тип сортировки
+					if ( sortBySelect && this.currentSort.by !== 'default' ) {
+						const newValue = `${this.currentSort.by}-${this.currentSort.order}`;
+						sortBySelect.value = newValue;
+					}
 				}
+
+				// Обновляем иконку на кнопке
+				this.updateSortOrderIcon();
+
+				// Перерисовываем товары с новым направлением сортировки
 				this.renderProducts();
 			};
 			sortOrderBtn.addEventListener( 'click', this.handleSortOrder );
 		}
 
-		// Закрытие модальных окон
+		// ----- Закрытие модальных окон -----
 		const closeButtons = ['closeModal', 'cancelModalBtn', 'closeDeleteModal', 'cancelDeleteBtn'];
 		closeButtons.forEach( id => {
 			const btn = document.getElementById( id );
@@ -263,7 +368,7 @@ class ProductManager {
 			}
 		} );
 
-		// Подтверждение удаления
+		// ----- Подтверждение удаления товара -----
 		const confirmDeleteBtn = document.getElementById( 'confirmDeleteBtn' );
 		if ( confirmDeleteBtn ) {
 			confirmDeleteBtn.removeEventListener( 'click', this.handleConfirmDelete );
@@ -274,7 +379,7 @@ class ProductManager {
 			confirmDeleteBtn.addEventListener( 'click', this.handleConfirmDelete );
 		}
 
-		// Форма товара
+		// ----- Отправка формы товара (добавление/редактирование) -----
 		const productForm = document.getElementById( 'productForm' );
 		if ( productForm ) {
 			productForm.removeEventListener( 'submit', this.handleFormSubmit );
@@ -285,7 +390,7 @@ class ProductManager {
 			productForm.addEventListener( 'submit', this.handleFormSubmit );
 		}
 
-		// Закрытие по клику вне модального окна
+		// ----- Закрытие модального окна при клике вне его -----
 		window.removeEventListener( 'click', this.handleOutsideClick );
 		this.handleOutsideClick = ( e ) => {
 			if ( e.target.classList.contains( 'modal' ) ) {
@@ -295,7 +400,28 @@ class ProductManager {
 		window.addEventListener( 'click', this.handleOutsideClick );
 	}
 
-	// ========== РАБОТА С МОДАЛЬНЫМИ ОКНАМИ ==========
+	/**
+	 * Обновляет иконку на кнопке переключения направления сортировки
+	 */
+	updateSortOrderIcon() {
+		const sortOrderBtn = document.getElementById( 'sortOrderBtn' );
+		if ( !sortOrderBtn ) return;
+
+		const icon = sortOrderBtn.querySelector( 'i' );
+		if ( icon ) {
+			// Меняем иконку в зависимости от направления сортировки
+			icon.className = this.currentSort.order === 'asc'
+				? 'fas fa-arrow-up-wide-short'      // иконка для возрастания (А-Я, 0-9)
+				: 'fas fa-arrow-down-wide-short';   // иконка для убывания (Я-А, 9-0)
+		}
+	}
+
+	// ==================== РАБОТА С МОДАЛЬНЫМИ ОКНАМИ ====================
+
+	/**
+	 * Открывает модальное окно для добавления/редактирования товара
+	 * @param {string|null} productId - ID товара для редактирования (null = создание нового)
+	 */
 	openModal( productId = null ) {
 		console.log( 'Открытие модального окна, productId:', productId );
 
@@ -309,7 +435,7 @@ class ProductManager {
 		const title = document.getElementById( 'modalTitle' );
 		const form = document.getElementById( 'productForm' );
 
-		// Сброс формы
+		// Сбрасываем форму
 		if ( form ) {
 			form.reset();
 			form.querySelectorAll( 'input, select, textarea' ).forEach( input => {
@@ -321,6 +447,7 @@ class ProductManager {
 
 		this.currentProductId = productId;
 
+		// Если редактируем существующий товар - заполняем форму данными
 		if ( productId ) {
 			const product = store.getProduct( productId );
 			if ( product ) {
@@ -339,6 +466,9 @@ class ProductManager {
 		modal.classList.add( 'show' );
 	}
 
+	/**
+	 * Закрывает все открытые модальные окна
+	 */
 	closeAllModals() {
 		document.querySelectorAll( '.modal' ).forEach( modal => {
 			modal.classList.remove( 'show' );
@@ -346,8 +476,12 @@ class ProductManager {
 		this.currentProductId = null;
 	}
 
+	/**
+	 * Заполняет форму данными товара для редактирования
+	 * @param {Object} product - объект с данными товара
+	 */
 	fillForm( product ) {
-		// Основные поля
+		// Заполнение текстовых полей
 		const fields = {
 			'productName': product.name,
 			'productCategory': product.category,
@@ -365,21 +499,25 @@ class ProductManager {
 			if ( element ) element.value = value || '';
 		} );
 
-		// Чекбоксы
+		// Заполнение чекбоксов
 		const isNewCheck = document.getElementById( 'productIsNew' );
 		if ( isNewCheck ) isNewCheck.checked = product.isNew || false;
 
 		const isHitCheck = document.getElementById( 'productIsHit' );
 		if ( isHitCheck ) isHitCheck.checked = product.isHit || false;
 
-		// Изображение
+		// Обновляем превью изображения
 		this.updateImagePreview( product.image );
 	}
 
+	/**
+	 * Сохраняет товар (добавляет новый или обновляет существующий)
+	 */
 	saveProduct() {
 		const nameInput = document.getElementById( 'productName' );
 		const priceInput = document.getElementById( 'productPrice' );
 
+		// Валидация обязательных полей
 		if ( !nameInput || !priceInput ) {
 			console.error( 'Не найдены обязательные поля' );
 			return;
@@ -395,6 +533,7 @@ class ProductManager {
 			return;
 		}
 
+		// Собираем данные из формы
 		const productData = {
 			name: nameInput.value.trim(),
 			category: document.getElementById( 'productCategory' )?.value || 'other',
@@ -409,6 +548,7 @@ class ProductManager {
 			image: document.getElementById( 'productImageUrl' )?.value.trim() || ''
 		};
 
+		// Сохраняем через store
 		if ( this.currentProductId ) {
 			store.updateProduct( this.currentProductId, productData );
 			API.showNotification( 'Товар обновлен' );
@@ -420,6 +560,10 @@ class ProductManager {
 		this.closeAllModals();
 	}
 
+	/**
+	 * Открывает модальное окно подтверждения удаления товара
+	 * @param {string} productId - ID товара для удаления
+	 */
 	openDeleteModal( productId ) {
 		const product = store.getProduct( productId );
 		if ( !product ) return;
@@ -439,6 +583,9 @@ class ProductManager {
 		}
 	}
 
+	/**
+	 * Подтверждает и выполняет удаление товара
+	 */
 	confirmDelete() {
 		if ( this.currentProductId ) {
 			store.deleteProduct( this.currentProductId );
@@ -447,7 +594,11 @@ class ProductManager {
 		}
 	}
 
-	// ========== ВКЛАДКИ ФОРМЫ ==========
+	// ==================== ВКЛАДКИ ФОРМЫ ====================
+
+	/**
+	 * Инициализирует переключение вкладок в форме добавления/редактирования товара
+	 */
 	initFormTabs() {
 		const tabs = document.querySelectorAll( '.form-tab' );
 
@@ -455,9 +606,11 @@ class ProductManager {
 			tab.addEventListener( 'click', ( e ) => {
 				e.preventDefault();
 
+				// Убираем активный класс со всех вкладок
 				tabs.forEach( t => t.classList.remove( 'active' ) );
 				tab.classList.add( 'active' );
 
+				// Показываем соответствующий контент вкладки
 				const tabName = tab.dataset.tab;
 				document.querySelectorAll( '.form-tab-content' ).forEach( content => {
 					content.classList.toggle( 'active', content.dataset.tab === tabName );
@@ -466,15 +619,22 @@ class ProductManager {
 		} );
 	}
 
-	// ========== ЗАГРУЗКА ИЗОБРАЖЕНИЙ ==========
+	// ==================== ЗАГРУЗКА ИЗОБРАЖЕНИЙ ====================
+
+	/**
+	 * Инициализирует функционал загрузки изображений
+	 * (клик по области загрузки, выбор файла, предпросмотр)
+	 */
 	initImageUpload() {
 		const uploadBtn = document.getElementById( 'uploadImageBtn' );
 		const imageFile = document.getElementById( 'productImageFile' );
 		const imageUrl = document.getElementById( 'productImageUrl' );
 
+		// Загрузка через клик по области
 		if ( uploadBtn && imageFile ) {
 			uploadBtn.addEventListener( 'click', () => imageFile.click() );
 
+			// Обработка выбранного файла
 			imageFile.addEventListener( 'change', ( e ) => {
 				const file = e.target.files[0];
 				if ( file ) {
@@ -486,11 +646,16 @@ class ProductManager {
 			} );
 		}
 
+		// Обновление превью при вводе URL
 		if ( imageUrl ) {
 			imageUrl.addEventListener( 'input', ( e ) => this.updateImagePreview( e.target.value ) );
 		}
 	}
 
+	/**
+	 * Обновляет превью изображения
+	 * @param {string} src - URL или dataURL изображения
+	 */
 	updateImagePreview( src ) {
 		const preview = document.getElementById( 'imagePreview' );
 		if ( !preview ) return;
@@ -500,6 +665,7 @@ class ProductManager {
 		const span = preview.querySelector( 'span' );
 
 		if ( src && src.trim() ) {
+			// Показываем изображение, скрываем иконку и текст
 			if ( img ) {
 				img.src = src;
 				img.style.display = 'block';
@@ -507,16 +673,20 @@ class ProductManager {
 			if ( icon ) icon.style.display = 'none';
 			if ( span ) span.style.display = 'none';
 		} else {
+			// Показываем иконку и текст, скрываем изображение
 			if ( img ) img.style.display = 'none';
 			if ( icon ) icon.style.display = 'block';
 			if ( span ) span.style.display = 'block';
 		}
 	}
 
+	/**
+	 * Очищает превью изображения
+	 */
 	clearImagePreview() {
 		this.updateImagePreview( null );
 	}
 }
 
-// Создаем глобальный экземпляр
+// Создаем глобальный экземпляр для доступа из других скриптов и HTML
 window.productManager = new ProductManager();
