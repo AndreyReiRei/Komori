@@ -60,7 +60,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		searchInput.addEventListener( 'input', function ( e ) {
 			clearTimeout( searchTimeout );
 			const query = e.target.value.trim();
-			if ( query.length >= 2 ) { // Начинаем поиск после 2 символов
+			if ( query.length >= 2 ) {
 				searchTimeout = setTimeout( () => {
 					performSearch( query );
 				}, 300 );
@@ -77,7 +77,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				if ( searchInput ) searchInput.focus();
 			}, 300 );
 			document.body.style.overflow = 'hidden';
-			// Очищаем предыдущие результаты
 			clearResults();
 			if ( searchInput ) searchInput.value = '';
 		}
@@ -102,58 +101,37 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		if ( noResultsMsg ) {
 			noResultsMsg.style.display = 'none';
 		}
+		const resultsCount = document.getElementById( 'resultsCount' );
+		if ( resultsCount ) {
+			resultsCount.style.display = 'none';
+		}
 	}
 
-	/**
-	 * Выполняет поиск товаров по запросу
-	 * @param {string} query - поисковый запрос
-	 */
 	function performSearch( query ) {
 		console.log( 'Поиск по запросу:', query );
 
-		// Проверяем, есть ли store и товары
 		if ( !window.store || !window.store.products ) {
 			console.warn( 'Store не инициализирован или нет товаров' );
 			showNoResults( query );
 			return;
 		}
 
-		// Получаем все товары из хранилища
 		const allProducts = window.store.products || [];
-
-		// Поиск товаров
 		const searchResultsList = searchProducts( query, allProducts );
-
-		// Отображаем результаты
 		displaySearchResults( searchResultsList, query );
 	}
 
-	/**
-	 * Поиск товаров по названию, категории, описанию и артикулу
-	 * @param {string} query - поисковый запрос
-	 * @param {Array} products - массив товаров
-	 * @returns {Array} отфильтрованный массив товаров
-	 */
 	function searchProducts( query, products ) {
 		const lowerQuery = query.toLowerCase().trim();
 
 		return products.filter( product => {
-			// Проверяем название товара
 			const nameMatch = product.name && product.name.toLowerCase().includes( lowerQuery );
-
-			// Проверяем категорию
 			const categoryName = getCategoryName( product.category );
 			const categoryMatch = categoryName && categoryName.toLowerCase().includes( lowerQuery );
-
-			// Проверяем описание
 			const descriptionMatch = product.description &&
 				product.description.toLowerCase().includes( lowerQuery );
-
-			// Проверяем артикул
 			const skuMatch = product.sku &&
 				product.sku.toLowerCase().includes( lowerQuery );
-
-			// Проверяем бейджи (новинка, хит)
 			const isNewMatch = product.isNew && 'новинка'.includes( lowerQuery );
 			const isHitMatch = product.isHit && 'хит'.includes( lowerQuery );
 
@@ -162,12 +140,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		} );
 	}
 
-	/**
-	 * Получает название категории по коду
-	 * @param {string} categoryCode - код категории
-	 * @returns {string} название категории
-	 */
 	function getCategoryName( categoryCode ) {
+		if ( window.store && window.store.categories ) {
+			return window.store.categories[categoryCode] || categoryCode;
+		}
+
 		const categories = {
 			'figures': 'Аниме фигурки',
 			'tea': 'Японский чай',
@@ -186,18 +163,13 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		return categories[categoryCode] || categoryCode;
 	}
 
-	/**
-	 * Отображает результаты поиска
-	 * @param {Array} products - найденные товары
-	 * @param {string} query - поисковый запрос
-	 */
 	function displaySearchResults( products, query ) {
 		const searchResults = document.getElementById( 'searchResults' );
 		const noResultsMsg = document.getElementById( 'noResultsMessage' );
+		const resultsCount = document.getElementById( 'resultsCount' );
 
 		if ( !searchResults ) return;
 
-		// Очищаем предыдущие результаты
 		searchResults.innerHTML = '';
 
 		if ( products.length === 0 ) {
@@ -205,52 +177,41 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			return;
 		}
 
-		// Скрываем сообщение об отсутствии результатов
 		if ( noResultsMsg ) {
 			noResultsMsg.style.display = 'none';
 		}
 
 		searchResults.classList.add( 'has-results' );
 
-		// Отображаем найденные товары
+		if ( resultsCount ) {
+			resultsCount.textContent = `Найдено ${products.length} товар${getDeclension( products.length )}`;
+			resultsCount.style.display = 'block';
+		}
+
 		products.forEach( product => {
 			const resultItem = createSearchResultItem( product, query );
 			searchResults.appendChild( resultItem );
 		} );
-
-		// Показываем количество найденных товаров
-		const resultsCount = document.getElementById( 'resultsCount' );
-		if ( resultsCount ) {
-			resultsCount.textContent = `Найдено ${products.length} товаров`;
-			resultsCount.style.display = 'block';
-		}
 	}
 
-	/**
-	 * Создает элемент результата поиска
-	 * @param {Object} product - товар
-	 * @param {string} query - поисковый запрос
-	 * @returns {HTMLElement} элемент результата
-	 */
+	function getDeclension( count ) {
+		if ( count % 10 === 1 && count % 100 !== 11 ) return '';
+		if ( count % 10 >= 2 && count % 10 <= 4 && ( count % 100 < 10 || count % 100 >= 20 ) ) return 'а';
+		return 'ов';
+	}
+
 	function createSearchResultItem( product, query ) {
 		const item = document.createElement( 'div' );
 		item.className = 'search-result-item';
+		item.dataset.id = product.id;
 
-		// Форматируем цену
 		const formattedPrice = formatPrice( product.price );
 		const oldPrice = product.oldPrice ? formatPrice( product.oldPrice ) : null;
-
-		// Получаем URL страницы товара (на основе категории)
 		const productUrl = getProductUrl( product );
-
-		// Подсвечиваем совпадения в названии
 		const highlightedName = highlightMatches( product.name, query );
-
-		// Подсвечиваем совпадения в категории
 		const categoryName = getCategoryName( product.category );
 		const highlightedCategory = highlightMatches( categoryName, query );
 
-		// Формируем HTML
 		item.innerHTML = `
             <div class="result-item-image">
                 <img src="${getSafeImageUrl( product.image )}" 
@@ -268,7 +229,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
                 <div class="result-item-status ${product.status === 'in-stock' ? 'in-stock' : 'out-of-stock'}">
                     <i class="fas ${product.status === 'in-stock' ? 'fa-check-circle' : 'fa-times-circle'}"></i>
                     ${product.status === 'in-stock' ? 'В наличии' : 'Нет в наличии'}
-                    ${product.quantity ? ` (${product.quantity} шт.)` : ''}
+                    ${product.quantity && product.status === 'in-stock' ? ` (${product.quantity} шт.)` : ''}
                 </div>
             </div>
             <div class="result-item-actions">
@@ -283,7 +244,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
             </div>
         `;
 
-		// Добавляем обработчик для кнопки просмотра
 		const viewBtn = item.querySelector( '.result-view-btn' );
 		if ( viewBtn ) {
 			viewBtn.addEventListener( 'click', ( e ) => {
@@ -295,18 +255,13 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			} );
 		}
 
-		// Добавляем обработчик для кнопки "В корзину"
 		const cartBtn = item.querySelector( '.result-cart-btn' );
 		if ( cartBtn && !cartBtn.disabled ) {
 			cartBtn.addEventListener( 'click', ( e ) => {
 				e.preventDefault();
-				const productId = parseInt( cartBtn.dataset.id );
-				if ( window.store && window.store.addToCart ) {
-					window.store.addToCart( productId );
-					showNotification( 'Товар добавлен в корзину', 'success' );
-				} else {
-					showNotification( 'Ошибка добавления в корзину', 'error' );
-				}
+				e.stopPropagation();
+				const productId = cartBtn.dataset.id;
+				addToCartFromSearch( productId );
 			} );
 		}
 
@@ -314,19 +269,73 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	}
 
 	/**
-	 * Форматирует цену
-	 * @param {number} price - цена
-	 * @returns {string} отформатированная цена
+	 * ИСПРАВЛЕНО: Добавляет товар в корзину через store
+	 * @param {string} productId - ID товара (строка, например "1734567890123-abc123")
 	 */
+	function addToCartFromSearch( productId ) {
+		// НЕ преобразуем ID в число, оставляем как строку
+		const id = productId;
+
+		console.log( 'Добавление товара в корзину, ID:', id );
+
+		// Проверяем, что store существует
+		if ( !window.store ) {
+			console.error( 'Store не инициализирован' );
+			showNotification( 'Ошибка: корзина не доступна', 'error' );
+			return;
+		}
+
+		// Получаем товар (store.getProduct принимает строку или число)
+		const product = window.store.getProduct( id );
+
+		console.log( 'Найденный товар:', product );
+
+		// Проверяем наличие товара
+		if ( !product ) {
+			console.error( 'Товар не найден, ID:', id );
+			showNotification( 'Товар не найден', 'error' );
+			return;
+		}
+
+		// Проверяем наличие на складе
+		if ( product.status !== 'in-stock' || product.quantity <= 0 ) {
+			showNotification( 'Товар отсутствует на складе', 'error' );
+			return;
+		}
+
+		// Добавляем в корзину
+		const result = window.store.addToCart( id, 1 );
+
+		console.log( 'Результат добавления в корзину:', result );
+
+		if ( result ) {
+			showNotification( 'Товар добавлен в корзину', 'success' );
+			updateCartCounter();
+		} else {
+			showNotification( 'Не удалось добавить товар в корзину', 'error' );
+		}
+	}
+
+	function updateCartCounter() {
+		if ( window.store && window.store.getCartCount ) {
+			const cartCount = window.store.getCartCount();
+			const cartCountElement = document.getElementById( 'cartCount' );
+			if ( cartCountElement ) {
+				cartCountElement.textContent = cartCount;
+				if ( cartCount > 0 ) {
+					cartCountElement.style.display = 'flex';
+				} else {
+					cartCountElement.style.display = 'none';
+				}
+			}
+		}
+	}
+
 	function formatPrice( price ) {
+		if ( price === undefined || price === null ) return '0 ₽';
 		return new Intl.NumberFormat( 'ru-RU' ).format( price ) + ' ₽';
 	}
 
-	/**
-	 * Получает безопасный URL изображения
-	 * @param {string} url - URL изображения
-	 * @returns {string} безопасный URL
-	 */
 	function getSafeImageUrl( url ) {
 		if ( !url ) return getFallbackImage();
 		if ( url.startsWith( 'http' ) || url.startsWith( '/' ) || url.startsWith( 'data:' ) ) {
@@ -335,21 +344,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		return getFallbackImage();
 	}
 
-	/**
-	 * Возвращает URL заглушки для изображения
-	 * @returns {string} URL заглушки
-	 */
 	function getFallbackImage() {
-		return 'https://via.placeholder.com/100x100?text=No+Image';
+		return 'https://via.placeholder.com/100x100?text=Нет+изображения';
 	}
 
-	/**
-	 * Получает URL страницы товара на основе категории
-	 * @param {Object} product - товар
-	 * @returns {string} URL страницы товара
-	 */
 	function getProductUrl( product ) {
-		// Сопоставление категорий с URL страниц
 		const categoryUrls = {
 			'figures': '/pages html/catalog pages/figurines.html',
 			'tea': '/pages html/catalog pages/tea.html',
@@ -367,16 +366,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		};
 
 		const baseUrl = categoryUrls[product.category] || '/pages html/catalog.html';
-		// Добавляем ID товара в URL (если на странице товара есть поддержка)
 		return `${baseUrl}?product=${product.id}`;
 	}
 
-	/**
-	 * Подсвечивает совпадения в тексте
-	 * @param {string} text - исходный текст
-	 * @param {string} query - поисковый запрос
-	 * @returns {string} текст с подсветкой
-	 */
 	function highlightMatches( text, query ) {
 		if ( !text || !query ) return escapeHtml( text );
 
@@ -393,11 +385,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		return `${escapeHtml( start )}<mark>${escapeHtml( match )}</mark>${escapeHtml( end )}`;
 	}
 
-	/**
-	 * Экранирует HTML специальные символы
-	 * @param {string} str - строка для экранирования
-	 * @returns {string} экранированная строка
-	 */
 	function escapeHtml( str ) {
 		if ( !str ) return '';
 		return str
@@ -408,13 +395,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			.replace( /'/g, '&#39;' );
 	}
 
-	/**
-	 * Показывает сообщение об отсутствии результатов
-	 * @param {string} query - поисковый запрос
-	 */
 	function showNoResults( query ) {
 		const searchResults = document.getElementById( 'searchResults' );
 		const noResultsMsg = document.getElementById( 'noResultsMessage' );
+		const resultsCount = document.getElementById( 'resultsCount' );
 
 		if ( searchResults ) {
 			searchResults.innerHTML = '';
@@ -429,58 +413,58 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			}
 		}
 
-		const resultsCount = document.getElementById( 'resultsCount' );
 		if ( resultsCount ) {
 			resultsCount.style.display = 'none';
 		}
 	}
 
-	/**
-	 * Показывает уведомление
-	 * @param {string} message - текст уведомления
-	 * @param {string} type - тип уведомления (success, error, info)
-	 */
 	function showNotification( message, type = 'info' ) {
-		// Используем существующую функцию API, если она есть
 		if ( window.API && window.API.showNotification ) {
 			window.API.showNotification( message, type );
-		} else {
-			// Создаем временное уведомление
-			const notification = document.createElement( 'div' );
-			notification.className = `notification notification-${type}`;
-			notification.innerHTML = `
-                <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
-                <span>${message}</span>
-            `;
-			notification.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: ${type === 'success' ? '#2ecc71' : type === 'error' ? '#ff4757' : '#3498db'};
-                color: white;
-                padding: 12px 20px;
-                border-radius: 8px;
-                z-index: 10001;
-                animation: slideIn 0.3s ease;
-                cursor: pointer;
-            `;
-
-			document.body.appendChild( notification );
-
-			setTimeout( () => {
-				notification.style.animation = 'slideOut 0.3s ease';
-				setTimeout( () => notification.remove(), 300 );
-			}, 3000 );
-
-			notification.addEventListener( 'click', () => notification.remove() );
+			return;
 		}
+
+		const notification = document.createElement( 'div' );
+		notification.className = `notification notification-${type}`;
+
+		const icon = type === 'success' ? 'fa-check-circle' :
+			type === 'error' ? 'fa-exclamation-circle' :
+				'fa-info-circle';
+
+		notification.innerHTML = `
+            <i class="fas ${icon}"></i>
+            <span>${escapeHtml( message )}</span>
+        `;
+
+		notification.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#ff3366'};
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 10001;
+            animation: slideIn 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        `;
+
+		document.body.appendChild( notification );
+
+		setTimeout( () => {
+			notification.style.animation = 'slideOut 0.3s ease';
+			setTimeout( () => notification.remove(), 300 );
+		}, 3000 );
+
+		notification.addEventListener( 'click', () => notification.remove() );
 	}
 
-	/**
-	 * Создает модальное окно поиска с результатами
-	 */
 	function createSearchModal() {
-		// Проверяем, существует ли уже модальное окно поиска
 		if ( document.getElementById( 'searchModal' ) ) return;
 
 		const modalHTML = `
@@ -502,7 +486,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
                     </form>
                     
                     <div class="search-results-container">
-                        <div class="results-header" id="resultsCount" style="display: none;"></div>
+                        <div id="resultsCount" class="results-header" style="display: none;"></div>
                         
                         <div id="searchResults" class="search-results-list"></div>
                         
@@ -531,11 +515,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
         `;
 
 		document.body.insertAdjacentHTML( 'beforeend', modalHTML );
+		addNotificationStyles();
 
-		// Добавляем стили для результатов поиска (если их нет)
-		addSearchStyles();
-
-		// Добавляем обработчики для тегов
 		document.querySelectorAll( '.suggestion-tag' ).forEach( tag => {
 			tag.addEventListener( 'click', function () {
 				const query = this.dataset.query || this.textContent;
@@ -548,206 +529,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		} );
 	}
 
-	/**
-	 * Добавляет стили для результатов поиска
-	 */
-	function addSearchStyles() {
-		if ( document.getElementById( 'search-results-styles' ) ) return;
+	function addNotificationStyles() {
+		if ( document.getElementById( 'notification-styles' ) ) return;
 
 		const styles = `
-            <style id="search-results-styles">
-                .search-modal .search-results-container {
-                    max-height: 400px;
-                    overflow-y: auto;
-                    margin: 15px 0;
-                }
-                
-                .search-results-list {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 15px;
-                }
-                
-                .search-result-item {
-                    display: flex;
-                    gap: 15px;
-                    padding: 15px;
-                    background: var(--bg-secondary, #1a1a1a);
-                    border-radius: var(--radius-md, 8px);
-                    border: 1px solid var(--border-light, #333);
-                    transition: all 0.3s ease;
-                }
-                
-                .search-result-item:hover {
-                    transform: translateX(5px);
-                    border-color: var(--primary, #ff3366);
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-                }
-                
-                .result-item-image {
-                    flex-shrink: 0;
-                    width: 80px;
-                    height: 80px;
-                    border-radius: var(--radius-sm, 4px);
-                    overflow: hidden;
-                    background: var(--bg-tertiary, #252525);
-                }
-                
-                .result-item-image img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-                
-                .result-item-info {
-                    flex: 1;
-                }
-                
-                .result-item-category {
-                    font-size: 12px;
-                    color: var(--primary, #ff3366);
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
-                    margin-bottom: 4px;
-                }
-                
-                .result-item-category mark {
-                    background: rgba(255, 51, 102, 0.3);
-                    color: var(--primary, #ff3366);
-                    padding: 0 2px;
-                    border-radius: 2px;
-                }
-                
-                .result-item-title {
-                    font-size: 16px;
-                    font-weight: 600;
-                    color: var(--text-primary, #fff);
-                    margin-bottom: 4px;
-                }
-                
-                .result-item-title mark {
-                    background: rgba(255, 51, 102, 0.3);
-                    color: var(--primary, #ff3366);
-                    padding: 0 2px;
-                    border-radius: 2px;
-                }
-                
-                .result-item-sku {
-                    font-size: 12px;
-                    color: var(--text-muted, #999);
-                    margin-bottom: 4px;
-                }
-                
-                .result-item-price {
-                    margin-top: 8px;
-                }
-                
-                .result-item-price .current-price {
-                    font-size: 18px;
-                    font-weight: 700;
-                    color: var(--primary, #ff3366);
-                }
-                
-                .result-item-price .old-price {
-                    font-size: 14px;
-                    color: var(--text-muted, #999);
-                    text-decoration: line-through;
-                    margin-left: 8px;
-                }
-                
-                .result-item-status {
-                    font-size: 12px;
-                    margin-top: 4px;
-                    display: flex;
-                    align-items: center;
-                    gap: 4px;
-                }
-                
-                .result-item-status.in-stock {
-                    color: #2ecc71;
-                }
-                
-                .result-item-status.out-of-stock {
-                    color: #ff4757;
-                }
-                
-                .result-item-actions {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 8px;
-                    justify-content: center;
-                }
-                
-                .result-view-btn,
-                .result-cart-btn {
-                    padding: 8px 12px;
-                    border: none;
-                    border-radius: var(--radius-sm, 4px);
-                    cursor: pointer;
-                    font-size: 12px;
-                    font-weight: 500;
-                    transition: all 0.2s ease;
-                }
-                
-                .result-view-btn {
-                    background: var(--info, #3498db);
-                    color: white;
-                }
-                
-                .result-view-btn:hover {
-                    background: #2980b9;
-                    transform: translateY(-2px);
-                }
-                
-                .result-cart-btn {
-                    background: var(--primary, #ff3366);
-                    color: white;
-                }
-                
-                .result-cart-btn:hover:not(:disabled) {
-                    background: #ff6b6b;
-                    transform: translateY(-2px);
-                }
-                
-                .result-cart-btn.disabled,
-                .result-cart-btn:disabled {
-                    opacity: 0.5;
-                    cursor: not-allowed;
-                }
-                
-                .no-results-message {
-                    text-align: center;
-                    padding: 40px 20px;
-                    color: var(--text-muted, #999);
-                }
-                
-                .no-results-message i {
-                    font-size: 48px;
-                    margin-bottom: 15px;
-                    opacity: 0.5;
-                }
-                
-                .no-results-message p {
-                    margin-bottom: 10px;
-                }
-                
-                .no-results-message .suggestion-text a {
-                    color: var(--primary, #ff3366);
-                    text-decoration: none;
-                }
-                
-                .no-results-message .suggestion-text a:hover {
-                    text-decoration: underline;
-                }
-                
-                .results-header {
-                    padding: 10px 0;
-                    font-size: 14px;
-                    color: var(--text-secondary, #ccc);
-                    border-bottom: 1px solid var(--border-light, #333);
-                    margin-bottom: 15px;
-                }
-                
+            <style id="notification-styles">
                 @keyframes slideIn {
                     from {
                         opacity: 0;
