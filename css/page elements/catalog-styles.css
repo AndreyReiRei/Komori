@@ -11,7 +11,6 @@
 }
 
 .catalog-preview h2 {
-	color: #ffffff;
 	margin: clamp(15px, 4vw, 25px);
 	font-size: clamp(28px, 5vw, 38px);
 	text-align: center;
@@ -19,8 +18,10 @@
 	padding-bottom: 20px;
 	font-weight: 700;
 	letter-spacing: -0.02em;
-	text-shadow: 2px 2px 4px rgb(50, 0, 0);
-	/* Черная тень для читаемости */
+	color: rgb(254, 254, 254);
+	text-shadow: 1px 1px 2px #ff3366,
+		2px 2px 4px rgba(0, 0, 0, 0.5),
+		3px 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* Сетка каталога */

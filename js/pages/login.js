@@ -5,7 +5,7 @@
 
 class AuthPage {
 	constructor() {
-		// Загружаем список пользователей из localStorage
+		// Загружаем список пользователей из store или localStorage
 		this.users = this.loadUsers();
 		this.init();
 	}
@@ -13,18 +13,38 @@ class AuthPage {
 	// ========== ЗАГРУЗКА И СОХРАНЕНИЕ ПОЛЬЗОВАТЕЛЕЙ ==========
 
 	/**
-	 * Загрузка пользователей из localStorage
+	 * Загрузка пользователей из store или localStorage
 	 */
 	loadUsers() {
+		// Сначала пробуем получить из store (если он уже инициализирован)
+		if ( window.store && window.store.users && window.store.users.length > 0 ) {
+			return window.store.users;
+		}
+
+		// Если store пуст, загружаем из localStorage
 		const savedUsers = localStorage.getItem( 'komori_users' );
-		return savedUsers ? JSON.parse( savedUsers ) : [];
+		const users = savedUsers ? JSON.parse( savedUsers ) : [];
+
+		// Если store существует, синхронизируем с ним
+		if ( window.store && window.store.users ) {
+			window.store.users = users;
+			window.store.saveToStorage();
+		}
+
+		return users;
 	}
 
 	/**
-	 * Сохранение пользователей в localStorage
+	 * Сохранение пользователей в store и localStorage
 	 */
 	saveUsers() {
 		localStorage.setItem( 'komori_users', JSON.stringify( this.users ) );
+
+		// Синхронизируем с store
+		if ( window.store ) {
+			window.store.users = this.users;
+			window.store.saveToStorage();
+		}
 	}
 
 	/**
@@ -48,17 +68,14 @@ class AuthPage {
 		const headerAvatar = document.getElementById( 'headerAvatar' );
 		const headerAvatarIcon = document.getElementById( 'headerAvatarIcon' );
 
-		// Меняем текст кнопки на имя пользователя
 		if ( authText ) {
 			authText.textContent = user.name;
 		}
 
-		// Меняем ссылку на страницу профиля
 		if ( authBtn ) {
 			authBtn.href = '/pages html/profile.html';
 		}
 
-		// Отображаем аватар в шапке, если он есть
 		if ( headerAvatar && headerAvatarIcon ) {
 			if ( user.avatar ) {
 				headerAvatar.src = user.avatar;
@@ -82,66 +99,83 @@ class AuthPage {
 		this.bindForms();
 		this.bindPasswordStrength();
 		this.bindForgotPassword();
+		this.bindRecoveryTab();
 		this.checkUrlParams();
-		this.checkAuthStatus(); // Проверяем, авторизован ли пользователь
+		this.checkAuthStatus();
 	}
 
 	/**
-	 * Переключение между вкладками "Вход" и "Регистрация"
+	 * Переключение между вкладками
 	 */
 	bindTabs() {
-		// Получаем элементы вкладок и форм
 		const loginTab = document.getElementById( 'loginTab' );
 		const registerTab = document.getElementById( 'registerTab' );
+		const recoveryTab = document.getElementById( 'recoveryTab' );
 		const loginForm = document.getElementById( 'loginForm' );
 		const registerForm = document.getElementById( 'registerForm' );
+		const recoveryForm = document.getElementById( 'recoveryForm' );
 		const switchToRegister = document.getElementById( 'switchToRegisterMobile' );
 		const switchToLogin = document.getElementById( 'switchToLoginMobile' );
 
-		console.log( 'Найдены элементы:', { loginTab, registerTab, loginForm, registerForm } );
+		// Функция переключения на вкладку входа
+		const showLoginTab = () => {
+			if ( loginTab ) loginTab.classList.add( 'active' );
+			if ( registerTab ) registerTab.classList.remove( 'active' );
+			if ( recoveryTab ) recoveryTab.classList.remove( 'active' );
+			if ( loginForm ) loginForm.classList.add( 'active' );
+			if ( registerForm ) registerForm.classList.remove( 'active' );
+			if ( recoveryForm ) recoveryForm.classList.remove( 'active' );
+			this.clearErrors();
+		};
 
-		if ( loginTab && registerTab && loginForm && registerForm ) {
+		// Функция переключения на вкладку регистрации
+		const showRegisterTab = () => {
+			if ( registerTab ) registerTab.classList.add( 'active' );
+			if ( loginTab ) loginTab.classList.remove( 'active' );
+			if ( recoveryTab ) recoveryTab.classList.remove( 'active' );
+			if ( registerForm ) registerForm.classList.add( 'active' );
+			if ( loginForm ) loginForm.classList.remove( 'active' );
+			if ( recoveryForm ) recoveryForm.classList.remove( 'active' );
+			this.clearErrors();
+		};
 
-			// Функция переключения на вкладку входа
-			const showLoginTab = () => {
-				console.log( 'Переключение на вкладку Входа' );
-				loginTab.classList.add( 'active' );
-				registerTab.classList.remove( 'active' );
-				loginForm.classList.add( 'active' );
-				registerForm.classList.remove( 'active' );
-				this.clearErrors();
-			};
+		// Функция переключения на вкладку восстановления
+		const showRecoveryTab = () => {
+			if ( recoveryTab ) recoveryTab.classList.add( 'active' );
+			if ( loginTab ) loginTab.classList.remove( 'active' );
+			if ( registerTab ) registerTab.classList.remove( 'active' );
+			if ( recoveryForm ) recoveryForm.classList.add( 'active' );
+			if ( loginForm ) loginForm.classList.remove( 'active' );
+			if ( registerForm ) registerForm.classList.remove( 'active' );
+			this.clearErrors();
+		};
 
-			// Функция переключения на вкладку регистрации
-			const showRegisterTab = () => {
-				console.log( 'Переключение на вкладку Регистрации' );
-				registerTab.classList.add( 'active' );
-				loginTab.classList.remove( 'active' );
-				registerForm.classList.add( 'active' );
-				loginForm.classList.remove( 'active' );
-				this.clearErrors();
-			};
+		if ( loginTab ) loginTab.addEventListener( 'click', showLoginTab );
+		if ( registerTab ) registerTab.addEventListener( 'click', showRegisterTab );
+		if ( recoveryTab ) recoveryTab.addEventListener( 'click', showRecoveryTab );
 
-			// Добавляем обработчики событий
-			loginTab.addEventListener( 'click', showLoginTab );
-			registerTab.addEventListener( 'click', showRegisterTab );
+		// Мобильные переключатели
+		if ( switchToRegister ) {
+			switchToRegister.addEventListener( 'click', ( e ) => {
+				e.preventDefault();
+				showRegisterTab();
+			} );
+		}
 
-			// Мобильные переключатели
-			if ( switchToRegister ) {
-				switchToRegister.addEventListener( 'click', ( e ) => {
-					e.preventDefault();
-					showRegisterTab();
-				} );
-			}
+		if ( switchToLogin ) {
+			switchToLogin.addEventListener( 'click', ( e ) => {
+				e.preventDefault();
+				showLoginTab();
+			} );
+		}
 
-			if ( switchToLogin ) {
-				switchToLogin.addEventListener( 'click', ( e ) => {
-					e.preventDefault();
-					showLoginTab();
-				} );
-			}
-		} else {
-			console.error( 'Не найдены элементы вкладок:', { loginTab, registerTab, loginForm, registerForm } );
+		// Ссылка "Вернуться ко входу" на вкладке восстановления
+		const backToLogin = document.getElementById( 'backToLogin' );
+		if ( backToLogin ) {
+			backToLogin.addEventListener( 'click', ( e ) => {
+				e.preventDefault();
+				showLoginTab();
+			} );
 		}
 	}
 
@@ -165,6 +199,7 @@ class AuthPage {
 	bindForms() {
 		const loginForm = document.getElementById( 'loginFormElement' );
 		const registerForm = document.getElementById( 'registerFormElement' );
+		const recoveryForm = document.getElementById( 'recoveryFormElement' );
 
 		if ( loginForm ) {
 			loginForm.addEventListener( 'submit', ( e ) => this.handleLogin( e ) );
@@ -172,6 +207,10 @@ class AuthPage {
 
 		if ( registerForm ) {
 			registerForm.addEventListener( 'submit', ( e ) => this.handleRegister( e ) );
+		}
+
+		if ( recoveryForm ) {
+			recoveryForm.addEventListener( 'submit', ( e ) => this.handleForgotPassword( e ) );
 		}
 	}
 
@@ -191,7 +230,7 @@ class AuthPage {
 	}
 
 	/**
-	 * Обработка восстановления пароля
+	 * Обработка восстановления пароля (старое модальное окно)
 	 */
 	bindForgotPassword() {
 		const forgotBtn = document.getElementById( 'forgotPasswordBtn' );
@@ -204,23 +243,26 @@ class AuthPage {
 			} );
 		}
 
-		// Закрытие модального окна
 		const closeModal = document.querySelector( '#forgotPasswordModal .close-modal' );
 		if ( closeModal && modal ) {
 			closeModal.addEventListener( 'click', () => {
 				modal.style.display = 'none';
 			} );
 		}
+	}
 
-		// Обработка формы восстановления
-		const forgotForm = document.getElementById( 'forgotPasswordForm' );
-		if ( forgotForm ) {
-			forgotForm.addEventListener( 'submit', ( e ) => this.handleForgotPassword( e ) );
+	/**
+	 * Обработка вкладки восстановления пароля
+	 */
+	bindRecoveryTab() {
+		const recoveryForm = document.getElementById( 'recoveryFormElement' );
+		if ( recoveryForm ) {
+			// Обработчик уже добавлен в bindForms
 		}
 	}
 
 	/**
-	 * Проверка параметров URL (для автоматического переключения на регистрацию)
+	 * Проверка параметров URL
 	 */
 	checkUrlParams() {
 		const urlParams = new URLSearchParams( window.location.search );
@@ -229,6 +271,9 @@ class AuthPage {
 		if ( tab === 'register' ) {
 			const registerTab = document.getElementById( 'registerTab' );
 			if ( registerTab ) registerTab.click();
+		} else if ( tab === 'recovery' ) {
+			const recoveryTab = document.getElementById( 'recoveryTab' );
+			if ( recoveryTab ) recoveryTab.click();
 		}
 	}
 
@@ -246,7 +291,7 @@ class AuthPage {
 
 		let isValid = true;
 
-		// Валидация поля ввода (email/телефон)
+		// Валидация поля ввода
 		if ( !identifier.value.trim() ) {
 			this.showError( 'loginIdentifierError', 'Введите email или номер телефона' );
 			identifier.classList.add( 'error' );
@@ -271,7 +316,6 @@ class AuthPage {
 		}
 
 		if ( isValid ) {
-			// Поиск пользователя в базе
 			const user = this.users.find( u =>
 				( u.email === identifier.value || u.phone === identifier.value ) &&
 				u.password === password.value
@@ -280,30 +324,26 @@ class AuthPage {
 			if ( user ) {
 				this.showNotification( 'Вход выполнен успешно!', 'success' );
 
-				// Сохраняем текущего пользователя
 				localStorage.setItem( 'komori_current_user', JSON.stringify( user ) );
 
-				// Сохраняем аватар в отдельное хранилище для быстрого доступа
 				if ( user.avatar ) {
 					localStorage.setItem( 'komori_current_avatar', user.avatar );
 				}
 
-				// Если отмечено "Запомнить меня"
 				if ( rememberMe && rememberMe.checked ) {
 					localStorage.setItem( 'komori_remembered_user', JSON.stringify( user ) );
 				}
 
-				// Перенаправление на главную страницу
+				// Обновляем счетчики в шапке
+				if ( window.API && window.API.updateHeaderCounters ) {
+					window.API.updateHeaderCounters();
+				}
+
 				setTimeout( () => {
 					window.location.href = '/index.html';
 				}, 1500 );
 			} else {
 				this.showNotification( 'Неверный email/телефон или пароль', 'error' );
-				const submitBtn = document.getElementById( 'loginSubmitBtn' );
-				if ( submitBtn ) {
-					submitBtn.disabled = false;
-					submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Войти';
-				}
 			}
 		}
 	}
@@ -359,15 +399,16 @@ class AuthPage {
 
 		// Валидация телефона
 		const phoneRegex = /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+		const cleanPhone = phone.value.replace( /\s/g, '' );
 		if ( !phone.value.trim() ) {
 			this.showError( 'registerPhoneError', 'Введите номер телефона' );
 			phone.classList.add( 'error' );
 			isValid = false;
-		} else if ( !phoneRegex.test( phone.value.replace( /\s/g, '' ) ) ) {
+		} else if ( !phoneRegex.test( cleanPhone ) ) {
 			this.showError( 'registerPhoneError', 'Введите корректный номер телефона' );
 			phone.classList.add( 'error' );
 			isValid = false;
-		} else if ( this.users.some( u => u.phone === phone.value ) ) {
+		} else if ( this.users.some( u => u.phone === cleanPhone ) ) {
 			this.showError( 'registerPhoneError', 'Этот телефон уже зарегистрирован' );
 			phone.classList.add( 'error' );
 			isValid = false;
@@ -407,16 +448,19 @@ class AuthPage {
 		}
 
 		if ( isValid ) {
-			// Создаем нового пользователя
 			const newUser = {
 				id: Date.now(),
 				name: name.value.trim(),
 				email: email.value.trim(),
-				phone: phone.value.trim(),
+				phone: cleanPhone,
 				password: password.value,
 				subscribe: subscribe.checked,
-				avatar: null, // Аватар пока пустой
-				createdAt: new Date().toISOString()
+				avatar: null,
+				addresses: [],
+				defaultAddressId: null,
+				defaultAddress: null,
+				createdAt: new Date().toISOString(),
+				lastLogin: null
 			};
 
 			this.users.push( newUser );
@@ -424,7 +468,6 @@ class AuthPage {
 
 			this.showNotification( 'Регистрация прошла успешно!', 'success' );
 
-			// Перенаправление на страницу входа
 			setTimeout( () => {
 				window.location.href = '/pages html/login.html?tab=login';
 			}, 1500 );
@@ -432,46 +475,88 @@ class AuthPage {
 	}
 
 	/**
-	 * Обработка восстановления пароля
+	 * Обработка восстановления пароля (новая вкладка)
 	 */
 	handleForgotPassword( e ) {
 		e.preventDefault();
 
-		const identifier = document.getElementById( 'forgotIdentifier' );
+		const emailInput = document.getElementById( 'recoveryEmail' );
+		const submitBtn = document.getElementById( 'recoverySubmitBtn' );
 
-		if ( !identifier.value.trim() ) {
-			alert( 'Введите email или номер телефона' );
+		if ( !emailInput || !emailInput.value.trim() ) {
+			this.showError( 'recoveryEmailError', 'Введите email' );
+			if ( emailInput ) emailInput.classList.add( 'error' );
 			return;
 		}
 
-		const submitBtn = e.target.querySelector( 'button[type="submit"]' );
-		submitBtn.disabled = true;
-		submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if ( !emailRegex.test( emailInput.value ) ) {
+			this.showError( 'recoveryEmailError', 'Введите корректный email' );
+			emailInput.classList.add( 'error' );
+			return;
+		}
+
+		this.clearError( 'recoveryEmailError' );
+		emailInput.classList.remove( 'error' );
+
+		if ( submitBtn ) {
+			submitBtn.disabled = true;
+			submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+		}
 
 		setTimeout( () => {
-			// Поиск пользователя
-			const user = this.users.find( u => u.email === identifier.value || u.phone === identifier.value );
+			const user = this.users.find( u => u.email === emailInput.value );
 
 			if ( user ) {
-				alert( `Инструкция по восстановлению пароля отправлена на ${user.email}` );
+				// Генерируем временный пароль
+				const tempPassword = this.generateTempPassword();
+
+				// Обновляем пароль пользователя
+				user.password = tempPassword;
+				this.saveUsers();
+
+				// Показываем сообщение с временным паролем
+				this.showNotification( `Новый пароль отправлен на ${user.email}`, 'success' );
+
+				// В реальном приложении здесь была бы отправка email
+				console.log( `Временный пароль для ${user.email}: ${tempPassword}` );
+
+				// Очищаем поле email
+				emailInput.value = '';
+
+				// Переключаемся на вкладку входа
+				setTimeout( () => {
+					const loginTab = document.getElementById( 'loginTab' );
+					if ( loginTab ) loginTab.click();
+				}, 2000 );
 			} else {
-				alert( 'Пользователь с таким email/телефоном не найден' );
+				this.showError( 'recoveryEmailError', 'Пользователь с таким email не найден' );
+				emailInput.classList.add( 'error' );
 			}
 
-			const modal = document.getElementById( 'forgotPasswordModal' );
-			if ( modal ) modal.style.display = 'none';
-
-			submitBtn.disabled = false;
-			submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Отправить инструкцию';
-
-			document.getElementById( 'forgotIdentifier' ).value = '';
+			if ( submitBtn ) {
+				submitBtn.disabled = false;
+				submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Отправить инструкцию';
+			}
 		}, 1500 );
+	}
+
+	/**
+	 * Генерация временного пароля
+	 */
+	generateTempPassword() {
+		const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+		let password = '';
+		for ( let i = 0; i < 10; i++ ) {
+			password += chars.charAt( Math.floor( Math.random() * chars.length ) );
+		}
+		return password;
 	}
 
 	// ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
 
 	/**
-	 * Проверка сложности пароля (отображает полоски)
+	 * Проверка сложности пароля
 	 */
 	checkPasswordStrength( password ) {
 		const bars = document.querySelectorAll( '.strength-bar' );
@@ -485,20 +570,12 @@ class AuthPage {
 
 		let strength = 0;
 
-		// Длина пароля
 		if ( password.length >= 8 ) strength++;
-		if ( password.length >= 10 ) strength++;
-
-		// Наличие цифр
+		if ( password.length >= 12 ) strength++;
 		if ( /\d/.test( password ) ) strength++;
-
-		// Наличие букв в разных регистрах
 		if ( /[a-z]/.test( password ) && /[A-Z]/.test( password ) ) strength++;
-
-		// Наличие спецсимволов
 		if ( /[!@#$%^&*(),.?":{}|<>]/.test( password ) ) strength++;
 
-		// Ограничиваем до 3
 		strength = Math.min( strength, 3 );
 
 		bars.forEach( ( bar, index ) => {
@@ -507,7 +584,7 @@ class AuthPage {
 			if ( index < strength ) {
 				if ( strength === 1 ) bar.classList.add( 'weak' );
 				else if ( strength === 2 ) bar.classList.add( 'medium' );
-				else if ( strength === 3 ) bar.classList.add( 'strong' );
+				else if ( strength >= 3 ) bar.classList.add( 'strong' );
 			}
 		} );
 	}

@@ -76,7 +76,12 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			setTimeout( () => {
 				if ( searchInput ) searchInput.focus();
 			}, 300 );
+
+			// Блокируем прокрутку основной страницы
 			document.body.style.overflow = 'hidden';
+			document.body.style.position = 'fixed';
+			document.body.style.width = '100%';
+
 			clearResults();
 			if ( searchInput ) searchInput.value = '';
 		}
@@ -85,7 +90,12 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	function closeSearchFunc() {
 		if ( searchModal ) {
 			searchModal.style.display = 'none';
+
+			// Возвращаем прокрутку основной страницы
 			document.body.style.overflow = '';
+			document.body.style.position = '';
+			document.body.style.width = '';
+
 			clearResults();
 			if ( searchInput ) searchInput.value = '';
 		}
@@ -268,43 +278,31 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		return item;
 	}
 
-	/**
-	 * ИСПРАВЛЕНО: Добавляет товар в корзину через store
-	 * @param {string} productId - ID товара (строка, например "1734567890123-abc123")
-	 */
 	function addToCartFromSearch( productId ) {
-		// НЕ преобразуем ID в число, оставляем как строку
-		const id = productId;
+		console.log( 'Добавление товара в корзину, ID:', productId );
 
-		console.log( 'Добавление товара в корзину, ID:', id );
-
-		// Проверяем, что store существует
 		if ( !window.store ) {
 			console.error( 'Store не инициализирован' );
 			showNotification( 'Ошибка: корзина не доступна', 'error' );
 			return;
 		}
 
-		// Получаем товар (store.getProduct принимает строку или число)
-		const product = window.store.getProduct( id );
+		const product = window.store.getProduct( productId );
 
 		console.log( 'Найденный товар:', product );
 
-		// Проверяем наличие товара
 		if ( !product ) {
-			console.error( 'Товар не найден, ID:', id );
+			console.error( 'Товар не найден, ID:', productId );
 			showNotification( 'Товар не найден', 'error' );
 			return;
 		}
 
-		// Проверяем наличие на складе
 		if ( product.status !== 'in-stock' || product.quantity <= 0 ) {
 			showNotification( 'Товар отсутствует на складе', 'error' );
 			return;
 		}
 
-		// Добавляем в корзину
-		const result = window.store.addToCart( id, 1 );
+		const result = window.store.addToCart( productId, 1 );
 
 		console.log( 'Результат добавления в корзину:', result );
 
@@ -472,7 +470,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
                 <div class="modal-content search-modal-content">
                     <div class="search-header">
                         <h2><i class="fas fa-search"></i> Поиск по сайту</h2>
-                        <button class="close-search">&times;</button>
+                        <button class="close-search">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
                     
                     <form id="searchForm" class="search-form">
@@ -481,13 +481,14 @@ document.addEventListener( 'DOMContentLoaded', function () {
                             <input type="text" id="searchInput" 
                                    placeholder="Введите название товара, категорию, артикул..." 
                                    autocomplete="off">
-                            <button type="submit" class="search-submit-btn">Найти</button>
+                            <button type="submit" class="search-submit-btn">
+                                <i class="fas fa-search"></i> Найти
+                            </button>
                         </div>
                     </form>
                     
                     <div class="search-results-container">
                         <div id="resultsCount" class="results-header" style="display: none;"></div>
-                        
                         <div id="searchResults" class="search-results-list"></div>
                         
                         <div id="noResultsMessage" class="no-results-message" style="display: none;">

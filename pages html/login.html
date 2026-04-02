@@ -467,14 +467,17 @@
 						<i class="fas fa-user-plus"></i>
 						Регистрация
 					</button>
+					<button class="auth-tab" id="recoveryTab" data-tab="recovery">
+						<i class="fas fa-key"></i>
+						Восстановление пароля
+					</button>
 				</div>
 
-				<!-- Форма входа -->
+				<!-- Форма входа (ID не менялись) -->
 				<div class="auth-form-container active" id="loginForm">
 					<form class="auth-form" id="loginFormElement">
 						<h2 class="auth-form-title">Вход в аккаунт</h2>
 
-						<!-- Поле email/телефон -->
 						<div class="auth-input-group">
 							<label for="loginIdentifier" class="auth-label">
 								<i class="fas fa-envelope"></i>
@@ -485,7 +488,6 @@
 							<span class="input-error" id="loginIdentifierError"></span>
 						</div>
 
-						<!-- Поле пароль -->
 						<div class="auth-input-group">
 							<label for="loginPassword" class="auth-label">
 								<i class="fas fa-lock"></i>
@@ -501,30 +503,23 @@
 							<span class="input-error" id="loginPasswordError"></span>
 						</div>
 
-						<!-- Дополнительные опции -->
 						<div class="auth-options">
 							<label class="checkbox-container">
 								<input type="checkbox" id="rememberMe">
 								<span class="checkmark"></span>
 								<span class="checkbox-text">Запомнить меня</span>
 							</label>
-							<a href="#" class="forgot-password-link" id="forgotPasswordBtn">
-								Забыли пароль?
-							</a>
 						</div>
 
-						<!-- Кнопка входа -->
 						<button type="submit" class="auth-submit-btn" id="loginSubmitBtn">
 							<i class="fas fa-sign-in-alt"></i>
 							Войти
 						</button>
 
-						<!-- Разделитель -->
 						<div class="auth-divider">
 							<span>или войдите через</span>
 						</div>
 
-						<!-- Социальные сети -->
 						<div class="social-login">
 							<button type="button" class="social-btn vk" id="vkLogin">
 								<i class="fab fa-vk"></i>
@@ -540,7 +535,6 @@
 							</button>
 						</div>
 
-						<!-- Ссылка на регистрацию для мобильных -->
 						<div class="auth-switch-mobile">
 							Нет аккаунта?
 							<a href="#" id="switchToRegisterMobile">Зарегистрироваться</a>
@@ -548,12 +542,11 @@
 					</form>
 				</div>
 
-				<!-- Форма регистрации -->
+				<!-- Форма регистрации (ID не менялись) -->
 				<div class="auth-form-container" id="registerForm">
 					<form class="auth-form" id="registerFormElement">
 						<h2 class="auth-form-title">Создание аккаунта</h2>
 
-						<!-- Имя -->
 						<div class="auth-input-group">
 							<label for="registerName" class="auth-label">
 								<i class="fas fa-user"></i>
@@ -564,7 +557,6 @@
 							<span class="input-error" id="registerNameError"></span>
 						</div>
 
-						<!-- Email -->
 						<div class="auth-input-group">
 							<label for="registerEmail" class="auth-label">
 								<i class="fas fa-envelope"></i>
@@ -575,7 +567,6 @@
 							<span class="input-error" id="registerEmailError"></span>
 						</div>
 
-						<!-- Телефон -->
 						<div class="auth-input-group">
 							<label for="registerPhone" class="auth-label">
 								<i class="fas fa-phone"></i>
@@ -586,7 +577,6 @@
 							<span class="input-error" id="registerPhoneError"></span>
 						</div>
 
-						<!-- Пароль -->
 						<div class="auth-input-group">
 							<label for="registerPassword" class="auth-label">
 								<i class="fas fa-lock"></i>
@@ -608,7 +598,6 @@
 							<span class="input-error" id="registerPasswordError"></span>
 						</div>
 
-						<!-- Подтверждение пароля -->
 						<div class="auth-input-group">
 							<label for="registerConfirmPassword" class="auth-label">
 								<i class="fas fa-lock"></i>
@@ -624,7 +613,6 @@
 							<span class="input-error" id="registerConfirmError"></span>
 						</div>
 
-						<!-- Согласие с правилами -->
 						<div class="auth-agreement">
 							<label class="checkbox-container">
 								<input type="checkbox" id="agreeTerms" checked>
@@ -636,7 +624,6 @@
 							</label>
 						</div>
 
-						<!-- Подписка на новости -->
 						<div class="auth-newsletter">
 							<label class="checkbox-container">
 								<input type="checkbox" id="subscribeNews">
@@ -647,18 +634,15 @@
 							</label>
 						</div>
 
-						<!-- Кнопка регистрации -->
 						<button type="submit" class="auth-submit-btn" id="registerSubmitBtn">
 							<i class="fas fa-user-plus"></i>
 							Зарегистрироваться
 						</button>
 
-						<!-- Разделитель -->
 						<div class="auth-divider">
 							<span>или зарегистрируйтесь через</span>
 						</div>
 
-						<!-- Социальные сети -->
 						<div class="social-login">
 							<button type="button" class="social-btn vk" id="vkRegister">
 								<i class="fab fa-vk"></i>
@@ -674,10 +658,43 @@
 							</button>
 						</div>
 
-						<!-- Ссылка на вход для мобильных -->
 						<div class="auth-switch-mobile">
 							Уже есть аккаунт?
 							<a href="#" id="switchToLoginMobile">Войти</a>
+						</div>
+					</form>
+				</div>
+
+				<!-- Форма восстановления пароля (НОВЫЕ ID) -->
+				<div class="auth-form-container" id="recoveryForm">
+					<form class="auth-form" id="recoveryFormElement">
+						<h2 class="auth-form-title">Восстановление пароля</h2>
+
+						<p class="recovery-info-text">
+							<i class="fas fa-info-circle"></i>
+							Введите email, указанный при регистрации. Мы отправим инструкцию по восстановлению пароля.
+						</p>
+
+						<div class="auth-input-group">
+							<label for="recoveryEmail" class="auth-label">
+								<i class="fas fa-envelope"></i>
+								Email
+							</label>
+							<input type="email" id="recoveryEmail" class="auth-input" placeholder="example@mail.ru"
+								required>
+							<span class="input-error" id="recoveryEmailError"></span>
+						</div>
+
+						<button type="submit" class="auth-submit-btn" id="recoverySubmitBtn">
+							<i class="fas fa-paper-plane"></i>
+							Отправить инструкцию
+						</button>
+
+						<div class="recovery-links">
+							<a href="#" id="backToLogin" class="recovery-back-link">
+								<i class="fas fa-arrow-left"></i>
+								Вернуться ко входу
+							</a>
 						</div>
 					</form>
 				</div>

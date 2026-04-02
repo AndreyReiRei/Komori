@@ -265,31 +265,71 @@
 	</div>
 
 	<!-- Основной контент страницы профиля -->
+	<!-- Основной контент страницы профиля -->
 	<main class="container__main">
 		<div class="profile-page">
-			<!-- Заголовок страницы -->
-			<!-- Шапка профиля -->
+			<!-- Шапка профиля - две колонки -->
 			<div class="profile-header">
-				<div class="profile-avatar">
-					<img id="profileAvatar" src="" alt="Аватар" style="display: none;">
-					<i id="avatarPlaceholder" class="fas fa-user-circle"></i>
-					<div class="avatar-overlay" id="changeAvatarBtn">
-						<i class="fas fa-camera"></i>
+				<!-- ЛЕВАЯ КОЛОНКА: Аватар + кнопка редактирования -->
+				<div class="profile-left">
+					<div class="profile-avatar">
+						<img id="profileAvatar" src="" alt="Аватар" style="display: none;">
+						<i id="avatarPlaceholder" class="fas fa-user-circle"></i>
+						<div class="avatar-overlay" id="changeAvatarBtn">
+							<i class="fas fa-camera"></i>
+						</div>
+						<input type="file" id="avatarUpload" accept="image/*">
+						<button class="edit-profile-btn" id="editProfileBtn">
+							<i class="fas fa-pen"></i>
+						</button>
 					</div>
-					<input type="file" id="avatarUpload" accept="image/*">
 				</div>
-				<div class="profile-info">
-					<h1 id="userName">Загрузка...</h1>
-					<p class="user-email" id="userEmail">-</p>
-					<p class="user-phone" id="userPhone">-</p>
+
+				<!-- ПРАВАЯ КОЛОНКА: Информация о пользователе и адрес -->
+				<div class="profile-right">
+					<div class="profile-info-card">
+						<h3><i class="fas fa-user"></i> Основная информация</h3>
+						<div class="info-row">
+							<span class="info-label">Имя:</span>
+							<span class="info-value" id="userName">Загрузка...</span>
+						</div>
+						<div class="info-row">
+							<span class="info-label">Email:</span>
+							<span class="info-value" id="userEmail">-</span>
+						</div>
+						<div class="info-row">
+							<span class="info-label">Телефон:</span>
+							<span class="info-value" id="userPhone">-</span>
+						</div>
+
+						<!-- Блок адреса доставки -->
+						<div class="delivery-address-block">
+							<h3><i class="fas fa-truck"></i> Адрес доставки</h3>
+							<div class="info-row">
+								<span class="info-label">Город:</span>
+								<span class="info-value" id="userCity">Не указан</span>
+							</div>
+							<div class="info-row">
+								<span class="info-label">Улица:</span>
+								<span class="info-value" id="userStreet">Не указана</span>
+							</div>
+							<div class="info-row">
+								<span class="info-label">Дом/квартира:</span>
+								<span class="info-value" id="userHouse">Не указан</span>
+							</div>
+							<div class="info-row">
+								<span class="info-label">Индекс:</span>
+								<span class="info-value" id="userZip">Не указан</span>
+							</div>
+							<button class="edit-address-btn" id="editAddressBtn">
+								<i class="fas fa-edit"></i> Редактировать адрес
+							</button>
+						</div>
+					</div>
 				</div>
-				<button class="edit-profile-btn" id="editProfileBtn">
-					<i class="fas fa-pen"></i>
-					Редактировать профиль
-				</button>
 			</div>
 
-			<!-- Навигация по профилю -->
+			<!-- Навигация по профилю (снизу) -->
 			<div class="profile-nav">
 				<button class="profile-nav-btn active" data-tab="overview">
 					<i class="fas fa-chart-line"></i>
@@ -306,6 +346,10 @@
 				<button class="profile-nav-btn" data-tab="settings">
 					<i class="fas fa-sliders-h"></i>
 					Настройки
+				</button>
+				<button class="profile-nav-btn" data-tab="adres">
+					<i class="fas fa-truck"></i>
+					Адрес
 				</button>
 			</div>
 
@@ -418,11 +462,95 @@
 
 						<div class="form-actions">
 							<button type="submit" class="btn-primary">Сохранить изменения</button>
-							<button type="button" class="btn-secondary" id="changePasswordBtn">Изменить
-								пароль</button>
+							<button type="button" class="btn-secondary" id="changePasswordBtn">Изменить пароль</button>
 							<button type="button" class="btn-danger" id="logoutBtn">Выйти из аккаунта</button>
 						</div>
 					</form>
+				</div>
+
+				<!-- Вкладка Адреса - ФОРМА ДЛЯ ЗАПОЛНЕНИЯ АДРЕСА -->
+				<div class="profile-tab" id="adresTab">
+					<h2><i class="fas fa-truck"></i> Адрес доставки</h2>
+
+					<form class="address-form" id="addressForm">
+						<div class="form-group">
+							<label for="addressCountry">Страна</label>
+							<select id="addressCountry" class="profile-input">
+								<option value="Россия">Россия</option>
+								<option value="Казахстан">Казахстан</option>
+								<option value="Беларусь">Беларусь</option>
+								<option value="Армения">Армения</option>
+								<option value="Киргизия">Киргизия</option>
+							</select>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group">
+								<label for="addressZip">Почтовый индекс</label>
+								<input type="text" id="addressZip" class="profile-input" placeholder="000000"
+									maxlength="6">
+							</div>
+
+							<div class="form-group">
+								<label for="addressCity">Город</label>
+								<input type="text" id="addressCity" class="profile-input" placeholder="Введите город">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="addressStreet">Улица</label>
+							<input type="text" id="addressStreet" class="profile-input" placeholder="Введите улицу">
+						</div>
+
+						<div class="form-row">
+							<div class="form-group">
+								<label for="addressHouse">Дом</label>
+								<input type="text" id="addressHouse" class="profile-input" placeholder="№ дома">
+							</div>
+
+							<div class="form-group">
+								<label for="addressBuilding">Корпус/строение</label>
+								<input type="text" id="addressBuilding" class="profile-input"
+									placeholder="Корпус (опционально)">
+							</div>
+
+							<div class="form-group">
+								<label for="addressApartment">Квартира/офис</label>
+								<input type="text" id="addressApartment" class="profile-input" placeholder="№ квартиры">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="addressComment">Комментарий к адресу</label>
+							<textarea id="addressComment" class="profile-input" rows="3"
+								placeholder="Домофон, этаж, ориентиры и т.д."></textarea>
+						</div>
+
+						<div class="form-group checkbox-group">
+							<input type="checkbox" id="addressDefault">
+							<label for="addressDefault">Использовать этот адрес по умолчанию</label>
+						</div>
+
+						<div class="form-actions">
+							<button type="submit" class="btn-primary">
+								<i class="fas fa-save"></i> Сохранить адрес
+							</button>
+							<button type="button" class="btn-secondary" id="cancelAddressBtn">
+								<i class="fas fa-times"></i> Отмена
+							</button>
+						</div>
+					</form>
+
+					<!-- Блок с сохраненными адресами -->
+					<div class="saved-addresses">
+						<h3><i class="fas fa-list"></i> Сохраненные адреса</h3>
+						<div class="addresses-list" id="addressesList">
+							<div class="empty-addresses">
+								<i class="fas fa-map-marker-alt"></i>
+								<p>Сохраненных адресов пока нет</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

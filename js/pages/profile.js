@@ -7,6 +7,8 @@ class ProfilePage {
 	constructor() {
 		this.currentUser = null;
 		this.userOrders = [];
+		this.addresses = [];
+		this.currentEditingAddressId = null;
 		this.init();
 	}
 
@@ -21,6 +23,7 @@ class ProfilePage {
 
 		if ( this.currentUser ) {
 			this.loadUserData();
+			this.loadAddresses();
 			this.bindEvents();
 			this.loadUserOrders();
 			this.loadAvatar();
@@ -51,7 +54,15 @@ class ProfilePage {
 		// Заполняем информацию о пользователе
 		document.getElementById( 'userName' ).textContent = this.currentUser.name;
 		document.getElementById( 'userEmail' ).textContent = this.currentUser.email;
-		document.getElementById( 'userPhone' ).textContent = this.currentUser.phone;
+		document.getElementById( 'userPhone' ).textContent = this.currentUser.phone || '-';
+
+		// Заполняем адрес в правой колонке
+		if ( this.currentUser.defaultAddress ) {
+			document.getElementById( 'userCity' ).textContent = this.currentUser.defaultAddress.city || 'Не указан';
+			document.getElementById( 'userStreet' ).textContent = this.currentUser.defaultAddress.street || 'Не указана';
+			document.getElementById( 'userHouse' ).textContent = this.currentUser.defaultAddress.house || 'Не указан';
+			document.getElementById( 'userZip' ).textContent = this.currentUser.defaultAddress.zip || 'Не указан';
+		}
 
 		// Дата регистрации
 		if ( this.currentUser.createdAt ) {
@@ -67,11 +78,310 @@ class ProfilePage {
 		// Заполняем форму настроек
 		document.getElementById( 'profileName' ).value = this.currentUser.name;
 		document.getElementById( 'profileEmail' ).value = this.currentUser.email;
-		document.getElementById( 'profilePhone' ).value = this.currentUser.phone;
+		document.getElementById( 'profilePhone' ).value = this.currentUser.phone || '';
 		document.getElementById( 'profileSubscribe' ).checked = this.currentUser.subscribe || false;
 
 		// Обновляем аватар в шапке
 		this.updateHeaderAvatar();
+	}
+
+	/**
+	 * Загрузка адресов пользователя
+	 */
+	loadAddresses() {
+		this.addresses = this.currentUser.addresses || [];
+		this.renderAddresses();
+	}
+
+	/**
+	 * Отображение списка адресов
+	 */
+	renderAddresses() {
+		const addressesList = document.getElementById( 'addressesList' );
+
+		if ( !addressesList ) return;
+
+		if ( this.addresses.length === 0 ) {
+			addressesList.innerHTML = `
+				<div class="empty-addresses">
+					<i class="fas fa-map-marker-alt"></i>
+					<p>Сохраненных адресов пока нет</p>
+				</div>
+			`;
+			return;
+		}
+
+		addressesList.innerHTML = this.addresses.map( address => this.renderAddressCard( address ) ).join( '' );
+
+		// Привязываем обработчики к кнопкам адресов
+		this.bindAddressEvents();
+	}
+
+	/**
+	 * Отображение карточки адреса
+	 */
+	renderAddressCard( address ) {
+		const isDefault = this.currentUser.defaultAddressId === address.id;
+		const fullAddress = `${address.zip ? address.zip + ', ' : ''}${address.city}, ${address.street}, ${address.house}${address.building ? ' корп.' + address.building : ''}${address.apartment ? ', кв.' + address.apartment : ''}`;
+
+		return `
+			<div class="address-item ${isDefault ? 'default' : ''}" data-id="${address.id}">
+				${isDefault ? '<div class="address-badge">По умолчанию</div>' : ''}
+				<div class="address-full">${this.escapeHtml( fullAddress )}</div>
+				${address.comment ? `<div class="address-comment">📝 ${this.escapeHtml( address.comment )}</div>` : ''}
+				<div class="address-actions">
+					<button class="address-edit-btn" data-id="${address.id}">
+						<i class="fas fa-edit"></i> Редактировать
+					</button>
+					${!isDefault ? `<button class="address-default-btn" data-id="${address.id}">
+						<i class="fas fa-check-circle"></i> Сделать по умолчанию
+					</button>` : ''}
+					<button class="address-delete-btn" data-id="${address.id}">
+						<i class="fas fa-trash"></i> Удалить
+					</button>
+				</div>
+			</div>
+		`;
+	}
+
+	/**
+	 * Привязка событий для кнопок управления адресами
+	 */
+	bindAddressEvents() {
+		// Редактирование адреса
+		document.querySelectorAll( '.address-edit-btn' ).forEach( btn => {
+			btn.removeEventListener( 'click', this.handleAddressEdit );
+			this.handleAddressEdit = ( e ) => {
+				const id = parseInt( btn.dataset.id );
+				this.editAddress( id );
+			};
+			btn.addEventListener( 'click', this.handleAddressEdit );
+		} );
+
+		// Удаление адреса
+		document.querySelectorAll( '.address-delete-btn' ).forEach( btn => {
+			btn.removeEventListener( 'click', this.handleAddressDelete );
+			this.handleAddressDelete = ( e ) => {
+				const id = parseInt( btn.dataset.id );
+				this.deleteAddress( id );
+			};
+			btn.addEventListener( 'click', this.handleAddressDelete );
+		} );
+
+		// Установка адреса по умолчанию
+		document.querySelectorAll( '.address-default-btn' ).forEach( btn => {
+			btn.removeEventListener( 'click', this.handleAddressDefault );
+			this.handleAddressDefault = ( e ) => {
+				const id = parseInt( btn.dataset.id );
+				this.setDefaultAddress( id );
+			};
+			btn.addEventListener( 'click', this.handleAddressDefault );
+		} );
+	}
+
+	/**
+	 * Редактирование адреса
+	 */
+	editAddress( id ) {
+		const address = this.addresses.find( a => a.id === id );
+		if ( !address ) return;
+
+		this.currentEditingAddressId = id;
+
+		// Заполняем форму
+		document.getElementById( 'addressCountry' ).value = address.country || 'Россия';
+		document.getElementById( 'addressZip' ).value = address.zip || '';
+		document.getElementById( 'addressCity' ).value = address.city || '';
+		document.getElementById( 'addressStreet' ).value = address.street || '';
+		document.getElementById( 'addressHouse' ).value = address.house || '';
+		document.getElementById( 'addressBuilding' ).value = address.building || '';
+		document.getElementById( 'addressApartment' ).value = address.apartment || '';
+		document.getElementById( 'addressComment' ).value = address.comment || '';
+		document.getElementById( 'addressDefault' ).checked = this.currentUser.defaultAddressId === id;
+
+		// Прокручиваем к форме
+		document.querySelector( '.address-form' ).scrollIntoView( { behavior: 'smooth' } );
+
+		// Меняем текст кнопки
+		const submitBtn = document.querySelector( '#addressForm button[type="submit"]' );
+		if ( submitBtn ) {
+			submitBtn.innerHTML = '<i class="fas fa-save"></i> Обновить адрес';
+		}
+	}
+
+	/**
+	 * Удаление адреса
+	 */
+	deleteAddress( id ) {
+		if ( !confirm( 'Вы уверены, что хотите удалить этот адрес?' ) ) return;
+
+		const address = this.addresses.find( a => a.id === id );
+
+		this.addresses = this.addresses.filter( a => a.id !== id );
+
+		// Если удаляем адрес по умолчанию, снимаем метку
+		if ( this.currentUser.defaultAddressId === id ) {
+			delete this.currentUser.defaultAddressId;
+			delete this.currentUser.defaultAddress;
+		}
+
+		this.currentUser.addresses = this.addresses;
+		this.saveUserToStorage();
+		this.loadAddresses();
+
+		// Обновляем отображение адреса в правой колонке
+		if ( this.currentUser.defaultAddress ) {
+			document.getElementById( 'userCity' ).textContent = this.currentUser.defaultAddress.city || 'Не указан';
+			document.getElementById( 'userStreet' ).textContent = this.currentUser.defaultAddress.street || 'Не указана';
+			document.getElementById( 'userHouse' ).textContent = this.currentUser.defaultAddress.house || 'Не указан';
+			document.getElementById( 'userZip' ).textContent = this.currentUser.defaultAddress.zip || 'Не указан';
+		} else {
+			document.getElementById( 'userCity' ).textContent = 'Не указан';
+			document.getElementById( 'userStreet' ).textContent = 'Не указана';
+			document.getElementById( 'userHouse' ).textContent = 'Не указан';
+			document.getElementById( 'userZip' ).textContent = 'Не указан';
+		}
+
+		API.showNotification( 'Адрес удален', 'success' );
+	}
+
+	/**
+	 * Установка адреса по умолчанию
+	 */
+	setDefaultAddress( id ) {
+		const address = this.addresses.find( a => a.id === id );
+		if ( !address ) return;
+
+		this.currentUser.defaultAddressId = id;
+		this.currentUser.defaultAddress = {
+			city: address.city,
+			street: address.street,
+			house: address.house,
+			building: address.building,
+			apartment: address.apartment,
+			zip: address.zip,
+			country: address.country
+		};
+
+		this.currentUser.addresses = this.addresses;
+		this.saveUserToStorage();
+
+		// Обновляем отображение
+		this.loadAddresses();
+
+		// Обновляем правую колонку
+		document.getElementById( 'userCity' ).textContent = address.city || 'Не указан';
+		document.getElementById( 'userStreet' ).textContent = address.street || 'Не указана';
+		document.getElementById( 'userHouse' ).textContent = address.house || 'Не указан';
+		document.getElementById( 'userZip' ).textContent = address.zip || 'Не указан';
+
+		API.showNotification( 'Адрес установлен по умолчанию', 'success' );
+	}
+
+	/**
+	 * Сохранение адреса из формы
+	 */
+	saveAddress( e ) {
+		e.preventDefault();
+
+		const addressData = {
+			id: this.currentEditingAddressId || Date.now(),
+			country: document.getElementById( 'addressCountry' ).value,
+			zip: document.getElementById( 'addressZip' ).value,
+			city: document.getElementById( 'addressCity' ).value.trim(),
+			street: document.getElementById( 'addressStreet' ).value.trim(),
+			house: document.getElementById( 'addressHouse' ).value.trim(),
+			building: document.getElementById( 'addressBuilding' ).value.trim(),
+			apartment: document.getElementById( 'addressApartment' ).value.trim(),
+			comment: document.getElementById( 'addressComment' ).value.trim(),
+			createdAt: this.currentEditingAddressId ? undefined : new Date().toISOString()
+		};
+
+		// Валидация
+		if ( !addressData.city || !addressData.street || !addressData.house ) {
+			API.showNotification( 'Заполните город, улицу и дом', 'error' );
+			return;
+		}
+
+		if ( this.currentEditingAddressId ) {
+			// Обновляем существующий адрес
+			const index = this.addresses.findIndex( a => a.id === this.currentEditingAddressId );
+			if ( index !== -1 ) {
+				this.addresses[index] = { ...this.addresses[index], ...addressData };
+			}
+		} else {
+			// Добавляем новый адрес
+			this.addresses.push( addressData );
+		}
+
+		// Если выбран как адрес по умолчанию или это первый адрес
+		const isDefault = document.getElementById( 'addressDefault' ).checked;
+		if ( isDefault || this.addresses.length === 1 ) {
+			this.currentUser.defaultAddressId = addressData.id;
+			this.currentUser.defaultAddress = {
+				city: addressData.city,
+				street: addressData.street,
+				house: addressData.house,
+				building: addressData.building,
+				apartment: addressData.apartment,
+				zip: addressData.zip,
+				country: addressData.country
+			};
+
+			// Обновляем правую колонку
+			document.getElementById( 'userCity' ).textContent = addressData.city;
+			document.getElementById( 'userStreet' ).textContent = addressData.street;
+			document.getElementById( 'userHouse' ).textContent = addressData.house;
+			document.getElementById( 'userZip' ).textContent = addressData.zip || 'Не указан';
+		}
+
+		this.currentUser.addresses = this.addresses;
+		this.saveUserToStorage();
+
+		// Сбрасываем форму
+		this.resetAddressForm();
+
+		// Обновляем список адресов
+		this.loadAddresses();
+
+		API.showNotification( this.currentEditingAddressId ? 'Адрес обновлен' : 'Адрес добавлен', 'success' );
+	}
+
+	/**
+	 * Сброс формы адреса
+	 */
+	resetAddressForm() {
+		this.currentEditingAddressId = null;
+		document.getElementById( 'addressForm' ).reset();
+		document.getElementById( 'addressCountry' ).value = 'Россия';
+
+		const submitBtn = document.querySelector( '#addressForm button[type="submit"]' );
+		if ( submitBtn ) {
+			submitBtn.innerHTML = '<i class="fas fa-save"></i> Сохранить адрес';
+		}
+	}
+
+	/**
+	 * Отмена редактирования адреса
+	 */
+	cancelAddressEdit() {
+		this.resetAddressForm();
+	}
+
+	/**
+	 * Сохранение пользователя в хранилище
+	 */
+	saveUserToStorage() {
+		// Обновляем в общем списке пользователей
+		const allUsers = JSON.parse( localStorage.getItem( 'komori_users' ) || '[]' );
+		const userIndex = allUsers.findIndex( u => u.id === this.currentUser.id );
+		if ( userIndex !== -1 ) {
+			allUsers[userIndex] = this.currentUser;
+			localStorage.setItem( 'komori_users', JSON.stringify( allUsers ) );
+		}
+
+		// Обновляем текущего пользователя
+		localStorage.setItem( 'komori_current_user', JSON.stringify( this.currentUser ) );
 	}
 
 	/**
@@ -202,12 +512,12 @@ class ProfilePage {
                         <div class="order-item">
                             <img src="${API.getSafeImageUrl( item.image )}" alt="${item.name}" class="order-item-image">
                             <div class="order-item-info">
-                                <div class="order-item-name">${item.name}</div>
+                                <div class="order-item-name">${this.escapeHtml( item.name )}</div>
                                 <div class="order-item-quantity">${item.quantity} шт.</div>
                             </div>
                             <div class="order-item-price">${API.formatPrice( item.price * item.quantity )}</div>
                         </div>
-                    `).join( '' )}
+                    ` ).join( '' )}
                 </div>
                 <div class="order-footer">
                     <div class="order-total">
@@ -300,7 +610,7 @@ class ProfilePage {
                     </button>
                 </div>
                 <div class="favorite-info">
-                    <h4 class="favorite-name">${product.name}</h4>
+                    <h4 class="favorite-name">${this.escapeHtml( product.name )}</h4>
                     <div class="favorite-price">${API.formatPrice( product.price )}</div>
                     <button class="add-to-cart-btn" data-id="${product.id}">
                         <i class="fas fa-shopping-cart"></i> В корзину
@@ -328,11 +638,19 @@ class ProfilePage {
 				btn.classList.add( 'active' );
 
 				tabs.forEach( tab => tab.classList.remove( 'active' ) );
-				document.getElementById( `${tabId}Tab` ).classList.add( 'active' );
+				const tabElement = document.getElementById( `${tabId}Tab` );
+				if ( tabElement ) {
+					tabElement.classList.add( 'active' );
+				}
 
 				// Если переключились на вкладку избранного - обновляем
 				if ( tabId === 'favorites' ) {
 					this.loadFavorites();
+				}
+
+				// Если переключились на вкладку адреса - обновляем
+				if ( tabId === 'adres' ) {
+					this.loadAddresses();
 				}
 			} );
 		} );
@@ -342,7 +660,18 @@ class ProfilePage {
 		if ( editBtn ) {
 			editBtn.addEventListener( 'click', () => {
 				// Переключаем на вкладку настроек
-				document.querySelector( '.profile-nav-btn[data-tab="settings"]' ).click();
+				const settingsBtn = document.querySelector( '.profile-nav-btn[data-tab="settings"]' );
+				if ( settingsBtn ) settingsBtn.click();
+			} );
+		}
+
+		// Кнопка редактирования адреса в правой колонке
+		const editAddressBtn = document.getElementById( 'editAddressBtn' );
+		if ( editAddressBtn ) {
+			editAddressBtn.addEventListener( 'click', () => {
+				// Переключаем на вкладку адреса
+				const adresBtn = document.querySelector( '.profile-nav-btn[data-tab="adres"]' );
+				if ( adresBtn ) adresBtn.click();
 			} );
 		}
 
@@ -353,6 +682,18 @@ class ProfilePage {
 		const settingsForm = document.getElementById( 'profileSettingsForm' );
 		if ( settingsForm ) {
 			settingsForm.addEventListener( 'submit', ( e ) => this.saveProfileSettings( e ) );
+		}
+
+		// Форма адреса
+		const addressForm = document.getElementById( 'addressForm' );
+		if ( addressForm ) {
+			addressForm.addEventListener( 'submit', ( e ) => this.saveAddress( e ) );
+		}
+
+		// Кнопка отмены редактирования адреса
+		const cancelAddressBtn = document.getElementById( 'cancelAddressBtn' );
+		if ( cancelAddressBtn ) {
+			cancelAddressBtn.addEventListener( 'click', () => this.cancelAddressEdit() );
 		}
 
 		// Кнопка выхода из аккаунта
@@ -396,9 +737,11 @@ class ProfilePage {
 			if ( e.target.closest( '.add-to-cart-btn' ) ) {
 				const btn = e.target.closest( '.add-to-cart-btn' );
 				const productId = btn.dataset.id;
-				if ( store.addToCart( productId ) ) {
+				if ( store.addToCart( productId, 1 ) ) {
 					API.showNotification( 'Товар добавлен в корзину' );
 					API.updateHeaderCounters();
+				} else {
+					API.showNotification( 'Не удалось добавить товар', 'error' );
 				}
 			}
 		} );
@@ -427,7 +770,9 @@ class ProfilePage {
 	 */
 	initChangePasswordModal() {
 		const modal = document.getElementById( 'changePasswordModal' );
-		const closeModal = modal?.querySelector( '.close-modal' );
+		if ( !modal ) return;
+
+		const closeModal = modal.querySelector( '.close-modal' );
 		const cancelBtn = document.getElementById( 'cancelChangePassword' );
 		const submitBtn = document.getElementById( 'submitChangePassword' );
 
@@ -479,14 +824,8 @@ class ProfilePage {
 			// Сохраняем аватар в объекте пользователя
 			this.currentUser.avatar = avatarData;
 
-			// Обновляем пользователя в хранилище
-			const allUsers = JSON.parse( localStorage.getItem( 'komori_users' ) || '[]' );
-			const userIndex = allUsers.findIndex( u => u.id === this.currentUser.id );
-			if ( userIndex !== -1 ) {
-				allUsers[userIndex] = this.currentUser;
-				localStorage.setItem( 'komori_users', JSON.stringify( allUsers ) );
-			}
-			localStorage.setItem( 'komori_current_user', JSON.stringify( this.currentUser ) );
+			// Сохраняем в хранилище
+			this.saveUserToStorage();
 
 			// Обновляем отображение аватара на странице профиля
 			const avatarImg = document.getElementById( 'profileAvatar' );
@@ -529,8 +868,8 @@ class ProfilePage {
 		const subscribe = document.getElementById( 'profileSubscribe' ).checked;
 
 		// Валидация
-		if ( !newName || !newEmail || !newPhone ) {
-			API.showNotification( 'Заполните все обязательные поля', 'error' );
+		if ( !newName || !newEmail ) {
+			API.showNotification( 'Заполните имя и email', 'error' );
 			return;
 		}
 
@@ -560,15 +899,8 @@ class ProfilePage {
 		this.currentUser.phone = newPhone;
 		this.currentUser.subscribe = subscribe;
 
-		// Сохраняем в localStorage
-		const allUsers = JSON.parse( localStorage.getItem( 'komori_users' ) || '[]' );
-		const userIndex = allUsers.findIndex( u => u.id === this.currentUser.id );
-		if ( userIndex !== -1 ) {
-			allUsers[userIndex] = this.currentUser;
-			localStorage.setItem( 'komori_users', JSON.stringify( allUsers ) );
-		}
-
-		localStorage.setItem( 'komori_current_user', JSON.stringify( this.currentUser ) );
+		// Сохраняем
+		this.saveUserToStorage();
 
 		// Обновляем отображение
 		this.loadUserData();
@@ -636,15 +968,8 @@ class ProfilePage {
 		// Обновляем пароль
 		this.currentUser.password = newPassword;
 
-		// Сохраняем в localStorage
-		const allUsers = JSON.parse( localStorage.getItem( 'komori_users' ) || '[]' );
-		const userIndex = allUsers.findIndex( u => u.id === this.currentUser.id );
-		if ( userIndex !== -1 ) {
-			allUsers[userIndex] = this.currentUser;
-			localStorage.setItem( 'komori_users', JSON.stringify( allUsers ) );
-		}
-
-		localStorage.setItem( 'komori_current_user', JSON.stringify( this.currentUser ) );
+		// Сохраняем
+		this.saveUserToStorage();
 
 		this.closeChangePasswordModal();
 		API.showNotification( 'Пароль успешно изменен', 'success' );
@@ -667,7 +992,20 @@ class ProfilePage {
 		API.updateHeaderCounters();
 	}
 
-	// ========== ВЫХОД ИЗ АККАУНТА ==========
+	// ========== ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ ==========
+
+	/**
+	 * Экранирование HTML
+	 */
+	escapeHtml( str ) {
+		if ( !str ) return '';
+		return str
+			.replace( /&/g, '&amp;' )
+			.replace( /</g, '&lt;' )
+			.replace( />/g, '&gt;' )
+			.replace( /"/g, '&quot;' )
+			.replace( /'/g, '&#39;' );
+	}
 
 	/**
 	 * Выход из аккаунта
@@ -676,7 +1014,6 @@ class ProfilePage {
 		if ( confirm( 'Вы уверены, что хотите выйти из аккаунта?' ) ) {
 			localStorage.removeItem( 'komori_current_user' );
 			localStorage.removeItem( 'komori_remembered_user' );
-			localStorage.removeItem( 'komori_current_avatar' );
 			window.location.href = '/pages html/login.html';
 		}
 	}
