@@ -40,7 +40,6 @@
 								<!-- <i class="fas fa-moon"></i> -->
 								<i class="fas fa-leaf"></i>
 								<!-- <i class="fas fa-mug-hot"></i> -->
-
 							</div>
 						</div>
 						<div class="logo-text">Комори
@@ -55,7 +54,7 @@
 
 					<!-- Product management -->
 					<div class="user-action-item admin-action">
-						<a href="/pages/product-management.html" class="action-link">
+						<a href="/pages html/product-management.html" class="action-link">
 							<i class="fas fa-cog"></i>
 							<span class="action-text">Управление товарами</span>
 						</a>
@@ -72,8 +71,8 @@
 
 					<!-- Избранное -->
 					<div class="user-action-item favorites-action">
-						<a href="/pages/favorites.html" class="action-link" id="favoritesBtn">
-							<i class="far fa-heart"></i>
+						<a href="/pages html/favorites.html" class="action-link" id="favoritesBtn">
+							<i class="fas fa-heart"></i>
 							<span class="action-text">Избранное</span>
 							<span class="action-badge" id="favoritesCount">0</span>
 						</a>
@@ -81,7 +80,7 @@
 
 					<!-- Корзина -->
 					<div class="user-action-item cart-action">
-						<a href="/pages/cart.html" class="action-link" id="cartBtn">
+						<a href="/pages html/cart.html" class="action-link" id="cartBtn">
 							<i class="fas fa-shopping-cart"></i>
 							<span class="action-text">Корзина</span>
 							<span class="action-badge" id="cartCount">0</span>
@@ -89,9 +88,10 @@
 					</div>
 
 					<!-- Вход/Регистрация -->
-					<div class="user-action-item auth-action">
-						<a href="/pages/login.html" class="action-link" id="authBtn">
-							<i class="far fa-user"></i>
+					<div class="user-action-item auth-action" id="authAction">
+						<a href="/pages html/login.html" class="action-link" id="authBtn">
+							<img id="headerAvatar" class="header-avatar" src="" alt="Аватар" style="display: none;">
+							<i class="far fa-user" id="headerAvatarIcon"></i>
 							<span class="action-text" id="authText">Войти</span>
 						</a>
 					</div>
@@ -129,53 +129,67 @@
 			<nav class="main-nav" id="mainNav">
 				<ul class="nav-list">
 					<li class="has-dropdown">
-						<a href="/pages/catalog.html" class="nav-link">
+						<a href="/pages html/catalog.html" class="nav-link">
 							<i class="fas fa-bars"></i> <!-- Иконка меню -->
 							<span>Каталог товаров</span>
 							<i class="fas fa-chevron-down dropdown-arrow"></i>
 						</a>
 						<!-- Обновленное подменю для азиатского магазина -->
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fas fa-user-ninja"></i> Аниме фигурки</a></li>
-							<li><a href="#"><i class="fas fa-mug-hot"></i> Японский чай</a></li>
-							<li><a href="#"><i class="fas fa-cookie-bite"></i> Азиатские сладости</a></li>
-							<li><a href="#"><i class="fas fa-utensils"></i> Японская посуда</a></li>
-							<li><a href="#"><i class="fas fa-book"></i> Манга и книги</a></li>
-							<li><a href="#"><i class="fas fa-tshirt"></i> Аниме одежда</a></li>
-							<li><a href="#"><i class="fas fa-gamepad"></i> Японские игры</a></li>
-							<li><a href="#"><i class="fas fa-palette"></i> Канцелярия кавай</a></li>
-							<li><a href="#"><i class="fas fa-spray-can"></i> Косметика из Азии</a></li>
-							<li><a href="#"><i class="fas fa-home"></i> Азиатский декор</a></li>
-							<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
-							<li><a href="#"><i class="fas fa-music"></i> Азиатская популярная музыка </a></li>
+							<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-user-ninja"></i>
+									Аниме фигурки</a></li>
+							<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-mug-hot"></i>
+									Азиатский чай</a>
+							</li>
+							<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-cookie-bite"></i>
+									Азиатские сладости</a></li>
+							<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-utensils"></i>
+									Азиатская посуда</a></li>
+							<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book"></i> Манга и
+									Книги</a>
+							</li>
+							<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-tshirt"></i> Аниме
+									одежда</a></li>
+							<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
+									Игры</a></li>
+							<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-palette"></i>
+									Канцелярия кавай</a></li>
+							<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-spray-can"></i>
+									Косметика из Азии</a></li>
+							<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-home"></i> Азиатский
+									декор</a></li>
+							<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
+									дисках</a></li>
+							<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-music"></i> Азиатская
+									популярная музыка </a></li>
 						</ul>
 					</li>
 					<li>
-						<a href="#" class="nav-link promo-link">
+						<a href="/pages html/catalog pages/special offers.html" class="nav-link promo-link">
 							<i class="fas fa-tags"></i> <!-- Иконка ценника -->
-							<span>Акции и скидки</span>
+							<span>Новинки</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-link">
+						<a href="/pages html/catalog pages/collections.html" class="nav-link">
 							<i class="fas fa-star"></i> <!-- Иконка доставки -->
 							<span>Коллекции</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-link">
+						<a href="/pages html/pages info/rising sun news.html" class="nav-link">
 							<i class="fas fa-newspaper"></i>
 							<span>Новости восходящего солнца</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-link">
+						<a href="/pages html/pages info/Payment and delivery.html" class="nav-link">
 							<i class="fas fa-shipping-fast"></i> <!-- Иконка доставки -->
-							<span>Доставка</span>
+							<span>Наши адреса и Доставка</span>
 						</a>
 					</li>
 					<li>
-						<a href="/pages/info.html" class="nav-link">
+						<a href="/pages html/pages info/About us.html" class="nav-link">
 							<i class="fas fa-store"></i> <!-- Иконка магазина -->
 							<span>О нас</span>
 						</a>

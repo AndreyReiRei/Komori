@@ -25,7 +25,6 @@
 </head>
 
 <body>
-
 	<!-- Шапка сайта -->
 	<header>
 		<div class="container__header">
@@ -35,7 +34,9 @@
 					<a href="/">
 						<div class="logo-icon">
 							<div class="logo-complex">
+								<!-- <i class="fas fa-moon"></i> -->
 								<i class="fas fa-leaf"></i>
+								<!-- <i class="fas fa-mug-hot"></i> -->
 							</div>
 						</div>
 						<div class="logo-text">Комори
@@ -44,8 +45,10 @@
 					</a>
 				</div>
 
-				<!-- Блок иконок пользователя -->
+				<!-- Блок иконок пользователя (корзина, избранное, вход) + ЧАТ для мобильных -->
 				<div class="user-actions">
+
+
 					<!-- Product management -->
 					<div class="user-action-item admin-action">
 						<a href="/pages html/product-management.html" class="action-link">
@@ -53,6 +56,7 @@
 							<span class="action-text">Управление товарами</span>
 						</a>
 					</div>
+
 
 					<!-- ПОИСК -->
 					<div class="user-action-item search-action">
@@ -65,7 +69,7 @@
 					<!-- Избранное -->
 					<div class="user-action-item favorites-action">
 						<a href="/pages html/favorites.html" class="action-link" id="favoritesBtn">
-							<i class="far fa-heart"></i>
+							<i class="fas fa-heart"></i>
 							<span class="action-text">Избранное</span>
 							<span class="action-badge" id="favoritesCount">0</span>
 						</a>
@@ -101,6 +105,7 @@
 
 				<!-- Поддержка для десктопа -->
 				<div class="header-contacts">
+					<!-- кнопка чата с поддержкой (только для десктопа) -->
 					<button class="chat-btn" id="chatBtn">
 						<i class="fas fa-comment-dots"></i>
 						<span>Чат с поддержкой</span>
@@ -117,30 +122,33 @@
 				</div>
 			</div>
 
-			<!-- Основная навигация -->
+			<!-- Основная навигация для десктопа -->
 			<nav class="main-nav" id="mainNav">
 				<ul class="nav-list">
 					<li class="has-dropdown">
 						<a href="/pages html/catalog.html" class="nav-link">
-							<i class="fas fa-bars"></i>
+							<i class="fas fa-bars"></i> <!-- Иконка меню -->
 							<span>Каталог товаров</span>
 							<i class="fas fa-chevron-down dropdown-arrow"></i>
 						</a>
+						<!-- Обновленное подменю для азиатского магазина -->
 						<ul class="dropdown-menu">
 							<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-user-ninja"></i>
 									Аниме фигурки</a></li>
-							<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-mug-hot"></i> Японский
-									чай</a></li>
+							<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-mug-hot"></i>
+									Азиатский чай</a>
+							</li>
 							<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-cookie-bite"></i>
 									Азиатские сладости</a></li>
-							<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-utensils"></i> Японская
-									посуда</a></li>
+							<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-utensils"></i>
+									Азиатская посуда</a></li>
 							<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book"></i> Манга и
-									книги</a></li>
+									Книги</a>
+							</li>
 							<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-tshirt"></i> Аниме
 									одежда</a></li>
 							<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
-									игры</a></li>
+									Игры</a></li>
 							<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-palette"></i>
 									Канцелярия кавай</a></li>
 							<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-spray-can"></i>
@@ -150,19 +158,39 @@
 							<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
 									дисках</a></li>
 							<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-music"></i> Азиатская
-									музыка</a></li>
+									популярная музыка </a></li>
 						</ul>
 					</li>
-					<li><a href="/pages html/catalog pages/special offers.html" class="nav-link promo-link"><i
-								class="fas fa-tags"></i><span>Акции и скидки</span></a></li>
-					<li><a href="/pages html/catalog pages/collections.html" class="nav-link"><i
-								class="fas fa-star"></i><span>Коллекции</span></a></li>
-					<li><a href="/pages html/pages info/rising sun news.html" class="nav-link"><i
-								class="fas fa-newspaper"></i><span>Новости восходящего солнца</span></a></li>
-					<li><a href="/pages html/pages info/Payment and delivery.html" class="nav-link"><i
-								class="fas fa-shipping-fast"></i><span>Доставка</span></a></li>
-					<li><a href="/pages html/pages info/About us.html" class="nav-link"><i
-								class="fas fa-store"></i><span>О нас</span></a></li>
+					<li>
+						<a href="/pages html/catalog pages/special offers.html" class="nav-link promo-link">
+							<i class="fas fa-tags"></i> <!-- Иконка ценника -->
+							<span>Новинки</span>
+						</a>
+					</li>
+					<li>
+						<a href="/pages html/catalog pages/collections.html" class="nav-link">
+							<i class="fas fa-star"></i> <!-- Иконка доставки -->
+							<span>Коллекции</span>
+						</a>
+					</li>
+					<li>
+						<a href="/pages html/pages info/rising sun news.html" class="nav-link">
+							<i class="fas fa-newspaper"></i>
+							<span>Новости восходящего солнца</span>
+						</a>
+					</li>
+					<li>
+						<a href="/pages html/pages info/Payment and delivery.html" class="nav-link">
+							<i class="fas fa-shipping-fast"></i> <!-- Иконка доставки -->
+							<span>Наши адреса и Доставка</span>
+						</a>
+					</li>
+					<li>
+						<a href="/pages html/pages info/About us.html" class="nav-link">
+							<i class="fas fa-store"></i> <!-- Иконка магазина -->
+							<span>О нас</span>
+						</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -279,9 +307,6 @@
 							<i class="fas fa-camera"></i>
 						</div>
 						<input type="file" id="avatarUpload" accept="image/*">
-						<button class="edit-profile-btn" id="editProfileBtn">
-							<i class="fas fa-pen"></i>
-						</button>
 					</div>
 				</div>
 

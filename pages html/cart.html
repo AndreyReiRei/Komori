@@ -38,7 +38,6 @@
 								<!-- <i class="fas fa-moon"></i> -->
 								<i class="fas fa-leaf"></i>
 								<!-- <i class="fas fa-mug-hot"></i> -->
-
 							</div>
 						</div>
 						<div class="logo-text">Комори
@@ -71,7 +70,7 @@
 					<!-- Избранное -->
 					<div class="user-action-item favorites-action">
 						<a href="/pages html/favorites.html" class="action-link" id="favoritesBtn">
-							<i class="far fa-heart"></i>
+							<i class="fas fa-heart"></i>
 							<span class="action-text">Избранное</span>
 							<span class="action-badge" id="favoritesCount">0</span>
 						</a>
@@ -87,9 +86,10 @@
 					</div>
 
 					<!-- Вход/Регистрация -->
-					<div class="user-action-item auth-action">
+					<div class="user-action-item auth-action" id="authAction">
 						<a href="/pages html/login.html" class="action-link" id="authBtn">
-							<i class="far fa-user"></i>
+							<img id="headerAvatar" class="header-avatar" src="" alt="Аватар" style="display: none;">
+							<i class="far fa-user" id="headerAvatarIcon"></i>
 							<span class="action-text" id="authText">Войти</span>
 						</a>
 					</div>
@@ -135,29 +135,25 @@
 						<!-- Обновленное подменю для азиатского магазина -->
 						<ul class="dropdown-menu">
 							<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-user-ninja"></i>
-									Аниме
-									фигурки</a></li>
-							<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-mug-hot"></i> Японский
-									чай</a>
+									Аниме фигурки</a></li>
+							<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-mug-hot"></i>
+									Азиатский чай</a>
 							</li>
 							<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-cookie-bite"></i>
-									Азиатские
-									сладости</a></li>
-							<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-utensils"></i> Японская
-									посуда</a></li>
+									Азиатские сладости</a></li>
+							<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-utensils"></i>
+									Азиатская посуда</a></li>
 							<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book"></i> Манга и
-									книги</a>
+									Книги</a>
 							</li>
 							<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-tshirt"></i> Аниме
 									одежда</a></li>
 							<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
-									игры</a></li>
+									Игры</a></li>
 							<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-palette"></i>
-									Канцелярия
-									кавай</a></li>
+									Канцелярия кавай</a></li>
 							<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-spray-can"></i>
-									Косметика
-									из Азии</a></li>
+									Косметика из Азии</a></li>
 							<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-home"></i> Азиатский
 									декор</a></li>
 							<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
@@ -169,7 +165,7 @@
 					<li>
 						<a href="/pages html/catalog pages/special offers.html" class="nav-link promo-link">
 							<i class="fas fa-tags"></i> <!-- Иконка ценника -->
-							<span>Акции и скидки</span>
+							<span>Новинки</span>
 						</a>
 					</li>
 					<li>
@@ -187,7 +183,7 @@
 					<li>
 						<a href="/pages html/pages info/Payment and delivery.html" class="nav-link">
 							<i class="fas fa-shipping-fast"></i> <!-- Иконка доставки -->
-							<span>Доставка</span>
+							<span>Наши адреса и Доставка</span>
 						</a>
 					</li>
 					<li>

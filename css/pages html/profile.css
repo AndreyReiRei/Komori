@@ -12,25 +12,26 @@
 	gap: 40px;
 	margin-bottom: 30px;
 	flex-wrap: wrap;
+	background: linear-gradient(135deg, #000000 0%, #2d2d2dd8 100%);
+	border-radius: 20px;
+	border: 2px solid #ff3366;
 }
 
 /* ЛЕВАЯ КОЛОНКА - АВАТАР (занимает 1/3 от блока, но блок не более половины экрана) */
 .profile-left {
-	flex: 0 0 40%;
-
+	flex: 0 0 45%;
 }
 
 .profile-avatar {
 	position: relative;
 	width: 100%;
+	height: auto;
+	/* Высота автоматически подстраивается */
 	aspect-ratio: 1/1;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-	border-radius: 20px;
-	border: 2px solid #ff3366;
 	padding: 20px;
 	box-sizing: border-box;
 }
@@ -38,7 +39,8 @@
 #profileAvatar {
 	width: 100%;
 	height: 100%;
-	border-radius: 50%;
+	border-radius: 20px;
+	border: 2px solid #ff3366;
 	object-fit: cover;
 }
 
@@ -50,12 +52,11 @@
 /* кнопка загрузки аватара */
 .avatar-overlay {
 	position: absolute;
-	bottom: 10%;
-	right: 10%;
-	background: #ff3366;
+	bottom: 7%;
+	right: 7%;
 	border-radius: 50%;
-	width: 15%;
-	height: 15%;
+	width: 10%;
+	height: 10%;
 	min-width: 36px;
 	min-height: 36px;
 	display: flex;
@@ -64,10 +65,12 @@
 	cursor: pointer;
 	transition: all 0.3s ease;
 	font-size: 32px;
+	background-color: #00000050;
+	box-shadow: 1px 1px 3px #000000;
 }
 
 .avatar-overlay:hover {
-	background: #ff6b6b;
+	background: #d20000;
 	transform: translateY(-2px);
 	box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
 }
@@ -80,54 +83,26 @@
 	display: none;
 }
 
-
-/* Кнопка редактирования профиля под аватаром */
-.edit-profile-btn {
-	position: absolute;
-	bottom: 10%;
-	left: 10%;
-	background: #ff3366;
-	border-radius: 50%;
-	width: 15%;
-	height: 15%;
-	min-width: 36px;
-	min-height: 36px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	transition: all 0.3s ease;
-	font-size: 36px;
-}
-
-.edit-profile-btn i {
-	color: white;
-}
-
-
-.edit-profile-btn:hover {
-	background: #ff6b6b;
-	transform: translateY(-2px);
-	box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
-}
-
 /* ПРАВАЯ КОЛОНКА - ИНФОРМАЦИЯ (занимает оставшееся место) */
 .profile-right {
 	flex: 1;
 	min-width: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
 }
 
 .profile-info-card {
-	background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-	border-radius: 20px;
-	padding: 25px;
-	border: 1px solid #333;
+	padding: 45px;
 	margin-bottom: 20px;
+	border-radius: 20px;
+	border: 2px solid #ff3366;
 }
 
 .profile-info-card h3 {
 	color: #ff3366;
-	font-size: 18px;
+	font-size: 30px;
 	margin: 0 0 15px 0;
 	display: flex;
 	align-items: center;
@@ -135,7 +110,7 @@
 }
 
 .profile-info-card h3 i {
-	font-size: 20px;
+	font-size: 30px;
 }
 
 .profile-info-card .info-row {
@@ -732,11 +707,6 @@
 		margin: 0 auto;
 	}
 
-	.profile-left {
-		flex: 0 0 40%;
-
-	}
-
 	.profile-info-card {
 		padding: 30px;
 	}
@@ -771,11 +741,6 @@
 
 /* Очень большой десктоп (1441px - 1920px) */
 @media (1441px <=width < 1921px) {
-	.profile-left {
-		flex: 0 0 40%;
-
-	}
-
 	.stats-grid {
 		gap: 25px;
 	}
@@ -788,10 +753,6 @@
 
 /* Большой десктоп (1201px - 1440px) */
 @media (1201px <=width < 1441px) {
-	.profile-left {
-		flex: 0 0 40%;
-
-	}
 
 	.stats-grid {
 		gap: 20px;
@@ -805,11 +766,6 @@
 
 /* Десктоп (993px - 1200px) */
 @media (993px <=width < 1201px) {
-	.profile-left {
-		flex: 0 0 40%;
-
-	}
-
 	.profile-info h1 {
 		font-size: 26px;
 	}
@@ -1068,11 +1024,6 @@
 		font-size: 20px;
 	}
 
-	.edit-profile-btn {
-		padding: 8px 16px;
-		font-size: 13px;
-	}
-
 	.profile-info-card {
 		padding: 15px;
 	}
@@ -1233,11 +1184,6 @@
 
 	.avatar-overlay i {
 		font-size: 18px;
-	}
-
-	.edit-profile-btn {
-		padding: 6px 12px;
-		font-size: 12px;
 	}
 
 	.profile-nav-btn {
