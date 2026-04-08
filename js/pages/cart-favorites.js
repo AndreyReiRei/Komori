@@ -1,34 +1,50 @@
 /**
- * Страницы корзины и избранного
+ * ============================================================================
+ * СТРАНИЦЫ КОРЗИНЫ И ИЗБРАННОГО
+ * ============================================================================
  */
 
 class CartFavoritesPage {
 	constructor() {
-		this.currentPage = 'cart'; // 'cart' или 'favorites'
+		// Текущая страница: 'cart' или 'favorites'
+		this.currentPage = 'cart';
+
+		// Примененный промокод (хранится в localStorage)
+		this.appliedPromo = null;
+
+		// Флаг для предотвращения множественной инициализации событий
+		this.eventsBound = false;
+
+		// Инициализация страницы
 		this.init();
 	}
 
+	/**
+	 * ИНИЦИАЛИЗАЦИЯ СТРАНИЦЫ
+	 */
 	init() {
-		// Определяем текущую страницу
+		// Проверяем, какая страница загружена
 		if ( document.querySelector( '.cart-page-content' ) ) {
 			this.currentPage = 'cart';
-			console.log( 'Определена страница корзины' );
+			console.log( '🛒 Определена страница корзины' );
+
+			this.loadPromoCode();
 			this.renderCart();
 			this.bindCartEvents();
-			// Рендерим рекомендации
 			setTimeout( () => this.renderRecommendations(), 100 );
+
 		} else if ( document.querySelector( '.favorites-page-content' ) ) {
 			this.currentPage = 'favorites';
-			console.log( 'Определена страница избранного' );
+			console.log( '❤️ Определена страница избранного' );
+
 			this.renderFavorites();
 			this.bindFavoritesEvents();
-			// Рендерим рекомендации
 			setTimeout( () => this.renderRecommendations(), 100 );
 		}
 
-		// Общие события
+		// Глобальные слушатели
 		window.addEventListener( 'store:cartUpdated', () => {
-			console.log( 'Корзина обновлена' );
+			console.log( '🔄 Корзина обновлена' );
 			if ( this.currentPage === 'cart' ) {
 				this.renderCart();
 				this.renderRecommendations();
@@ -37,7 +53,7 @@ class CartFavoritesPage {
 		} );
 
 		window.addEventListener( 'store:favoritesUpdated', () => {
-			console.log( 'Избранное обновлено' );
+			console.log( '🔄 Избранное обновлено' );
 			if ( this.currentPage === 'favorites' ) {
 				this.renderFavorites();
 				this.renderRecommendations();
@@ -46,68 +62,78 @@ class CartFavoritesPage {
 		} );
 
 		window.addEventListener( 'store:productsUpdated', () => {
-			console.log( 'Товары обновлены, обновляем рекомендации' );
+			console.log( '🔄 Товары обновлены' );
 			this.renderRecommendations();
 		} );
 
 		API.initModalHandlers();
-
-		// Обновляем счетчики при загрузке
 		this.updateHeaderCounters();
 	}
 
-	// ========== КОРЗИНА ==========
+	/**
+	 * =========================================================================
+	 * ОТОБРАЖЕНИЕ КОРЗИНЫ
+	 * =========================================================================
+	 */
 	renderCart() {
-		console.log( 'Рендерим корзину' );
+		console.log( '🛒 Рендерим корзину...' );
 
 		const cartWithItems = document.getElementById( 'cartWithItems' );
 		const cartEmptyState = document.getElementById( 'cartEmptyState' );
 		const cartItemsList = document.getElementById( 'cartItemsList' );
-		const cartItems = store.getCart();
 
-		console.log( 'Товары в корзине:', cartItems );
+		// Получаем ТОЛЬКО ID и количество из store.cart
+		const cartItems = store.cart; // [{ id: "123", quantity: 2 }, ...]
 
-		if ( cartItems.length === 0 ) {
-			// Показываем пустую корзину
+		console.log( '📦 Товары в корзине (сырые данные):', cartItems );
+
+		if ( !cartItems || cartItems.length === 0 ) {
 			if ( cartWithItems ) cartWithItems.style.display = 'none';
 			if ( cartEmptyState ) cartEmptyState.style.display = 'block';
 			this.updateCartSummary();
 			return;
 		}
 
-		// Показываем корзину с товарами
 		if ( cartWithItems ) cartWithItems.style.display = 'grid';
 		if ( cartEmptyState ) cartEmptyState.style.display = 'none';
 
-		// Очищаем и заполняем список товаров
+		// Генерируем HTML для каждого товара, получая актуальные данные из products
 		if ( cartItemsList ) {
-			cartItemsList.innerHTML = cartItems.map( item => this.renderCartItem( item ) ).join( '' );
+			cartItemsList.innerHTML = cartItems.map( item => {
+				const product = store.getProduct( item.id );
+				if ( !product ) return ''; // Товар не найден - пропускаем
+				return this.renderCartItem( product, item.quantity );
+			} ).filter( html => html !== '' ).join( '' );
 		}
 
 		this.updateCartSummary();
 	}
 
-	renderCartItem( item ) {
-		const product = store.getProduct( item.id );
+	/**
+	 * Отрисовка одной строки товара в корзине
+	 * @param {Object} product - полный объект товара из store.products
+	 * @param {number} quantity - количество из корзины
+	 */
+	renderCartItem( product, quantity ) {
 		const isLowStock = product && product.quantity <= 3;
 
 		return `
-            <div class="cart-item-row" data-id="${item.id}">
+            <div class="cart-item-row" data-id="${product.id}">
                 <div class="cart-col-product">
                     <div class="cart-product-info">
-                        <img src="${API.getSafeImageUrl( item.image )}" 
-                             alt="${item.name}"
+                        <img src="${API.getSafeImageUrl( product.image )}" 
+                             alt="${product.name}"
                              class="cart-product-image"
-                             onerror="this.src='${API.getFallbackSvg( item.name )}'">
+                             onerror="this.src='${API.getFallbackSvg( product.name )}'">
                         <div class="cart-product-details">
                             <h3 class="cart-product-title">
-                                <a href="/pages html/product.html?id=${item.id}">${item.name}</a>
+                                <a href="/pages html/product.html?id=${product.id}">${product.name}</a>
                             </h3>
                             <div class="cart-product-attributes">
-                                <span class="cart-product-category">${store.getCategoryName( product?.category || '' )}</span>
-                                <span class="cart-product-stock ${item.quantity > 0 ? 'in-stock' : 'out-of-stock'}">
-                                    <i class="fas ${item.quantity > 0 ? 'fa-check-circle' : 'fa-times-circle'}"></i> 
-                                    ${item.quantity > 0 ? 'В наличии' : 'Нет в наличии'}
+                                <span class="cart-product-category">${store.getCategoryName( product.category || '' )}</span>
+                                <span class="cart-product-stock ${product.quantity > 0 ? 'in-stock' : 'out-of-stock'}">
+                                    <i class="fas ${product.quantity > 0 ? 'fa-check-circle' : 'fa-times-circle'}"></i> 
+                                    ${product.quantity > 0 ? 'В наличии' : 'Нет в наличии'}
                                     ${isLowStock ? '<span class="low-stock-warning"> (Осталось мало)</span>' : ''}
                                 </span>
                             </div>
@@ -115,23 +141,23 @@ class CartFavoritesPage {
                     </div>
                 </div>
                 <div class="cart-col-price">
-                    <div class="cart-price-current">${API.formatPrice( item.price )}</div>
-                    ${product?.oldPrice ? `<div class="cart-price-old">${API.formatPrice( product.oldPrice )}</div>` : ''}
+                    <div class="cart-price-current">${API.formatPrice( product.price )}</div>
+                    ${product.oldPrice ? `<div class="cart-price-old">${API.formatPrice( product.oldPrice )}</div>` : ''}
                 </div>
                 <div class="cart-col-quantity">
                     <div class="cart-quantity-control">
-                        <button class="cart-quantity-btn minus" data-id="${item.id}">-</button>
-                        <input type="number" class="cart-quantity-input" value="${item.quantity}" 
-                               min="1" max="${item.maxQuantity || 99}" data-id="${item.id}" readonly>
-                        <button class="cart-quantity-btn plus" data-id="${item.id}" 
-                                ${item.quantity >= item.maxQuantity ? 'disabled' : ''}>+</button>
+                        <button class="cart-quantity-btn minus" data-id="${product.id}">-</button>
+                        <input type="number" class="cart-quantity-input" value="${quantity}" 
+                               min="1" max="${product.quantity}" data-id="${product.id}">
+                        <button class="cart-quantity-btn plus" data-id="${product.id}" 
+                                ${quantity >= product.quantity ? 'disabled' : ''}>+</button>
                     </div>
                 </div>
                 <div class="cart-col-total">
-                    <div class="cart-item-total">${API.formatPrice( item.price * item.quantity )}</div>
+                    <div class="cart-item-total">${API.formatPrice( product.price * quantity )}</div>
                 </div>
                 <div class="cart-col-remove">
-                    <button class="cart-remove-item" data-id="${item.id}" title="Удалить товар">
+                    <button class="cart-remove-item" data-id="${product.id}" title="Удалить товар">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -139,70 +165,122 @@ class CartFavoritesPage {
         `;
 	}
 
-	// Привязка событий для корзины
+	/**
+	 * =========================================================================
+	 * ОБРАБОТЧИКИ СОБЫТИЙ ДЛЯ КОРЗИНЫ (исправленная версия)
+	 * =========================================================================
+	 */
 	bindCartEvents() {
-		console.log( 'Привязка событий корзины...' );
+		console.log( '🔗 Привязка событий корзины...' );
 
-		// Кнопки увеличения количества
-		document.querySelectorAll( '.cart-quantity-btn.plus' ).forEach( btn => {
-			btn.removeEventListener( 'click', this.handlePlusClick );
-			this.handlePlusClick = ( e ) => {
+		// Используем делегирование событий на уровне document
+		// Это решает проблему с обновлением обработчиков после перерисовки
+
+		// Удаляем старые обработчики, если они были
+		if ( this.cartEventsBound ) {
+			document.removeEventListener( 'click', this.handleDocumentClick );
+		}
+
+		// Создаем обработчик клика на document
+		this.handleDocumentClick = ( e ) => {
+			const target = e.target;
+
+			// Обработка кнопки "+"
+			const plusBtn = target.closest( '.cart-quantity-btn.plus' );
+			if ( plusBtn && plusBtn.closest( '.cart-item-row' ) ) {
 				e.preventDefault();
-				const id = e.currentTarget.dataset.id;
-				const input = document.querySelector( `.cart-quantity-input[data-id="${id}"]` );
-				const newValue = parseInt( input.value ) + 1;
+				const id = plusBtn.dataset.id;
+				const input = plusBtn.closest( '.cart-quantity-control' ).querySelector( '.cart-quantity-input' );
+				const currentValue = parseInt( input.value );
+				const maxValue = parseInt( input.max );
+
+				if ( currentValue < maxValue ) {
+					const newValue = currentValue + 1;
+					if ( store.updateCartQuantity( id, newValue ) ) {
+						input.value = newValue;
+						this.updateCartItemTotal( id, newValue );
+						this.updateCartSummary();
+						this.renderRecommendations();
+					}
+				}
+				return;
+			}
+
+			// Обработка кнопки "-"
+			const minusBtn = target.closest( '.cart-quantity-btn.minus' );
+			if ( minusBtn && minusBtn.closest( '.cart-item-row' ) ) {
+				e.preventDefault();
+				const id = minusBtn.dataset.id;
+				const input = minusBtn.closest( '.cart-quantity-control' ).querySelector( '.cart-quantity-input' );
+				const currentValue = parseInt( input.value );
+
+				if ( currentValue > 1 ) {
+					const newValue = currentValue - 1;
+					if ( store.updateCartQuantity( id, newValue ) ) {
+						input.value = newValue;
+						this.updateCartItemTotal( id, newValue );
+						this.updateCartSummary();
+						this.renderRecommendations();
+					}
+				}
+				return;
+			}
+
+			// Обработка ручного ввода количества
+			const quantityInput = target.closest( '.cart-quantity-input' );
+			if ( quantityInput && quantityInput.closest( '.cart-item-row' ) ) {
+				e.preventDefault();
+				const id = quantityInput.dataset.id;
+				let newValue = parseInt( quantityInput.value );
+				const maxValue = parseInt( quantityInput.max );
+				const minValue = parseInt( quantityInput.min ) || 1;
+
+				if ( isNaN( newValue ) ) newValue = minValue;
+				if ( newValue < minValue ) newValue = minValue;
+				if ( newValue > maxValue ) newValue = maxValue;
+
 				if ( store.updateCartQuantity( id, newValue ) ) {
-					this.renderCart();
+					quantityInput.value = newValue;
+					this.updateCartItemTotal( id, newValue );
+					this.updateCartSummary();
 					this.renderRecommendations();
 				}
-			};
-			btn.addEventListener( 'click', this.handlePlusClick );
-		} );
+				return;
+			}
 
-		// Кнопки уменьшения количества
-		document.querySelectorAll( '.cart-quantity-btn.minus' ).forEach( btn => {
-			btn.removeEventListener( 'click', this.handleMinusClick );
-			this.handleMinusClick = ( e ) => {
+			// Обработка удаления товара
+			const removeBtn = target.closest( '.cart-remove-item' );
+			if ( removeBtn && removeBtn.closest( '.cart-item-row' ) ) {
 				e.preventDefault();
-				const id = e.currentTarget.dataset.id;
-				const input = document.querySelector( `.cart-quantity-input[data-id="${id}"]` );
-				const newValue = parseInt( input.value ) - 1;
-				if ( store.updateCartQuantity( id, newValue ) ) {
-					this.renderCart();
-					this.renderRecommendations();
-				}
-			};
-			btn.addEventListener( 'click', this.handleMinusClick );
-		} );
-
-		// Кнопки удаления
-		document.querySelectorAll( '.cart-remove-item' ).forEach( btn => {
-			btn.removeEventListener( 'click', this.handleRemoveClick );
-			this.handleRemoveClick = ( e ) => {
-				e.preventDefault();
-				const id = e.currentTarget.dataset.id;
-				this.animateRemove( e.currentTarget.closest( '.cart-item-row' ), () => {
+				const id = removeBtn.dataset.id;
+				const row = removeBtn.closest( '.cart-item-row' );
+				this.animateRemove( row, () => {
 					store.removeFromCart( id );
 					this.renderRecommendations();
 				} );
-			};
-			btn.addEventListener( 'click', this.handleRemoveClick );
-		} );
+				return;
+			}
+		};
 
-		// Очистка корзины
+		// Привязываем обработчик
+		document.addEventListener( 'click', this.handleDocumentClick );
+		this.cartEventsBound = true;
+
+		// Кнопка очистки корзины
 		const clearCartBtn = document.getElementById( 'clearCartBtn' );
 		if ( clearCartBtn ) {
 			clearCartBtn.removeEventListener( 'click', this.handleClearCart );
 			this.handleClearCart = () => {
-				if ( confirm( 'Очистить корзину?' ) ) {
+				if ( confirm( '🗑️ Вы уверены, что хотите очистить корзину?' ) ) {
 					store.clearCart();
+					this.resetPromoCode();
 					this.renderRecommendations();
 				}
 			};
 			clearCartBtn.addEventListener( 'click', this.handleClearCart );
 		}
 
-		// Оформление заказа
+		// Кнопка оформления заказа
 		const checkoutBtn = document.getElementById( 'checkoutBtn' );
 		if ( checkoutBtn ) {
 			checkoutBtn.removeEventListener( 'click', this.handleCheckout );
@@ -210,7 +288,7 @@ class CartFavoritesPage {
 			checkoutBtn.addEventListener( 'click', this.handleCheckout );
 		}
 
-		// Применение промокода
+		// Кнопка применения промокода
 		const applyPromoBtn = document.getElementById( 'applyPromoBtn' );
 		if ( applyPromoBtn ) {
 			applyPromoBtn.removeEventListener( 'click', this.handleApplyPromo );
@@ -219,36 +297,212 @@ class CartFavoritesPage {
 		}
 	}
 
+	/**
+	 * Обновление суммы конкретного товара в корзине
+	 * @param {string|number} productId - ID товара
+	 * @param {number} newQuantity - новое количество
+	 */
+	updateCartItemTotal( productId, newQuantity ) {
+		const row = document.querySelector( `.cart-item-row[data-id="${productId}"]` );
+		if ( !row ) return;
+
+		const product = store.getProduct( productId );
+		if ( !product ) return;
+
+		const totalElement = row.querySelector( '.cart-item-total' );
+		if ( totalElement ) {
+			totalElement.textContent = API.formatPrice( product.price * newQuantity );
+		}
+
+		// Обновляем состояние кнопки "+"
+		const plusBtn = row.querySelector( '.cart-quantity-btn.plus' );
+		if ( plusBtn ) {
+			if ( newQuantity >= product.quantity ) {
+				plusBtn.disabled = true;
+			} else {
+				plusBtn.disabled = false;
+			}
+		}
+	}
+
+	/**
+	 * =========================================================================
+	 * ОБНОВЛЕНИЕ ИТОГОВЫХ СУММ В КОРЗИНЕ (исправленная версия)
+	 * =========================================================================
+	 */
 	updateCartSummary() {
-		// Обновляем информацию в шапке страницы
+		// Получаем количество товаров и общую сумму без скидки
+		const count = store.getCartCount();
+		const subtotal = store.getCartTotal();
+
+		let discount = 0;
+		let total = subtotal;
+
+		// Если применен промокод - рассчитываем скидку
+		if ( this.appliedPromo ) {
+			if ( this.appliedPromo.type === 'percent' ) {
+				discount = subtotal * this.appliedPromo.discount;
+			} else if ( this.appliedPromo.type === 'fixed' ) {
+				discount = this.appliedPromo.discount;
+			}
+			discount = Math.min( discount, subtotal );
+			total = subtotal - discount;
+		}
+
+		// ========== ОБНОВЛЯЕМ ЗАГОЛОВОК СТРАНИЦЫ ==========
 		const itemsCountElement = document.querySelector( '.cart-items-count' );
 		const totalAmountElement = document.querySelector( '.cart-total-amount' );
-
-		const count = store.getCartCount();
-		const total = store.getCartTotal();
 
 		if ( itemsCountElement ) {
 			itemsCountElement.textContent = this.getDeclension( count, ['товар', 'товара', 'товаров'] );
 		}
 
 		if ( totalAmountElement ) {
-			totalAmountElement.textContent = `на сумму ${API.formatPrice( total )}`;
+			totalAmountElement.textContent = `на сумму ${API.formatPrice( subtotal )}`;
 		}
 
-		// Обновляем итоги в боковой панели
+		// ========== ОБНОВЛЯЕМ БОКОВУЮ ПАНЕЛЬ ==========
 		const cartSubtotal = document.getElementById( 'cartSubtotal' );
-		const cartTotal = document.getElementById( 'cartTotal' );
+		const discountAmount = document.querySelector( '.discount-amount' );
+		const cartTotalById = document.getElementById( 'cartTotal' );
+		const totalAmountByClass = document.querySelector( '.total-amount' );
 		const cartItemsCount = document.getElementById( 'cartItemsCount' );
 
+		// Подытог (сумма товаров без скидки)
 		if ( cartSubtotal ) {
-			cartSubtotal.textContent = API.formatPrice( total );
+			cartSubtotal.textContent = API.formatPrice( subtotal );
 		}
-		if ( cartTotal ) {
-			cartTotal.textContent = API.formatPrice( total );
+
+		// Строка со скидкой
+		if ( discountAmount ) {
+			discountAmount.textContent = discount > 0 ? `-${API.formatPrice( discount )}` : '0 ₽';
+			discountAmount.style.color = discount > 0 ? '#2ecc71' : '';
 		}
+
+		// Обновляем итоговую сумму (по ID)
+		if ( cartTotalById ) {
+			cartTotalById.textContent = API.formatPrice( total );
+		}
+
+		// Обновляем итоговую сумму (по классу) - ЭТО БЫЛО ПРОПУЩЕНО!
+		if ( totalAmountByClass ) {
+			totalAmountByClass.textContent = API.formatPrice( total );
+		}
+
+		// Количество товаров
 		if ( cartItemsCount ) {
 			cartItemsCount.textContent = count;
 		}
+	}
+
+	// ========== ОСТАЛЬНЫЕ МЕТОДЫ (без изменений) ==========
+
+	loadPromoCode() {
+		const savedPromo = localStorage.getItem( 'appliedPromoCode' );
+		if ( savedPromo ) {
+			try {
+				this.appliedPromo = JSON.parse( savedPromo );
+				console.log( '🏷️ Загружен промокод:', this.appliedPromo );
+			} catch ( e ) {
+				console.error( 'Ошибка загрузки промокода:', e );
+				this.appliedPromo = null;
+			}
+		}
+	}
+
+	resetPromoCode() {
+		this.appliedPromo = null;
+		localStorage.removeItem( 'appliedPromoCode' );
+
+		const message = document.getElementById( 'promoMessage' );
+		if ( message ) {
+			message.style.color = '#2ecc71';
+			message.textContent = '🏷️ Промокод отменен';
+			setTimeout( () => {
+				message.textContent = '';
+			}, 2000 );
+		}
+
+		const resetBtn = document.getElementById( 'resetPromoBtn' );
+		if ( resetBtn ) resetBtn.remove();
+
+		this.updateCartSummary();
+	}
+
+	applyPromoCode() {
+		const input = document.getElementById( 'promoCodeInput' );
+		const message = document.getElementById( 'promoMessage' );
+
+		if ( !input || !message ) return;
+
+		const code = input.value.trim().toUpperCase();
+
+		const promoCodes = {
+			'SAKURA10': { discount: 0.1, type: 'percent', description: '10% скидка' },
+			'KOMORI500': { discount: 500, type: 'fixed', description: '500 ₽ скидка' },
+			'WELCOME': { discount: 0.15, type: 'percent', description: '15% скидка' }
+		};
+
+		if ( promoCodes[code] ) {
+			this.appliedPromo = promoCodes[code];
+			localStorage.setItem( 'appliedPromoCode', JSON.stringify( this.appliedPromo ) );
+
+			message.style.color = '#2ecc71';
+			message.textContent = `✅ Промокод применен! ${this.appliedPromo.description}`;
+
+			this.updateCartSummary();
+			input.value = '';
+			this.addPromoCodeResetButton();
+
+			setTimeout( () => {
+				if ( message.textContent.includes( 'Промокод применен' ) ) {
+					message.textContent = '';
+				}
+			}, 3000 );
+		} else {
+			message.style.color = '#ff4757';
+			message.textContent = '❌ Неверный промокод';
+			setTimeout( () => {
+				if ( message.textContent === '❌ Неверный промокод' ) {
+					message.textContent = '';
+				}
+			}, 3000 );
+		}
+	}
+
+	addPromoCodeResetButton() {
+		const promoSection = document.querySelector( '.promo-code-section' );
+		const existingResetBtn = document.getElementById( 'resetPromoBtn' );
+		if ( existingResetBtn ) return;
+
+		const resetBtn = document.createElement( 'button' );
+		resetBtn.id = 'resetPromoBtn';
+		resetBtn.className = 'promo-code-reset';
+		resetBtn.innerHTML = '<i class="fas fa-times"></i> Отменить промокод';
+		resetBtn.style.cssText = `
+			margin-top: 10px;
+			padding: 8px 15px;
+			background: transparent;
+			border: 1px solid #ff3366;
+			color: #ff3366;
+			border-radius: 8px;
+			cursor: pointer;
+			font-size: 13px;
+			width: 100%;
+			transition: all 0.3s ease;
+		`;
+
+		resetBtn.addEventListener( 'mouseenter', () => {
+			resetBtn.style.background = '#ff3366';
+			resetBtn.style.color = 'white';
+		} );
+		resetBtn.addEventListener( 'mouseleave', () => {
+			resetBtn.style.background = 'transparent';
+			resetBtn.style.color = '#ff3366';
+		} );
+		resetBtn.addEventListener( 'click', () => this.resetPromoCode() );
+
+		promoSection.appendChild( resetBtn );
 	}
 
 	// ========== ИЗБРАННОЕ ==========
@@ -260,7 +514,7 @@ class CartFavoritesPage {
 
 		const favorites = store.getFavorites();
 
-		console.log( 'Рендерим избранное:', favorites );
+		console.log( '❤️ Рендерим избранное:', favorites.length );
 
 		if ( favorites.length === 0 ) {
 			if ( container ) {
@@ -293,7 +547,7 @@ class CartFavoritesPage {
 	}
 
 	renderFavoriteCard( product ) {
-		const inCart = store.cart.find( item => item.id === product.id );
+		const inCart = store.cart.find( item => item.id == product.id );
 		const inCartQuantity = inCart ? inCart.quantity : 0;
 		const availableQuantity = product.quantity - inCartQuantity;
 
@@ -352,7 +606,7 @@ class CartFavoritesPage {
 	}
 
 	bindFavoritesEvents() {
-		console.log( 'Привязка событий избранного...' );
+		console.log( '🔗 Привязка событий избранного...' );
 
 		document.querySelectorAll( '.remove-favorite' ).forEach( btn => {
 			btn.removeEventListener( 'click', this.handleRemoveFavorite );
@@ -384,7 +638,7 @@ class CartFavoritesPage {
 				const id = e.currentTarget.dataset.id;
 
 				if ( store.addToCart( id ) ) {
-					API.showNotification( 'Товар добавлен в корзину' );
+					API.showNotification( '✅ Товар добавлен в корзину' );
 					const originalText = e.currentTarget.innerHTML;
 					e.currentTarget.innerHTML = '<i class="fas fa-check"></i> Добавлено';
 					e.currentTarget.style.background = '#2ecc71';
@@ -396,7 +650,7 @@ class CartFavoritesPage {
 
 					this.updateHeaderCounters();
 				} else {
-					API.showNotification( 'Не удалось добавить товар', 'error' );
+					API.showNotification( '❌ Не удалось добавить товар', 'error' );
 				}
 			};
 			btn.addEventListener( 'click', this.handleAddToCart );
@@ -407,7 +661,7 @@ class CartFavoritesPage {
 			clearBtn.removeEventListener( 'click', this.handleClearFavorites );
 			this.handleClearFavorites = ( e ) => {
 				e.preventDefault();
-				if ( confirm( 'Вы уверены, что хотите очистить избранное?' ) ) {
+				if ( confirm( '❤️ Вы уверены, что хотите очистить избранное?' ) ) {
 					store.favorites = [];
 					store.saveToStorage();
 					API.showNotification( 'Избранное очищено' );
@@ -415,29 +669,10 @@ class CartFavoritesPage {
 			};
 			clearBtn.addEventListener( 'click', this.handleClearFavorites );
 		}
-
-		const copyLinkBtn = document.getElementById( 'copyFavoritesLink' );
-		if ( copyLinkBtn ) {
-			copyLinkBtn.removeEventListener( 'click', this.handleCopyLink );
-			this.handleCopyLink = ( e ) => {
-				e.preventDefault();
-				const favorites = store.getFavorites();
-				if ( favorites.length === 0 ) {
-					API.showNotification( 'Избранное пусто', 'error' );
-					return;
-				}
-				const text = favorites.map( item => `${item.name} - ${API.formatPrice( item.price )}` ).join( '\n' );
-				navigator.clipboard.writeText( text ).then( () => {
-					API.showNotification( 'Список скопирован' );
-				} );
-			};
-			copyLinkBtn.addEventListener( 'click', this.handleCopyLink );
-		}
 	}
 
 	// ========== РЕКОМЕНДАЦИИ ==========
 	renderRecommendations() {
-		// Ищем контейнер для рекомендаций
 		let grid = document.getElementById( 'recommendationsGrid' );
 
 		if ( !grid ) {
@@ -448,18 +683,17 @@ class CartFavoritesPage {
 		}
 
 		if ( !grid ) {
-			console.log( 'Контейнер для рекомендаций не найден' );
+			console.log( '⚠️ Контейнер для рекомендаций не найден' );
 			return;
 		}
 
-		console.log( 'Рендерим рекомендации для страницы:', this.currentPage );
+		console.log( '🎯 Рендерим рекомендации для страницы:', this.currentPage );
 
 		const allProducts = store.products;
 		const favorites = store.favorites;
-		const cartItems = store.getCart();
+		const cartItems = store.cart;
 		const cartIds = cartItems.map( item => item.id );
 
-		// Фильтруем товары для рекомендаций
 		let recommendations = allProducts
 			.filter( p => {
 				if ( p.status !== 'in-stock' || p.quantity <= 0 ) return false;
@@ -486,7 +720,7 @@ class CartFavoritesPage {
 		}
 
 		if ( recommendations.length === 0 ) {
-			grid.innerHTML = '<div class="no-recommendations"><p>Пока нет рекомендаций</p></div>';
+			grid.innerHTML = '<div class="no-recommendations"><p>😊 Пока нет рекомендаций</p></div>';
 			return;
 		}
 
@@ -518,7 +752,6 @@ class CartFavoritesPage {
 	}
 
 	attachRecommendationEvents() {
-		// Кнопки "В корзину"
 		document.querySelectorAll( '.recommendation-add.add-to-cart' ).forEach( btn => {
 			btn.removeEventListener( 'click', this.handleRecommendationAddToCart );
 			this.handleRecommendationAddToCart = ( e ) => {
@@ -526,7 +759,7 @@ class CartFavoritesPage {
 				const id = e.currentTarget.dataset.id;
 
 				if ( store.addToCart( id ) ) {
-					API.showNotification( 'Товар добавлен в корзину' );
+					API.showNotification( '✅ Товар добавлен в корзину' );
 					const originalHTML = e.currentTarget.innerHTML;
 					e.currentTarget.innerHTML = '<i class="fas fa-check"></i> Добавлено';
 					e.currentTarget.style.background = '#2ecc71';
@@ -541,13 +774,12 @@ class CartFavoritesPage {
 
 					this.updateHeaderCounters();
 				} else {
-					API.showNotification( 'Не удалось добавить товар', 'error' );
+					API.showNotification( '❌ Не удалось добавить товар', 'error' );
 				}
 			};
 			btn.addEventListener( 'click', this.handleRecommendationAddToCart );
 		} );
 
-		// Кнопки "В избранное"
 		document.querySelectorAll( '.recommendation-add.add-to-favorites' ).forEach( btn => {
 			btn.removeEventListener( 'click', this.handleRecommendationAddToFavorites );
 			this.handleRecommendationAddToFavorites = ( e ) => {
@@ -555,7 +787,7 @@ class CartFavoritesPage {
 				const id = e.currentTarget.dataset.id;
 
 				const isFavorite = store.toggleFavorite( id );
-				API.showNotification( isFavorite ? 'Добавлено в избранное' : 'Удалено из избранного' );
+				API.showNotification( isFavorite ? '✅ Добавлено в избранное' : '❌ Удалено из избранного' );
 
 				const originalHTML = e.currentTarget.innerHTML;
 				e.currentTarget.innerHTML = '<i class="fas fa-check"></i> Добавлено';
@@ -579,34 +811,10 @@ class CartFavoritesPage {
 	openCheckoutModal() {
 		const cart = store.getCart();
 		if ( cart.length === 0 ) {
-			API.showNotification( 'Корзина пуста', 'error' );
+			API.showNotification( '🛒 Корзина пуста', 'error' );
 			return;
 		}
-		alert( 'Функция оформления заказа в разработке' );
-	}
-
-	applyPromoCode() {
-		const input = document.getElementById( 'promoCodeInput' );
-		const message = document.getElementById( 'promoMessage' );
-
-		if ( !input || !message ) return;
-
-		const code = input.value.trim().toUpperCase();
-		const promoCodes = {
-			'SAKURA10': { discount: 0.1, type: 'percent' },
-			'KOMORI500': { discount: 500, type: 'fixed' },
-			'WELCOME': { discount: 0.15, type: 'percent' }
-		};
-
-		if ( promoCodes[code] ) {
-			message.style.color = '#2ecc71';
-			message.textContent = 'Промокод применен!';
-			console.log( 'Применена скидка:', promoCodes[code] );
-			this.updateCartSummary();
-		} else {
-			message.style.color = '#ff4757';
-			message.textContent = 'Неверный промокод';
-		}
+		alert( '🚚 Функция оформления заказа в разработке' );
 	}
 
 	updateHeaderCounters() {
@@ -616,7 +824,6 @@ class CartFavoritesPage {
 		if ( cartCount ) {
 			cartCount.textContent = store.getCartCount();
 		}
-
 		if ( favoritesCount ) {
 			favoritesCount.textContent = store.favorites.length;
 		}
@@ -644,5 +851,6 @@ class CartFavoritesPage {
 document.addEventListener( 'DOMContentLoaded', () => {
 	if ( document.querySelector( '.cart-page-content' ) || document.querySelector( '.favorites-page-content' ) ) {
 		window.cartFavoritesPage = new CartFavoritesPage();
+		console.log( '✅ Страница корзины/избранного инициализирована' );
 	}
 } );
