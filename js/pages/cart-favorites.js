@@ -341,15 +341,23 @@ class CartFavoritesPage {
 		// Если применен промокод - рассчитываем скидку
 		if ( this.appliedPromo ) {
 			if ( this.appliedPromo.type === 'percent' ) {
+				// Процентная скидка (например, 0.1 = 10%)
 				discount = subtotal * this.appliedPromo.discount;
 			} else if ( this.appliedPromo.type === 'fixed' ) {
+				// Фиксированная скидка (например, 500)
 				discount = this.appliedPromo.discount;
 			}
+			// Скидка не может быть больше суммы заказа
 			discount = Math.min( discount, subtotal );
 			total = subtotal - discount;
 		}
 
-		// ========== ОБНОВЛЯЕМ ЗАГОЛОВОК СТРАНИЦЫ ==========
+		// Обновляем элементы DOM...
+		const cartSubtotal = document.getElementById( 'cartSubtotal' );
+		const discountAmount = document.querySelector( '.discount-amount' );
+		const cartTotalById = document.getElementById( 'cartTotal' );
+		const totalAmountByClass = document.querySelector( '.total-amount' );
+		const cartItemsCount = document.getElementById( 'cartItemsCount' );
 		const itemsCountElement = document.querySelector( '.cart-items-count' );
 		const totalAmountElement = document.querySelector( '.cart-total-amount' );
 
@@ -361,41 +369,27 @@ class CartFavoritesPage {
 			totalAmountElement.textContent = `на сумму ${API.formatPrice( subtotal )}`;
 		}
 
-		// ========== ОБНОВЛЯЕМ БОКОВУЮ ПАНЕЛЬ ==========
-		const cartSubtotal = document.getElementById( 'cartSubtotal' );
-		const discountAmount = document.querySelector( '.discount-amount' );
-		const cartTotalById = document.getElementById( 'cartTotal' );
-		const totalAmountByClass = document.querySelector( '.total-amount' );
-		const cartItemsCount = document.getElementById( 'cartItemsCount' );
-
-		// Подытог (сумма товаров без скидки)
 		if ( cartSubtotal ) {
 			cartSubtotal.textContent = API.formatPrice( subtotal );
 		}
 
-		// Строка со скидкой
 		if ( discountAmount ) {
 			discountAmount.textContent = discount > 0 ? `-${API.formatPrice( discount )}` : '0 ₽';
 			discountAmount.style.color = discount > 0 ? '#2ecc71' : '';
 		}
 
-		// Обновляем итоговую сумму (по ID)
 		if ( cartTotalById ) {
 			cartTotalById.textContent = API.formatPrice( total );
 		}
 
-		// Обновляем итоговую сумму (по классу) - ЭТО БЫЛО ПРОПУЩЕНО!
 		if ( totalAmountByClass ) {
 			totalAmountByClass.textContent = API.formatPrice( total );
 		}
 
-		// Количество товаров
 		if ( cartItemsCount ) {
 			cartItemsCount.textContent = count;
 		}
 	}
-
-	// ========== ОСТАЛЬНЫЕ МЕТОДЫ (без изменений) ==========
 
 	loadPromoCode() {
 		const savedPromo = localStorage.getItem( 'appliedPromoCode' );
@@ -403,6 +397,12 @@ class CartFavoritesPage {
 			try {
 				this.appliedPromo = JSON.parse( savedPromo );
 				console.log( '🏷️ Загружен промокод:', this.appliedPromo );
+
+				// Восстанавливаем поле ввода с кодом промокода
+				const promoInput = document.getElementById( 'promoCodeInput' );
+				if ( promoInput && this.appliedPromo.code ) {
+					promoInput.value = this.appliedPromo.code;
+				}
 			} catch ( e ) {
 				console.error( 'Ошибка загрузки промокода:', e );
 				this.appliedPromo = null;
@@ -413,6 +413,12 @@ class CartFavoritesPage {
 	resetPromoCode() {
 		this.appliedPromo = null;
 		localStorage.removeItem( 'appliedPromoCode' );
+
+		// Очищаем поле ввода промокода
+		const promoInput = document.getElementById( 'promoCodeInput' );
+		if ( promoInput ) {
+			promoInput.value = '';
+		}
 
 		const message = document.getElementById( 'promoMessage' );
 		if ( message ) {
@@ -429,6 +435,7 @@ class CartFavoritesPage {
 		this.updateCartSummary();
 	}
 
+
 	applyPromoCode() {
 		const input = document.getElementById( 'promoCodeInput' );
 		const message = document.getElementById( 'promoMessage' );
@@ -437,37 +444,90 @@ class CartFavoritesPage {
 
 		const code = input.value.trim().toUpperCase();
 
-		const promoCodes = {
-			'SAKURA10': { discount: 0.1, type: 'percent', description: '10% скидка' },
-			'KOMORI500': { discount: 500, type: 'fixed', description: '500 ₽ скидка' },
-			'WELCOME': { discount: 0.15, type: 'percent', description: '15% скидка' }
-		};
+		// Загружаем промокоды из localStorage
+		const promoCodes = JSON.parse( localStorage.getItem( 'komori_promocodes' ) || '[]' );
 
-		if ( promoCodes[code] ) {
-			this.appliedPromo = promoCodes[code];
-			localStorage.setItem( 'appliedPromoCode', JSON.stringify( this.appliedPromo ) );
+		// Ищем промокод
+		const promo = promoCodes.find( p => p.code === code );
 
-			message.style.color = '#2ecc71';
-			message.textContent = `✅ Промокод применен! ${this.appliedPromo.description}`;
-
-			this.updateCartSummary();
-			input.value = '';
-			this.addPromoCodeResetButton();
-
-			setTimeout( () => {
-				if ( message.textContent.includes( 'Промокод применен' ) ) {
-					message.textContent = '';
-				}
-			}, 3000 );
-		} else {
+		if ( !promo ) {
 			message.style.color = '#ff4757';
 			message.textContent = '❌ Неверный промокод';
-			setTimeout( () => {
-				if ( message.textContent === '❌ Неверный промокод' ) {
-					message.textContent = '';
-				}
-			}, 3000 );
+			setTimeout( () => { if ( message.textContent === '❌ Неверный промокод' ) message.textContent = ''; }, 3000 );
+			return;
 		}
+
+		// Проверяем активность
+		if ( !promo.isActive ) {
+			message.style.color = '#ff4757';
+			message.textContent = '❌ Промокод неактивен';
+			setTimeout( () => message.textContent = '', 3000 );
+			return;
+		}
+
+		// Проверяем даты
+		const now = new Date();
+		if ( promo.validFrom && new Date( promo.validFrom ) > now ) {
+			message.style.color = '#ff4757';
+			message.textContent = '❌ Промокод еще не активен';
+			setTimeout( () => message.textContent = '', 3000 );
+			return;
+		}
+
+		if ( promo.validUntil && new Date( promo.validUntil ) < now ) {
+			message.style.color = '#ff4757';
+			message.textContent = '❌ Срок действия промокода истек';
+			setTimeout( () => message.textContent = '', 3000 );
+			return;
+		}
+
+		// Проверяем минимальную сумму заказа
+		const subtotal = store.getCartTotal();
+		if ( promo.minOrder > 0 && subtotal < promo.minOrder ) {
+			message.style.color = '#ff4757';
+			message.textContent = `❌ Минимальная сумма заказа для этого промокода: ${API.formatPrice( promo.minOrder )}`;
+			setTimeout( () => message.textContent = '', 3000 );
+			return;
+		}
+
+		// ========== ИСПРАВЛЕНИЕ ЗДЕСЬ ==========
+		// Применяем промокод в зависимости от типа
+		let discountValue;
+		let discountType;
+
+		if ( promo.type === 'percent' ) {
+			// Для процентной скидки - делим на 100 (например, 15 -> 0.15)
+			discountValue = promo.discount / 100;
+			discountType = 'percent';
+		} else {
+			// Для фиксированной скидки - оставляем как есть (например, 1500)
+			discountValue = promo.discount;
+			discountType = 'fixed';
+		}
+
+		this.appliedPromo = {
+			discount: discountValue,
+			type: discountType,
+			description: promo.description,
+			code: promo.code,  // ДОБАВЛЯЕМ КОД ПРОМОКОДА
+			id: promo.id
+		};
+
+		localStorage.setItem( 'appliedPromoCode', JSON.stringify( this.appliedPromo ) );
+
+		message.style.color = '#2ecc71';
+		message.textContent = `✅ Промокод "${promo.code}" применен! ${promo.description || ''}`;
+
+		// Увеличиваем счетчик использований
+		promo.usedCount = ( promo.usedCount || 0 ) + 1;
+		localStorage.setItem( 'komori_promocodes', JSON.stringify( promoCodes ) );
+
+		this.updateCartSummary();
+		this.addPromoCodeResetButton();
+
+		setTimeout( () => {
+			if ( message.textContent.includes( 'Промокод применен' ) ) message.textContent = '';
+		}, 3000 );
 	}
 
 	addPromoCodeResetButton() {
@@ -478,7 +538,9 @@ class CartFavoritesPage {
 		const resetBtn = document.createElement( 'button' );
 		resetBtn.id = 'resetPromoBtn';
 		resetBtn.className = 'promo-code-reset';
-		resetBtn.innerHTML = '<i class="fas fa-times"></i> Отменить промокод';
+		// Показываем название примененного промокода на кнопке
+		const promoCode = this.appliedPromo?.code || '';
+		resetBtn.innerHTML = `<i class="fas fa-ticket-alt"></i> ${promoCode} <i class="fas fa-times"></i>`;
 		resetBtn.style.cssText = `
 			margin-top: 10px;
 			padding: 8px 15px;

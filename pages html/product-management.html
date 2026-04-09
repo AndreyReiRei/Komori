@@ -597,6 +597,121 @@
 
 	<main>
 		<div class="container__main">
+
+			<!-- Блок управления слайдами на главной странице -->
+			<div class="promo-slides">
+				<!-- Блок управления промо-слайдами -->
+				<div class="promo-slides-module">
+					<div class="module-header">
+						<h2><i class="fas fa-images"></i> Управление промо-слайдами</h2>
+						<button class="btn-primary" id="addPromoSlideBtn">
+							<i class="fas fa-plus"></i> Добавить слайд
+						</button>
+					</div>
+
+					<div class="promo-slides-info">
+						<p><i class="fas fa-info-circle"></i> Эти слайды отображаются на главной странице в
+							аккордеон-блоке.
+							Порядок слайдов можно менять перетаскиванием.</p>
+					</div>
+
+					<!-- Список слайдов (сортировка перетаскиванием) -->
+					<div class="promo-slides-list" id="promoSlidesList">
+						<div class="loading-slides">Загрузка слайдов...</div>
+					</div>
+				</div>
+
+				<!-- Модальное окно для добавления/редактирования промо-слайда -->
+				<div class="modal" id="promoSlideModal">
+					<div class="modal-content promoslide-modal-content">
+						<div class="modal-header">
+							<h2 id="promoSlideModalTitle"><i class="fas fa-image"></i> Добавить слайд</h2>
+							<span class="close-modal" id="closePromoSlideModal">&times;</span>
+						</div>
+						<div class="modal-body">
+							<form id="promoSlideForm">
+								<div class="form-group">
+									<label for="slideTitle">Заголовок *</label>
+									<input type="text" id="slideTitle" class="slide-input"
+										placeholder="Например: Канцелярия" required>
+								</div>
+
+								<div class="form-group">
+									<label for="slideDescription">Описание *</label>
+									<input type="text" id="slideDescription" class="slide-input"
+										placeholder="Например: Широкий ассортимент канцелярии" required>
+								</div>
+
+								<div class="form-group">
+									<label for="slidePrice">Цена/акция (необязательно)</label>
+									<input type="text" id="slidePrice" class="slide-input"
+										placeholder="Например: начиная от 15 ₽! или Скидка 20%">
+								</div>
+
+								<div class="form-group">
+									<label for="slideLink">Ссылка (необязательно)</label>
+									<input type="text" id="slideLink" class="slide-input"
+										placeholder="/pages html/catalog pages/office.html">
+								</div>
+
+								<div class="form-group">
+									<label>Изображение *</label>
+									<div class="slide-image-upload" id="slideImageUpload">
+										<div class="image-preview" id="slideImagePreview">
+											<i class="fas fa-cloud-upload-alt"></i>
+											<span>Нажмите для загрузки изображения</span>
+										</div>
+										<input type="file" id="slideImageFile" accept="image/*" style="display: none;">
+										<input type="hidden" id="slideImageUrl">
+									</div>
+									<small class="form-hint">Рекомендуемый размер: 1920x1080px. Форматы: JPG, PNG,
+										WebP</small>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group">
+										<label for="slideOrder">Порядок сортировки</label>
+										<input type="number" id="slideOrder" class="slide-input" placeholder="0" min="0"
+											value="0">
+										<small class="form-hint">Меньше число = выше в списке</small>
+									</div>
+									<div class="form-group">
+										<label for="slideStatus">Статус</label>
+										<select id="slideStatus" class="slide-select">
+											<option value="active">Активен</option>
+											<option value="inactive">Неактивен</option>
+										</select>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn-secondary" id="cancelPromoSlideBtn">Отмена</button>
+							<button type="button" class="btn-primary" id="savePromoSlideBtn">Сохранить слайд</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Модальное окно подтверждения удаления -->
+				<div class="modal" id="deletePromoSlideModal">
+					<div class="modal-content small">
+						<div class="modal-header">
+							<h2><i class="fas fa-trash-alt"></i> Удаление слайда</h2>
+							<span class="close-modal" id="closeDeletePromoSlideModal">&times;</span>
+						</div>
+						<div class="modal-body">
+							<p>Вы уверены, что хотите удалить слайд</p>
+							<p><strong id="deleteSlideTitle"></strong>?</p>
+							<p class="text-warning">Это действие нельзя отменить.</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn-secondary" id="cancelDeletePromoSlideBtn">Отмена</button>
+							<button type="button" class="btn-danger" id="confirmDeletePromoSlideBtn">Удалить</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<!-- Модуль управления товарами -->
 			<div class="products-module">
 				<!-- Шапка модуля -->
@@ -661,6 +776,183 @@
 					<!-- Товары будут загружаться сюда -->
 				</div>
 			</div>
+
+			<!-- Блок промокодоы -->
+			<div class="promocodes">
+				<!-- Блок управления промокодами -->
+				<div class="promocodes-module">
+					<div class="module-header">
+						<h2><i class="fas fa-ticket-alt"></i> Управление промокодами</h2>
+						<button class="btn-primary" id="addPromoCodeBtn">
+							<i class="fas fa-plus"></i> Добавить промокод
+						</button>
+					</div>
+
+					<!-- Фильтры для промокодов -->
+					<div class="promocodes-filters">
+						<div class="search-box">
+							<i class="fas fa-search"></i>
+							<input type="text" id="promoCodeSearch" placeholder="Поиск промокодов...">
+						</div>
+						<div class="filter-group">
+							<select id="promoCodeTypeFilter">
+								<option value="all">Все типы</option>
+								<option value="percent">Процентные</option>
+								<option value="fixed">Фиксированные</option>
+							</select>
+						</div>
+						<div class="filter-group">
+							<select id="promoCodeStatusFilter">
+								<option value="all">Все статусы</option>
+								<option value="active">Активные</option>
+								<option value="expired">Просроченные</option>
+								<option value="disabled">Отключенные</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- Таблица промокодов -->
+					<div class="promocodes-table-container">
+						<table class="promocodes-table">
+							<thead>
+								<tr>
+									<th>Промокод</th>
+									<th>Тип</th>
+									<th>Скидка</th>
+									<th>Описание</th>
+									<th>Действителен до</th>
+									<th>Статус</th>
+									<th>Кол-во использований</th>
+									<th>Действия</th>
+								</tr>
+							</thead>
+							<tbody id="promoCodesList">
+								<tr class="empty-row">
+									<td colspan="8">Загрузка промокодов...</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- Пагинация для промокодов -->
+					<div class="promocodes-pagination" id="promoCodesPagination">
+						<button class="pagination-btn prev" disabled>
+							<i class="fas fa-chevron-left"></i>
+						</button>
+						<span class="pagination-info">Страница <span id="currentPage">1</span> из <span
+								id="totalPages">1</span></span>
+						<button class="pagination-btn next" disabled>
+							<i class="fas fa-chevron-right"></i>
+						</button>
+					</div>
+				</div>
+
+				<!-- Модальное окно для добавления/редактирования промокода -->
+				<div class="modal" id="promoCodeModal">
+					<div class="modal-content promocode-modal-content">
+						<div class="modal-header">
+							<h2 id="promoCodeModalTitle"><i class="fas fa-ticket-alt"></i> Добавить промокод</h2>
+							<span class="close-modal" id="closePromoCodeModal">&times;</span>
+						</div>
+						<div class="modal-body">
+							<form id="promoCodeForm">
+								<div class="form-row">
+									<div class="form-group">
+										<label for="promoCodeCode">Промокод *</label>
+										<input type="text" id="promoCodeCode" class="promocode-input"
+											placeholder="Например: SUMMER2025" required>
+										<small class="form-hint">Только латинские буквы и цифры, без пробелов</small>
+									</div>
+									<div class="form-group">
+										<label for="promoCodeType">Тип скидки *</label>
+										<select id="promoCodeType" class="promocode-select" required>
+											<option value="percent">Процентная (%)</option>
+											<option value="fixed">Фиксированная (₽)</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group">
+										<label for="promoCodeDiscount">Скидка *</label>
+										<input type="number" id="promoCodeDiscount" class="promocode-input"
+											placeholder="0" min="0" step="1" required>
+										<small class="form-hint" id="discountHint">% от суммы заказа</small>
+									</div>
+									<div class="form-group">
+										<label for="promoCodeMinOrder">Минимальная сумма заказа</label>
+										<input type="number" id="promoCodeMinOrder" class="promocode-input"
+											placeholder="0" min="0" step="100" value="0">
+										<small class="form-hint">Оставьте 0 для отсутствия ограничения</small>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="promoCodeDescription">Описание</label>
+									<textarea id="promoCodeDescription" class="promocode-textarea" rows="3"
+										placeholder="Описание промокода..."></textarea>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group">
+										<label for="promoCodeValidFrom">Действителен с</label>
+										<input type="datetime-local" id="promoCodeValidFrom" class="promocode-input">
+									</div>
+									<div class="form-group">
+										<label for="promoCodeValidUntil">Действителен до</label>
+										<input type="datetime-local" id="promoCodeValidUntil" class="promocode-input">
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group">
+										<label for="promoCodeMaxUses">Максимум использований</label>
+										<input type="number" id="promoCodeMaxUses" class="promocode-input"
+											placeholder="Без ограничений" min="0" value="0">
+										<small class="form-hint">0 = без ограничений</small>
+									</div>
+									<div class="form-group">
+										<label for="promoCodeStatus">Статус</label>
+										<select id="promoCodeStatus" class="promocode-select">
+											<option value="active">Активен</option>
+											<option value="disabled">Отключен</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group checkbox-group">
+									<input type="checkbox" id="promoCodeIsActive" checked>
+									<label for="promoCodeIsActive">Активен (можно использовать)</label>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn-secondary" id="cancelPromoCodeBtn">Отмена</button>
+							<button type="button" class="btn-primary" id="savePromoCodeBtn">Сохранить промокод</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Модальное окно подтверждения удаления -->
+				<div class="modal" id="deletePromoCodeModal">
+					<div class="modal-content small">
+						<div class="modal-header">
+							<h2><i class="fas fa-trash-alt"></i> Удаление промокода</h2>
+							<span class="close-modal" id="closeDeletePromoCodeModal">&times;</span>
+						</div>
+						<div class="modal-body">
+							<p>Вы уверены, что хотите удалить промокод</p>
+							<p><strong id="deletePromoCodeName"></strong>?</p>
+							<p class="text-warning">Это действие нельзя отменить.</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn-secondary" id="cancelDeletePromoCodeBtn">Отмена</button>
+							<button type="button" class="btn-danger" id="confirmDeletePromoCodeBtn">Удалить</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</main>
 
@@ -797,7 +1089,11 @@
 	<!-- Работа с изображениями и утилиты  -->
 	<script src="/js/core/api.js"></script>
 	<!-- Управление товарами (админка) -->
-	<script src="/js/pages/product-management.js"></script>
+	<script src="/js/admin/product-management.js"></script>
+	<!-- Промокоды -->
+	<script src="/js/admin/promo-code.js"></script>
+	<!-- Лого Рекламы -->
+	<script src="/js/admin/accardion-logo.js"></script>
 	<!-- Каталог товаров -->
 	<script src="/js/pages/catalog.js"></script>
 	<!-- Бургер меню -->

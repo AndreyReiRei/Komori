@@ -1357,3 +1357,934 @@ form {
 .mb-4 {
 	margin-bottom: 1rem;
 }
+
+
+
+
+
+
+
+
+
+
+/* ===== УПРАВЛЕНИЕ ПРОМОКОДАМИ ===== */
+.promocodes-module {
+	margin-top: 50px;
+	padding-top: 30px;
+	border-top: 2px solid var(--border-light);
+	background: #000;
+	border: 1px solid var(--primary);
+	border-radius: var(--radius-md);
+	padding: 12px 20px;
+	margin-bottom: 25px;
+	color: var(--primary);
+	font-size: 14px;
+}
+
+.promocodes-module .module-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 25px;
+	padding: 0;
+	background: none;
+	border: none;
+	box-shadow: none;
+}
+
+.promocodes-module .module-header h2 {
+	font-size: 24px;
+	color: var(--text-primary);
+	margin: 0;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.promocodes-module .module-header h2 i {
+	color: var(--primary);
+}
+
+/* Фильтры промокодов */
+.promocodes-filters {
+	display: flex;
+	gap: 15px;
+	margin-bottom: 25px;
+	flex-wrap: wrap;
+	background: var(--bg-secondary);
+	padding: 20px;
+	border-radius: var(--radius-lg);
+	border: 1px solid var(--border-light);
+}
+
+.promocodes-filters .search-box {
+	flex: 2;
+	min-width: 200px;
+	position: relative;
+}
+
+.promocodes-filters .search-box i {
+	position: absolute;
+	left: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: var(--text-muted);
+}
+
+.promocodes-filters .search-box input {
+	width: 100%;
+	padding: 12px 12px 12px 40px;
+	background: var(--bg-primary);
+	border: 1px solid var(--border-light);
+	border-radius: var(--radius-md);
+	color: var(--text-primary);
+	font-size: 14px;
+}
+
+.promocodes-filters .search-box input:focus {
+	outline: none;
+	border-color: var(--primary);
+}
+
+.promocodes-filters .filter-group select {
+	padding: 12px;
+	background: var(--bg-primary);
+	border: 1px solid var(--border-light);
+	border-radius: var(--radius-md);
+	color: var(--text-primary);
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.promocodes-filters .filter-group select:focus {
+	outline: none;
+	border-color: var(--primary);
+}
+
+/* Таблица промокодов */
+.promocodes-table-container {
+	overflow-x: auto;
+	margin-bottom: 20px;
+}
+
+.promocodes-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: var(--bg-primary);
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	border: 1px solid var(--border-light);
+}
+
+.promocodes-table th,
+.promocodes-table td {
+	padding: 15px;
+	text-align: left;
+	border-bottom: 1px solid var(--border-light);
+}
+
+.promocodes-table th {
+	background: var(--bg-secondary);
+	color: var(--primary);
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.promocodes-table td {
+	color: var(--text-secondary);
+	font-size: 14px;
+}
+
+.promocodes-table tr:hover td {
+	background: rgba(255, 51, 102, 0.05);
+}
+
+.promocodes-table .empty-row td {
+	text-align: center;
+	color: var(--text-muted);
+	padding: 40px;
+}
+
+/* Бейджи статусов */
+.status-badge {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.status-badge.active {
+	background: rgba(46, 204, 113, 0.2);
+	color: var(--success);
+}
+
+.status-badge.expired {
+	background: rgba(255, 71, 87, 0.2);
+	color: var(--danger);
+}
+
+.status-badge.disabled {
+	background: rgba(153, 153, 153, 0.2);
+	color: var(--text-muted);
+}
+
+/* Бейджи типов */
+.type-badge {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.type-badge.percent {
+	background: rgba(255, 51, 102, 0.2);
+	color: var(--primary);
+}
+
+.type-badge.fixed {
+	background: rgba(52, 152, 219, 0.2);
+	color: var(--info);
+}
+
+/* Кнопки действий в таблице */
+.action-buttons {
+	display: flex;
+	gap: 8px;
+}
+
+.action-btn {
+	width: 32px;
+	height: 32px;
+	border-radius: var(--radius-md);
+	border: 1px solid var(--border-light);
+	background: var(--bg-secondary);
+	color: var(--text-muted);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all var(--transition-fast);
+}
+
+.action-btn:hover {
+	border-color: var(--primary);
+	color: var(--primary);
+}
+
+.action-btn.delete-btn:hover {
+	border-color: var(--danger);
+	color: var(--danger);
+}
+
+/* Пагинация промокодов */
+.promocodes-pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+	margin-top: 20px;
+}
+
+.promocodes-pagination .pagination-btn {
+	width: 36px;
+	height: 36px;
+	border-radius: var(--radius-md);
+	background: var(--bg-secondary);
+	border: 1px solid var(--border-light);
+	color: var(--text-primary);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all var(--transition-fast);
+}
+
+.promocodes-pagination .pagination-btn:hover:not(:disabled) {
+	border-color: var(--primary);
+	color: var(--primary);
+}
+
+.promocodes-pagination .pagination-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.promocodes-pagination .pagination-info {
+	color: var(--text-secondary);
+	font-size: 14px;
+}
+
+/* ===== УПРАВЛЕНИЕ ПРОМО-СЛАЙДАМИ ===== */
+
+.promo-slides-module {
+	margin-top: 50px;
+	padding-top: 30px;
+	border-top: 2px solid var(--border-light);
+	background: #000;
+	border: 1px solid var(--primary);
+	border-radius: var(--radius-md);
+	padding: 12px 20px;
+	margin-bottom: 25px;
+	color: var(--primary);
+	font-size: 14px;
+}
+
+.promo-slides-module .module-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	padding: 0;
+	background: none;
+	border: none;
+	box-shadow: none;
+}
+
+.promo-slides-module .module-header h2 {
+	font-size: 24px;
+	color: var(--text-primary);
+	margin: 0;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.promo-slides-module .module-header h2 i {
+	color: var(--primary);
+}
+
+.promo-slides-info {
+	background: rgba(255, 51, 102, 0.1);
+	border: 1px solid var(--primary);
+	border-radius: var(--radius-md);
+	padding: 12px 20px;
+	margin-bottom: 25px;
+	color: var(--primary);
+	font-size: 14px;
+}
+
+.promo-slides-info i {
+	margin-right: 8px;
+}
+
+/* Список слайдов */
+.promo-slides-list {
+	background: var(--bg-primary);
+	border-radius: var(--radius-lg);
+	border: 1px solid var(--border-light);
+	overflow: hidden;
+}
+
+.loading-slides {
+	text-align: center;
+	padding: 40px;
+	color: var(--text-muted);
+}
+
+/* Карточка слайда */
+.slide-item {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	padding: 15px 20px;
+	background: var(--bg-secondary);
+	border-bottom: 1px solid var(--border-light);
+	cursor: grab;
+	transition: all var(--transition-fast);
+}
+
+.slide-item:active {
+	cursor: grabbing;
+}
+
+.slide-item.dragging {
+	opacity: 0.5;
+	cursor: grabbing;
+}
+
+.slide-item.drag-over {
+	border-top: 2px solid var(--primary);
+}
+
+.slide-item:hover {
+	background: rgba(255, 51, 102, 0.05);
+}
+
+/* Drag handle (ручка для перетаскивания) */
+.drag-handle {
+	width: 30px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-muted);
+	cursor: grab;
+	font-size: 18px;
+}
+
+.slide-item:active .drag-handle {
+	cursor: grabbing;
+}
+
+/* Превью изображения */
+.slide-preview {
+	width: 80px;
+	height: 60px;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	background: var(--bg-primary);
+	border: 1px solid var(--border-light);
+}
+
+.slide-preview img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.slide-preview-placeholder {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-muted);
+	font-size: 20px;
+}
+
+/* Информация о слайде */
+.slide-info {
+	flex: 1;
+}
+
+.slide-title {
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--text-primary);
+	margin-bottom: 4px;
+}
+
+.slide-description {
+	font-size: 13px;
+	color: var(--text-muted);
+	margin-bottom: 4px;
+}
+
+.slide-price {
+	font-size: 12px;
+	color: var(--primary);
+	font-weight: 500;
+}
+
+/* Бейджи статуса */
+.slide-status-badge {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 20px;
+	font-size: 11px;
+	font-weight: 500;
+}
+
+.slide-status-badge.active {
+	background: rgba(46, 204, 113, 0.2);
+	color: var(--success);
+}
+
+.slide-status-badge.inactive {
+	background: rgba(153, 153, 153, 0.2);
+	color: var(--text-muted);
+}
+
+/* Порядок слайда */
+.slide-order {
+	width: 50px;
+	text-align: center;
+	color: var(--text-muted);
+	font-size: 14px;
+}
+
+/* Кнопки действий */
+.slide-actions {
+	display: flex;
+	gap: 8px;
+}
+
+.slide-action-btn {
+	width: 32px;
+	height: 32px;
+	border-radius: var(--radius-md);
+	border: 1px solid var(--border-light);
+	background: var(--bg-secondary);
+	color: var(--text-muted);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all var(--transition-fast);
+}
+
+.slide-action-btn:hover {
+	border-color: var(--primary);
+	color: var(--primary);
+}
+
+.slide-action-btn.delete-slide:hover {
+	border-color: var(--danger);
+	color: var(--danger);
+}
+
+/* Загрузка изображения */
+.slide-image-upload {
+	border: 2px dashed var(--border-light);
+	border-radius: var(--radius-lg);
+	cursor: pointer;
+	transition: all var(--transition-fast);
+	background: var(--bg-secondary);
+}
+
+.slide-image-upload:hover {
+	border-color: var(--primary);
+	background: rgba(255, 51, 102, 0.05);
+}
+
+.image-preview {
+	min-height: 200px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	color: var(--text-muted);
+	text-align: center;
+	padding: 30px;
+}
+
+.image-preview img {
+	max-width: 100%;
+	max-height: 200px;
+	border-radius: var(--radius-md);
+}
+
+.image-preview i {
+	font-size: 48px;
+	color: var(--primary);
+}
+
+/* ===== МОДАЛЬНЫЕ ОКНА ===== */
+.promocode-modal-content,
+.promoslide-modal-content {
+	max-width: 700px;
+	width: 90%;
+}
+
+.promocode-input,
+.promocode-select,
+.promocode-textarea,
+.slide-input,
+.slide-select {
+	width: 100%;
+	padding: 12px;
+	background: var(--bg-primary);
+	border: 1px solid var(--border-light);
+	border-radius: var(--radius-md);
+	color: var(--text-primary);
+	font-size: 14px;
+	box-sizing: border-box;
+}
+
+.promocode-input:focus,
+.promocode-select:focus,
+.promocode-textarea:focus,
+.slide-input:focus,
+.slide-select:focus {
+	outline: none;
+	border-color: var(--primary);
+}
+
+.promocode-textarea {
+	resize: vertical;
+	font-family: inherit;
+}
+
+.form-hint {
+	font-size: 12px;
+	color: var(--text-muted);
+	margin-top: 5px;
+	display: block;
+}
+
+/* ===== АДАПТИВНОСТЬ ДЛЯ НОВЫХ БЛОКОВ ===== */
+
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
+	.promocodes-filters {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.promocodes-filters .search-box,
+	.promocodes-filters .filter-group {
+		width: 100%;
+	}
+
+	.promocodes-filters .filter-group select {
+		width: 100%;
+	}
+
+	.promocodes-table th,
+	.promocodes-table td {
+		padding: 10px;
+		font-size: 12px;
+	}
+
+	.action-buttons {
+		flex-direction: column;
+		gap: 5px;
+	}
+
+	.slide-item {
+		flex-wrap: wrap;
+		padding: 12px 15px;
+	}
+
+	.drag-handle {
+		order: 1;
+	}
+
+	.slide-preview {
+		order: 2;
+		width: 60px;
+		height: 45px;
+	}
+
+	.slide-info {
+		order: 3;
+		width: calc(100% - 120px);
+	}
+
+	.slide-order {
+		order: 4;
+		width: auto;
+		margin-left: 45px;
+	}
+
+	.slide-actions {
+		order: 5;
+		width: 100%;
+		justify-content: flex-end;
+		margin-top: 10px;
+	}
+}
+
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
+
+	.promocodes-module .module-header,
+	.promo-slides-module .module-header {
+		flex-direction: column;
+		gap: 15px;
+		text-align: center;
+	}
+
+	.promocodes-filters {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.promocodes-filters .search-box,
+	.promocodes-filters .filter-group {
+		width: 100%;
+	}
+
+	.promocodes-filters .filter-group select {
+		width: 100%;
+	}
+
+	.promocodes-table-container {
+		overflow-x: auto;
+	}
+
+	.promocodes-table {
+		min-width: 600px;
+	}
+
+	.slide-item {
+		flex-wrap: wrap;
+		padding: 12px;
+	}
+
+	.drag-handle {
+		order: 1;
+	}
+
+	.slide-preview {
+		order: 2;
+		width: 60px;
+		height: 45px;
+	}
+
+	.slide-info {
+		order: 3;
+		width: calc(100% - 120px);
+	}
+
+	.slide-order {
+		order: 4;
+		width: auto;
+		margin-left: 45px;
+	}
+
+	.slide-actions {
+		order: 5;
+		width: 100%;
+		justify-content: flex-end;
+		margin-top: 10px;
+	}
+}
+
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
+
+	.promocodes-module .module-header,
+	.promo-slides-module .module-header {
+		flex-direction: column;
+		gap: 15px;
+		text-align: center;
+	}
+
+	.promocodes-filters {
+		flex-direction: column;
+		gap: 8px;
+		padding: 15px;
+	}
+
+	.promocodes-filters .search-box,
+	.promocodes-filters .filter-group {
+		width: 100%;
+	}
+
+	.promocodes-table-container {
+		overflow-x: auto;
+	}
+
+	.promocodes-table {
+		min-width: 550px;
+	}
+
+	.promocodes-table th,
+	.promocodes-table td {
+		padding: 8px;
+		font-size: 11px;
+	}
+
+	.action-btn {
+		width: 28px;
+		height: 28px;
+	}
+
+	.slide-item {
+		flex-wrap: wrap;
+		padding: 10px;
+	}
+
+	.slide-info {
+		width: calc(100% - 100px);
+	}
+
+	.slide-title {
+		font-size: 14px;
+	}
+
+	.slide-description {
+		font-size: 11px;
+	}
+
+	.slide-price {
+		font-size: 11px;
+	}
+
+	.slide-order {
+		margin-left: 35px;
+	}
+
+	.promocode-modal-content,
+	.promoslide-modal-content {
+		width: 95%;
+		margin: 10px;
+	}
+}
+
+/* Мобильные (до 480px) */
+@media (width < 481px) {
+
+	.promocodes-module .module-header,
+	.promo-slides-module .module-header {
+		flex-direction: column;
+		gap: 12px;
+		text-align: center;
+	}
+
+	.promocodes-module .module-header h2,
+	.promo-slides-module .module-header h2 {
+		font-size: 20px;
+	}
+
+	.promocodes-filters {
+		flex-direction: column;
+		gap: 8px;
+		padding: 12px;
+	}
+
+	.promocodes-filters .search-box,
+	.promocodes-filters .filter-group {
+		width: 100%;
+	}
+
+	.promocodes-filters .search-box input,
+	.promocodes-filters .filter-group select {
+		padding: 10px;
+		font-size: 13px;
+	}
+
+	.promocodes-table-container {
+		overflow-x: auto;
+	}
+
+	.promocodes-table {
+		min-width: 500px;
+	}
+
+	.promocodes-table th,
+	.promocodes-table td {
+		padding: 8px;
+		font-size: 11px;
+	}
+
+	.action-btn {
+		width: 26px;
+		height: 26px;
+		font-size: 12px;
+	}
+
+	.promo-slides-info {
+		font-size: 12px;
+		padding: 10px 15px;
+	}
+
+	.slide-item {
+		flex-wrap: wrap;
+		padding: 10px;
+		gap: 10px;
+	}
+
+	.drag-handle {
+		font-size: 14px;
+	}
+
+	.slide-preview {
+		width: 50px;
+		height: 40px;
+	}
+
+	.slide-info {
+		width: calc(100% - 80px);
+	}
+
+	.slide-title {
+		font-size: 13px;
+	}
+
+	.slide-description {
+		font-size: 10px;
+	}
+
+	.slide-price {
+		font-size: 10px;
+	}
+
+	.slide-order {
+		width: auto;
+		margin-left: 30px;
+	}
+
+	.slide-actions {
+		justify-content: flex-end;
+	}
+
+	.slide-action-btn {
+		width: 28px;
+		height: 28px;
+	}
+
+	.promocode-modal-content,
+	.promoslide-modal-content {
+		width: 95%;
+		margin: 10px;
+		max-height: 85vh;
+		overflow-y: auto;
+	}
+
+	.image-preview {
+		min-height: 150px;
+		padding: 20px;
+	}
+
+	.image-preview i {
+		font-size: 36px;
+	}
+
+	.form-hint {
+		font-size: 10px;
+	}
+}
+
+/* Очень маленькие экраны (до 360px) */
+@media (width < 360px) {
+
+	.promocodes-module .module-header h2,
+	.promo-slides-module .module-header h2 {
+		font-size: 18px;
+	}
+
+	.promocodes-table th,
+	.promocodes-table td {
+		padding: 6px;
+		font-size: 10px;
+	}
+
+	.action-btn {
+		width: 24px;
+		height: 24px;
+		font-size: 10px;
+	}
+
+	.slide-title {
+		font-size: 12px;
+	}
+
+	.slide-description {
+		font-size: 9px;
+	}
+
+	.slide-order {
+		font-size: 11px;
+		margin-left: 25px;
+	}
+
+	.slide-action-btn {
+		width: 24px;
+		height: 24px;
+		font-size: 10px;
+	}
+
+	.image-preview {
+		min-height: 120px;
+		padding: 15px;
+	}
+
+	.image-preview i {
+		font-size: 28px;
+	}
+}

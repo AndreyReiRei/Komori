@@ -60,7 +60,7 @@
 					<div class="user-action-item admin-action">
 						<a href="/pages html/product-management.html" class="action-link">
 							<i class="fas fa-cog"></i>
-							<span class="action-text">Управление товарами</span>
+							<span class="action-text">Админка</span>
 						</a>
 					</div>
 
@@ -438,75 +438,17 @@
 	<main>
 		<div class="container__main">
 
-
-
 			<!-- Главный скролл-аккордеон с рекламой -->
 			<section class="accordion-logo">
 				<div class="accordion-logo__container">
-					<!-- Карточки товаров (всего 8) -->
-
-					<div class="accordion-item" style="background-image: url('image/kawai.jpg');">
-						<div class="item-content">
-							<h2>Канцелярия</h2>
-							<p>Широкий ассортимент канцелярии</p>
-						</div>
-					</div>
-					<div class="accordion-item" style="background-image: url(image/figures.jpg);">
-						<div class="item-content">
-							<h2>Фигурки</h2>
-							<p>Широкий ассортимент фигурок</p>
-						</div>
-					</div>
-					<div class="accordion-item" style="background-image: url(image/T-shirt.webp);">
-						<div class="item-content">
-							<h2>Одежда</h2>
-							<p>Футболки / Худи / Свитшоты</p>
-						</div>
-					</div>
-					<div class="accordion-item" style="background-image: url('image/BTS.jpg');">
-						<div class="item-content">
-							<h2>Музыка</h2>
-							<p>Азиатская популярная музыка</p>
-						</div>
-					</div>
-					<div class="accordion-item" style="background-image: url('image/manga.jpg');">
-						<div class="item-content">
-							<h2>Манга</h2>
-							<p>Большой ассортимент книг и манги</p>
-						</div>
-					</div>
-					<div class="accordion-item" style="background-image: url('image/tea.jpg');">
-						<div class="item-content">
-							<h2>Чай</h2>
-							<p>Большой ассортимент чая</p>
-						</div>
-					</div>
-					<div class="accordion-item" style="background-image: url('image/sakura.jpg');">
-						<div class="item-content">
-							<h2>Посуда</h2>
-							<p>Большой ассортимент посуды</p>
-						</div>
-					</div>
-					<div class="accordion-item" style="background-image: url('image/swits.jpg');">
-						<div class="item-content">
-							<h2>Сладости</h2>
-							<p>Большой ассортимент азиатской еды и сладостей</p>
-							<span class="price">начиная от 15 ₽!</span>
-						</div>
-					</div>
+					<!-- Слайды будут загружаться динамически через JavaScript -->
+					<!-- Статические слайды можно оставить как fallback, но они будут заменены -->
 				</div>
 
-				<!-- Навигационная полоска (стилизованные индикаторы) -->
+				<!-- Навигационная полоска -->
 				<div class="custom-navigation">
 					<div class="nav-indicators">
-						<div class="nav-dot active" data-index="0"></div>
-						<div class="nav-dot" data-index="1"></div>
-						<div class="nav-dot" data-index="2"></div>
-						<div class="nav-dot" data-index="3"></div>
-						<div class="nav-dot" data-index="4"></div>
-						<div class="nav-dot" data-index="5"></div>
-						<div class="nav-dot" data-index="6"></div>
-						<div class="nav-dot" data-index="7"></div>
+						<!-- Точки навигации будут созданы динамически -->
 					</div>
 				</div>
 			</section>
@@ -787,7 +729,7 @@
 	<!-- Поддержка -->
 	<script src="js/pages/support.js"></script>
 	<!-- Аккардион лого -->
-	<script src="/js/pages/accardion-logo.js"></script>
+	<script src="/js/admin/accardion-logo.js"></script>
 	<!-- Аккардеон продукции -->
 	<script src="js/pages/products-accordion.js"></script>
 	<!-- Поиск -->
