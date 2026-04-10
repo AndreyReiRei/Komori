@@ -163,7 +163,7 @@
 /* Планшеты (769px - 992px) */
 @media (769px <=width < 993px) {
 	.accordion-logo {
-		height: 70vh;
+		height: 80vh;
 	}
 
 	.item-content {
@@ -199,7 +199,7 @@
 /* Большие мобильные (577px - 768px) */
 @media (577px <=width < 769px) {
 	.accordion-logo {
-		height: 60vh;
+		height: 70vh;
 	}
 
 	.item-content {
@@ -236,7 +236,7 @@
 /* Мобильные L (481px - 576px) */
 @media (481px <=width < 577px) {
 	.accordion-logo {
-		height: 50vh;
+		height: 60vh;
 	}
 
 	.item-content {
@@ -278,7 +278,7 @@
 /* Мобильные (до 481px) */
 @media (width < 481px) {
 	.accordion-logo {
-		height: 45vh;
+		height: 60vh;
 	}
 
 	.item-content {
@@ -326,7 +326,7 @@
 /* Очень маленькие экраны (до 360px) */
 @media (width < 360px) {
 	.accordion-logo {
-		height: 40vh;
+		height: 60vh;
 	}
 
 	.item-content {
@@ -356,7 +356,7 @@
 /* Ультраширокие экраны (1921px и выше) */
 @media (width >=1921px) {
 	.accordion-logo {
-		height: 70vh;
+		height: 80vh;
 		max-height: 900px;
 	}
 
