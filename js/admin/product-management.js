@@ -177,9 +177,9 @@ class ProductManager {
                 <!-- Изображение товара -->
                 <div class="product-image">
                     <img src="${API.getSafeImageUrl( product.image )}" 
-                         alt="${product.name}"
-                         loading="lazy"
-                         onerror="this.onerror=null; this.src='${API.getFallbackSvg( product.name )}'">
+                        alt="${product.name}"
+                        loading="lazy"
+                        onerror="this.onerror=null; this.src='${API.getFallbackSvg( product.name )}'">
                 </div>
                 <!-- Информация о товаре -->
                 <div class="product-info">

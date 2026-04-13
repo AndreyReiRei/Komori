@@ -11,22 +11,29 @@
 /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
 .breadcrumbs {
 	padding: 20px 0;
-	font-size: 14px;
+	font-size: 24px;
 	color: #666;
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	gap: 8px;
+	text-shadow: 1px 1px 4px #666;
 }
 
 .breadcrumbs a {
-	color: #ff3366;
+	color: rgb(254, 254, 254);
+	text-shadow: 1px 1px 2px #d41f4c,
+		2px 2px 4px rgba(0, 0, 0, 0.5),
+		3px 3px 6px rgba(0, 0, 0, 0.3);
 	text-decoration: none;
 	transition: color 0.3s ease;
 }
 
 .breadcrumbs a:hover {
 	color: #e62e5c;
+	text-shadow: 1px 1px 1px #0101018b,
+		1px 1px 1px rgba(0, 0, 0, 0.5),
+		2px 2px 2px rgba(0, 0, 0, 0.3);
 	text-decoration: underline;
 }
 
@@ -36,13 +43,19 @@
 }
 
 .breadcrumbs span {
-	color: #1a1a1a;
+	color: #e62e5c;
 	font-weight: 500;
+	text-shadow: 1px 1px 1px #0101018b,
+		1px 1px 1px rgba(0, 0, 0, 0.5),
+		2px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* ===== ЗАГОЛОВОК КАТЕГОРИИ ===== */
 .category-header {
-	padding: 0 0 30px 0;
+	padding: 15px 20px;
+	background: #1a1a1a;
+	border-radius: 12px 12px 0 0;
+	border: 1px solid #333;
 }
 
 .category-title-block {
@@ -77,11 +90,17 @@
 }
 
 .category-description {
-	font-size: 16px;
-	color: #666;
+	font-size: 22px;
+	color: #e62e5c;
+	font-weight: 500;
+	font-style: italic;
+	text-shadow: 1px 1px 1px #0101018b,
+		1px 1px 1px rgba(0, 0, 0, 0.5),
+		2px 2px 2px rgba(0, 0, 0, 0.3);
 	line-height: 1.6;
 	max-width: 70%;
 	margin: 0;
+
 }
 
 /* ===== ФИЛЬТРЫ ===== */
@@ -92,7 +111,7 @@
 	margin-bottom: 30px;
 	padding: 15px 20px;
 	background: #1a1a1a;
-	border-radius: 12px;
+	border-radius: 0 0 12px 12px;
 	flex-wrap: wrap;
 	gap: 15px;
 	border: 1px solid #333;

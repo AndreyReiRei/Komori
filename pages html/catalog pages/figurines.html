@@ -17,6 +17,8 @@
 	<link rel="stylesheet" href="/css/page elements/burger-menu.css">
 	<!-- Помощь и звонок -->
 	<link rel="stylesheet" href="/css/page elements/support.css">
+	<!-- Поиск -->
+	<link rel="stylesheet" href="/css/page elements/search.css">
 	<!-- Все Категории -->
 	<link rel="stylesheet" href="/css/page elements/catalog-styles.css">
 	<!-- Стили для данной страницы -->
@@ -55,7 +57,7 @@
 					<div class="user-action-item admin-action">
 						<a href="/pages html/product-management.html" class="action-link">
 							<i class="fas fa-cog"></i>
-							<span class="action-text">Управление товарами</span>
+							<span class="action-text">Админка</span>
 						</a>
 					</div>
 
@@ -413,10 +415,7 @@
 				<i class="fas fa-box-open"></i>
 				<p>В этой категории пока нет товаров</p>
 				<p>Загляните позже или перейдите в другие разделы</p>
-				<a href="/pages html/catalog.html" class="btn-primary">
-					<i class="fas fa-bars"></i>
-					Вернуться в каталог
-				</a>
+				<a href="/pages html/catalog.html" class="btn-primary">Вернуться в каталог</a>
 			</div>
 
 			<!-- Пагинация -->
@@ -444,11 +443,11 @@
 					<ul class="footer-links">
 						<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-dragon"></i> Аниме
 								фигурки</a></li>
-						<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-leaf"></i> Японский чай</a>
+						<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-leaf"></i> Азиатский чай</a>
 						</li>
 						<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-candy-cane"></i> Азиатские
 								сладости</a></li>
-						<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-bowl-food"></i> Японская
+						<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-bowl-food"></i> Азиатская
 								посуда</a></li>
 						<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book-open"></i> Манга и
 								книги</a></li>
@@ -465,7 +464,7 @@
 						<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
 								дисках</a></li>
 						<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-headphones-simple"></i>
-								Азиатская поп-музыка</a></li>
+								Азиатская популярная музыка</a></li>
 					</ul>
 				</div>
 
@@ -473,12 +472,17 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-circle-info"></i> Информация</h3>
 					<ul class="footer-links">
-						<li><a href="#"><i class="fas fa-store"></i> О нас</a></li>
-						<li><a href="#"><i class="fas fa-question-circle"></i> Частые вопросы</a></li>
-						<li><a href="#"><i class="fas fa-truck-fast"></i> Оплата и доставка</a></li>
-						<li><a href="#"><i class="fas fa-rotate-left"></i> Обмен и возврат</a></li>
-						<li><a href="#"><i class="fas fa-address-book"></i> Контакты</a></li>
-						<li><a href="#"><i class="fas fa-shield"></i> Политика конфиденциальности</a></li>
+						<li><a href="/pages html/pages info/About us.html"><i class="fas fa-store"></i> О нас</a></li>
+						<li><a href="/pages html/pages info/Asked Questions.html"><i class="fas fa-question-circle"></i>
+								Частые вопросы</a></li>
+						<li><a href="/pages html/pages info/Payment and delivery.html"><i class="fas fa-truck-fast"></i>
+								Оплата и доставка</a></li>
+						<li><a href="/pages html/pages info/Exchange and Refund.html"><i class="fas fa-rotate-left"></i>
+								Обмен и возврат</a></li>
+						<li><a href="/pages html/pages info/Contacts.html"><i class="fas fa-address-book"></i>
+								Контакты</a></li>
+						<li><a href="/pages html/pages info/Privacy policy.html"><i class="fas fa-shield"></i> Политика
+								конфиденциальности</a></li>
 					</ul>
 				</div>
 
@@ -496,12 +500,21 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-hashtag"></i> Мы в соцсетях</h3>
 					<div class="social-links">
-						<a href="#" class="social-link vk" title="ВКонтакте"><i class="fab fa-vk"></i></a>
-						<a href="#" class="social-link telegram" title="Telegram"><i
-								class="fab fa-telegram-plane"></i></a>
-						<a href="#" class="social-link instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
-						<a href="#" class="social-link youtube" title="YouTube"><i class="fab fa-youtube"></i></a>
-						<a href="#" class="social-link tiktok" title="TikTok"><i class="fab fa-tiktok"></i></a>
+						<a href="#" class="social-link vk" title="ВКонтакте">
+							<i class="fab fa-vk"></i>
+						</a>
+						<a href="#" class="social-link telegram" title="Telegram">
+							<i class="fab fa-telegram-plane"></i>
+						</a>
+						<a href="#" class="social-link instagram" title="Instagram">
+							<i class="fab fa-instagram"></i>
+						</a>
+						<a href="#" class="social-link youtube" title="YouTube">
+							<i class="fab fa-youtube"></i>
+						</a>
+						<a href="#" class="social-link tiktok" title="TikTok">
+							<i class="fab fa-tiktok"></i>
+						</a>
 					</div>
 
 					<!-- Форма подписки на новости -->
@@ -510,7 +523,9 @@
 						<form class="subscribe-form">
 							<div class="input-group">
 								<input type="email" placeholder="Ваш email" required>
-								<button type="submit"><i class="fas fa-arrow-right"></i></button>
+								<button type="submit">
+									<i class="fas fa-arrow-right"></i>
+								</button>
 							</div>
 							<label class="checkbox">
 								<input type="checkbox" checked>
