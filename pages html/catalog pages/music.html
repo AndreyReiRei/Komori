@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Комори</title>
+	<title>Азиатская популярная музыка - Комори</title>
 
 	<!-- Основной стиль -->
 	<link rel="stylesheet" href="/css/main.css">
@@ -12,19 +12,22 @@
 	<link rel="stylesheet" href="/css/header.css">
 	<!-- Подвал -->
 	<link rel="stylesheet" href="/css/footer.css">
+
 	<!-- Бургер меню -->
-	<link rel="stylesheet" href="/css/burger-menu.css">
+	<link rel="stylesheet" href="/css/page elements/burger-menu.css">
 	<!-- Помощь и звонок -->
-	<link rel="stylesheet" href="/css/support.css">
-	<!-- Аккардеон продукции -->
-	<link rel="stylesheet" href="/css/products-accordion.css">
+	<link rel="stylesheet" href="/css/page elements/support.css">
+	<!-- Поиск -->
+	<link rel="stylesheet" href="/css/page elements/search.css">
 	<!-- Все Категории -->
-	<link rel="stylesheet" href="/css/catalog-styles.css">
+	<link rel="stylesheet" href="/css/page elements/catalog-styles.css">
+	<!-- Стили для данной страницы -->
+	<link rel="stylesheet" href="/css/pages html/category-page.css">
 	<!-- Библиотека -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body>
+<body class="category-page">
 
 	<!-- Шапка сайта -->
 	<header>
@@ -38,7 +41,6 @@
 								<!-- <i class="fas fa-moon"></i> -->
 								<i class="fas fa-leaf"></i>
 								<!-- <i class="fas fa-mug-hot"></i> -->
-
 							</div>
 						</div>
 						<div class="logo-text">Комори
@@ -53,9 +55,9 @@
 
 					<!-- Product management -->
 					<div class="user-action-item admin-action">
-						<a href="/pages/product-management.html" class="action-link">
+						<a href="/pages html/product-management.html" class="action-link">
 							<i class="fas fa-cog"></i>
-							<span class="action-text">Управление товарами</span>
+							<span class="action-text">Админка</span>
 						</a>
 					</div>
 
@@ -70,8 +72,8 @@
 
 					<!-- Избранное -->
 					<div class="user-action-item favorites-action">
-						<a href="/pages/favorites.html" class="action-link" id="favoritesBtn">
-							<i class="far fa-heart"></i>
+						<a href="/pages html/favorites.html" class="action-link" id="favoritesBtn">
+							<i class="fas fa-heart"></i>
 							<span class="action-text">Избранное</span>
 							<span class="action-badge" id="favoritesCount">0</span>
 						</a>
@@ -79,7 +81,7 @@
 
 					<!-- Корзина -->
 					<div class="user-action-item cart-action">
-						<a href="/pages/cart.html" class="action-link" id="cartBtn">
+						<a href="/pages html/cart.html" class="action-link" id="cartBtn">
 							<i class="fas fa-shopping-cart"></i>
 							<span class="action-text">Корзина</span>
 							<span class="action-badge" id="cartCount">0</span>
@@ -87,9 +89,10 @@
 					</div>
 
 					<!-- Вход/Регистрация -->
-					<div class="user-action-item auth-action">
-						<a href="/pages/login.html" class="action-link" id="authBtn">
-							<i class="far fa-user"></i>
+					<div class="user-action-item auth-action" id="authAction">
+						<a href="/pages html/login.html" class="action-link" id="authBtn">
+							<img id="headerAvatar" class="header-avatar" src="" alt="Аватар" style="display: none;">
+							<i class="far fa-user" id="headerAvatarIcon"></i>
 							<span class="action-text" id="authText">Войти</span>
 						</a>
 					</div>
@@ -127,53 +130,67 @@
 			<nav class="main-nav" id="mainNav">
 				<ul class="nav-list">
 					<li class="has-dropdown">
-						<a href="/pages/catalog.html" class="nav-link">
+						<a href="/pages html/catalog.html" class="nav-link">
 							<i class="fas fa-bars"></i> <!-- Иконка меню -->
 							<span>Каталог товаров</span>
 							<i class="fas fa-chevron-down dropdown-arrow"></i>
 						</a>
 						<!-- Обновленное подменю для азиатского магазина -->
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fas fa-user-ninja"></i> Аниме фигурки</a></li>
-							<li><a href="#"><i class="fas fa-mug-hot"></i> Японский чай</a></li>
-							<li><a href="#"><i class="fas fa-cookie-bite"></i> Азиатские сладости</a></li>
-							<li><a href="#"><i class="fas fa-utensils"></i> Японская посуда</a></li>
-							<li><a href="#"><i class="fas fa-book"></i> Манга и книги</a></li>
-							<li><a href="#"><i class="fas fa-tshirt"></i> Аниме одежда</a></li>
-							<li><a href="#"><i class="fas fa-gamepad"></i> Японские игры</a></li>
-							<li><a href="#"><i class="fas fa-palette"></i> Канцелярия кавай</a></li>
-							<li><a href="#"><i class="fas fa-spray-can"></i> Косметика из Азии</a></li>
-							<li><a href="#"><i class="fas fa-home"></i> Азиатский декор</a></li>
-							<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
-							<li><a href="#"><i class="fas fa-music"></i> Азиатская популярная музыка </a></li>
+							<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-user-ninja"></i>
+									Аниме фигурки</a></li>
+							<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-mug-hot"></i>
+									Азиатский чай</a>
+							</li>
+							<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-cookie-bite"></i>
+									Азиатские сладости</a></li>
+							<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-utensils"></i>
+									Азиатская посуда</a></li>
+							<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book"></i> Манга и
+									Книги</a>
+							</li>
+							<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-tshirt"></i> Аниме
+									одежда</a></li>
+							<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
+									Игры</a></li>
+							<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-palette"></i>
+									Канцелярия кавай</a></li>
+							<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-spray-can"></i>
+									Косметика из Азии</a></li>
+							<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-home"></i> Азиатский
+									декор</a></li>
+							<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
+									дисках</a></li>
+							<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-music"></i> Азиатская
+									популярная музыка </a></li>
 						</ul>
 					</li>
 					<li>
-						<a href="#" class="nav-link promo-link">
+						<a href="/pages html/catalog pages/special offers.html" class="nav-link promo-link">
 							<i class="fas fa-tags"></i> <!-- Иконка ценника -->
-							<span>Акции и скидки</span>
+							<span>Новинки</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-link">
+						<a href="/pages html/catalog pages/collections.html" class="nav-link">
 							<i class="fas fa-star"></i> <!-- Иконка доставки -->
 							<span>Коллекции</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-link">
+						<a href="/pages html/pages info/rising sun news.html" class="nav-link">
 							<i class="fas fa-newspaper"></i>
 							<span>Новости восходящего солнца</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-link">
+						<a href="/pages html/pages info/Payment and delivery.html" class="nav-link">
 							<i class="fas fa-shipping-fast"></i> <!-- Иконка доставки -->
-							<span>Доставка</span>
+							<span>Наши адреса и Доставка</span>
 						</a>
 					</li>
 					<li>
-						<a href="/pages/info.html" class="nav-link">
+						<a href="/pages html/pages info/About us.html" class="nav-link">
 							<i class="fas fa-store"></i> <!-- Иконка магазина -->
 							<span>О нас</span>
 						</a>
@@ -185,7 +202,6 @@
 
 	<!-- Модальные окна -->
 	<div class="modal__windows">
-
 		<!-- Модальное окно чата с поддержкой -->
 		<div class="modal" id="chatModal">
 			<div class="modal-content chat-modal">
@@ -217,21 +233,6 @@
 						<div class="message-content">
 							<i class="fas fa-bell"></i>
 							<span>Чат начат</span>
-						</div>
-					</div>
-
-					<!-- Сообщение бота -->
-					<div class="message bot-message">
-						<div class="message-avatar">
-							<i class="fas fa-robot"></i>
-						</div>
-						<div class="message-content-wrapper">
-							<div class="message-sender">Бот поддержки</div>
-							<div class="message-text">
-								Здравствуйте! Я бот-помощник. Чем могу помочь?
-								Вы можете задать вопрос или оставить контакты для связи.
-							</div>
-							<div class="message-time">Только что</div>
 						</div>
 					</div>
 				</div>
@@ -305,59 +306,12 @@
 					<div class="cart-empty" id="cartEmpty">
 						<i class="fas fa-shopping-basket"></i>
 						<p>Ваша корзина пуста</p>
-						<a href="/pages/cart.html" class="continue-shopping">Перейти к покупкам</a>
+						<a href="/pages html/cart.html" class="continue-shopping">Перейти к покупкам</a>
 					</div>
-					<div class="cart-items" id="cartItems" style="display: none;">
-						<div class="cart-item">
-							<img src="https://via.placeholder.com/80x80" alt="Товар" class="cart-item-image">
-							<div class="cart-item-info">
-								<h4 class="cart-item-title">Аниме фигурка Наруто</h4>
-								<div class="cart-item-controls">
-									<button class="quantity-btn minus">-</button>
-									<span class="quantity">1</span>
-									<button class="quantity-btn plus">+</button>
-									<span class="cart-item-price">2 499 ₽</span>
-								</div>
-							</div>
-							<button class="remove-item"><i class="fas fa-times"></i></button>
-						</div>
-						<!-- Другие товары будут добавляться динамически -->
-					</div>
+					<div class="cart-items" id="cartItems" style="display: none;"></div>
 					<div class="cart-total" id="cartTotal" style="display: none;">
-						<div class="total-row">
-							<span>Итого:</span>
-							<span class="total-price">0 ₽</span>
-						</div>
+						<div class="total-row"><span>Итого:</span><span class="total-price">0 ₽</span></div>
 						<button class="checkout-btn">Оформить заказ</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Модальное окно избранного -->
-		<div id="favoritesModal" class="modal">
-			<div class="modal-content favorites-modal-content">
-				<span class="close-modal">&times;</span>
-				<h2><i class="fas fa-heart"></i> Избранное</h2>
-				<div class="favorites-content">
-					<div class="favorites-empty" id="favoritesEmpty">
-						<i class="far fa-heart"></i>
-						<p>В избранном пока ничего нет</p>
-						<p>Добавляйте товары, которые понравились</p>
-					</div>
-					<div class="favorites-items" id="favoritesItems" style="display: none;">
-						<div class="favorite-item">
-							<img src="https://via.placeholder.com/80x80" alt="Товар" class="favorite-item-image">
-							<div class="favorite-item-info">
-								<h4 class="favorite-item-title">Чай маття премиум</h4>
-								<span class="favorite-item-price">899 ₽</span>
-							</div>
-							<div class="favorite-item-actions">
-								<button class="add-to-cart-btn">В корзину</button>
-								<button class="remove-favorite"><i class="fas fa-times"></i></button>
-							</div>
-						</div>
-						<!-- Другие товары будут добавляться динамически -->
 					</div>
 				</div>
 			</div>
@@ -372,8 +326,7 @@
 					<button class="auth-tab active" data-tab="login">Вход</button>
 					<button class="auth-tab" data-tab="register">Регистрация</button>
 				</div>
-
-				<form class="auth-form" id="loginForm" style="display: block;">
+				<form class="auth-form" id="loginForm">
 					<div class="form-group">
 						<label for="loginEmail">Email</label>
 						<input type="email" id="loginEmail" placeholder="Ваш email" required>
@@ -387,16 +340,12 @@
 					<div class="social-auth">
 						<p>Или войдите через:</p>
 						<div class="social-buttons">
-							<button type="button" class="social-btn vk-btn">
-								<i class="fab fa-vk"></i> ВКонтакте
-							</button>
-							<button type="button" class="social-btn google-btn">
-								<i class="fab fa-google"></i> Google
-							</button>
+							<button type="button" class="social-btn vk-btn"><i class="fab fa-vk"></i> ВКонтакте</button>
+							<button type="button" class="social-btn google-btn"><i class="fab fa-google"></i>
+								Google</button>
 						</div>
 					</div>
 				</form>
-
 				<form class="auth-form" id="registerForm" style="display: none;">
 					<div class="form-group">
 						<label for="registerName">Имя</label>
@@ -416,9 +365,7 @@
 					</div>
 					<div class="form-group checkbox-group">
 						<input type="checkbox" id="registerAgreement" required>
-						<label for="registerAgreement">
-							Я согласен с <a href="#">политикой конфиденциальности</a> и <a href="#">правилами сайта</a>
-						</label>
+						<label for="registerAgreement">Я согласен с <a href="#">политикой конфиденциальности</a></label>
 					</div>
 					<button type="submit" class="auth-submit-btn">Зарегистрироваться</button>
 				</form>
@@ -429,7 +376,86 @@
 		<div class="nav-overlay" id="navOverlay"></div>
 	</div>
 
+	<!-- Основной контент страницы категории -->
+	<main class="container__main">
+		<div class="category-page-content">
+			<!-- Хлебные крошки -->
+			<div class="breadcrumbs">
+				<a href="/">Главная</a>
+				<i class="fas fa-chevron-right"></i>
+				<a href="/pages html/catalog.html">Каталог</a>
+				<i class="fas fa-chevron-right"></i>
+				<span>Азиатская популярная музыка</span>
+			</div>
 
+			<!-- Заголовок категории -->
+			<div class="category-header">
+				<div class="category-title-block">
+					<div class="category-icon">
+						<i class="fas fa-music"></i>
+					</div>
+					<h1 class="category-title">Азиатская популярная музыка</h1>
+				</div>
+				<p class="category-description">
+					К-поп, J-рок и прочие направляния на дисках и вениле.
+				</p>
+			</div>
+
+			<!-- Фильтры и сортировка -->
+			<div class="category-filters">
+				<div class="filters-left">
+					<div class="filter-group">
+						<label for="sortBy">Сортировка:</label>
+						<select id="sortBy" class="filter-select">
+							<option value="default">По умолчанию</option>
+							<option value="price-asc">Цена (по возрастанию)</option>
+							<option value="price-desc">Цена (по убыванию)</option>
+							<option value="name-asc">Название (А-Я)</option>
+							<option value="name-desc">Название (Я-А)</option>
+							<option value="newest">Сначала новинки</option>
+						</select>
+					</div>
+					<div class="filter-group">
+						<label for="statusFilter">Наличие:</label>
+						<select id="statusFilter" class="filter-select">
+							<option value="all">Все</option>
+							<option value="in-stock">В наличии</option>
+							<option value="out-of-stock">Нет в наличии</option>
+						</select>
+					</div>
+				</div>
+				<!-- <div class="filters-right">
+					<span class="products-count" id="productsCount"> товаров</span>
+				</div> -->
+			</div>
+
+			<!-- Сетка товаров -->
+			<div class="products-grid" id="productsGrid">
+				<!-- Товары будут загружаться динамически через JavaScript -->
+			</div>
+
+			<!-- Состояние "товары не найдены" (скрыто по умолчанию) -->
+			<div class="empty-state" id="emptyState" style="display: none;">
+				<i class="fas fa-box-open"></i>
+				<p>В этой категории пока нет товаров</p>
+				<p>Загляните позже или перейдите в другие разделы</p>
+				<a href="/pages html/catalog.html" class="btn-primary">Вернуться в каталог</a>
+			</div>
+
+			<!-- Пагинация -->
+			<div class="pagination" id="pagination" style="display: none;">
+				<button class="pagination-btn prev" disabled>
+					<i class="fas fa-chevron-left"></i>
+				</button>
+				<div class="pagination-pages" id="paginationPages">
+					<span class="pagination-current">1</span>
+				</div>
+				<button class="pagination-btn next">
+					<i class="fas fa-chevron-right"></i>
+				</button>
+			</div>
+		</div>
+	</main>
 
 	<!-- Подвал сайта -->
 	<footer>
@@ -439,18 +465,30 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-compass"></i> Каталог</h3>
 					<ul class="footer-links">
-						<li><a href="#"><i class="fas fa-dragon"></i> Аниме фигурки</a></li>
-						<li><a href="#"><i class="fas fa-leaf"></i> Японский чай</a></li>
-						<li><a href="#"><i class="fas fa-candy-cane"></i> Азиатские сладости</a></li>
-						<li><a href="#"><i class="fas fa-bowl-food"></i> Японская посуда</a></li>
-						<li><a href="#"><i class="fas fa-book-open"></i> Манга и книги</a></li>
-						<li><a href="#"><i class="fas fa-shirt"></i> Аниме одежда</a></li>
-						<li><a href="#"><i class="fas fa-gamepad"></i> Японские игры</a></li>
-						<li><a href="#"><i class="fas fa-pen-fancy"></i> Канцелярия кавай</a></li>
-						<li><a href="#"><i class="fas fa-wand-sparkles"></i> Косметика из Азии</a></li>
-						<li><a href="#"><i class="fas fa-torii-gate"></i> Азиатский декор</a></li>
-						<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
-						<li><a href="#"><i class="fas fa-headphones-simple"></i> Азиатская поп-музыка</a></li>
+						<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-dragon"></i> Аниме
+								фигурки</a></li>
+						<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-leaf"></i> Азиатский чай</a>
+						</li>
+						<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-candy-cane"></i> Азиатские
+								сладости</a></li>
+						<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-bowl-food"></i> Азиатская
+								посуда</a></li>
+						<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book-open"></i> Манга и
+								книги</a></li>
+						<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-shirt"></i> Аниме
+								одежда</a></li>
+						<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
+								игры</a></li>
+						<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-pen-fancy"></i> Канцелярия
+								кавай</a></li>
+						<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-wand-sparkles"></i>
+								Косметика из Азии</a></li>
+						<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-torii-gate"></i> Азиатский
+								декор</a></li>
+						<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
+								дисках</a></li>
+						<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-headphones-simple"></i>
+								Азиатская популярная музыка</a></li>
 					</ul>
 				</div>
 
@@ -458,12 +496,17 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-circle-info"></i> Информация</h3>
 					<ul class="footer-links">
-						<li><a href="#"><i class="fas fa-store"></i> О нас</a></li>
-						<li><a href="#"><i class="fas fa-question-circle"></i> Частые вопросы</a></li>
-						<li><a href="#"><i class="fas fa-truck-fast"></i> Оплата и доставка</a></li>
-						<li><a href="#"><i class="fas fa-rotate-left"></i> Обмен и возврат</a></li>
-						<li><a href="#"><i class="fas fa-address-book"></i> Контакты</a></li>
-						<li><a href="#"><i class="fas fa-shield"></i> Политика конфиденциальности</a></li>
+						<li><a href="/pages html/pages info/About us.html"><i class="fas fa-store"></i> О нас</a></li>
+						<li><a href="/pages html/pages info/Asked Questions.html"><i class="fas fa-question-circle"></i>
+								Частые вопросы</a></li>
+						<li><a href="/pages html/pages info/Payment and delivery.html"><i class="fas fa-truck-fast"></i>
+								Оплата и доставка</a></li>
+						<li><a href="/pages html/pages info/Exchange and Refund.html"><i class="fas fa-rotate-left"></i>
+								Обмен и возврат</a></li>
+						<li><a href="/pages html/pages info/Contacts.html"><i class="fas fa-address-book"></i>
+								Контакты</a></li>
+						<li><a href="/pages html/pages info/Privacy policy.html"><i class="fas fa-shield"></i> Политика
+								конфиденциальности</a></li>
 					</ul>
 				</div>
 
@@ -471,9 +514,9 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-user-astronaut"></i> Профиль</h3>
 					<ul class="footer-links profile-links">
-						<li><a href="/pages/login.html"><i class="fas fa-user-circle"></i> Мой аккаунт</a></li>
-						<li><a href="/pages/favorites.html"><i class="fas fa-heart"></i> Избранное</a></li>
-						<li><a href="/pages/cart.html"><i class="fas fa-bag-shopping"></i> Корзина</a></li>
+						<li><a href="/pages html/login.html"><i class="fas fa-user-circle"></i> Мой аккаунт</a></li>
+						<li><a href="/pages html/favorites.html"><i class="fas fa-heart"></i> Избранное</a></li>
+						<li><a href="/pages html/cart.html"><i class="fas fa-bag-shopping"></i> Корзина</a></li>
 					</ul>
 				</div>
 
@@ -542,24 +585,23 @@
 
 	<!-- Основной код -->
 	<script src="/js/main.js"></script>
+	<!-- Единое хранилище данных -->
+	<script src="/js/core/store.js"></script>
+	<!-- Работа с изображениями и утилиты  -->
+	<script src="/js/core/api.js"></script>
+
 	<!-- Бургер меню -->
-	<script src="/js/burger.js"></script>
+	<script src="/js/pages/burger.js"></script>
 	<!-- Поддержка -->
-	<script src="/js/support.js"></script>
-	<!-- Аккардеон продукции -->
-	<script src="/js/products-accordion.js"></script>
-	<!-- Популярные категории -->
-	<script src="/js/catalog-expand.js"></script>
+	<script src="/js/pages/support.js"></script>
 	<!-- Поиск -->
-	<script src="/js/search.js"></script>
-	<!-- Корзина -->
-	<script src="/js/cart.js"></script>
+	<script src="/js/pages/search.js"></script>
 	<!-- Избранное -->
-	<script src="/js/favorites.js"></script>
-	<!-- Кнопки если нужны -->
-	<script src="/js/buttons.js"></script>
-	<!-- Управление товарами -->
-	<script src="/js/product-management.js"></script>
+	<script src="/js/pages/cart-favorites.js"></script>
+
+	<!-- Страницы категорий товаров -->
+	<script src="/js/pages/category-page.js"></script>
+
 </body>
 
 </html>

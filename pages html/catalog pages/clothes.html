@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Комори</title>
+	<title>Аниме одежда - Комори</title>
 
 	<!-- Основной стиль -->
 	<link rel="stylesheet" href="/css/main.css">
@@ -12,21 +12,22 @@
 	<link rel="stylesheet" href="/css/header.css">
 	<!-- Подвал -->
 	<link rel="stylesheet" href="/css/footer.css">
+
 	<!-- Бургер меню -->
-	<link rel="stylesheet" href="/css/burger-menu.css">
+	<link rel="stylesheet" href="/css/page elements/burger-menu.css">
 	<!-- Помощь и звонок -->
-	<link rel="stylesheet" href="/css/support.css">
-	<!-- Аккардеон продукции -->
-	<link rel="stylesheet" href="/css/products-accordion.css">
+	<link rel="stylesheet" href="/css/page elements/support.css">
+	<!-- Поиск -->
+	<link rel="stylesheet" href="/css/page elements/search.css">
 	<!-- Все Категории -->
-	<link rel="stylesheet" href="/css/catalog-styles.css">
-	<!-- Стили данной страницы -->
-	<link rel="stylesheet" href="/css/catalog-product.css">
+	<link rel="stylesheet" href="/css/page elements/catalog-styles.css">
+	<!-- Стили для данной страницы -->
+	<link rel="stylesheet" href="/css/pages html/category-page.css">
 	<!-- Библиотека -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body>
+<body class="category-page">
 
 	<!-- Шапка сайта -->
 	<header>
@@ -56,7 +57,7 @@
 					<div class="user-action-item admin-action">
 						<a href="/pages html/product-management.html" class="action-link">
 							<i class="fas fa-cog"></i>
-							<span class="action-text">Управление товарами</span>
+							<span class="action-text">Админка</span>
 						</a>
 					</div>
 
@@ -201,7 +202,6 @@
 
 	<!-- Модальные окна -->
 	<div class="modal__windows">
-
 		<!-- Модальное окно чата с поддержкой -->
 		<div class="modal" id="chatModal">
 			<div class="modal-content chat-modal">
@@ -233,21 +233,6 @@
 						<div class="message-content">
 							<i class="fas fa-bell"></i>
 							<span>Чат начат</span>
-						</div>
-					</div>
-
-					<!-- Сообщение бота -->
-					<div class="message bot-message">
-						<div class="message-avatar">
-							<i class="fas fa-robot"></i>
-						</div>
-						<div class="message-content-wrapper">
-							<div class="message-sender">Бот поддержки</div>
-							<div class="message-text">
-								Здравствуйте! Я бот-помощник. Чем могу помочь?
-								Вы можете задать вопрос или оставить контакты для связи.
-							</div>
-							<div class="message-time">Только что</div>
 						</div>
 					</div>
 				</div>
@@ -321,59 +306,12 @@
 					<div class="cart-empty" id="cartEmpty">
 						<i class="fas fa-shopping-basket"></i>
 						<p>Ваша корзина пуста</p>
-						<a href="/pages/cart.html" class="continue-shopping">Перейти к покупкам</a>
+						<a href="/pages html/cart.html" class="continue-shopping">Перейти к покупкам</a>
 					</div>
-					<div class="cart-items" id="cartItems" style="display: none;">
-						<div class="cart-item">
-							<img src="https://via.placeholder.com/80x80" alt="Товар" class="cart-item-image">
-							<div class="cart-item-info">
-								<h4 class="cart-item-title">Аниме фигурка Наруто</h4>
-								<div class="cart-item-controls">
-									<button class="quantity-btn minus">-</button>
-									<span class="quantity">1</span>
-									<button class="quantity-btn plus">+</button>
-									<span class="cart-item-price">2 499 ₽</span>
-								</div>
-							</div>
-							<button class="remove-item"><i class="fas fa-times"></i></button>
-						</div>
-						<!-- Другие товары будут добавляться динамически -->
-					</div>
+					<div class="cart-items" id="cartItems" style="display: none;"></div>
 					<div class="cart-total" id="cartTotal" style="display: none;">
-						<div class="total-row">
-							<span>Итого:</span>
-							<span class="total-price">0 ₽</span>
-						</div>
+						<div class="total-row"><span>Итого:</span><span class="total-price">0 ₽</span></div>
 						<button class="checkout-btn">Оформить заказ</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Модальное окно избранного -->
-		<div id="favoritesModal" class="modal">
-			<div class="modal-content favorites-modal-content">
-				<span class="close-modal">&times;</span>
-				<h2><i class="fas fa-heart"></i> Избранное</h2>
-				<div class="favorites-content">
-					<div class="favorites-empty" id="favoritesEmpty">
-						<i class="far fa-heart"></i>
-						<p>В избранном пока ничего нет</p>
-						<p>Добавляйте товары, которые понравились</p>
-					</div>
-					<div class="favorites-items" id="favoritesItems" style="display: none;">
-						<div class="favorite-item">
-							<img src="https://via.placeholder.com/80x80" alt="Товар" class="favorite-item-image">
-							<div class="favorite-item-info">
-								<h4 class="favorite-item-title">Чай маття премиум</h4>
-								<span class="favorite-item-price">899 ₽</span>
-							</div>
-							<div class="favorite-item-actions">
-								<button class="add-to-cart-btn">В корзину</button>
-								<button class="remove-favorite"><i class="fas fa-times"></i></button>
-							</div>
-						</div>
-						<!-- Другие товары будут добавляться динамически -->
 					</div>
 				</div>
 			</div>
@@ -388,8 +326,7 @@
 					<button class="auth-tab active" data-tab="login">Вход</button>
 					<button class="auth-tab" data-tab="register">Регистрация</button>
 				</div>
-
-				<form class="auth-form" id="loginForm" style="display: block;">
+				<form class="auth-form" id="loginForm">
 					<div class="form-group">
 						<label for="loginEmail">Email</label>
 						<input type="email" id="loginEmail" placeholder="Ваш email" required>
@@ -403,16 +340,12 @@
 					<div class="social-auth">
 						<p>Или войдите через:</p>
 						<div class="social-buttons">
-							<button type="button" class="social-btn vk-btn">
-								<i class="fab fa-vk"></i> ВКонтакте
-							</button>
-							<button type="button" class="social-btn google-btn">
-								<i class="fab fa-google"></i> Google
-							</button>
+							<button type="button" class="social-btn vk-btn"><i class="fab fa-vk"></i> ВКонтакте</button>
+							<button type="button" class="social-btn google-btn"><i class="fab fa-google"></i>
+								Google</button>
 						</div>
 					</div>
 				</form>
-
 				<form class="auth-form" id="registerForm" style="display: none;">
 					<div class="form-group">
 						<label for="registerName">Имя</label>
@@ -432,9 +365,7 @@
 					</div>
 					<div class="form-group checkbox-group">
 						<input type="checkbox" id="registerAgreement" required>
-						<label for="registerAgreement">
-							Я согласен с <a href="#">политикой конфиденциальности</a> и <a href="#">правилами сайта</a>
-						</label>
+						<label for="registerAgreement">Я согласен с <a href="#">политикой конфиденциальности</a></label>
 					</div>
 					<button type="submit" class="auth-submit-btn">Зарегистрироваться</button>
 				</form>
@@ -445,644 +376,86 @@
 		<div class="nav-overlay" id="navOverlay"></div>
 	</div>
 
-	<main class="catalog-main">
-		<div class="catalog-container">
+	<!-- Основной контент страницы категории -->
+	<main class="container__main">
+		<div class="category-page-content">
+			<!-- Хлебные крошки -->
+			<div class="breadcrumbs">
+				<a href="/">Главная</a>
+				<i class="fas fa-chevron-right"></i>
+				<a href="/pages html/catalog.html">Каталог</a>
+				<i class="fas fa-chevron-right"></i>
+				<span>Аниме одежда</span>
+			</div>
 
-			<!-- Заголовок страницы -->
-			<div class="catalog-header">
-				<h1 class="catalog-title">Каталог товаров <span class="title-accent">Аниме одежда</span></h1>
-				<p class="catalog-subtitle">Эксклюзивная коллекция одежды и аксессуаров</p>
+			<!-- Заголовок категории -->
+			<div class="category-header">
+				<div class="category-title-block">
+					<div class="category-icon">
+						<i class="fas fa-tshirt"></i>
+					</div>
+					<h1 class="category-title">Аниме одежда</h1>
+				</div>
+				<p class="category-description">
+					Аниме одежда из популярных аниме. Высокое качество, официальные лицензии.
+				</p>
 			</div>
 
 			<!-- Фильтры и сортировка -->
-			<div class="catalog-filters">
-				<div class="filter-group">
-					<button class="filter-btn active">Все товары</button>
-					<button class="filter-btn">Новинки</button>
-					<button class="filter-btn">Со скидкой</button>
-					<button class="filter-btn">Хиты</button>
+			<div class="category-filters">
+				<div class="filters-left">
+					<div class="filter-group">
+						<label for="sortBy">Сортировка:</label>
+						<select id="sortBy" class="filter-select">
+							<option value="default">По умолчанию</option>
+							<option value="price-asc">Цена (по возрастанию)</option>
+							<option value="price-desc">Цена (по убыванию)</option>
+							<option value="name-asc">Название (А-Я)</option>
+							<option value="name-desc">Название (Я-А)</option>
+							<option value="newest">Сначала новинки</option>
+						</select>
+					</div>
+					<div class="filter-group">
+						<label for="statusFilter">Наличие:</label>
+						<select id="statusFilter" class="filter-select">
+							<option value="all">Все</option>
+							<option value="in-stock">В наличии</option>
+							<option value="out-of-stock">Нет в наличии</option>
+						</select>
+					</div>
 				</div>
-				<div class="sort-group">
-					<label for="sort-select">Сортировка:</label>
-					<select id="sort-select" class="sort-select">
-						<option value="popular">По популярности</option>
-						<option value="price-asc">По возрастанию цены</option>
-						<option value="price-desc">По убыванию цены</option>
-						<option value="name-asc">По названию (А-Я)</option>
-						<option value="name-desc">По названию (Я-А)</option>
-						<option value="bonus-asc">По бонусам (возр.)</option>
-						<option value="bonus-desc">По бонусам (убыв.)</option>
-					</select>
-				</div>
+				<!-- <div class="filters-right">
+					<span class="products-count" id="productsCount"> товаров</span>
+				</div> -->
 			</div>
-		</div>
 
-		<!-- Сетка карточек товаров -->
-		<div class="catalog-grid">
+			<!-- Сетка товаров -->
+			<div class="products-grid" id="productsGrid">
+				<!-- Товары будут загружаться динамически через JavaScript -->
+			</div>
 
-			<!-- Карточка товара 1 -->
-			<article class="catalog-product" data-id="dmc-hoodie-1" data-name="Зип-худи | Призрачный клинок"
-				data-price="8152" data-old-price="10190" data-category="hoodies" data-brand="DEVIL MAY CRY"
-				data-bonus="408" data-image="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Hoodie">
+			<!-- Состояние "товары не найдены" (скрыто по умолчанию) -->
+			<div class="empty-state" id="emptyState" style="display: none;">
+				<i class="fas fa-box-open"></i>
+				<p>В этой категории пока нет товаров</p>
+				<p>Загляните позже или перейдите в другие разделы</p>
+				<a href="/pages html/catalog.html" class="btn-primary">Вернуться в каталог</a>
+			</div>
 
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
+			<!-- Пагинация -->
+			<div class="pagination" id="pagination" style="display: none;">
+				<button class="pagination-btn prev" disabled>
+					<i class="fas fa-chevron-left"></i>
+				</button>
+				<div class="pagination-pages" id="paginationPages">
+					<span class="pagination-current">1</span>
 				</div>
-
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Hoodie"
-						alt="Зип-худи Призрачный клинок" class="product-image" loading="lazy">
-					<div class="product-overlay">
-						<button class="quick-view-btn" data-id="dmc-hoodie-1">
-							<i class="fas fa-eye"></i> Быстрый просмотр
-						</button>
-					</div>
-				</div>
-
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Зип-худи | Призрачный клинок</h3>
-
-					<div class="product-prices">
-						<span class="current-price">8 152 ₽</span>
-						<span class="old-price">10 190 ₽</span>
-					</div>
-
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+408 ZGNC</span>
-					</div>
-
-					<div class="product-actions">
-						<button class="add-to-cart-btn" data-id="dmc-hoodie-1">
-							<i class="fas fa-shopping-cart"></i> В корзину
-						</button>
-						<button class="favorite-btn" data-id="dmc-hoodie-1">
-							<i class="far fa-heart"></i>
-						</button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 2 -->
-			<article class="catalog-product" data-id="dmc-tshirt-1" data-name="Футболка | Сердце демона"
-				data-price="2872" data-old-price="3590" data-category="t-shirts" data-brand="DEVIL MAY CRY"
-				data-bonus="144" data-image="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Tshirt+1">
-
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Tshirt+1"
-						alt="Футболка Сердце демона" class="product-image" loading="lazy">
-					<div class="product-overlay">
-						<button class="quick-view-btn" data-id="dmc-tshirt-1">
-							<i class="fas fa-eye"></i> Быстрый просмотр
-						</button>
-					</div>
-				</div>
-
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Футболка | Сердце демона</h3>
-
-					<div class="product-prices">
-						<span class="current-price">2 872 ₽</span>
-						<span class="old-price">3 590 ₽</span>
-					</div>
-
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+144 ZGNC</span>
-					</div>
-
-					<div class="product-actions">
-						<button class="add-to-cart-btn" data-id="dmc-tshirt-1">
-							<i class="fas fa-shopping-cart"></i> В корзину
-						</button>
-						<button class="favorite-btn" data-id="dmc-tshirt-1">
-							<i class="far fa-heart"></i>
-						</button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 3 -->
-			<article class="catalog-product" data-id="dmc-tshirt-2" data-name="Футболка | Охотницы" data-price="3032"
-				data-old-price="3790" data-category="t-shirts" data-brand="DEVIL MAY CRY" data-bonus="152"
-				data-image="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Tshirt+2">
-
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Tshirt+2"
-						alt="Футболка Охотницы" class="product-image" loading="lazy">
-					<div class="product-overlay">
-						<button class="quick-view-btn" data-id="dmc-tshirt-2">
-							<i class="fas fa-eye"></i> Быстрый просмотр
-						</button>
-					</div>
-				</div>
-
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Футболка | Охотницы</h3>
-
-					<div class="product-prices">
-						<span class="current-price">3 032 ₽</span>
-						<span class="old-price">3 790 ₽</span>
-					</div>
-
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+152 ZGNC</span>
-					</div>
-
-					<div class="product-actions">
-						<button class="add-to-cart-btn" data-id="dmc-tshirt-2">
-							<i class="fas fa-shopping-cart"></i> В корзину
-						</button>
-						<button class="favorite-btn" data-id="dmc-tshirt-2">
-							<i class="far fa-heart"></i>
-						</button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 4 (дополнительная) -->
-			<article class="catalog-product" data-id="dmc-accessory-1" data-name="Аксессуар | Стиль" data-price="4520"
-				data-old-price="5650" data-category="accessories" data-brand="DEVIL MAY CRY" data-bonus="226"
-				data-image="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Accessory">
-
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Accessory"
-						alt="Аксессуар Стиль" class="product-image" loading="lazy">
-					<div class="product-overlay">
-						<button class="quick-view-btn" data-id="dmc-accessory-1">
-							<i class="fas fa-eye"></i> Быстрый просмотр
-						</button>
-					</div>
-				</div>
-
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Аксессуар | Стиль</h3>
-
-					<div class="product-prices">
-						<span class="current-price">4 520 ₽</span>
-						<span class="old-price">5 650 ₽</span>
-					</div>
-
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+226 ZGNC</span>
-					</div>
-
-					<div class="product-actions">
-						<button class="add-to-cart-btn" data-id="dmc-accessory-1">
-							<i class="fas fa-shopping-cart"></i> В корзину
-						</button>
-						<button class="favorite-btn" data-id="dmc-accessory-1">
-							<i class="far fa-heart"></i>
-						</button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 5 -->
-			<article class="catalog-product" data-id="dmc-coat-1" data-name="Пальто | Тёмный рыцарь" data-price="12800"
-				data-old-price="16000" data-category="coats" data-brand="DEVIL MAY CRY" data-bonus="640"
-				data-image="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Coat">
-
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Coat"
-						alt="Пальто Тёмный рыцарь" class="product-image" loading="lazy">
-					<div class="product-overlay">
-						<button class="quick-view-btn" data-id="dmc-coat-1">
-							<i class="fas fa-eye"></i> Быстрый просмотр
-						</button>
-					</div>
-				</div>
-
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Пальто | Тёмный рыцарь</h3>
-
-					<div class="product-prices">
-						<span class="current-price">12 800 ₽</span>
-						<span class="old-price">16 000 ₽</span>
-					</div>
-
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+640 ZGNC</span>
-					</div>
-
-					<div class="product-actions">
-						<button class="add-to-cart-btn" data-id="dmc-coat-1">
-							<i class="fas fa-shopping-cart"></i> В корзину
-						</button>
-						<button class="favorite-btn" data-id="dmc-coat-1">
-							<i class="far fa-heart"></i>
-						</button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 6 -->
-			<article class="catalog-product" data-id="dmc-cap-1" data-name="Кепка | Легенда" data-price="1520"
-				data-old-price="1900" data-category="caps" data-brand="DEVIL MAY CRY" data-bonus="76"
-				data-image="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Cap">
-
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Cap" alt="Кепка Легенда"
-						class="product-image" loading="lazy">
-					<div class="product-overlay">
-						<button class="quick-view-btn" data-id="dmc-cap-1">
-							<i class="fas fa-eye"></i> Быстрый просмотр
-						</button>
-					</div>
-				</div>
-
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Кепка | Легенда</h3>
-
-					<div class="product-prices">
-						<span class="current-price">1 520 ₽</span>
-						<span class="old-price">1 900 ₽</span>
-					</div>
-
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+76 ZGNC</span>
-					</div>
-
-					<div class="product-actions">
-						<button class="add-to-cart-btn" data-id="dmc-cap-1">
-							<i class="fas fa-shopping-cart"></i> В корзину
-						</button>
-						<button class="favorite-btn" data-id="dmc-cap-1">
-							<i class="far fa-heart"></i>
-						</button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 7 -->
-			<article class="catalog-product" data-id="dmc-hoodie-2" data-name="Худи | Тёмный ангел" data-price="7920"
-				data-old-price="9900" data-category="hoodies" data-brand="DEVIL MAY CRY" data-bonus="396"
-				data-image="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Hoodie+2">
-
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Hoodie+2"
-						alt="Худи Тёмный ангел" class="product-image" loading="lazy">
-					<div class="product-overlay">
-						<button class="quick-view-btn" data-id="dmc-hoodie-2">
-							<i class="fas fa-eye"></i> Быстрый просмотр
-						</button>
-					</div>
-				</div>
-
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Худи | Тёмный ангел</h3>
-
-					<div class="product-prices">
-						<span class="current-price">7 920 ₽</span>
-						<span class="old-price">9 900 ₽</span>
-					</div>
-
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+396 ZGNC</span>
-					</div>
-
-					<div class="product-actions">
-						<button class="add-to-cart-btn" data-id="dmc-hoodie-2">
-							<i class="fas fa-shopping-cart"></i> В корзину
-						</button>
-						<button class="favorite-btn" data-id="dmc-hoodie-2">
-							<i class="far fa-heart"></i>
-						</button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 8 -->
-			<article class="catalog-product" data-id="dmc-bag-1" data-name="Сумка | Демоническая" data-price="5280"
-				data-old-price="6600" data-category="bags" data-brand="DEVIL MAY CRY" data-bonus="264"
-				data-image="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Bag">
-
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Bag" alt="Сумка Демоническая"
-						class="product-image" loading="lazy">
-					<div class="product-overlay">
-						<button class="quick-view-btn" data-id="dmc-bag-1">
-							<i class="fas fa-eye"></i> Быстрый просмотр
-						</button>
-					</div>
-				</div>
-
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Сумка | Демоническая</h3>
-
-					<div class="product-prices">
-						<span class="current-price">5 280 ₽</span>
-						<span class="old-price">6 600 ₽</span>
-					</div>
-
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+264 ZGNC</span>
-					</div>
-
-					<div class="product-actions">
-						<button class="add-to-cart-btn" data-id="dmc-bag-1">
-							<i class="fas fa-shopping-cart"></i> В корзину
-						</button>
-						<button class="favorite-btn" data-id="dmc-bag-1">
-							<i class="far fa-heart"></i>
-						</button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 2 -->
-			<article class="catalog-product">
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Tshirt+1"
-						alt="Футболка Сердце демона" class="product-image">
-					<div class="product-overlay">
-						<button class="quick-view-btn"><i class="fas fa-eye"></i> Быстрый просмотр</button>
-					</div>
-				</div>
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Футболка | Сердце демона</h3>
-					<div class="product-prices">
-						<span class="current-price">2 872 ₽</span>
-						<span class="old-price">3 590 ₽</span>
-					</div>
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+144 ZGNC</span>
-					</div>
-					<div class="product-actions">
-						<button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> В корзину</button>
-						<button class="favorite-btn"><i class="far fa-heart"></i></button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 3 -->
-			<article class="catalog-product">
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Tshirt+2"
-						alt="Футболка Охотницы" class="product-image">
-					<div class="product-overlay">
-						<button class="quick-view-btn"><i class="fas fa-eye"></i> Быстрый просмотр</button>
-					</div>
-				</div>
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Футболка | Охотницы</h3>
-					<div class="product-prices">
-						<span class="current-price">3 032 ₽</span>
-						<span class="old-price">3 790 ₽</span>
-					</div>
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+152 ZGNC</span>
-					</div>
-					<div class="product-actions">
-						<button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> В корзину</button>
-						<button class="favorite-btn"><i class="far fa-heart"></i></button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 4 -->
-			<article class="catalog-product">
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Accessory" alt="Аксессуар"
-						class="product-image">
-					<div class="product-overlay">
-						<button class="quick-view-btn"><i class="fas fa-eye"></i> Быстрый просмотр</button>
-					</div>
-				</div>
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Аксессуар | Стиль</h3>
-					<div class="product-prices">
-						<span class="current-price">4 520 ₽</span>
-						<span class="old-price">5 650 ₽</span>
-					</div>
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+226 ZGNC</span>
-					</div>
-					<div class="product-actions">
-						<button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> В корзину</button>
-						<button class="favorite-btn"><i class="far fa-heart"></i></button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 5 (дополнительная для заполнения) -->
-			<article class="catalog-product">
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Coat" alt="Пальто"
-						class="product-image">
-					<div class="product-overlay">
-						<button class="quick-view-btn"><i class="fas fa-eye"></i> Быстрый просмотр</button>
-					</div>
-				</div>
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Пальто | Тёмный рыцарь</h3>
-					<div class="product-prices">
-						<span class="current-price">12 800 ₽</span>
-						<span class="old-price">16 000 ₽</span>
-					</div>
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+640 ZGNC</span>
-					</div>
-					<div class="product-actions">
-						<button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> В корзину</button>
-						<button class="favorite-btn"><i class="far fa-heart"></i></button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 6 -->
-			<article class="catalog-product">
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Cap" alt="Кепка"
-						class="product-image">
-					<div class="product-overlay">
-						<button class="quick-view-btn"><i class="fas fa-eye"></i> Быстрый просмотр</button>
-					</div>
-				</div>
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Кепка | Легенда</h3>
-					<div class="product-prices">
-						<span class="current-price">1 520 ₽</span>
-						<span class="old-price">1 900 ₽</span>
-					</div>
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+76 ZGNC</span>
-					</div>
-					<div class="product-actions">
-						<button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> В корзину</button>
-						<button class="favorite-btn"><i class="far fa-heart"></i></button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 7 -->
-			<article class="catalog-product">
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Hoodie+2" alt="Худи"
-						class="product-image">
-					<div class="product-overlay">
-						<button class="quick-view-btn"><i class="fas fa-eye"></i> Быстрый просмотр</button>
-					</div>
-				</div>
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Худи | Тёмный ангел</h3>
-					<div class="product-prices">
-						<span class="current-price">7 920 ₽</span>
-						<span class="old-price">9 900 ₽</span>
-					</div>
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+396 ZGNC</span>
-					</div>
-					<div class="product-actions">
-						<button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> В корзину</button>
-						<button class="favorite-btn"><i class="far fa-heart"></i></button>
-					</div>
-				</div>
-			</article>
-
-			<!-- Карточка товара 8 -->
-			<article class="catalog-product">
-				<div class="product-badges">
-					<span class="badge-item badge-new">NEW!</span>
-					<span class="badge-item badge-discount">-20%</span>
-				</div>
-				<div class="product-image-wrapper">
-					<img src="https://via.placeholder.com/400x500/2a1a1a/ffdab9?text=DMC+Bag" alt="Сумка"
-						class="product-image">
-					<div class="product-overlay">
-						<button class="quick-view-btn"><i class="fas fa-eye"></i> Быстрый просмотр</button>
-					</div>
-				</div>
-				<div class="product-info">
-					<div class="product-brand">DEVIL MAY CRY</div>
-					<h3 class="product-name">Сумка | Демоническая</h3>
-					<div class="product-prices">
-						<span class="current-price">5 280 ₽</span>
-						<span class="old-price">6 600 ₽</span>
-					</div>
-					<div class="product-bonus">
-						<i class="fas fa-coins"></i>
-						<span>+264 ZGNC</span>
-					</div>
-					<div class="product-actions">
-						<button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> В корзину</button>
-						<button class="favorite-btn"><i class="far fa-heart"></i></button>
-					</div>
-				</div>
-			</article>
-
-		</div>
-
-		<!-- Пагинация -->
-		<div class="catalog-pagination">
-			<button class="pagination-btn active">1</button>
-			<button class="pagination-btn">2</button>
-			<button class="pagination-btn">3</button>
-			<button class="pagination-btn">4</button>
-			<button class="pagination-btn">5</button>
-			<span class="pagination-dots">...</span>
-			<button class="pagination-btn">10</button>
-			<button class="pagination-btn next"><i class="fas fa-chevron-right"></i></button>
-		</div>
-
+				<button class="pagination-btn next">
+					<i class="fas fa-chevron-right"></i>
+				</button>
+			</div>
 		</div>
 	</main>
-
-	<!-- Модальное окно быстрого просмотра карточки -->
-	<div class="quick-view-modal" id="quickViewModal">
-		<div class="modal-content">
-			<span class="close-modal">&times;</span>
-			<div class="modal-body">
-				<!-- Заполняется через JS -->
-			</div>
-		</div>
-	</div>
 
 	<!-- Подвал сайта -->
 	<footer>
@@ -1092,18 +465,30 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-compass"></i> Каталог</h3>
 					<ul class="footer-links">
-						<li><a href="#"><i class="fas fa-dragon"></i> Аниме фигурки</a></li>
-						<li><a href="#"><i class="fas fa-leaf"></i> Японский чай</a></li>
-						<li><a href="#"><i class="fas fa-candy-cane"></i> Азиатские сладости</a></li>
-						<li><a href="#"><i class="fas fa-bowl-food"></i> Японская посуда</a></li>
-						<li><a href="#"><i class="fas fa-book-open"></i> Манга и книги</a></li>
-						<li><a href="#"><i class="fas fa-shirt"></i> Аниме одежда</a></li>
-						<li><a href="#"><i class="fas fa-gamepad"></i> Японские игры</a></li>
-						<li><a href="#"><i class="fas fa-pen-fancy"></i> Канцелярия кавай</a></li>
-						<li><a href="#"><i class="fas fa-wand-sparkles"></i> Косметика из Азии</a></li>
-						<li><a href="#"><i class="fas fa-torii-gate"></i> Азиатский декор</a></li>
-						<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
-						<li><a href="#"><i class="fas fa-headphones-simple"></i> Азиатская поп-музыка</a></li>
+						<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-dragon"></i> Аниме
+								фигурки</a></li>
+						<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-leaf"></i> Азиатский чай</a>
+						</li>
+						<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-candy-cane"></i> Азиатские
+								сладости</a></li>
+						<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-bowl-food"></i> Азиатская
+								посуда</a></li>
+						<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book-open"></i> Манга и
+								книги</a></li>
+						<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-shirt"></i> Аниме
+								одежда</a></li>
+						<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
+								игры</a></li>
+						<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-pen-fancy"></i> Канцелярия
+								кавай</a></li>
+						<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-wand-sparkles"></i>
+								Косметика из Азии</a></li>
+						<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-torii-gate"></i> Азиатский
+								декор</a></li>
+						<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
+								дисках</a></li>
+						<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-headphones-simple"></i>
+								Азиатская популярная музыка</a></li>
 					</ul>
 				</div>
 
@@ -1111,12 +496,17 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-circle-info"></i> Информация</h3>
 					<ul class="footer-links">
-						<li><a href="#"><i class="fas fa-store"></i> О нас</a></li>
-						<li><a href="#"><i class="fas fa-question-circle"></i> Частые вопросы</a></li>
-						<li><a href="#"><i class="fas fa-truck-fast"></i> Оплата и доставка</a></li>
-						<li><a href="#"><i class="fas fa-rotate-left"></i> Обмен и возврат</a></li>
-						<li><a href="#"><i class="fas fa-address-book"></i> Контакты</a></li>
-						<li><a href="#"><i class="fas fa-shield"></i> Политика конфиденциальности</a></li>
+						<li><a href="/pages html/pages info/About us.html"><i class="fas fa-store"></i> О нас</a></li>
+						<li><a href="/pages html/pages info/Asked Questions.html"><i class="fas fa-question-circle"></i>
+								Частые вопросы</a></li>
+						<li><a href="/pages html/pages info/Payment and delivery.html"><i class="fas fa-truck-fast"></i>
+								Оплата и доставка</a></li>
+						<li><a href="/pages html/pages info/Exchange and Refund.html"><i class="fas fa-rotate-left"></i>
+								Обмен и возврат</a></li>
+						<li><a href="/pages html/pages info/Contacts.html"><i class="fas fa-address-book"></i>
+								Контакты</a></li>
+						<li><a href="/pages html/pages info/Privacy policy.html"><i class="fas fa-shield"></i> Политика
+								конфиденциальности</a></li>
 					</ul>
 				</div>
 
@@ -1124,9 +514,9 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-user-astronaut"></i> Профиль</h3>
 					<ul class="footer-links profile-links">
-						<li><a href="/pages/login.html"><i class="fas fa-user-circle"></i> Мой аккаунт</a></li>
-						<li><a href="/pages/favorites.html"><i class="fas fa-heart"></i> Избранное</a></li>
-						<li><a href="/pages/cart.html"><i class="fas fa-bag-shopping"></i> Корзина</a></li>
+						<li><a href="/pages html/login.html"><i class="fas fa-user-circle"></i> Мой аккаунт</a></li>
+						<li><a href="/pages html/favorites.html"><i class="fas fa-heart"></i> Избранное</a></li>
+						<li><a href="/pages html/cart.html"><i class="fas fa-bag-shopping"></i> Корзина</a></li>
 					</ul>
 				</div>
 
@@ -1195,26 +585,23 @@
 
 	<!-- Основной код -->
 	<script src="/js/main.js"></script>
+	<!-- Единое хранилище данных -->
+	<script src="/js/core/store.js"></script>
+	<!-- Работа с изображениями и утилиты  -->
+	<script src="/js/core/api.js"></script>
+
 	<!-- Бургер меню -->
-	<script src="/js/burger.js"></script>
+	<script src="/js/pages/burger.js"></script>
 	<!-- Поддержка -->
-	<script src="/js/support.js"></script>
-	<!-- Аккардеон продукции -->
-	<script src="/js/products-accordion.js"></script>
-	<!-- Популярные категории -->
-	<script src="/js/catalog-expand.js"></script>
+	<script src="/js/pages/support.js"></script>
 	<!-- Поиск -->
-	<script src="/js/search.js"></script>
-	<!-- Корзина -->
-	<script src="/js/cart.js"></script>
+	<script src="/js/pages/search.js"></script>
 	<!-- Избранное -->
-	<script src="/js/favorites.js"></script>
-	<!-- Кнопки если нужны -->
-	<script src="/js/buttons.js"></script>
-	<!-- Управление товарами -->
-	<script src="/js/product-management.js"></script>
-	<!-- Каталог товаров -->
-	<script src="/js/catalog-product.js"></script>
+	<script src="/js/pages/cart-favorites.js"></script>
+
+	<!-- Страницы категорий товаров -->
+	<script src="/js/pages/category-page.js"></script>
+
 </body>
 
 </html>

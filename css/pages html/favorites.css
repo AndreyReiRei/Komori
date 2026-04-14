@@ -1,4 +1,26 @@
-/* ===== СТРАНИЦА ИЗБРАННОГО ===== */
+/**
+ * ============================================================================
+ * СТИЛИ ДЛЯ СТРАНИЦЫ ИЗБРАННОГО
+ * ============================================================================
+ * 
+ * Структура файла:
+ * 1. Основные контейнеры страницы
+ * 2. Заголовок и информация
+ * 3. Панель действий (кнопки "Поделиться" и "Очистить")
+ * 4. Сетка товаров и карточки
+ * 5. Пустое состояние
+ * 6. Рекомендации
+ * 7. Анимации
+ * 8. Адаптивность (медиа-запросы)
+ * 
+ * ============================================================================
+ */
+
+/* =========================================================================
+ * 1. ОСНОВНЫЕ КОНТЕЙНЕРЫ СТРАНИЦЫ
+ * ========================================================================= */
+
+/* Главный контейнер страницы избранного */
 .favorites-page-content {
 	padding: 30px 0;
 	max-width: 100%;
@@ -7,7 +29,11 @@
 	box-sizing: border-box;
 }
 
-/* Заголовок страницы */
+/* =========================================================================
+ * 2. ЗАГОЛОВОК СТРАНИЦЫ
+ * ========================================================================= */
+
+/* Блок с заголовком и информацией о количестве товаров */
 .favorites-page-header {
 	display: flex;
 	justify-content: space-between;
@@ -16,6 +42,7 @@
 	padding: 0 20px;
 }
 
+/* Заголовок "Избранное" */
 .favorites-page-title {
 	font-size: 36px;
 	margin: 0;
@@ -23,33 +50,42 @@
 	align-items: center;
 	gap: 10px;
 	color: rgb(254, 254, 254);
+	/* Эффект неонового свечения для заголовка */
 	text-shadow: 1px 1px 2px #ff3366,
 		2px 2px 4px rgba(0, 0, 0, 0.5),
 		3px 3px 6px rgba(0, 0, 0, 0.3);
 }
 
+/* Иконка сердца в заголовке */
 .favorites-page-title i {
 	color: #ff3366;
 	font-size: 36px;
 }
 
+/* Блок с количеством товаров и общей суммой */
 .favorites-page-info {
 	font-size: 18px;
 	color: #ccc;
 }
 
+/* Количество товаров */
 .favorites-items-count {
 	font-weight: 600;
 	color: white;
 	margin-right: 10px;
 }
 
+/* Общая сумма избранных товаров */
 .favorites-total-amount {
 	color: #ff3366;
 	font-weight: 600;
 }
 
-/* Действия с избранным */
+/* =========================================================================
+ * 3. ПАНЕЛЬ ДЕЙСТВИЙ (ПОДЕЛИТЬСЯ / ОЧИСТИТЬ)
+ * ========================================================================= */
+
+/* Контейнер для кнопок действий */
 .favorites-actions {
 	display: flex;
 	justify-content: space-between;
@@ -63,6 +99,7 @@
 	border: 1px solid #333;
 }
 
+/* Левая часть - блок "Поделиться подборкой" */
 .favorites-share {
 	display: flex;
 	align-items: center;
@@ -70,17 +107,20 @@
 	flex-wrap: wrap;
 }
 
+/* Текст "Поделиться подборкой" */
 .favorites-share span {
 	color: #ccc;
 	font-weight: 500;
 }
 
+/* Контейнер для иконок соцсетей */
 .share-buttons {
 	display: flex;
 	gap: 10px;
 	flex-wrap: wrap;
 }
 
+/* Общие стили для кнопок соцсетей */
 .share-btn {
 	width: 40px;
 	height: 40px;
@@ -95,27 +135,33 @@
 	cursor: pointer;
 }
 
+/* Кнопка ВКонтакте */
 .share-btn.vk {
 	background: #4c75a3;
 }
 
+/* Кнопка Telegram */
 .share-btn.telegram {
 	background: #0088cc;
 }
 
+/* Кнопка WhatsApp */
 .share-btn.whatsapp {
 	background: #25d366;
 }
 
+/* Кнопка копирования ссылки */
 .share-btn.copy-link {
 	background: #ff3366;
 }
 
+/* Эффект при наведении на кнопки соцсетей */
 .share-btn:hover {
 	transform: translateY(-3px);
 	box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
 }
 
+/* Кнопка "Очистить избранное" */
 .clear-favorites-btn {
 	background: #ff3366;
 	color: white;
@@ -137,7 +183,11 @@
 	box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
 }
 
-/* ===== СЕТКА ДЛЯ ТОВАРОВ ===== */
+/* =========================================================================
+ * 4. СЕТКА ТОВАРОВ И КАРТОЧКИ
+ * ========================================================================= */
+
+/* Сетка для отображения товаров в избранном */
 .favorites-items {
 	display: grid;
 	gap: 25px;
@@ -145,48 +195,13 @@
 	padding: 0 20px;
 }
 
-/* Десктоп (1201px и выше) - 4 колонки */
-@media (min-width: 1201px) {
-	.favorites-items {
-		grid-template-columns: repeat(4, 1fr);
-	}
-}
+/* ========== КАРТОЧКА ТОВАРА ========== */
 
-/* Десктоп (993px - 1200px) - 4 колонки */
-@media (min-width: 993px) and (max-width: 1200px) {
-	.favorites-items {
-		grid-template-columns: repeat(4, 1fr);
-		gap: 20px;
-	}
-}
-
-/* Планшеты (769px - 992px) - 3 колонки */
-@media (min-width: 769px) and (max-width: 992px) {
-	.favorites-items {
-		grid-template-columns: repeat(3, 1fr);
-		gap: 18px;
-	}
-}
-
-/* Мобильные (577px - 768px) - 2 колонки */
-@media (min-width: 577px) and (max-width: 768px) {
-	.favorites-items {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 15px;
-		padding: 0 15px;
-	}
-}
-
-/* Маленькие мобильные (до 576px) - 2 колонки */
-@media (max-width: 576px) {
-	.favorites-items {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 10px;
-		padding: 0 10px;
-	}
-}
-
-/* ===== КАРТОЧКА ТОВАРА ===== */
+/* 
+ * ВАЖНО: Карточка товара сделана кликабельной целиком.
+ * cursor: pointer - показывает, что карточка кликабельна.
+ * transition - обеспечивает плавную анимацию при наведении.
+ */
 .favorite-item {
 	background: #1a1a1a;
 	border-radius: 12px;
@@ -199,15 +214,44 @@
 	flex-direction: column;
 	width: 100%;
 	animation: fadeIn 0.4s ease forwards;
+	cursor: pointer;
+	/* Делаем всю карточку кликабельной */
 }
 
+/* 
+ * Эффект при наведении на карточку:
+ * - Поднимается вверх (translateY)
+ * - Появляется подсветка границы
+ * - Увеличивается тень
+ */
 .favorite-item:hover {
 	transform: translateY(-5px);
 	border-color: #ff3366;
 	box-shadow: 0 8px 25px rgba(255, 51, 102, 0.2);
 }
 
-/* Бейджи на карточке */
+/* 
+ * Убираем стандартное подчеркивание у ссылок внутри карточки,
+ * но сохраняем их кликабельность для SEO и доступности
+ */
+.favorite-item a {
+	text-decoration: none;
+	color: inherit;
+}
+
+/* 
+ * Сохраняем кликабельность кнопок внутри карточки,
+ * чтобы они не конфликтовали с кликом по всей карточке
+ */
+.favorite-item button {
+	cursor: pointer;
+	position: relative;
+	z-index: 2;
+}
+
+/* ========== БЕЙДЖИ НА КАРТОЧКЕ ========== */
+
+/* Контейнер для бейджей (Новинка, Хит, Скидка) */
 .favorite-item-badges {
 	position: absolute;
 	top: 10px;
@@ -218,6 +262,7 @@
 	flex-wrap: wrap;
 }
 
+/* Общие стили для бейджей */
 .favorite-item-badges .badge {
 	padding: 4px 8px;
 	border-radius: 4px;
@@ -228,19 +273,24 @@
 	letter-spacing: 0.5px;
 }
 
+/* Бейдж "Новинка" - зеленый */
 .favorite-item-badges .badge.new {
 	background: #4caf50;
 }
 
+/* Бейдж "Хит" - оранжевый */
 .favorite-item-badges .badge.hit {
 	background: #ff9800;
 }
 
+/* Бейдж "Скидка" - красный */
 .favorite-item-badges .badge.sale {
 	background: #f44336;
 }
 
-/* Кнопка удаления */
+/* ========== КНОПКА УДАЛЕНИЯ ========== */
+
+/* Кнопка удаления товара из избранного (крестик) */
 .favorite-item .remove-favorite {
 	position: absolute;
 	top: 10px;
@@ -257,26 +307,52 @@
 	justify-content: center;
 	font-size: 16px;
 	transition: all 0.3s ease;
-	z-index: 2;
+	z-index: 3;
+	/* Выше, чем z-index карточки, чтобы кнопка была кликабельна */
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* Эффект при наведении на кнопку удаления */
 .favorite-item .remove-favorite:hover {
 	background: #ff3366;
 	color: white;
 	transform: rotate(90deg);
 }
 
-/* Изображение товара */
-.favorite-item-image {
+/* ========== ИЗОБРАЖЕНИЕ ТОВАРА ========== */
+
+/* 
+ * Ссылка на изображение - занимает весь блок изображения,
+ * чтобы клик по картинке тоже вел на страницу категории
+ */
+.favorite-item-link {
+	display: block;
 	width: 100%;
 	aspect-ratio: 1/1;
+	overflow: hidden;
+}
+
+/* Само изображение */
+.favorite-item-image {
+	width: 100%;
+	height: 100%;
 	object-fit: cover;
 	background: #0d0d0d;
 	border-bottom: 1px solid #333;
+	transition: transform 0.3s ease;
 }
 
-/* Информация о товаре */
+/* 
+ * Эффект увеличения изображения при наведении на карточку
+ * (работает даже при клике по кнопке удаления, т.к. кнопка имеет z-index выше)
+ */
+.favorite-item:hover .favorite-item-image {
+	transform: scale(1.05);
+}
+
+/* ========== ИНФОРМАЦИЯ О ТОВАРЕ ========== */
+
+/* Блок с текстовой информацией */
 .favorite-item-info {
 	padding: 15px;
 	flex: 1;
@@ -284,6 +360,7 @@
 	flex-direction: column;
 }
 
+/* Категория товара (ссылка) */
 .favorite-item-category {
 	font-size: 11px;
 	color: #ff3366;
@@ -293,12 +370,14 @@
 	font-weight: 600;
 }
 
+/* Название товара (ссылка) */
 .favorite-item-title {
 	font-size: 16px;
 	font-weight: 600;
 	color: white;
 	margin: 0 0 8px 0;
 	line-height: 1.3;
+	/* Ограничиваем название 2 строками с многоточием */
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
@@ -306,11 +385,14 @@
 	min-height: 42px;
 }
 
-/* Цены */
+/* ========== ЦЕНЫ ========== */
+
+/* Контейнер для цен */
 .favorite-item-prices {
 	margin-bottom: 10px;
 }
 
+/* Текущая цена (со скидкой или обычная) */
 .favorite-item-price {
 	font-size: 20px;
 	font-weight: 700;
@@ -318,6 +400,7 @@
 	display: inline-block;
 }
 
+/* Старая цена (зачеркнутая) */
 .favorite-item-old-price {
 	font-size: 14px;
 	color: #666;
@@ -326,7 +409,9 @@
 	display: inline-block;
 }
 
-/* Статус наличия */
+/* ========== СТАТУС НАЛИЧИЯ ========== */
+
+/* Блок статуса наличия */
 .favorite-item-stock {
 	display: flex;
 	align-items: center;
@@ -335,10 +420,12 @@
 	margin-bottom: 12px;
 }
 
+/* Иконка статуса */
 .favorite-item-stock i {
 	font-size: 12px;
 }
 
+/* Статус "В наличии" - зеленый */
 .favorite-item-stock.in-stock {
 	color: #2ecc71;
 }
@@ -347,6 +434,7 @@
 	color: #2ecc71;
 }
 
+/* Статус "Нет в наличии" - красный */
 .favorite-item-stock.out-of-stock {
 	color: #ff4757;
 }
@@ -355,6 +443,7 @@
 	color: #ff4757;
 }
 
+/* Статус "Осталось мало" - оранжевый */
 .favorite-item-stock.low-stock {
 	color: #f39c12;
 }
@@ -363,19 +452,23 @@
 	color: #f39c12;
 }
 
+/* Предупреждение о малом количестве */
 .low-stock-warning {
 	color: #f39c12;
 	font-size: 0.9em;
 	margin-left: 5px;
 }
 
-/* Действия с товаром */
+/* ========== КНОПКИ ДЕЙСТВИЙ ========== */
+
+/* Контейнер для кнопок действий */
 .favorite-item-actions {
 	display: flex;
 	gap: 8px;
 	margin-top: auto;
 }
 
+/* Кнопка "В корзину" */
 .add-to-cart-btn {
 	flex: 1;
 	background: #ff3366;
@@ -393,18 +486,24 @@
 	transition: all 0.3s ease;
 }
 
+/* Эффект при наведении на кнопку "В корзину" */
 .add-to-cart-btn:hover:not(:disabled) {
 	background: #ff6b6b;
 	transform: translateY(-2px);
 	box-shadow: 0 4px 12px rgba(255, 51, 102, 0.3);
 }
 
+/* Отключенная кнопка (товара нет в наличии) */
 .add-to-cart-btn:disabled {
 	opacity: 0.5;
 	cursor: not-allowed;
 }
 
-/* ===== ПУСТОЕ ИЗБРАННОЕ ===== */
+/* =========================================================================
+ * 5. ПУСТОЕ СОСТОЯНИЕ (КОГДА НЕТ ТОВАРОВ В ИЗБРАННОМ)
+ * ========================================================================= */
+
+/* Контейнер пустого избранного */
 .favorites-empty {
 	text-align: center;
 	padding: 60px 20px;
@@ -414,6 +513,7 @@
 	border: 1px solid #333;
 }
 
+/* Иконка пустого сердца */
 .favorites-empty i {
 	font-size: 80px;
 	color: #ff3366;
@@ -421,22 +521,26 @@
 	opacity: 0.6;
 }
 
+/* Текст в пустом состоянии */
 .favorites-empty p {
 	font-size: 18px;
 	color: #ccc;
 	margin-bottom: 10px;
 }
 
+/* Главный заголовок в пустом состоянии */
 .favorites-empty p:first-of-type {
 	font-size: 24px;
 	font-weight: 600;
 	color: white;
 }
 
+/* Контейнер для кнопок действий в пустом состоянии */
 .favorites-empty-actions {
 	margin-top: 30px;
 }
 
+/* Основная кнопка (например, "Перейти в каталог") */
 .btn-primary {
 	background: #ff3366;
 	color: white;
@@ -459,11 +563,16 @@
 	box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
 }
 
-/* ===== РЕКОМЕНДАЦИИ ===== */
+/* =========================================================================
+ * 6. РЕКОМЕНДАЦИИ
+ * ========================================================================= */
+
+/* Контейнер для рекомендаций */
 .favorites-empty-recommendations {
 	margin: 50px 20px 40px 20px;
 }
 
+/* Заголовок блока рекомендаций */
 .recommendations-title {
 	font-size: 28px;
 	color: white;
@@ -472,37 +581,15 @@
 	text-shadow: 1px 1px 2px #ff3366,
 		2px 2px 4px rgba(0, 0, 0, 0.5),
 		3px 3px 6px rgba(0, 0, 0, 0.3);
-	;
 }
 
+/* Сетка для карточек рекомендаций */
 .recommendations-grid {
 	display: grid;
 	gap: 20px;
 }
 
-/* Десктоп (993px и выше) - 4 колонки */
-@media (min-width: 993px) {
-	.recommendations-grid {
-		grid-template-columns: repeat(4, 1fr);
-	}
-}
-
-/* Планшеты (769px - 992px) - 3 колонки */
-@media (min-width: 769px) and (max-width: 992px) {
-	.recommendations-grid {
-		grid-template-columns: repeat(3, 1fr);
-		gap: 15px;
-	}
-}
-
-/* Мобильные (до 768px) - 2 колонки */
-@media (max-width: 768px) {
-	.recommendations-grid {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 12px;
-	}
-}
-
+/* Карточка рекомендации */
 .recommendation-item {
 	background: #1a1a1a;
 	border-radius: 10px;
@@ -512,14 +599,25 @@
 	text-align: center;
 	padding: 15px;
 	border: 1px solid #333;
+	cursor: pointer;
+	/* Делаем карточку рекомендации кликабельной */
 }
 
+/* Эффект при наведении на карточку рекомендации */
 .recommendation-item:hover {
 	transform: translateY(-3px);
 	border-color: #ff3366;
 	box-shadow: 0 5px 15px rgba(255, 51, 102, 0.2);
 }
 
+/* Сохраняем кликабельность кнопок внутри рекомендаций */
+.recommendation-item button {
+	cursor: pointer;
+	position: relative;
+	z-index: 2;
+}
+
+/* Изображение в рекомендации */
 .recommendation-image {
 	width: 100px;
 	height: 100px;
@@ -527,8 +625,15 @@
 	border-radius: 8px;
 	margin: 0 auto 12px auto;
 	display: block;
+	transition: transform 0.3s ease;
 }
 
+/* Эффект увеличения изображения при наведении на карточку */
+.recommendation-item:hover .recommendation-image {
+	transform: scale(1.05);
+}
+
+/* Название товара в рекомендации */
 .recommendation-name {
 	font-size: 14px;
 	font-weight: 600;
@@ -541,6 +646,7 @@
 	min-height: 40px;
 }
 
+/* Цена в рекомендации */
 .recommendation-price {
 	font-size: 16px;
 	font-weight: 700;
@@ -549,6 +655,7 @@
 	display: block;
 }
 
+/* Кнопка добавления в рекомендациях */
 .recommendation-add {
 	background: transparent;
 	border: 1px solid #ff3366;
@@ -571,13 +678,18 @@
 	color: white;
 }
 
+/* Сообщение "Нет рекомендаций" */
 .no-recommendations {
 	text-align: center;
 	color: #666;
 	padding: 20px;
 }
 
-/* ===== АНИМАЦИИ ===== */
+/* =========================================================================
+ * 7. АНИМАЦИИ
+ * ========================================================================= */
+
+/* Анимация появления карточки (снизу вверх) */
 @keyframes fadeIn {
 	from {
 		opacity: 0;
@@ -590,6 +702,7 @@
 	}
 }
 
+/* Анимация удаления (сдвиг влево) */
 @keyframes slideOut {
 	from {
 		opacity: 1;
@@ -602,6 +715,7 @@
 	}
 }
 
+/* Анимация удаления (уменьшение) */
 @keyframes scaleOut {
 	from {
 		opacity: 1;
@@ -614,7 +728,7 @@
 	}
 }
 
-/* Классы для анимаций */
+/* Классы для применения анимаций */
 .fade-in {
 	animation: fadeIn 0.4s ease forwards;
 }
@@ -627,7 +741,10 @@
 	animation: scaleOut 0.3s ease forwards;
 }
 
-/* Анимации для карточек с задержкой */
+/* 
+ * Анимации для карточек с задержкой
+ * Каждая следующая карточка появляется чуть позже
+ */
 .favorite-item:nth-child(1) {
 	animation-delay: 0.05s;
 }
@@ -668,9 +785,11 @@
 	animation-delay: 0.5s;
 }
 
-/* ===== АДАПТИВНОСТЬ ===== */
+/* =========================================================================
+ * 8. АДАПТИВНОСТЬ (MEDIA QUERIES)
+ * ========================================================================= */
 
-/* Ультраширокие (1921px и выше) */
+/* ----- 8.1 Ультраширокие экраны (1921px и выше) ----- */
 @media (min-width: 1921px) {
 	.favorites-page-content {
 		padding: 50px 0;
@@ -696,14 +815,25 @@
 	}
 }
 
-/* Очень большой десктоп (1441px - 1920px) */
+/* ----- 8.2 Очень большой десктоп (1441px - 1920px) ----- */
 @media (min-width: 1441px) and (max-width: 1920px) {
 	.favorites-items {
 		gap: 30px;
 	}
 }
 
-/* Десктоп (993px - 1200px) */
+/* ----- 8.3 Десктоп (993px - 1200px) - 4 колонки ----- */
+@media (min-width: 993px) {
+	.favorites-items {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	.recommendations-grid {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+/* ----- 8.4 Десктоп (993px - 1200px) - настройки размеров ----- */
 @media (min-width: 993px) and (max-width: 1200px) {
 	.favorites-page-title {
 		font-size: 28px;
@@ -712,9 +842,13 @@
 	.favorites-page-title i {
 		font-size: 32px;
 	}
+
+	.favorites-items {
+		gap: 20px;
+	}
 }
 
-/* Планшеты (769px - 992px) */
+/* ----- 8.5 Планшеты (769px - 992px) - 3 колонки ----- */
 @media (min-width: 769px) and (max-width: 992px) {
 	.favorites-page-header {
 		flex-direction: column;
@@ -730,6 +864,11 @@
 		font-size: 16px;
 	}
 
+	.favorites-items {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 18px;
+	}
+
 	.favorite-item-info {
 		padding: 12px;
 	}
@@ -742,9 +881,14 @@
 	.favorite-item-price {
 		font-size: 18px;
 	}
+
+	.recommendations-grid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 15px;
+	}
 }
 
-/* Большие мобильные (577px - 768px) */
+/* ----- 8.6 Большие мобильные (577px - 768px) - 2 колонки ----- */
 @media (min-width: 577px) and (max-width: 768px) {
 	.favorites-page-header {
 		flex-direction: column;
@@ -780,6 +924,12 @@
 		justify-content: center;
 	}
 
+	.favorites-items {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+		padding: 0 15px;
+	}
+
 	.favorite-item-info {
 		padding: 12px;
 	}
@@ -801,9 +951,14 @@
 		padding: 8px;
 		font-size: 12px;
 	}
+
+	.recommendations-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 12px;
+	}
 }
 
-/* Мобильные L (481px - 576px) */
+/* ----- 8.7 Мобильные L (481px - 576px) - 2 колонки ----- */
 @media (min-width: 481px) and (max-width: 576px) {
 	.favorites-page-header {
 		flex-direction: column;
@@ -835,6 +990,12 @@
 	.share-btn {
 		width: 35px;
 		height: 35px;
+	}
+
+	.favorites-items {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 10px;
+		padding: 0 12px;
 	}
 
 	.favorite-item-info {
@@ -887,7 +1048,7 @@
 	}
 }
 
-/* Мобильные (до 480px) */
+/* ----- 8.8 Мобильные (до 480px) - 2 колонки ----- */
 @media (max-width: 480px) {
 	.favorites-page-header {
 		flex-direction: column;
@@ -930,6 +1091,12 @@
 		justify-content: center;
 		padding: 8px 12px;
 		font-size: 12px;
+	}
+
+	.favorites-items {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 10px;
+		padding: 0 10px;
 	}
 
 	.favorite-item .remove-favorite {
@@ -994,6 +1161,11 @@
 		font-size: 18px;
 	}
 
+	.recommendations-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 10px;
+	}
+
 	.recommendation-image {
 		width: 70px;
 		height: 70px;
@@ -1014,7 +1186,7 @@
 	}
 }
 
-/* Очень маленькие экраны (до 360px) */
+/* ----- 8.9 Очень маленькие экраны (до 360px) - 2 колонки с меньшими размерами ----- */
 @media (max-width: 360px) {
 	.favorites-items {
 		gap: 8px;
