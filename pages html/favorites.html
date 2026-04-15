@@ -17,6 +17,8 @@
 	<link rel="stylesheet" href="/css/page elements/burger-menu.css">
 	<!-- Помощь и звонок -->
 	<link rel="stylesheet" href="/css/page elements/support.css">
+	<!-- Поиск -->
+	<link rel="stylesheet" href="/css/page elements/search.css">
 
 	<!-- Стили данной страницы -->
 	<link rel="stylesheet" href="/css/pages html/favorites.css">
@@ -202,6 +204,7 @@
 		<!-- Модальное окно чата с поддержкой -->
 		<div class="modal" id="chatModal">
 			<div class="modal-content chat-modal">
+				<!-- Шапка чата -->
 				<div class="chat-header">
 					<div class="chat-header-info">
 						<div class="chat-avatar">
@@ -209,26 +212,31 @@
 						</div>
 						<div class="chat-title">
 							<h3>Поддержка Комори</h3>
-							<span class="chat-status online"><i class="fas fa-circle"></i>Онлайн</span>
+							<span class="chat-status online">
+								<i class="fas fa-circle"></i>
+								Онлайн
+							</span>
 						</div>
 					</div>
 					<div class="chat-header-actions">
-						<button class="chat-close" id="closeChat" title="Закрыть"><i class="fas fa-times"></i></button>
+						<button class="chat-close" id="closeChat" title="Закрыть">
+							<i class="fas fa-times"></i>
+						</button>
 					</div>
 				</div>
+
+				<!-- Основная область чата с сообщениями -->
 				<div class="chat-messages" id="chatMessages">
+					<!-- Системное сообщение-приветствие -->
 					<div class="message system">
-						<div class="message-content"><i class="fas fa-bell"></i><span>Чат начат</span></div>
-					</div>
-					<div class="message bot-message">
-						<div class="message-avatar"><i class="fas fa-robot"></i></div>
-						<div class="message-content-wrapper">
-							<div class="message-sender">Бот поддержки</div>
-							<div class="message-text">Здравствуйте! Я бот-помощник. Чем могу помочь?</div>
-							<div class="message-time">Только что</div>
+						<div class="message-content">
+							<i class="fas fa-bell"></i>
+							<span>Чат начат</span>
 						</div>
 					</div>
 				</div>
+
+				<!-- Форма обратной связи (появляется при выборе опции) -->
 				<div class="callback-form" id="callbackForm">
 					<h4>Обратный звонок</h4>
 					<form id="contactForm">
@@ -245,25 +253,44 @@
 							<i class="fas fa-pencil-alt"></i>
 						</div>
 						<div class="form-actions">
-							<button type="button" class="btn-cancel" id="cancelCallback"><i
-									class="fas fa-times"></i>Отмена</button>
-							<button type="submit" class="btn-submit"><i
-									class="fas fa-paper-plane"></i>Отправить</button>
+							<button type="button" class="btn-cancel" id="cancelCallback">
+								<i class="fas fa-times"></i>
+								Отмена
+							</button>
+							<button type="submit" class="btn-submit">
+								<i class="fas fa-paper-plane"></i>
+								Отправить
+							</button>
 						</div>
 					</form>
 				</div>
+
+				<!-- Поле ввода сообщения и кнопки действий -->
 				<div class="chat-input-area">
+					<!-- Быстрые действия -->
 					<div class="quick-actions">
-						<button class="quick-action" id="quickCallback"><i class="fas fa-phone-alt"></i><span>Заказать
-								звонок</span></button>
-						<button class="quick-action" id="quickQuestion"><i
-								class="fas fa-question-circle"></i><span>Частые вопросы</span></button>
+						<button class="quick-action" id="quickCallback">
+							<i class="fas fa-phone-alt"></i>
+							<span>Заказать звонок</span>
+						</button>
+						<button class="quick-action" id="quickQuestion">
+							<i class="fas fa-question-circle"></i>
+							<span>Частые вопросы</span>
+						</button>
 					</div>
+
+					<!-- Строка ввода -->
 					<div class="input-wrapper">
 						<input type="text" id="chatInput" placeholder="Введите сообщение..." autocomplete="off">
-						<button class="send-btn" id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+						<button class="send-btn" id="sendMessage">
+							<i class="fas fa-paper-plane"></i>
+						</button>
 					</div>
-					<div class="input-hint"><i class="fas fa-info-circle"></i><span>Нажмите Enter для отправки</span>
+
+					<!-- Подсказка -->
+					<div class="input-hint">
+						<i class="fas fa-info-circle"></i>
+						<span>Нажмите Enter для отправки</span>
 					</div>
 				</div>
 			</div>

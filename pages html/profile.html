@@ -313,7 +313,17 @@
 				<!-- ПРАВАЯ КОЛОНКА: Информация о пользователе и адрес -->
 				<div class="profile-right">
 					<div class="profile-info-card">
-						<h3><i class="fas fa-user"></i> Основная информация</h3>
+						<!-- МИНИ-АВАТАР -->
+						<div class="profile-mini-avatar">
+							<img id="miniProfileAvatar" class="mini-avatar-img" src="" alt="Аватар"
+								style="display: none;">
+							<i id="miniAvatarPlaceholder" class="fas fa-user-circle mini-avatar-placeholder"></i>
+							<div class="mini-avatar-info">
+								<div class="mini-avatar-name" id="miniUserName">Загрузка...</div>
+								<div class="mini-avatar-email" id="miniUserEmail">-</div>
+							</div>
+						</div>
+						<h3> Основная информация</h3>
 						<div class="info-row">
 							<span class="info-label">Имя:</span>
 							<span class="info-value" id="userName">Загрузка...</span>

@@ -27,6 +27,7 @@ class ProfilePage {
 			this.bindEvents();
 			this.loadUserOrders();
 			this.loadAvatar();
+			this.updateMiniAvatar(); // Добавлен вызов обновления мини-аватара
 		}
 	}
 
@@ -83,6 +84,44 @@ class ProfilePage {
 
 		// Обновляем аватар в шапке
 		this.updateHeaderAvatar();
+		// Обновляем мини-аватар в правой колонке
+		this.updateMiniAvatar();
+	}
+
+	/**
+	 * Обновление мини-аватара в правой колонке
+	 */
+	updateMiniAvatar() {
+		const miniAvatarImg = document.getElementById( 'miniProfileAvatar' );
+		const miniAvatarPlaceholder = document.getElementById( 'miniAvatarPlaceholder' );
+		const miniUserName = document.getElementById( 'miniUserName' );
+		const miniUserEmail = document.getElementById( 'miniUserEmail' );
+
+		// Обновляем имя и email
+		if ( miniUserName ) {
+			miniUserName.textContent = this.currentUser.name;
+		}
+		if ( miniUserEmail ) {
+			miniUserEmail.textContent = this.currentUser.email;
+		}
+
+		// Обновляем изображение аватара
+		if ( this.currentUser.avatar ) {
+			if ( miniAvatarImg ) {
+				miniAvatarImg.src = this.currentUser.avatar;
+				miniAvatarImg.style.display = 'block';
+			}
+			if ( miniAvatarPlaceholder ) {
+				miniAvatarPlaceholder.style.display = 'none';
+			}
+		} else {
+			if ( miniAvatarImg ) {
+				miniAvatarImg.style.display = 'none';
+			}
+			if ( miniAvatarPlaceholder ) {
+				miniAvatarPlaceholder.style.display = 'flex';
+			}
+		}
 	}
 
 	/**
@@ -838,6 +877,9 @@ class ProfilePage {
 			if ( avatarPlaceholder ) {
 				avatarPlaceholder.style.display = 'none';
 			}
+
+			// Обновляем мини-аватар в правой колонке
+			this.updateMiniAvatar();
 
 			// Обновляем аватар в шапке
 			this.updateHeaderAvatar();
