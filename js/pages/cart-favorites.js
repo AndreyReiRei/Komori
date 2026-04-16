@@ -163,7 +163,7 @@ class CartFavoritesPage {
 	 */
 	updateHeaderCounters() {
 		const cartCount = document.getElementById( 'cartCount' );
-		const favoritesCount = document.getElementById( 'favoritesCount' );
+		const favoritesCount = document.getElementById( 'favoritesCount' ); // Это счетчик в шапке, не путать с favoritesItemsCount!
 
 		if ( cartCount ) {
 			cartCount.textContent = store.getCartCount();
@@ -277,9 +277,9 @@ class CartFavoritesPage {
                         <!-- Ссылка на изображение ведет на страницу категории -->
                         <a href="${categoryUrl}" class="cart-product-image-link">
                             <img src="${API.getSafeImageUrl( product.image )}" 
-                                 alt="${product.name}"
-                                 class="cart-product-image"
-                                 onerror="this.src='${API.getFallbackSvg( product.name )}'">
+                                alt="${product.name}"
+                                class="cart-product-image"
+                                onerror="this.src='${API.getFallbackSvg( product.name )}'">
                         </a>
                         <div class="cart-product-details">
                             <h3 class="cart-product-title">
@@ -312,7 +312,7 @@ class CartFavoritesPage {
                     <div class="cart-quantity-control">
                         <button class="cart-quantity-btn minus" data-id="${product.id}">-</button>
                         <input type="number" class="cart-quantity-input" value="${quantity}" 
-                               min="1" max="${product.quantity}" data-id="${product.id}">
+                            min="1" max="${product.quantity}" data-id="${product.id}">
                         <button class="cart-quantity-btn plus" data-id="${product.id}" 
                                 ${quantity >= product.quantity ? 'disabled' : ''}>+</button>
                     </div>
@@ -581,14 +581,20 @@ class CartFavoritesPage {
 	 * Отрисовывает содержимое избранного
 	 * Вызывается при загрузке страницы и после каждого изменения избранного
 	 */
+	/**
+ * Отрисовывает содержимое избранного
+ * Вызывается при загрузке страницы и после каждого изменения избранного
+ */
 	renderFavorites() {
 		console.log( '❤️ Рендерим избранное...' );
 
 		// Получаем DOM-элементы
 		const container = document.getElementById( 'favoritesItems' );    // Контейнер с товарами
 		const emptyState = document.getElementById( 'favoritesEmpty' );  // Состояние "пустое избранное"
-		const countElement = document.getElementById( 'favoritesCount' ); // Счетчик товаров
-		const totalElement = document.getElementById( 'favoritesTotal' ); // Общая сумма
+
+		// ИСПРАВЛЕНО: используем правильные ID
+		const countElement = document.getElementById( 'favoritesItemsCount' ); // Счетчик товаров (новый ID)
+		const totalElement = document.getElementById( 'favoritesTotal' );      // Общая сумма
 
 		// Получаем избранные товары из store
 		const favorites = store.getFavorites();
@@ -618,7 +624,7 @@ class CartFavoritesPage {
 		const total = favorites.reduce( ( sum, item ) => sum + item.price, 0 );
 		const count = favorites.length;
 
-		// Обновляем информацию
+		// Обновляем информацию - ИСПРАВЛЕНО: используем правильные переменные
 		if ( countElement ) {
 			countElement.textContent = this.getDeclension( count, ['товар', 'товара', 'товаров'] );
 		}
@@ -1002,9 +1008,10 @@ class CartFavoritesPage {
 	// =========================================================================
 
 	/**
-	 * Рендерит блок рекомендаций (похожие товары)
-	 * Работает и для корзины, и для избранного
-	 */
+	/**
+ * Рендерит блок рекомендаций (похожие товары)
+ * Работает и для корзины, и для избранного
+ */
 	renderRecommendations() {
 		// Ищем контейнер для рекомендаций
 		let grid = document.getElementById( 'recommendationsGrid' );
@@ -1033,35 +1040,68 @@ class CartFavoritesPage {
 		const cartItems = store.cart;
 		const cartIds = cartItems.map( item => item.id );
 
-		// Фильтруем товары для рекомендаций
-		let recommendations = allProducts
-			.filter( p => {
-				// Исключаем товары, которых нет в наличии
+		// Получаем ID товаров, которые УЖЕ отображаются на странице
+		const displayedProductIds = this.getDisplayedProductIds();
+
+		console.log( '📊 Статистика для рекомендаций:' );
+		console.log( '   Всего товаров:', allProducts.length );
+		console.log( '   В избранном:', favorites.length );
+		console.log( '   В корзине:', cartIds.length );
+		console.log( '   На странице:', displayedProductIds.length );
+
+		// Функция для проверки, подходит ли товар для рекомендации
+		const isValidForRecommendation = ( product ) => {
+			// Исключаем товары, которых нет в наличии
+			if ( product.status !== 'in-stock' || product.quantity <= 0 ) return false;
+			// Исключаем товары, которые уже в избранном
+			if ( favorites.includes( product.id ) ) return false;
+			// Исключаем товары, которые уже на странице
+			if ( displayedProductIds.includes( product.id ) ) return false;
+			// Для страницы корзины - исключаем товары, которые уже в корзине
+			if ( this.currentPage === 'cart' && cartIds.includes( product.id ) ) return false;
+			return true;
+		};
+
+		// Фильтруем подходящие товары
+		let availableProducts = allProducts.filter( isValidForRecommendation );
+
+		console.log( '   Доступно для рекомендаций:', availableProducts.length );
+
+		// Если доступных товаров меньше 4, показываем больше (но не больше 8)
+		const maxRecommendations = 8; // Максимум 8 рекомендаций
+		const minRecommendations = 4; // Минимум 4 рекомендации
+
+		let recommendations = [];
+
+		if ( availableProducts.length >= minRecommendations ) {
+			// Если есть достаточно товаров, берем случайные (но не больше maxRecommendations)
+			recommendations = this.shuffleArray( [...availableProducts] ).slice( 0, maxRecommendations );
+		} else if ( availableProducts.length > 0 ) {
+			// Если мало подходящих товаров, берем все что есть
+			recommendations = [...availableProducts];
+
+			// Если нужно больше товаров, берем популярные товары (хиты или новинки)
+			const popularProducts = allProducts.filter( p => {
 				if ( p.status !== 'in-stock' || p.quantity <= 0 ) return false;
-				// Исключаем товары, которые уже в избранном
-				if ( favorites.includes( p.id ) ) return false;
-				// Для страницы корзины - исключаем товары, которые уже в корзине
-				if ( this.currentPage === 'cart' && cartIds.includes( p.id ) ) return false;
-				return true;
-			} )
-			.sort( () => 0.5 - Math.random() ) // Перемешиваем для случайных рекомендаций
-			.slice( 0, 4 ); // Берем 4 товара
+				if ( recommendations.some( r => r.id === p.id ) ) return false;
+				// Берем товары с пометкой "Хит" или "Новинка"
+				return p.isHit || p.isNew;
+			} );
 
-		// Если рекомендаций меньше 4, добавляем дополнительные
-		if ( recommendations.length < 4 ) {
-			const moreProducts = allProducts
-				.filter( p => {
-					if ( p.status !== 'in-stock' || p.quantity <= 0 ) return false;
-					if ( recommendations.includes( p ) ) return false;
-					if ( favorites.includes( p.id ) ) return false;
-					if ( this.currentPage === 'cart' && cartIds.includes( p.id ) ) return false;
-					return true;
-				} )
-				.sort( () => 0.5 - Math.random() )
-				.slice( 0, 4 - recommendations.length );
-
-			recommendations = [...recommendations, ...moreProducts];
+			const needed = minRecommendations - recommendations.length;
+			if ( needed > 0 && popularProducts.length > 0 ) {
+				const additional = this.shuffleArray( [...popularProducts] ).slice( 0, needed );
+				recommendations = [...recommendations, ...additional];
+			}
 		}
+
+		// Если все еще нет рекомендаций - берем любые товары в наличии
+		if ( recommendations.length === 0 ) {
+			const anyProducts = allProducts.filter( p => p.status === 'in-stock' && p.quantity > 0 );
+			recommendations = this.shuffleArray( [...anyProducts] ).slice( 0, minRecommendations );
+		}
+
+		console.log( '   Итоговое количество рекомендаций:', recommendations.length );
 
 		// Если нет рекомендаций - показываем сообщение
 		if ( recommendations.length === 0 ) {
@@ -1072,8 +1112,52 @@ class CartFavoritesPage {
 		// Рендерим карточки рекомендаций
 		grid.innerHTML = recommendations.map( product => this.renderRecommendationCard( product ) ).join( '' );
 
+		// Обновляем заголовок блока рекомендаций (показываем количество)
+		const recommendationsTitle = document.querySelector( '.favorites-and-cart-recommendations .recommendations-title' );
+		if ( recommendationsTitle ) {
+			const titleText = this.currentPage === 'cart' ? 'Вам также может понравиться' : 'Возможно, вас заинтересует';
+			recommendationsTitle.innerHTML = `<i class="fas fa-magic"></i> ${titleText}`;
+		}
+
 		// Прикрепляем обработчики событий к кнопкам
 		this.attachRecommendationEvents();
+	}
+
+	/**
+	 * Перемешивает массив (рандомизация)
+	 * @param {Array} array - исходный массив
+	 * @returns {Array} перемешанный массив
+	 */
+	shuffleArray( array ) {
+		for ( let i = array.length - 1; i > 0; i-- ) {
+			const j = Math.floor( Math.random() * ( i + 1 ) );
+			[array[i], array[j]] = [array[j], array[i]];
+		}
+		return array;
+	}
+
+	/**
+	 * Получает ID товаров, которые уже отображаются на странице
+	 * @returns {Array} массив ID товаров на странице
+	 */
+	getDisplayedProductIds() {
+		const displayedIds = [];
+
+		if ( this.currentPage === 'cart' ) {
+			// Для страницы корзины - товары в списке корзины
+			document.querySelectorAll( '.cart-item-row' ).forEach( row => {
+				const id = row.dataset.id;
+				if ( id ) displayedIds.push( id );
+			} );
+		} else {
+			// Для страницы избранного - товары в списке избранного
+			document.querySelectorAll( '.favorite-item' ).forEach( item => {
+				const id = item.dataset.id;
+				if ( id ) displayedIds.push( id );
+			} );
+		}
+
+		return displayedIds;
 	}
 
 	/**
@@ -1095,10 +1179,10 @@ class CartFavoritesPage {
             <div class="recommendation-item" data-id="${product.id}">
                 <a href="${categoryUrl}" class="recommendation-link">
                     <img src="${API.getSafeImageUrl( product.image )}" 
-                         alt="${product.name}" 
-                         class="recommendation-image"
-                         loading="lazy"
-                         onerror="this.src='${API.getFallbackSvg( product.name )}'">
+                        alt="${product.name}" 
+                        class="recommendation-image"
+                        loading="lazy"
+                        onerror="this.src='${API.getFallbackSvg( product.name )}'">
                 </a>
                 <div class="recommendation-content">
                     <h4 class="recommendation-name">

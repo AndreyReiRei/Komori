@@ -17,16 +17,16 @@
 		<link rel="stylesheet" href="/css/header.css">
 		<!-- Подвал -->
 		<link rel="stylesheet" href="/css/footer.css">
+
 		<!-- Бургер меню -->
-		<link rel="stylesheet" href="/css/burger-menu.css">
+		<link rel="stylesheet" href="/css/page elements/burger-menu.css">
 		<!-- Помощь и звонок -->
 		<link rel="stylesheet" href="/css/page elements/support.css">
-		<!-- Аккардеон продукции -->
-		<link rel="stylesheet" href="/css/products-accordion.css">
-		<!-- Все Категории -->
-		<link rel="stylesheet" href="/css/catalog-styles.css">
+		<!-- Поиск -->
+		<link rel="stylesheet" href="/css/page elements/search.css">
+
 		<!-- Стили данной страницы -->
-		<link rel="stylesheet" href="/css/pages html/info.css">
+		<link rel="stylesheet" href="/css/pages html/About as.css">
 		<!-- Библиотека -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	</head>
@@ -61,7 +61,7 @@
 					<div class="user-action-item admin-action">
 						<a href="/pages html/product-management.html" class="action-link">
 							<i class="fas fa-cog"></i>
-							<span class="action-text">Управление товарами</span>
+							<span class="action-text">Админка</span>
 						</a>
 					</div>
 
@@ -240,21 +240,6 @@
 							<span>Чат начат</span>
 						</div>
 					</div>
-
-					<!-- Сообщение бота -->
-					<div class="message bot-message">
-						<div class="message-avatar">
-							<i class="fas fa-robot"></i>
-						</div>
-						<div class="message-content-wrapper">
-							<div class="message-sender">Бот поддержки</div>
-							<div class="message-text">
-								Здравствуйте! Я бот-помощник. Чем могу помочь?
-								Вы можете задать вопрос или оставить контакты для связи.
-							</div>
-							<div class="message-time">Только что</div>
-						</div>
-					</div>
 				</div>
 
 				<!-- Форма обратной связи (появляется при выборе опции) -->
@@ -326,7 +311,7 @@
 					<div class="cart-empty" id="cartEmpty">
 						<i class="fas fa-shopping-basket"></i>
 						<p>Ваша корзина пуста</p>
-						<a href="/pages/cart.html" class="continue-shopping">Перейти к покупкам</a>
+						<a href="/pages html/cart.html" class="continue-shopping">Перейти к покупкам</a>
 					</div>
 					<div class="cart-items" id="cartItems" style="display: none;">
 						<div class="cart-item">
@@ -450,84 +435,440 @@
 		<div class="nav-overlay" id="navOverlay"></div>
 	</div>
 
-	<!-- Основное содержимое -->
-	<main>
-		<!-- Основное содержимое -->
+	<!-- Основной контент -->
+	<main class="about-page">
 		<div class="container__main">
-			<!-- Секция с промо-контентом -->
-			<section class="promo-section">
-				<h1>Комори - уютный азиатский магазинчик у дома</h1>
 
-				<div class="promo-content">
-					<!-- Основной текст промо -->
-					<div class="promo-text">
-						<p>Комори — ваш солнечный уголок Азии, где каждый предмет согрет теплом восходящего солнца.</p>
+			<!-- Хлебные крошки -->
+			<div class="breadcrumbs">
+				<a href="/">Главная</a>
+				<i class="fas fa-chevron-right"></i>
+				<span>О магазине</span>
+			</div>
 
-						<p>Есть моменты, когда солнечный свет, пробиваясь сквозь листву, создает на пути узор из света
-							и тени. В Японии для этого есть особое слово — «коморэби» (木漏れ日). Это мимолетное ощущение
-							спокойствия, уюта и тихой красоты.</p>
-
-						<p>Наш «Комори» — это и есть такой уголок. Небольшой, тёплый магазинчик у дома, где время
-							замедляет свой бег. Здесь пахнет цветочным улуном и имбирным печеньем, на полках замерли в
-							изящных позах герои любимых историй, а упаковки с необычными сладостями обещают маленькое
-							путешествие.</p>
-
-						<p>Это место, куда заходят не только за фигуркой, чаем или хрустящим сенем. Сюда приходят за
-							ощущением. За тем самым солнечным бликом посреди будней. За кусочком далекой и такой манящей
-							культуры, которую теперь можно взять в руки.</p>
-
-						<p>Загляните. Поймайте свой лучик. Ваша Азия — совсем рядом.</p>
+			<!-- Герой-секция -->
+			<section class="about-hero">
+				<div class="hero-content">
+					<div class="hero-icon">
+						<i class="fas fa-torii-gate"></i>
 					</div>
+					<h1 class="hero-title">
+						<span class="title-jp">コモリ</span>
+						<span class="title-ru">Комори</span>
+					</h1>
+					<p class="hero-subtitle">Азиатский магазинчик у дома</p>
+					<p class="hero-description">
+						Маленький уголок Азии в вашем городе, где оживают любимые персонажи,
+						а аромат настоящего чая переносит в атмосферу уютных токийских улочек.
+					</p>
+				</div>
+				<div class="hero-decoration">
+					<div class="sakura-petal"></div>
+					<div class="sakura-petal"></div>
+					<div class="sakura-petal"></div>
+					<div class="sakura-petal"></div>
+					<div class="sakura-petal"></div>
+				</div>
+			</section>
 
-					<!-- Карточка с фигурками -->
-					<div class="promo-card">
-						<h3>Фигурки</h3>
-						<p>В японской эстетике есть понятие «ити-го ити-э» — «одна встреча, одно мгновение». Это
-							осознание того, что каждая встреча уникальна и больше никогда не повторится.</p>
-						<p>Наши фигурки — это и есть такие драгоценные мгновения. Самый яркий диалог, кульминационная
-							битва, тихая улыбка героя — всё это мастерски уловлено и воплощено в детализированном
-							материале. Это не просто сувениры, а материальные воспоминания, которые позволяют
-							прикоснуться к эмоциям от любимой истории.</p>
-						<p>От классических героев Studio Ghibli до современных персонажей аниме-хитов — каждая фигурка в
-							нашем магазине выбрана с любовью к деталям и оригинальному источнику. Мы сотрудничаем с
-							проверенными производителями, гарантируя качество и точность проработки.</p>
-						<p>Пусть ваше любимое мгновение будет с вами. Навсегда.</p>
+			<!-- Наша история -->
+			<section class="about-story">
+				<div class="section-header">
+					<div class="section-icon">
+						<i class="fas fa-scroll"></i>
 					</div>
-
-					<!-- Карточка с чаем -->
-					<div class="promo-card">
-						<h3>Чай</h3>
-						<p>Японская чайная церемония — это не просто ритуал, это философия гармонии, уважения и чистоты.
-							Каждый наш чай привезен из префектур, славящихся своими чайными традициями.</p>
-						<p>В нашем ассортименте вы найдете классический сенча с его свежим травянистым вкусом,
-							благородный гёкуро, который японцы называют "жемчужной росой", и конечно, церемониальный
-							маття — порошковый зеленый чай, который используется в настоящих чайных церемониях.</p>
-						<p>Для любителей чего-то особенного у нас есть жасминовый улун с нежным цветочным ароматом,
-							молочный улун с его сливочными нотками и традиционный китайский пуэр, выдержанный годами. А
-							завершить чаепитие поможет сладкий кукитя — чай из веточек и стеблей, который особенно хорош
-							после еды.</p>
-						<p>Заварите чашку — и пусть аромат Азии наполнит ваш дом теплом.</p>
+					<h2 class="section-title">Наша история</h2>
+					<div class="section-divider">
+						<span class="divider-line"></span>
+						<i class="fas fa-sakura divider-icon"></i>
+						<span class="divider-line"></span>
 					</div>
+				</div>
 
-					<!-- Карточка с одеждой -->
-					<div class="promo-card">
-						<h3>Одежда</h3>
-						<p>Японская уличная мода давно завоевала мир своей уникальной эстетикой — от минимализма до
-							смелых экспериментов. В нашем магазине мы собрали коллекцию одежды, которая отражает эту
-							философию.</p>
-						<p>У нас представлены футболки и худи с принтами популярных аниме, выполненными качественной
-							печатью, которая не выцветает и не трескается после множества стирок. Для ценителей
-							традиционного стиля мы привозим кимоно и юката из натуральных тканей — идеальный выбор для
-							фестивалей или особых случаев.</p>
-						<p>Особое место занимают аксессуары: сумки-шоперы с авторскими принтами, повязки на голову в
-							японском стиле, носки таби и гэта для полного погружения в атмосферу. А для поклонников
-							культуры кавай — мягкие свитера и кардиганы пастельных тонов, в которых так уютно осенним
-							вечером.</p>
-						<p>Одежда — это способ выразить себя. Позвольте своему гардеробу рассказать о вашей любви к
-							Азии.</p>
+				<div class="story-content">
+					<div class="story-text">
+						<p class="story-paragraph">
+							<span class="drop-cap">В</span>сё началось с любви к аниме и японской культуре.
+							Основатель магазина, с детства увлекался аниме и мечтал создать
+							место, где каждый сможет прикоснуться к удивительному миру азиатской культуры.
+						</p>
+						<p class="story-paragraph">
+							В 2020 году, в самый разгар пандемии, когда мир нуждался в маленьких радостях,
+							открылся первый магазин «Комори». Название выбрано не случайно —
+							<span class="japanese">«комори» (こもり)</span> в переводе с японского означает
+							«уютное укрытие» или «маленький домик».
+						</p>
+						<p class="story-paragraph">
+							Сегодня «Комори» — это не просто магазин, а настоящее сообщество ценителей
+							азиатской культуры. Мы выросли из маленького онлайн-магазина в сеть уютных
+							магазинчиков по всей стране.
+						</p>
+					</div>
+					<div class="story-stats">
+						<div class="stat-item">
+							<div class="stat-number">2020</div>
+							<div class="stat-label">Год основания</div>
+						</div>
+						<div class="stat-item">
+							<div class="stat-number">10+</div>
+							<div class="stat-label">Городов</div>
+						</div>
+						<div class="stat-item">
+							<div class="stat-number">50k+</div>
+							<div class="stat-label">Довольных клиентов</div>
+						</div>
+						<div class="stat-item">
+							<div class="stat-number">5000+</div>
+							<div class="stat-label">Товаров в каталоге</div>
+						</div>
 					</div>
 				</div>
 			</section>
+
+			<!-- Наша миссия и ценности -->
+			<section class="about-mission">
+				<div class="mission-grid">
+					<div class="mission-card">
+						<div class="mission-icon">
+							<i class="fas fa-heart"></i>
+						</div>
+						<h3>Наша миссия</h3>
+						<p>Делать азиатскую культуру доступной каждому. Мы верим, что маленькие радости —
+							будь то любимая фигурка или чашка настоящего маття — делают жизнь ярче.</p>
+					</div>
+
+					<div class="mission-card">
+						<div class="mission-icon">
+							<i class="fas fa-eye"></i>
+						</div>
+						<h3>Наше видение</h3>
+						<p>Стать главным проводником в мир азиатской культуры в России. Создать сообщество,
+							где каждый найдёт единомышленников и откроет для себя что-то новое.</p>
+					</div>
+
+					<div class="mission-card">
+						<div class="mission-icon">
+							<i class="fas fa-star"></i>
+						</div>
+						<h3>Наши ценности</h3>
+						<ul class="values-list">
+							<li><i class="fas fa-check-circle"></i> Качество и подлинность товаров</li>
+							<li><i class="fas fa-check-circle"></i> Любовь к азиатской культуре</li>
+							<li><i class="fas fa-check-circle"></i> Забота о каждом клиенте</li>
+							<li><i class="fas fa-check-circle"></i> Честность и открытость</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<!-- Что мы продаём -->
+			<section class="about-categories">
+				<div class="section-header">
+					<div class="section-icon">
+						<i class="fas fa-box"></i>
+					</div>
+					<h2 class="section-title">Что мы предлагаем</h2>
+					<div class="section-divider">
+						<span class="divider-line"></span>
+						<i class="fas fa-sakura divider-icon"></i>
+						<span class="divider-line"></span>
+					</div>
+				</div>
+
+				<div class="categories-grid">
+					<!-- Аниме фигурки -->
+					<div class="category-card">
+						<a href="/pages html/catalog pages/figurines.html" class="category-link">
+							<div class="category-icon-wrapper">
+								<i class="fas fa-user-ninja"></i>
+							</div>
+							<h4>Аниме фигурки</h4>
+							<p>Коллекционные фигурки из любимых аниме. От культовой классики до новинок сезона.</p>
+						</a>
+					</div>
+
+					<!-- Азиатский чай -->
+					<div class="category-card">
+						<a href="/pages html/catalog pages/tea.html" class="category-link">
+							<div class="category-icon-wrapper">
+								<i class="fas fa-mug-hot"></i>
+							</div>
+							<h4>Азиатский чай</h4>
+							<p>Маття, сенча, улун, пуэр и другие сорта из Японии, Китая и Кореи.</p>
+						</a>
+					</div>
+
+					<!-- Азиатские сладости -->
+					<div class="category-card">
+						<a href="/pages html/catalog pages/sweets.html" class="category-link">
+							<div class="category-icon-wrapper">
+								<i class="fas fa-cookie-bite"></i>
+							</div>
+							<h4>Азиатские сладости</h4>
+							<p>Моти, пирожные, конфеты и традиционные десерты из разных уголков Азии.</p>
+						</a>
+					</div>
+
+					<!-- Манга и книги -->
+					<div class="category-card">
+						<a href="/pages html/catalog pages/manga.html" class="category-link">
+							<div class="category-icon-wrapper">
+								<i class="fas fa-book"></i>
+							</div>
+							<h4>Манга и книги</h4>
+							<p>Манга, ранобэ и книги о японской культуре на русском и японском языках.</p>
+						</a>
+					</div>
+
+					<!-- Аниме одежда -->
+					<div class="category-card">
+						<a href="/pages html/catalog pages/clothes.html" class="category-link">
+							<div class="category-icon-wrapper">
+								<i class="fas fa-tshirt"></i>
+							</div>
+							<h4>Аниме одежда</h4>
+							<p>Футболки, худи, аксессуары с принтами из популярных аниме и игр.</p>
+						</a>
+					</div>
+
+					<!-- Азиатская посуда -->
+					<div class="category-card">
+						<a href="/pages html/catalog pages/dishes.html" class="category-link">
+							<div class="category-icon-wrapper">
+								<i class="fas fa-utensils"></i>
+							</div>
+							<h4>Азиатская посуда</h4>
+							<p>Традиционная посуда для чайных церемоний, палочки, миски и наборы для суши.</p>
+						</a>
+					</div>
+
+					<!-- Японские игры -->
+					<div class="category-card">
+						<a href="/pages html/catalog pages/games.html" class="category-link">
+							<div class="category-icon-wrapper">
+								<i class="fas fa-gamepad"></i>
+							</div>
+							<h4>Японские игры</h4>
+							<p>Видеоигры, коллекционные издания и аксессуары от японских разработчиков.</p>
+						</a>
+					</div>
+
+					<!-- Канцелярия кавай -->
+					<div class="category-card">
+						<a href="/pages html/catalog pages/office.html" class="category-link">
+							<div class="category-icon-wrapper">
+								<i class="fas fa-pencil-alt"></i>
+							</div>
+							<h4>Канцелярия кавай</h4>
+							<p>Милая и необычная канцелярия в стиле кавай для учёбы и творчества.</p>
+						</a>
+					</div>
+
+					<!-- Косметика из Азии -->
+					<div class="category-card">
+						<a href="/pages html/catalog pages/cosmetics.html" class="category-link">
+							<div class="category-icon-wrapper">
+								<i class="fas fa-spray-can"></i>
+							</div>
+							<h4>Косметика из Азии</h4>
+							<p>Корейская и японская косметика для ухода за кожей и макияжа.</p>
+						</a>
+					</div>
+
+					<!-- Азиатский декор -->
+					<div class="category-card">
+						<a href="/pages html/catalog pages/decor.html" class="category-link">
+							<div class="category-icon-wrapper">
+								<i class="fas fa-home"></i>
+							</div>
+							<h4>Азиатский декор</h4>
+							<p>Предметы интерьера в азиатском стиле для создания особой атмосферы.</p>
+						</a>
+					</div>
+
+					<!-- Аниме на дисках -->
+					<div class="category-card">
+						<a href="/pages html/catalog pages/disks.html" class="category-link">
+							<div class="category-icon-wrapper">
+								<i class="fas fa-film"></i>
+							</div>
+							<h4>Аниме на дисках</h4>
+							<p>Любимые аниме-сериалы и полнометражные фильмы на DVD и Blu-ray.</p>
+						</a>
+					</div>
+
+					<!-- Азиатская музыка -->
+					<div class="category-card">
+						<a href="/pages html/catalog pages/music.html" class="category-link">
+							<div class="category-icon-wrapper">
+								<i class="fas fa-music"></i>
+							</div>
+							<h4>J-pop и K-pop</h4>
+							<p>Альбомы, синглы и мерч популярных азиатских исполнителей на CD и виниле.</p>
+						</a>
+					</div>
+				</div>
+
+				<div class="categories-more">
+					<p>И это ещё не всё! В нашем каталоге вы найдёте:</p>
+					<div class="more-tags">
+						<a href="/pages html/catalog pages/special offers.html" class="more-tag-link">
+							<span class="more-tag"><i class="fas fa-tags"></i> Новинки</span>
+						</a>
+						<a href="/pages html/catalog pages/collections.html" class="more-tag-link">
+							<span class="more-tag"><i class="fas fa-star"></i> Коллекции</span>
+						</a>
+						<a href="/pages html/catalog.html" class="more-tag-link">
+							<span class="more-tag"><i class="fas fa-arrow-right"></i> Весь каталог</span>
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- Почему выбирают нас -->
+			<section class="about-advantages">
+				<div class="section-header">
+					<div class="section-icon">
+						<i class="fas fa-crown"></i>
+					</div>
+					<h2 class="section-title">Почему выбирают Комори</h2>
+					<div class="section-divider">
+						<span class="divider-line"></span>
+						<i class="fas fa-sakura divider-icon"></i>
+						<span class="divider-line"></span>
+					</div>
+				</div>
+
+				<div class="advantages-grid">
+					<div class="advantage-item">
+						<div class="advantage-icon">
+							<i class="fas fa-medal"></i>
+						</div>
+						<h4>Оригинальное качество</h4>
+						<p>Работаем только с проверенными поставщиками. Все товары сертифицированы и оригинальны.</p>
+					</div>
+
+					<div class="advantage-item">
+						<div class="advantage-icon">
+							<i class="fas fa-truck-fast"></i>
+						</div>
+						<h4>Быстрая доставка</h4>
+						<p>Доставка по всей России. В крупных городах — курьером, в регионы — почтой или СДЭК.</p>
+					</div>
+
+					<div class="advantage-item">
+						<div class="advantage-icon">
+							<i class="fas fa-gift"></i>
+						</div>
+						<h4>Подарки и бонусы</h4>
+						<p>Накопительная система скидок, подарки к заказам и специальные акции для постоянных клиентов.
+						</p>
+					</div>
+
+					<div class="advantage-item">
+						<div class="advantage-icon">
+							<i class="fas fa-headset"></i>
+						</div>
+						<h4>Поддержка 24/7</h4>
+						<p>Всегда на связи! Поможем с выбором, ответим на вопросы и решим любые проблемы.</p>
+					</div>
+
+					<div class="advantage-item">
+						<div class="advantage-icon">
+							<i class="fas fa-rotate-left"></i>
+						</div>
+						<h4>Лёгкий возврат</h4>
+						<p>14 дней на возврат товара без объяснения причин. Быстро и без лишних вопросов.</p>
+					</div>
+
+					<div class="advantage-item">
+						<div class="advantage-icon">
+							<i class="fas fa-users"></i>
+						</div>
+						<h4>Сообщество</h4>
+						<p>Проводим мероприятия, конкурсы и встречи для фанатов аниме и азиатской культуры.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Наша команда -->
+			<section class="about-team">
+				<div class="section-header">
+					<div class="section-icon">
+						<i class="fas fa-user-astronaut"></i>
+					</div>
+					<h2 class="section-title">Наша команда</h2>
+					<div class="section-divider">
+						<span class="divider-line"></span>
+						<i class="fas fa-sakura divider-icon"></i>
+						<span class="divider-line"></span>
+					</div>
+				</div>
+
+				<div class="team-grid">
+					<div class="team-card">
+						<div class="team-avatar">
+							<i class="fas fa-user-circle"></i>
+						</div>
+						<h4>Бездарь</h4>
+						<p class="team-role">Основатель</p>
+						<p class="team-bio">Фанат аниме с 20-летним стажем. Верит, что каждая фигурка несёт частичку
+							души персонажа.</p>
+					</div>
+
+					<div class="team-card">
+						<div class="team-avatar">
+							<i class="fas fa-user-circle"></i>
+						</div>
+						<h4>Гуру тысячелетия</h4>
+						<p class="team-role">Главный по чаю</p>
+						<p class="team-bio">Сертифицированный чайный мастер. Знает о чае всё и даже немного больше.</p>
+					</div>
+
+					<div class="team-card">
+						<div class="team-avatar">
+							<i class="fas fa-user-circle"></i>
+						</div>
+						<h4>Работяга</h4>
+						<p class="team-role">Арт-директор</p>
+						<p class="team-bio">Создаёт уютную атмосферу во всех наших магазинах и на сайте.</p>
+					</div>
+
+					<div class="team-card">
+						<div class="team-avatar">
+							<i class="fas fa-user-circle"></i>
+						</div>
+						<h4>Спекулянт</h4>
+						<p class="team-role">Менеджер по закупкам</p>
+						<p class="team-bio">Находит самые редкие и интересные товары по всей Азии.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Призыв к действию -->
+			<section class="about-cta">
+				<div class="cta-content">
+					<div class="cta-icon">
+						<i class="fas fa-torii-gate"></i>
+					</div>
+					<h2 class="cta-title">Добро пожаловать в Комори!</h2>
+					<p class="cta-text">
+						Присоединяйтесь к нашему сообществу ценителей азиатской культуры.
+						Подписывайтесь на новости, участвуйте в акциях и будьте в курсе новинок!
+					</p>
+					<div class="cta-buttons">
+						<a href="/pages html/catalog.html" class="cta-btn primary">
+							<i class="fas fa-shopping-bag"></i>
+							Перейти в каталог
+						</a>
+						<a href="/pages html/pages info/Contacts.html" class="cta-btn secondary">
+							<i class="fas fa-map-pin"></i>
+							Наши контакты
+						</a>
+					</div>
+				</div>
+			</section>
+
 		</div>
 	</main>
 
@@ -539,18 +880,30 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-compass"></i> Каталог</h3>
 					<ul class="footer-links">
-						<li><a href="#"><i class="fas fa-dragon"></i> Аниме фигурки</a></li>
-						<li><a href="#"><i class="fas fa-leaf"></i> Японский чай</a></li>
-						<li><a href="#"><i class="fas fa-candy-cane"></i> Азиатские сладости</a></li>
-						<li><a href="#"><i class="fas fa-bowl-food"></i> Японская посуда</a></li>
-						<li><a href="#"><i class="fas fa-book-open"></i> Манга и книги</a></li>
-						<li><a href="#"><i class="fas fa-shirt"></i> Аниме одежда</a></li>
-						<li><a href="#"><i class="fas fa-gamepad"></i> Японские игры</a></li>
-						<li><a href="#"><i class="fas fa-pen-fancy"></i> Канцелярия кавай</a></li>
-						<li><a href="#"><i class="fas fa-wand-sparkles"></i> Косметика из Азии</a></li>
-						<li><a href="#"><i class="fas fa-torii-gate"></i> Азиатский декор</a></li>
-						<li><a href="#"><i class="fas fa-film"></i> Аниме на дисках</a></li>
-						<li><a href="#"><i class="fas fa-headphones-simple"></i> Азиатская поп-музыка</a></li>
+						<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-dragon"></i> Аниме
+								фигурки</a></li>
+						<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-leaf"></i> Азиатский чай</a>
+						</li>
+						<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-candy-cane"></i> Азиатские
+								сладости</a></li>
+						<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-bowl-food"></i> Азиатская
+								посуда</a></li>
+						<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book-open"></i> Манга и
+								книги</a></li>
+						<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-shirt"></i> Аниме
+								одежда</a></li>
+						<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
+								игры</a></li>
+						<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-pen-fancy"></i> Канцелярия
+								кавай</a></li>
+						<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-wand-sparkles"></i>
+								Косметика из Азии</a></li>
+						<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-torii-gate"></i> Азиатский
+								декор</a></li>
+						<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
+								дисках</a></li>
+						<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-headphones-simple"></i>
+								Азиатская популярная музыка</a></li>
 					</ul>
 				</div>
 
@@ -558,12 +911,17 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-circle-info"></i> Информация</h3>
 					<ul class="footer-links">
-						<li><a href="#"><i class="fas fa-store"></i> О нас</a></li>
-						<li><a href="#"><i class="fas fa-question-circle"></i> Частые вопросы</a></li>
-						<li><a href="#"><i class="fas fa-truck-fast"></i> Оплата и доставка</a></li>
-						<li><a href="#"><i class="fas fa-rotate-left"></i> Обмен и возврат</a></li>
-						<li><a href="#"><i class="fas fa-address-book"></i> Контакты</a></li>
-						<li><a href="#"><i class="fas fa-shield"></i> Политика конфиденциальности</a></li>
+						<li><a href="/pages html/pages info/About us.html"><i class="fas fa-store"></i> О нас</a></li>
+						<li><a href="/pages html/pages info/Asked Questions.html"><i class="fas fa-question-circle"></i>
+								Частые вопросы</a></li>
+						<li><a href="/pages html/pages info/Payment and delivery.html"><i class="fas fa-truck-fast"></i>
+								Оплата и доставка</a></li>
+						<li><a href="/pages html/pages info/Exchange and Refund.html"><i class="fas fa-rotate-left"></i>
+								Обмен и возврат</a></li>
+						<li><a href="/pages html/pages info/Contacts.html"><i class="fas fa-address-book"></i>
+								Контакты</a></li>
+						<li><a href="/pages html/pages info/Privacy policy.html"><i class="fas fa-shield"></i> Политика
+								конфиденциальности</a></li>
 					</ul>
 				</div>
 
@@ -571,9 +929,9 @@
 				<div class="footer-column">
 					<h3><i class="fas fa-user-astronaut"></i> Профиль</h3>
 					<ul class="footer-links profile-links">
-						<li><a href="/pages/login.html"><i class="fas fa-user-circle"></i> Мой аккаунт</a></li>
-						<li><a href="/pages/favorites.html"><i class="fas fa-heart"></i> Избранное</a></li>
-						<li><a href="/pages/cart.html"><i class="fas fa-bag-shopping"></i> Корзина</a></li>
+						<li><a href="/pages html/login.html"><i class="fas fa-user-circle"></i> Мой аккаунт</a></li>
+						<li><a href="/pages html/favorites.html"><i class="fas fa-heart"></i> Избранное</a></li>
+						<li><a href="/pages html/cart.html"><i class="fas fa-bag-shopping"></i> Корзина</a></li>
 					</ul>
 				</div>
 

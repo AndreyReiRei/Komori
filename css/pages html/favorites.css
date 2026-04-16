@@ -64,14 +64,18 @@
 
 /* Блок с количеством товаров и общей суммой */
 .favorites-page-info {
-	font-size: 18px;
+	font-size: 16px;
 	color: #ccc;
+	background: #1a1a1a;
+	padding: 10px 20px;
+	border-radius: 30px;
+	border: 1px solid #333;
 }
 
 /* Количество товаров */
 .favorites-items-count {
 	font-weight: 600;
-	color: white;
+	color: #ccc;
 	margin-right: 10px;
 }
 
