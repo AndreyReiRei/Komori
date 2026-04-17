@@ -1,4 +1,8 @@
 /* ===== СТРАНИЦА ПРОФИЛЯ ===== */
+body {
+	background: linear-gradient(135deg, #000000 0%, #2d2d2dd8 100%);
+}
+
 .profile-page {
 	max-width: 100%;
 	margin: 0 auto;
@@ -1038,6 +1042,7 @@
 	}
 
 	.stats-grid {
+		grid-template-columns: 1fr;
 		gap: 10px;
 	}
 
@@ -1172,6 +1177,7 @@
 	}
 
 	.stats-grid {
+		grid-template-columns: 1fr;
 		gap: 8px;
 	}
 
