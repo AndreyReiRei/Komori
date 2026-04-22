@@ -1,7 +1,7 @@
-/* ===== СТРАНИЦА "О МАГАЗИНЕ" ===== */
-/* Файл: about.css */
+/* ===== СТРАНИЦА "НАШИ АДРЕСА И ДОСТАВКА" ===== */
+/* Файл: delivery.css */
 
-.about-page {
+.delivery-page {
 	background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%);
 	min-height: 100vh;
 }
@@ -45,7 +45,7 @@
 }
 
 /* ===== ГЕРОЙ-СЕКЦИЯ ===== */
-.about-hero {
+.delivery-hero {
 	position: relative;
 	padding: 60px 40px;
 	margin-bottom: 40px;
@@ -224,397 +224,449 @@
 	font-size: 16px;
 }
 
-/* ===== ИСТОРИЯ ===== */
-.about-story {
+/* ===== КАРТА ===== */
+.delivery-map {
 	padding: 60px 0;
 }
 
-.story-content {
-	display: grid;
-	grid-template-columns: 1.5fr 1fr;
-	gap: 30px;
-	align-items: center;
-}
-
-.story-text {
+.map-preview {
 	background: #1a1a1a;
-	padding: 30px;
-	border-radius: 16px;
+	border-radius: 24px;
 	border: 1px solid #333;
+	overflow: hidden;
 }
 
-.story-paragraph {
-	font-size: 16px;
-	color: #ccc;
-	line-height: 1.8;
+.map-placeholder {
+	min-height: 400px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(135deg, #2a1a20 0%, #1a1a1a 100%);
+	color: #ff3366;
+}
+
+.map-placeholder i {
+	font-size: 80px;
 	margin-bottom: 20px;
+	opacity: 0.7;
 }
 
-.story-paragraph:last-child {
-	margin-bottom: 0;
-}
-
-.drop-cap {
-	float: left;
-	font-size: 64px;
-	line-height: 1;
-	margin-right: 12px;
-	color: #ff3366;
-	font-weight: 700;
-}
-
-.japanese {
-	color: #ff3366;
-	font-weight: 500;
-}
-
-.story-stats {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: 20px;
-}
-
-.stat-item {
-	background: #1a1a1a;
-	padding: 30px 20px;
-	border-radius: 16px;
-	border: 1px solid #333;
-	text-align: center;
-	transition: all 0.3s ease;
-}
-
-.stat-item:hover {
-	border-color: #ff3366;
-	transform: translateY(-5px);
-	box-shadow: 0 8px 25px rgba(255, 51, 102, 0.2);
-}
-
-.stat-number {
-	font-size: 42px;
-	font-weight: 700;
-	color: #ff3366;
-	margin-bottom: 10px;
-}
-
-.stat-label {
-	font-size: 14px;
+.map-placeholder span {
+	font-size: 18px;
 	color: #ccc;
 }
 
-/* ===== МИССИЯ ===== */
-.about-mission {
+/* ===== ГОРОДА ===== */
+.delivery-cities {
 	padding: 60px 0;
 }
 
-.mission-grid {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 30px;
-}
-
-.mission-card {
-	background: #1a1a1a;
-	padding: 35px 25px;
-	border-radius: 16px;
-	border: 1px solid #333;
-	text-align: center;
-	transition: all 0.3s ease;
-}
-
-.mission-card:hover {
-	border-color: #ff3366;
-	transform: translateY(-5px);
-	box-shadow: 0 8px 25px rgba(255, 51, 102, 0.2);
-}
-
-.mission-icon {
-	width: 80px;
-	height: 80px;
-	margin: 0 auto 20px;
-	background: rgba(255, 51, 102, 0.1);
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 1px solid rgba(255, 51, 102, 0.3);
-}
-
-.mission-icon i {
-	font-size: 36px;
-	color: #ff3366;
-}
-
-.mission-card h3 {
-	font-size: 22px;
-	color: #fff;
-	margin-bottom: 15px;
-}
-
-.mission-card p {
-	font-size: 15px;
-	color: #ccc;
-	line-height: 1.7;
-}
-
-.values-list {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-.values-list li {
-	font-size: 15px;
-	color: #ccc;
-	padding: 8px 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
-}
-
-.values-list li i {
-	color: #2ecc71;
-	font-size: 14px;
-}
-
-/* ===== КАТЕГОРИИ ===== */
-.about-categories {
-	padding: 60px 0;
-}
-
-.categories-grid {
+.cities-grid {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: 25px;
-	margin-bottom: 40px;
+	margin-bottom: 30px;
 }
 
-.category-card {
+.city-card {
 	background: #1a1a1a;
 	border-radius: 16px;
 	border: 1px solid #333;
+	overflow: hidden;
 	transition: all 0.3s ease;
 }
 
-.category-card:hover {
+.city-card:hover {
 	border-color: #ff3366;
 	transform: translateY(-5px);
 	box-shadow: 0 8px 25px rgba(255, 51, 102, 0.2);
 }
 
-.category-link {
-	display: block;
-	padding: 30px 20px;
-	text-decoration: none;
-	color: inherit;
-	text-align: center;
-}
-
-.category-icon-wrapper {
-	width: 70px;
-	height: 70px;
-	margin: 0 auto 20px;
-	background: rgba(255, 51, 102, 0.1);
-	border-radius: 50%;
+.city-header {
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	border: 1px solid rgba(255, 51, 102, 0.3);
-	transition: all 0.3s ease;
+	gap: 15px;
+	padding: 20px;
+	border-bottom: 1px solid #333;
+	background: linear-gradient(135deg, rgba(255, 51, 102, 0.05) 0%, transparent 100%);
 }
 
-.category-card:hover .category-icon-wrapper {
-	background: rgba(255, 51, 102, 0.2);
-	transform: scale(1.05);
-}
-
-.category-icon-wrapper i {
-	font-size: 30px;
-	color: #ff3366;
-}
-
-.category-card h4 {
-	font-size: 18px;
-	color: #fff;
-	margin-bottom: 12px;
-	transition: color 0.3s ease;
-}
-
-.category-card:hover h4 {
-	color: #ff3366;
-}
-
-.category-card p {
-	font-size: 14px;
-	color: #ccc;
-	line-height: 1.6;
-}
-
-.categories-more {
-	text-align: center;
-	background: #1a1a1a;
-	padding: 30px;
-	border-radius: 16px;
-	border: 1px solid #333;
-}
-
-.categories-more p {
-	font-size: 18px;
-	color: #fff;
-	margin-bottom: 20px;
-}
-
-.more-tags {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: 12px;
-}
-
-.more-tag-link {
-	text-decoration: none;
-}
-
-.more-tag {
+.city-icon {
+	width: 50px;
+	height: 50px;
 	background: rgba(255, 51, 102, 0.1);
-	padding: 10px 20px;
-	border-radius: 30px;
-	font-size: 14px;
-	color: #ff3366;
-	border: 1px solid rgba(255, 51, 102, 0.3);
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
-	transition: all 0.3s ease;
-}
-
-.more-tag:hover {
-	background: rgba(255, 51, 102, 0.2);
-	transform: translateY(-2px);
-}
-
-.more-tag i {
-	font-size: 14px;
-}
-
-/* ===== ПРЕИМУЩЕСТВА ===== */
-.about-advantages {
-	padding: 60px 0;
-}
-
-.advantages-grid {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 30px;
-}
-
-.advantage-item {
-	background: #1a1a1a;
-	padding: 30px 25px;
-	border-radius: 16px;
-	border: 1px solid #333;
-	text-align: center;
-	transition: all 0.3s ease;
-}
-
-.advantage-item:hover {
-	border-color: #ff3366;
-	transform: translateY(-5px);
-	box-shadow: 0 8px 25px rgba(255, 51, 102, 0.2);
-}
-
-.advantage-icon {
-	width: 70px;
-	height: 70px;
-	margin: 0 auto 20px;
-	background: rgba(255, 51, 102, 0.1);
-	border-radius: 50%;
+	border-radius: 12px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	border: 1px solid rgba(255, 51, 102, 0.3);
 }
 
-.advantage-icon i {
-	font-size: 30px;
+.city-icon i {
+	font-size: 24px;
 	color: #ff3366;
 }
 
-.advantage-item h4 {
-	font-size: 18px;
-	color: #fff;
-	margin-bottom: 12px;
+.city-info {
+	flex: 1;
 }
 
-.advantage-item p {
-	font-size: 14px;
-	color: #ccc;
-	line-height: 1.6;
-}
-
-/* ===== КОМАНДА ===== */
-.about-team {
-	padding: 60px 0;
-}
-
-.team-grid {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 25px;
-}
-
-.team-card {
-	background: #1a1a1a;
-	padding: 30px 20px;
-	border-radius: 16px;
-	border: 1px solid #333;
-	text-align: center;
-	transition: all 0.3s ease;
-}
-
-.team-card:hover {
-	border-color: #ff3366;
-	transform: translateY(-5px);
-	box-shadow: 0 8px 25px rgba(255, 51, 102, 0.2);
-}
-
-.team-avatar {
-	width: 100px;
-	height: 100px;
-	margin: 0 auto 20px;
-	background: linear-gradient(135deg, #ff3366 0%, #ff6b6b 100%);
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.team-avatar i {
-	font-size: 60px;
-	color: #fff;
-}
-
-.team-card h4 {
+.city-info h3 {
 	font-size: 18px;
 	color: #fff;
 	margin-bottom: 5px;
 }
 
-.team-role {
-	font-size: 14px;
-	color: #ff3366;
-	margin-bottom: 15px;
-	font-weight: 500;
+.city-badge {
+	display: inline-block;
+	padding: 3px 8px;
+	border-radius: 20px;
+	font-size: 10px;
+	font-weight: 600;
+	text-transform: uppercase;
+	background: #ff3366;
+	color: #fff;
 }
 
-.team-bio {
+.city-badge.flagship {
+	background: #ffd700;
+	color: #1a1a1a;
+}
+
+.city-badge.new {
+	background: #2ecc71;
+}
+
+.city-details {
+	padding: 20px;
+}
+
+.city-address {
 	font-size: 13px;
+	color: #ccc;
+	margin-bottom: 12px;
+	line-height: 1.6;
+}
+
+.city-address i {
+	color: #ff3366;
+	width: 18px;
+	margin-right: 5px;
+}
+
+.city-address:last-of-type {
+	margin-bottom: 15px;
+}
+
+.metro {
+	display: inline-block;
+	margin-top: 5px;
+	font-size: 12px;
+	color: #999;
+}
+
+.metro i {
+	color: #ff3366;
+}
+
+.city-hours {
+	font-size: 13px;
+	color: #ccc;
+	margin-bottom: 12px;
+}
+
+.city-hours i {
+	color: #ff3366;
+	width: 18px;
+	margin-right: 5px;
+}
+
+.city-phone {
+	font-size: 13px;
+}
+
+.city-phone i {
+	color: #ff3366;
+	width: 18px;
+	margin-right: 5px;
+}
+
+.city-phone a {
+	color: #ff3366;
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+.city-phone a:hover {
+	color: #ff6b6b;
+	text-decoration: underline;
+}
+
+.cities-note {
+	text-align: center;
+	padding: 20px;
+	background: rgba(255, 51, 102, 0.05);
+	border-radius: 12px;
+	border: 1px dashed rgba(255, 51, 102, 0.3);
+}
+
+.cities-note p {
+	color: #ff3366;
+	font-size: 16px;
+}
+
+.cities-note i {
+	margin-right: 8px;
+}
+
+/* ===== СПОСОБЫ ДОСТАВКИ ===== */
+.delivery-methods {
+	padding: 60px 0;
+}
+
+.methods-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 25px;
+}
+
+.method-card {
+	background: #1a1a1a;
+	padding: 30px 25px;
+	border-radius: 16px;
+	border: 1px solid #333;
+	transition: all 0.3s ease;
+}
+
+.method-card:hover {
+	border-color: #ff3366;
+	transform: translateY(-5px);
+	box-shadow: 0 8px 25px rgba(255, 51, 102, 0.2);
+}
+
+.method-card.featured {
+	border-color: #ff3366;
+	background: linear-gradient(135deg, rgba(255, 51, 102, 0.1) 0%, #1a1a1a 100%);
+}
+
+.method-icon {
+	width: 70px;
+	height: 70px;
+	margin-bottom: 20px;
+	background: rgba(255, 51, 102, 0.1);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid rgba(255, 51, 102, 0.3);
+}
+
+.method-icon i {
+	font-size: 30px;
+	color: #ff3366;
+}
+
+.method-card h3 {
+	font-size: 20px;
+	color: #fff;
+	margin-bottom: 10px;
+}
+
+.method-price {
+	font-size: 24px;
+	font-weight: 700;
+	color: #ff3366;
+	margin-bottom: 15px;
+}
+
+.method-desc {
+	font-size: 14px;
+	color: #ccc;
+	line-height: 1.6;
+	margin-bottom: 20px;
+}
+
+.method-features {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.method-features li {
+	font-size: 13px;
+	color: #ccc;
+	padding: 6px 0;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.method-features li i {
+	color: #2ecc71;
+	font-size: 12px;
+}
+
+/* ===== ИНФОРМАЦИЯ ===== */
+.delivery-info {
+	padding: 60px 0;
+}
+
+.info-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 25px;
+}
+
+.info-card {
+	background: #1a1a1a;
+	padding: 25px;
+	border-radius: 16px;
+	border: 1px solid #333;
+	transition: all 0.3s ease;
+}
+
+.info-card:hover {
+	border-color: #ff3366;
+}
+
+.info-icon {
+	width: 50px;
+	height: 50px;
+	margin-bottom: 20px;
+	background: rgba(255, 51, 102, 0.1);
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid rgba(255, 51, 102, 0.3);
+}
+
+.info-icon i {
+	font-size: 24px;
+	color: #ff3366;
+}
+
+.info-card h4 {
+	font-size: 18px;
+	color: #fff;
+	margin-bottom: 15px;
+}
+
+.info-card ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.info-card li {
+	font-size: 14px;
+	color: #ccc;
+	padding: 6px 0;
+	line-height: 1.5;
+}
+
+.info-card li strong {
+	color: #fff;
+}
+
+.info-card p {
+	font-size: 14px;
+	color: #ccc;
+	line-height: 1.6;
+	margin-bottom: 10px;
+}
+
+.info-price {
+	font-weight: 600;
+	color: #ff3366 !important;
+}
+
+.info-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	color: #ff3366;
+	text-decoration: none;
+	font-size: 14px;
+	transition: color 0.3s ease;
+}
+
+.info-link:hover {
+	color: #ff6b6b;
+}
+
+.info-link i {
+	font-size: 12px;
+}
+
+/* ===== FAQ ===== */
+.delivery-faq {
+	padding: 60px 0;
+}
+
+.faq-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 20px;
+}
+
+.faq-item {
+	background: #1a1a1a;
+	border-radius: 12px;
+	border: 1px solid #333;
+	overflow: hidden;
+}
+
+.faq-question {
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+	background: rgba(255, 51, 102, 0.05);
+}
+
+.faq-question i {
+	color: #ff3366;
+	font-size: 14px;
+	transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question i {
+	transform: rotate(180deg);
+}
+
+.faq-question span {
+	font-size: 16px;
+	font-weight: 500;
+	color: #fff;
+}
+
+.faq-answer {
+	padding: 0 20px;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+	padding: 0 20px 20px;
+	max-height: 200px;
+}
+
+.faq-answer p {
+	font-size: 14px;
 	color: #ccc;
 	line-height: 1.6;
 }
 
 /* ===== CTA ===== */
-.about-cta {
+.delivery-cta {
 	padding: 60px 0 80px;
 }
 
@@ -727,101 +779,73 @@
 		font-size: 56px;
 	}
 
-	.hero-description {
-		font-size: 22px;
-	}
-
 	.section-title {
 		font-size: 48px;
 	}
 
-	.categories-grid {
-		grid-template-columns: repeat(6, 1fr);
-		gap: 30px;
-	}
-
-	.category-card h4 {
-		font-size: 20px;
-	}
-
-	.category-card p {
-		font-size: 15px;
-	}
-
-	.advantages-grid {
-		grid-template-columns: repeat(3, 1fr);
-		gap: 35px;
-	}
-
-	.team-grid {
+	.cities-grid {
 		grid-template-columns: repeat(4, 1fr);
-		gap: 30px;
 	}
 
-	.stat-number {
-		font-size: 56px;
+	.methods-grid {
+		grid-template-columns: repeat(4, 1fr);
 	}
 
-	.cta-title {
-		font-size: 48px;
+	.info-grid {
+		grid-template-columns: repeat(4, 1fr);
 	}
 
-	.cta-text {
-		font-size: 20px;
+	.map-placeholder {
+		min-height: 500px;
 	}
 }
 
 /* Очень большой десктоп (1441px - 1920px) */
 @media (1441px <=width < 1921px) {
-	.categories-grid {
+	.cities-grid {
 		grid-template-columns: repeat(4, 1fr);
 	}
 
-	.advantages-grid {
-		grid-template-columns: repeat(3, 1fr);
+	.methods-grid {
+		grid-template-columns: repeat(4, 1fr);
 	}
 
-	.team-grid {
+	.info-grid {
 		grid-template-columns: repeat(4, 1fr);
 	}
 }
 
 /* Большой десктоп (1201px - 1440px) */
 @media (1201px <=width < 1441px) {
-	.categories-grid {
-		grid-template-columns: repeat(4, 1fr);
-	}
-
-	.advantages-grid {
+	.cities-grid {
 		grid-template-columns: repeat(3, 1fr);
 	}
 
-	.team-grid {
-		grid-template-columns: repeat(4, 1fr);
+	.methods-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.info-grid {
+		grid-template-columns: repeat(3, 1fr);
 	}
 }
 
 /* Десктоп (993px - 1200px) */
 @media (993px <=width < 1201px) {
-	.categories-grid {
+	.cities-grid {
 		grid-template-columns: repeat(3, 1fr);
 	}
 
-	.advantages-grid {
-		grid-template-columns: repeat(3, 1fr);
-	}
-
-	.team-grid {
-		grid-template-columns: repeat(3, 1fr);
-	}
-
-	.mission-grid {
+	.methods-grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	.story-content {
+	.info-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.faq-grid {
 		grid-template-columns: 1fr;
-		gap: 30px;
 	}
 }
 
@@ -843,31 +867,24 @@
 		font-size: 32px;
 	}
 
-	.categories-grid {
-		grid-template-columns: repeat(3, 1fr);
-		gap: 20px;
-	}
-
-	.advantages-grid {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 20px;
-	}
-
-	.team-grid {
+	.cities-grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	.mission-grid {
+	.methods-grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	.story-content {
+	.info-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.faq-grid {
 		grid-template-columns: 1fr;
-		gap: 20px;
 	}
 
-	.story-stats {
-		grid-template-columns: repeat(2, 1fr);
+	.map-placeholder {
+		min-height: 350px;
 	}
 }
 
@@ -877,7 +894,7 @@
 		padding: 0 12px;
 	}
 
-	.about-hero {
+	.delivery-hero {
 		padding: 40px 20px;
 	}
 
@@ -898,27 +915,27 @@
 		font-size: 28px;
 	}
 
-	.categories-grid {
+	.cities-grid {
 		grid-template-columns: repeat(2, 1fr);
 		gap: 15px;
 	}
 
-	.advantages-grid {
-		grid-template-columns: repeat(2, 1fr);
+	.methods-grid {
+		grid-template-columns: 1fr;
 		gap: 15px;
 	}
 
-	.team-grid {
-		grid-template-columns: repeat(2, 1fr);
+	.info-grid {
+		grid-template-columns: 1fr;
 		gap: 15px;
 	}
 
-	.mission-grid {
+	.faq-grid {
 		grid-template-columns: 1fr;
 	}
 
-	.story-stats {
-		grid-template-columns: repeat(2, 1fr);
+	.map-placeholder {
+		min-height: 300px;
 	}
 
 	.cta-content {
@@ -931,15 +948,6 @@
 
 	.cta-text {
 		font-size: 16px;
-	}
-
-	.more-tags {
-		gap: 8px;
-	}
-
-	.more-tag {
-		padding: 8px 15px;
-		font-size: 13px;
 	}
 }
 
@@ -954,7 +962,7 @@
 		padding: 15px 0;
 	}
 
-	.about-hero {
+	.delivery-hero {
 		padding: 30px 15px;
 	}
 
@@ -987,65 +995,47 @@
 		font-size: 28px;
 	}
 
-	.categories-grid {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 12px;
-	}
-
-	.category-link {
-		padding: 20px 12px;
-	}
-
-	.category-icon-wrapper {
-		width: 55px;
-		height: 55px;
-	}
-
-	.category-icon-wrapper i {
-		font-size: 24px;
-	}
-
-	.category-card h4 {
-		font-size: 15px;
-	}
-
-	.category-card p {
-		font-size: 12px;
-	}
-
-	.advantages-grid {
+	.cities-grid {
 		grid-template-columns: 1fr;
 		gap: 15px;
 	}
 
-	.team-grid {
+	.methods-grid {
 		grid-template-columns: 1fr;
 		gap: 15px;
 	}
 
-	.mission-grid {
-		grid-template-columns: 1fr;
-	}
-
-	.story-content {
-		gap: 10px;
-	}
-
-	.story-text {
-		padding: 20px;
-	}
-
-	.story-stats {
+	.info-grid {
 		grid-template-columns: 1fr;
 		gap: 15px;
 	}
 
-	.stat-item {
-		padding: 20px;
+	.faq-grid {
+		grid-template-columns: 1fr;
 	}
 
-	.stat-number {
-		font-size: 32px;
+	.map-placeholder {
+		min-height: 250px;
+	}
+
+	.map-placeholder i {
+		font-size: 60px;
+	}
+
+	.map-placeholder span {
+		font-size: 16px;
+	}
+
+	.city-header {
+		padding: 15px;
+	}
+
+	.city-details {
+		padding: 15px;
+	}
+
+	.method-card {
+		padding: 25px 20px;
 	}
 
 	.cta-content {
@@ -1072,22 +1062,12 @@
 		font-size: 14px;
 	}
 
-	.more-tags {
-		flex-direction: column;
-		gap: 10px;
+	.faq-question {
+		padding: 15px;
 	}
 
-	.more-tag {
-		width: 100%;
-		justify-content: center;
-	}
-
-	.categories-more {
-		padding: 20px 15px;
-	}
-
-	.categories-more p {
-		font-size: 16px;
+	.faq-question span {
+		font-size: 14px;
 	}
 }
 
@@ -1107,7 +1087,7 @@
 		font-size: 8px;
 	}
 
-	.about-hero {
+	.delivery-hero {
 		padding: 25px 12px;
 		margin-bottom: 20px;
 	}
@@ -1154,180 +1134,153 @@
 		width: 40px;
 	}
 
-	.about-story,
-	.about-mission,
-	.about-categories,
-	.about-advantages,
-	.about-team,
-	.about-cta {
+	.delivery-map,
+	.delivery-cities,
+	.delivery-methods,
+	.delivery-info,
+	.delivery-faq,
+	.delivery-cta {
 		padding: 30px 0;
 	}
 
-	.story-text {
+	.map-placeholder {
+		min-height: 200px;
+	}
+
+	.map-placeholder i {
+		font-size: 50px;
+	}
+
+	.map-placeholder span {
+		font-size: 14px;
+	}
+
+	.cities-grid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+		margin-bottom: 20px;
+	}
+
+	.city-header {
+		padding: 12px 15px;
+	}
+
+	.city-icon {
+		width: 45px;
+		height: 45px;
+	}
+
+	.city-icon i {
+		font-size: 20px;
+	}
+
+	.city-info h3 {
+		font-size: 16px;
+	}
+
+	.city-details {
+		padding: 12px 15px;
+	}
+
+	.city-address {
+		font-size: 12px;
+	}
+
+	.city-hours,
+	.city-phone {
+		font-size: 12px;
+	}
+
+	.cities-note {
 		padding: 15px;
 	}
 
-	.story-paragraph {
-		font-size: 13px;
-		line-height: 1.6;
-		margin-bottom: 15px;
-	}
-
-	.drop-cap {
-		font-size: 48px;
-	}
-
-	.story-stats {
-		grid-template-columns: 1fr;
-		gap: 12px;
-	}
-
-	.stat-item {
-		padding: 18px;
-	}
-
-	.stat-number {
-		font-size: 28px;
-	}
-
-	.stat-label {
-		font-size: 12px;
-	}
-
-	.mission-card {
-		padding: 25px 18px;
-	}
-
-	.mission-icon {
-		width: 65px;
-		height: 65px;
-	}
-
-	.mission-icon i {
-		font-size: 28px;
-	}
-
-	.mission-card h3 {
-		font-size: 18px;
-	}
-
-	.mission-card p {
-		font-size: 13px;
-	}
-
-	.values-list li {
-		font-size: 13px;
-		padding: 6px 0;
-	}
-
-	.categories-grid {
-		grid-template-columns: 1fr;
-		gap: 12px;
-		margin-bottom: 25px;
-	}
-
-	.category-link {
-		padding: 18px 15px;
-	}
-
-	.category-icon-wrapper {
-		width: 55px;
-		height: 55px;
-		margin-bottom: 15px;
-	}
-
-	.category-icon-wrapper i {
-		font-size: 24px;
-	}
-
-	.category-card h4 {
-		font-size: 16px;
-		margin-bottom: 8px;
-	}
-
-	.category-card p {
-		font-size: 12px;
-	}
-
-	.categories-more {
-		padding: 18px 12px;
-	}
-
-	.categories-more p {
+	.cities-note p {
 		font-size: 14px;
-		margin-bottom: 15px;
 	}
 
-	.more-tags {
-		flex-direction: column;
-		gap: 8px;
-	}
-
-	.more-tag {
-		width: 100%;
-		justify-content: center;
-		padding: 8px 12px;
-		font-size: 12px;
-	}
-
-	.advantages-grid {
-		grid-template-columns: 1fr;
-		gap: 12px;
-	}
-
-	.advantage-item {
-		padding: 20px 18px;
-	}
-
-	.advantage-icon {
-		width: 55px;
-		height: 55px;
-		margin-bottom: 15px;
-	}
-
-	.advantage-icon i {
-		font-size: 24px;
-	}
-
-	.advantage-item h4 {
-		font-size: 16px;
-		margin-bottom: 8px;
-	}
-
-	.advantage-item p {
-		font-size: 12px;
-	}
-
-	.team-grid {
+	.methods-grid {
 		grid-template-columns: 1fr;
 		gap: 15px;
 	}
 
-	.team-card {
-		padding: 20px 15px;
+	.method-card {
+		padding: 20px 18px;
 	}
 
-	.team-avatar {
-		width: 80px;
-		height: 80px;
+	.method-icon {
+		width: 55px;
+		height: 55px;
 		margin-bottom: 15px;
 	}
 
-	.team-avatar i {
-		font-size: 48px;
+	.method-icon i {
+		font-size: 24px;
 	}
 
-	.team-card h4 {
+	.method-card h3 {
+		font-size: 18px;
+	}
+
+	.method-price {
+		font-size: 20px;
+	}
+
+	.method-desc {
+		font-size: 13px;
+	}
+
+	.method-features li {
+		font-size: 12px;
+	}
+
+	.info-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.info-card {
+		padding: 18px;
+	}
+
+	.info-icon {
+		width: 45px;
+		height: 45px;
+		margin-bottom: 15px;
+	}
+
+	.info-card h4 {
 		font-size: 16px;
 	}
 
-	.team-role {
+	.info-card li,
+	.info-card p {
 		font-size: 13px;
-		margin-bottom: 10px;
 	}
 
-	.team-bio {
+	.faq-grid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+
+	.faq-question {
+		padding: 12px 15px;
+	}
+
+	.faq-question i {
 		font-size: 12px;
+	}
+
+	.faq-question span {
+		font-size: 14px;
+	}
+
+	.faq-item.active .faq-answer {
+		padding: 0 15px 15px;
+	}
+
+	.faq-answer p {
+		font-size: 13px;
 	}
 
 	.cta-content {
@@ -1364,9 +1317,5 @@
 	.sakura-petal {
 		width: 12px;
 		height: 12px;
-	}
-
-	.mission-grid {
-		grid-template-columns: 1fr;
 	}
 }
