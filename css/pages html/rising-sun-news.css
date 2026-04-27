@@ -1,4 +1,4 @@
-/* ===== СТРАНИЦА "RISING SUN NEWS" ===== */
+/* ===== СТРАНИЦА "RISING SUN NEWS" — АНИМЕ СЕЗОНА ===== */
 /* Файл: rising-sun-news.css */
 
 .news-page {
@@ -7,7 +7,7 @@
 }
 
 .container__main {
-	max-width: 1400px;
+	max-width: 100%;
 	margin: 0 auto;
 	padding: 0 20px;
 }
@@ -214,7 +214,7 @@
 	font-size: 16px;
 }
 
-/* ===== СЕТКА НОВОСТЕЙ 3x3 ===== */
+/* ===== СЕТКА АНИМЕ ===== */
 .news-grid-section {
 	padding: 20px 0 40px;
 }
@@ -225,7 +225,7 @@
 	gap: 25px;
 }
 
-/* Карточка новости */
+/* ===== КАРТОЧКА АНИМЕ ===== */
 .news-card {
 	background: #1a1a1a;
 	border-radius: 16px;
@@ -244,7 +244,7 @@
 }
 
 .news-card:nth-child(2) {
-	animation-delay: 0.1s;
+	animation-delay: 0.10s;
 }
 
 .news-card:nth-child(3) {
@@ -252,7 +252,7 @@
 }
 
 .news-card:nth-child(4) {
-	animation-delay: 0.2s;
+	animation-delay: 0.20s;
 }
 
 .news-card:nth-child(5) {
@@ -260,7 +260,7 @@
 }
 
 .news-card:nth-child(6) {
-	animation-delay: 0.3s;
+	animation-delay: 0.30s;
 }
 
 .news-card:nth-child(7) {
@@ -268,7 +268,7 @@
 }
 
 .news-card:nth-child(8) {
-	animation-delay: 0.4s;
+	animation-delay: 0.40s;
 }
 
 .news-card:nth-child(9) {
@@ -293,6 +293,7 @@
 	box-shadow: 0 8px 25px rgba(255, 140, 0, 0.2);
 }
 
+/* Изображение */
 .news-image {
 	position: relative;
 	width: 100%;
@@ -311,6 +312,7 @@
 	transform: scale(1.05);
 }
 
+/* Бейджи */
 .news-badges {
 	position: absolute;
 	top: 10px;
@@ -318,28 +320,47 @@
 	display: flex;
 	gap: 8px;
 	flex-wrap: wrap;
+	max-width: calc(100% - 80px);
 }
 
 .news-country {
-	padding: 4px 10px;
+	padding: 5px 10px;
 	border-radius: 20px;
 	font-size: 12px;
 	font-weight: 600;
 	color: #fff;
 	backdrop-filter: blur(4px);
 	background: rgba(0, 0, 0, 0.6);
+	white-space: nowrap;
 }
 
 .news-category {
-	padding: 4px 10px;
+	padding: 5px 10px;
 	border-radius: 20px;
 	font-size: 12px;
 	font-weight: 600;
-	background: rgba(255, 140, 0, 0.8);
+	background: rgba(255, 140, 0, 0.85);
 	color: #fff;
 	backdrop-filter: blur(4px);
+	white-space: nowrap;
 }
 
+/* Рейтинг */
+.anime-score {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	background: rgba(0, 0, 0, 0.8);
+	color: #ffd700;
+	padding: 6px 12px;
+	border-radius: 8px;
+	font-size: 15px;
+	font-weight: 700;
+	backdrop-filter: blur(4px);
+	z-index: 2;
+}
+
+/* Контент */
 .news-content {
 	padding: 20px;
 	flex: 1;
@@ -356,12 +377,7 @@
 	color: #999;
 }
 
-.news-date {
-	display: flex;
-	align-items: center;
-	gap: 5px;
-}
-
+.news-date,
 .news-views {
 	display: flex;
 	align-items: center;
@@ -388,11 +404,18 @@
 	font-size: 13px;
 	color: #ccc;
 	line-height: 1.6;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+}
+
+.anime-genres {
+	font-size: 12px;
+	color: #999;
+	margin-bottom: 15px;
+	line-height: 1.5;
 }
 
 .news-footer {
@@ -400,6 +423,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	padding-top: 10px;
+	border-top: 1px solid #333;
 }
 
 .news-source {
@@ -486,7 +511,110 @@
 	box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
 }
 
+/* ===== ПОДПИСКА ===== */
+.news-subscribe {
+	padding: 40px 0 60px;
+}
 
+.subscribe-content {
+	background: linear-gradient(135deg, #1a1a1a 0%, #2a1a10 100%);
+	padding: 50px 40px;
+	border-radius: 24px;
+	border: 1px solid #333;
+	text-align: center;
+}
+
+.subscribe-icon {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto 25px;
+	background: rgba(255, 140, 0, 0.1);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid rgba(255, 140, 0, 0.3);
+}
+
+.subscribe-icon i {
+	font-size: 36px;
+	color: #ff8c00;
+}
+
+.subscribe-content h3 {
+	font-size: 28px;
+	color: #fff;
+	margin-bottom: 15px;
+}
+
+.subscribe-content p {
+	font-size: 16px;
+	color: #ccc;
+	max-width: 600px;
+	margin: 0 auto 30px;
+	line-height: 1.6;
+}
+
+.subscribe-form {
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+.subscribe-input-group {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 15px;
+}
+
+.subscribe-input-group input {
+	flex: 1;
+	padding: 15px 20px;
+	background: #0d0d0d;
+	border: 1px solid #333;
+	border-radius: 50px;
+	font-size: 14px;
+	color: #fff;
+}
+
+.subscribe-input-group input:focus {
+	outline: none;
+	border-color: #ff8c00;
+}
+
+.subscribe-input-group button {
+	padding: 15px 30px;
+	background: #ff8c00;
+	border: none;
+	border-radius: 50px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #fff;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	transition: all 0.3s ease;
+	white-space: nowrap;
+}
+
+.subscribe-input-group button:hover {
+	background: #ffa500;
+	transform: translateY(-2px);
+}
+
+.subscribe-checkbox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	font-size: 13px;
+	color: #999;
+	cursor: pointer;
+}
+
+.subscribe-checkbox input {
+	accent-color: #ff8c00;
+}
 
 /* ===== CTA ===== */
 .news-cta {
@@ -644,12 +772,14 @@
 	color: #fff;
 }
 
-/* ===== МЕДИАЗАПРОСЫ ===== */
+/* ====================================================================
+ * МЕДИАЗАПРОСЫ
+ * ==================================================================== */
 
-/* Ультраширокие (1921px+) — 3x3 */
+/* Ультраширокие (1921px+) */
 @media (width >=1921px) {
 	.container__main {
-		max-width: 1800px;
+		max-width: 100%;
 		padding: 0 40px;
 	}
 
@@ -671,6 +801,48 @@
 
 	.news-grid {
 		grid-template-columns: repeat(3, 1fr);
+		gap: 35px;
+	}
+
+	.news-content {
+		padding: 25px;
+	}
+
+	.news-title {
+		font-size: 20px;
+	}
+
+	.news-excerpt {
+		font-size: 15px;
+		-webkit-line-clamp: 4;
+	}
+
+	.anime-score {
+		font-size: 18px;
+		padding: 8px 15px;
+	}
+
+	.subscribe-content {
+		padding: 70px 60px;
+	}
+
+	.subscribe-content h3 {
+		font-size: 34px;
+	}
+
+	.cta-title {
+		font-size: 44px;
+	}
+}
+
+/* Очень большой десктоп (1441px - 1920px) */
+@media (1441px <=width < 1921px) {
+	.container__main {
+		max-width: 100%;
+	}
+
+	.news-grid {
+		grid-template-columns: repeat(3, 1fr);
 		gap: 30px;
 	}
 
@@ -681,29 +853,41 @@
 	.news-excerpt {
 		font-size: 14px;
 	}
+
+	.hero-title .title-jp {
+		font-size: 52px;
+	}
+
+	.hero-title .title-ru {
+		font-size: 46px;
+	}
 }
 
-/* Очень большой десктоп (1441px - 1920px) — 3x3 */
-@media (1441px <=width < 1921px) {
+/* Большой десктоп (1201px - 1440px) */
+@media (1201px <=width < 1441px) {
 	.news-grid {
 		grid-template-columns: repeat(3, 1fr);
 		gap: 25px;
 	}
-}
 
-/* Большой десктоп (1201px - 1440px) — 3x3 */
-@media (1201px <=width < 1441px) {
-	.news-grid {
-		grid-template-columns: repeat(3, 1fr);
-		gap: 22px;
+	.news-title {
+		font-size: 17px;
+	}
+
+	.news-excerpt {
+		font-size: 13px;
 	}
 }
 
-/* Десктоп (993px - 1200px) — 3x3 */
+/* Десктоп (993px - 1200px) */
 @media (993px <=width < 1201px) {
 	.news-grid {
 		grid-template-columns: repeat(3, 1fr);
 		gap: 20px;
+	}
+
+	.news-content {
+		padding: 18px;
 	}
 
 	.news-title {
@@ -715,68 +899,126 @@
 		-webkit-line-clamp: 2;
 	}
 
-	.news-content {
-		padding: 15px;
+	.anime-score {
+		font-size: 13px;
+		padding: 5px 10px;
+	}
+
+	.news-country,
+	.news-category {
+		font-size: 11px;
+		padding: 4px 8px;
+	}
+
+	.hero-title .title-jp {
+		font-size: 38px;
+	}
+
+	.hero-title .title-ru {
+		font-size: 34px;
+	}
+
+	.hero-subtitle {
+		font-size: 18px;
 	}
 }
 
-/* Планшеты (769px - 992px) — 2 колонки */
+/* Планшеты (769px - 992px) */
 @media (769px <=width < 993px) {
 	.container__main {
 		padding: 0 15px;
 	}
 
+	.news-hero {
+		padding: 45px 30px;
+	}
+
+	.hero-icon {
+		font-size: 52px;
+	}
+
 	.hero-title .title-jp {
-		font-size: 36px;
+		font-size: 34px;
+		letter-spacing: 5px;
 	}
 
 	.hero-title .title-ru {
-		font-size: 32px;
+		font-size: 30px;
 	}
 
 	.hero-subtitle {
-		font-size: 20px;
+		font-size: 17px;
 	}
 
 	.hero-description {
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.news-grid {
 		grid-template-columns: repeat(2, 1fr);
 		gap: 20px;
 	}
+
+	.news-content {
+		padding: 18px;
+	}
+
+	.news-title {
+		font-size: 16px;
+	}
+
+	.news-excerpt {
+		font-size: 13px;
+	}
+
+	.subscribe-content {
+		padding: 40px 30px;
+	}
+
+	.subscribe-content h3 {
+		font-size: 24px;
+	}
+
+	.cta-content {
+		padding: 45px 30px;
+	}
+
+	.cta-title {
+		font-size: 28px;
+	}
 }
 
-/* Большие мобильные (577px - 768px) — 2 колонки */
+/* Большие мобильные (577px - 768px) */
 @media (577px <=width < 769px) {
 	.container__main {
 		padding: 0 12px;
 	}
 
 	.news-hero {
-		padding: 40px 20px;
+		padding: 35px 20px;
+		margin-bottom: 25px;
 	}
 
 	.hero-icon {
-		font-size: 48px;
+		font-size: 44px;
 	}
 
 	.hero-title .title-jp {
-		font-size: 32px;
+		font-size: 30px;
 		letter-spacing: 4px;
 	}
 
 	.hero-title .title-ru {
-		font-size: 28px;
+		font-size: 26px;
 	}
 
 	.hero-subtitle {
-		font-size: 18px;
+		font-size: 16px;
 	}
 
 	.hero-description {
 		font-size: 14px;
+		max-width: 100%;
 	}
 
 	.news-grid {
@@ -790,11 +1032,54 @@
 
 	.news-title {
 		font-size: 14px;
+		-webkit-line-clamp: 2;
 	}
 
 	.news-excerpt {
-		font-size: 12px;
+		font-size: 11px;
 		-webkit-line-clamp: 2;
+	}
+
+	.anime-genres {
+		font-size: 11px;
+		margin-bottom: 10px;
+	}
+
+	.anime-score {
+		font-size: 12px;
+		padding: 4px 8px;
+	}
+
+	.news-country,
+	.news-category {
+		font-size: 10px;
+		padding: 3px 8px;
+	}
+
+	.news-meta {
+		font-size: 11px;
+		gap: 10px;
+	}
+
+	.subscribe-content {
+		padding: 30px 20px;
+	}
+
+	.subscribe-icon {
+		width: 65px;
+		height: 65px;
+	}
+
+	.subscribe-icon i {
+		font-size: 28px;
+	}
+
+	.subscribe-content h3 {
+		font-size: 22px;
+	}
+
+	.subscribe-content p {
+		font-size: 14px;
 	}
 
 	.subscribe-input-group {
@@ -805,12 +1090,25 @@
 		justify-content: center;
 	}
 
+	.cta-content {
+		padding: 35px 25px;
+	}
+
 	.cta-title {
-		font-size: 28px;
+		font-size: 26px;
+	}
+
+	.cta-text {
+		font-size: 15px;
+	}
+
+	.cta-btn {
+		padding: 12px 25px;
+		font-size: 14px;
 	}
 }
 
-/* Мобильные L (481px - 576px) — 1 колонка */
+/* Мобильные L (481px - 576px) */
 @media (481px <=width < 577px) {
 	.container__main {
 		padding: 0 10px;
@@ -823,97 +1121,26 @@
 
 	.news-hero {
 		padding: 30px 15px;
-	}
-
-	.hero-icon {
-		font-size: 40px;
-	}
-
-	.hero-title .title-jp {
-		font-size: 28px;
-		letter-spacing: 3px;
-	}
-
-	.hero-title .title-ru {
-		font-size: 24px;
-	}
-
-	.hero-subtitle {
-		font-size: 16px;
-	}
-
-	.hero-description {
-		font-size: 14px;
-	}
-
-	.news-grid {
-		grid-template-columns: 1fr;
-		gap: 15px;
-	}
-
-	.subscribe-content {
-		padding: 30px 20px;
-	}
-
-	.subscribe-content h3 {
-		font-size: 22px;
-	}
-
-	.subscribe-input-group {
-		flex-direction: column;
-	}
-
-	.cta-content {
-		padding: 30px 15px;
-	}
-
-	.cta-title {
-		font-size: 24px;
-	}
-
-	.cta-buttons {
-		flex-direction: column;
-	}
-
-	.cta-btn {
-		width: 100%;
-		justify-content: center;
-	}
-}
-
-/* Мобильные (до 481px) — 1 колонка */
-@media (width < 481px) {
-	.container__main {
-		padding: 0 8px;
-	}
-
-	.breadcrumbs {
-		font-size: 11px;
-		padding: 12px 0;
-	}
-
-	.news-hero {
-		padding: 25px 12px;
 		margin-bottom: 20px;
 	}
 
 	.hero-icon {
-		font-size: 36px;
+		font-size: 38px;
 		margin-bottom: 15px;
 	}
 
 	.hero-title .title-jp {
-		font-size: 24px;
-		letter-spacing: 2px;
+		font-size: 26px;
+		letter-spacing: 3px;
 	}
 
 	.hero-title .title-ru {
-		font-size: 20px;
+		font-size: 22px;
 	}
 
 	.hero-subtitle {
 		font-size: 15px;
-		margin-bottom: 15px;
+		margin-bottom: 12px;
 	}
 
 	.hero-description {
@@ -925,29 +1152,83 @@
 		gap: 15px;
 	}
 
+	.news-card {
+		flex-direction: row;
+		max-height: 200px;
+	}
+
+	.news-image {
+		width: 40%;
+		aspect-ratio: auto;
+		min-height: 200px;
+	}
+
 	.news-content {
+		width: 60%;
 		padding: 15px;
 	}
 
 	.news-title {
 		font-size: 15px;
+		-webkit-line-clamp: 2;
 	}
 
 	.news-excerpt {
 		font-size: 12px;
+		-webkit-line-clamp: 2;
+	}
+
+	.anime-genres {
+		font-size: 11px;
+		margin-bottom: 8px;
+	}
+
+	.anime-score {
+		font-size: 12px;
+		padding: 4px 8px;
+		bottom: 8px;
+		right: 8px;
+	}
+
+	.news-country,
+	.news-category {
+		font-size: 10px;
+		padding: 3px 7px;
+	}
+
+	.news-meta {
+		font-size: 11px;
+		margin-bottom: 8px;
+	}
+
+	.news-footer {
+		padding-top: 8px;
+	}
+
+	.news-source {
+		font-size: 11px;
+	}
+
+	.news-link {
+		font-size: 12px;
+	}
+
+	.news-grid-section {
+		padding: 15px 0 30px;
 	}
 
 	.subscribe-content {
-		padding: 25px 15px;
+		padding: 30px 20px;
 	}
 
 	.subscribe-icon {
 		width: 60px;
 		height: 60px;
+		margin-bottom: 20px;
 	}
 
 	.subscribe-icon i {
-		font-size: 28px;
+		font-size: 26px;
 	}
 
 	.subscribe-content h3 {
@@ -955,7 +1236,8 @@
 	}
 
 	.subscribe-content p {
-		font-size: 14px;
+		font-size: 13px;
+		margin-bottom: 20px;
 	}
 
 	.subscribe-input-group {
@@ -964,15 +1246,17 @@
 
 	.subscribe-input-group input {
 		padding: 12px 18px;
+		font-size: 13px;
 	}
 
 	.subscribe-input-group button {
 		padding: 12px 20px;
+		font-size: 13px;
 		justify-content: center;
 	}
 
 	.cta-content {
-		padding: 25px 15px;
+		padding: 30px 20px;
 	}
 
 	.cta-icon {
@@ -980,11 +1264,224 @@
 	}
 
 	.cta-title {
+		font-size: 22px;
+	}
+
+	.cta-text {
+		font-size: 14px;
+	}
+
+	.cta-buttons {
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.cta-btn {
+		width: 100%;
+		justify-content: center;
+		padding: 12px 20px;
+		font-size: 14px;
+	}
+
+	.api-notification {
+		max-width: calc(100% - 40px);
+	}
+}
+
+/* Мобильные (до 481px) */
+@media (width < 481px) {
+	.container__main {
+		padding: 0 8px;
+	}
+
+	.breadcrumbs {
+		font-size: 11px;
+		padding: 12px 0;
+		gap: 5px;
+	}
+
+	.breadcrumbs i {
+		font-size: 8px;
+	}
+
+	.news-hero {
+		padding: 25px 12px;
+		margin-bottom: 15px;
+		border-radius: 16px;
+	}
+
+	.hero-icon {
+		font-size: 32px;
+		margin-bottom: 12px;
+	}
+
+	.hero-title .title-jp {
+		font-size: 22px;
+		letter-spacing: 2px;
+	}
+
+	.hero-title .title-ru {
+		font-size: 18px;
+	}
+
+	.hero-subtitle {
+		font-size: 14px;
+		margin-bottom: 10px;
+	}
+
+	.hero-description {
+		font-size: 12px;
+		line-height: 1.5;
+	}
+
+	.sakura-petal {
+		width: 12px;
+		height: 12px;
+	}
+
+	.news-grid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+
+	.news-card {
+		flex-direction: column;
+		max-height: none;
+	}
+
+	.news-image {
+		width: 100%;
+		aspect-ratio: 16/9;
+	}
+
+	.news-content {
+		width: 100%;
+		padding: 15px;
+	}
+
+	.news-title {
+		font-size: 15px;
+		-webkit-line-clamp: 2;
+	}
+
+	.news-excerpt {
+		font-size: 12px;
+		-webkit-line-clamp: 2;
+	}
+
+	.anime-genres {
+		font-size: 11px;
+		margin-bottom: 10px;
+	}
+
+	.anime-score {
+		font-size: 13px;
+		padding: 5px 10px;
+		bottom: 8px;
+		right: 8px;
+	}
+
+	.news-country,
+	.news-category {
+		font-size: 10px;
+		padding: 3px 7px;
+	}
+
+	.news-meta {
+		font-size: 11px;
+		gap: 8px;
+		margin-bottom: 8px;
+	}
+
+	.news-footer {
+		padding-top: 8px;
+	}
+
+	.news-source {
+		font-size: 10px;
+	}
+
+	.news-link {
+		font-size: 12px;
+	}
+
+	.news-grid-section {
+		padding: 10px 0 25px;
+	}
+
+	.loader-spinner {
+		width: 40px;
+		height: 40px;
+	}
+
+	.news-loader p {
+		font-size: 14px;
+	}
+
+	.subscribe-content {
+		padding: 25px 15px;
+		border-radius: 16px;
+	}
+
+	.subscribe-icon {
+		width: 55px;
+		height: 55px;
+		margin-bottom: 15px;
+	}
+
+	.subscribe-icon i {
+		font-size: 24px;
+	}
+
+	.subscribe-content h3 {
+		font-size: 18px;
+		margin-bottom: 10px;
+	}
+
+	.subscribe-content p {
+		font-size: 13px;
+		margin-bottom: 20px;
+	}
+
+	.subscribe-input-group {
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.subscribe-input-group input {
+		padding: 12px 15px;
+		font-size: 13px;
+	}
+
+	.subscribe-input-group button {
+		padding: 12px 15px;
+		font-size: 13px;
+		justify-content: center;
+	}
+
+	.subscribe-checkbox {
+		font-size: 11px;
+	}
+
+	.cta-content {
+		padding: 25px 15px;
+		border-radius: 16px;
+	}
+
+	.cta-icon {
+		font-size: 32px;
+		margin-bottom: 15px;
+	}
+
+	.cta-title {
 		font-size: 20px;
+		margin-bottom: 12px;
 	}
 
 	.cta-text {
 		font-size: 13px;
+		margin-bottom: 20px;
+		line-height: 1.5;
 	}
 
 	.cta-buttons {
@@ -999,12 +1496,87 @@
 		font-size: 13px;
 	}
 
-	.sakura-petal {
-		width: 12px;
-		height: 12px;
+	.empty-state {
+		padding: 30px 15px;
+	}
+
+	.empty-state i {
+		font-size: 45px;
+	}
+
+	.empty-state p:first-of-type {
+		font-size: 18px;
+	}
+
+	.empty-state p {
+		font-size: 13px;
+	}
+
+	.btn-primary {
+		padding: 10px 18px;
+		font-size: 13px;
 	}
 
 	.api-notification {
-		max-width: calc(100% - 40px);
+		max-width: calc(100% - 30px);
+		padding: 12px 15px;
 	}
+
+	.api-notification span {
+		font-size: 12px;
+	}
+}
+
+
+
+/* ===== ЗАГЛУШКА ИЗОБРАЖЕНИЯ ===== */
+.news-image {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16/9;
+	overflow: hidden;
+	background: #0d0d0d;
+}
+
+.news-image::before {
+	content: '\f03e';
+	/* Иконка изображения Font Awesome */
+	font-family: 'Font Awesome 6 Free';
+	font-weight: 900;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 48px;
+	color: #333;
+	z-index: 0;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.news-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.5s ease;
+	position: relative;
+	z-index: 1;
+}
+
+/* Показываем иконку, если изображение не загрузилось */
+.news-image img[src=""],
+.news-image img:not([src]),
+.news-image img[src="#"] {
+	display: none;
+}
+
+.news-image img[src=""]+.news-badges,
+.news-image img:not([src])+.news-badges {
+	z-index: 2;
+}
+
+/* Когда изображения нет — показываем иконку */
+.news-image:has(img[src=""])::before,
+.news-image:has(img:not([src]))::before {
+	opacity: 1;
 }
