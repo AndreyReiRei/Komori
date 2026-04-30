@@ -316,6 +316,9 @@ class AuthPage {
 		}
 
 		if ( isValid ) {
+			// ВАЖНО: Сначала обновляем список пользователей из store
+			this.syncUsersFromStore();
+
 			const user = this.users.find( u =>
 				( u.email === identifier.value || u.phone === identifier.value ) &&
 				u.password === password.value
@@ -339,11 +342,28 @@ class AuthPage {
 					window.API.updateHeaderCounters();
 				}
 
+				// Отправляем событие об обновлении пользователя
+				window.dispatchEvent( new CustomEvent( 'userUpdated' ) );
+
 				setTimeout( () => {
 					window.location.href = '/index.html';
 				}, 1500 );
 			} else {
 				this.showNotification( 'Неверный email/телефон или пароль', 'error' );
+			}
+		}
+	}
+
+	/**
+	 * Синхронизация пользователей из store
+	 */
+	syncUsersFromStore() {
+		if ( window.store && window.store.users ) {
+			this.users = window.store.users;
+		} else {
+			const savedUsers = localStorage.getItem( 'komori_users' );
+			if ( savedUsers ) {
+				this.users = JSON.parse( savedUsers );
 			}
 		}
 	}
@@ -505,6 +525,9 @@ class AuthPage {
 		}
 
 		setTimeout( () => {
+			// Синхронизируем пользователей перед поиском
+			this.syncUsersFromStore();
+
 			const user = this.users.find( u => u.email === emailInput.value );
 
 			if ( user ) {

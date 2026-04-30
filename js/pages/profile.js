@@ -421,6 +421,12 @@ class ProfilePage {
 
 		// Обновляем текущего пользователя
 		localStorage.setItem( 'komori_current_user', JSON.stringify( this.currentUser ) );
+
+		// Синхронизируем с store
+		if ( window.store ) {
+			window.store.users = allUsers;
+			window.store.saveToStorage();
+		}
 	}
 
 	/**
@@ -1050,12 +1056,21 @@ class ProfilePage {
 	}
 
 	/**
-	 * Выход из аккаунта
+	 * Выход из аккаунта - ИСПРАВЛЕНА СИНХРОНИЗАЦИЯ
 	 */
 	logout() {
 		if ( confirm( 'Вы уверены, что хотите выйти из аккаунта?' ) ) {
+			// Очищаем данные текущего пользователя
 			localStorage.removeItem( 'komori_current_user' );
 			localStorage.removeItem( 'komori_remembered_user' );
+
+			// НЕ удаляем пользователей из store, они должны остаться для входа
+			// Только очищаем текущую сессию
+
+			// Отправляем событие об обновлении пользователя для шапки
+			window.dispatchEvent( new CustomEvent( 'userUpdated' ) );
+
+			// Перенаправляем на страницу входа
 			window.location.href = '/pages html/login.html';
 		}
 	}
