@@ -1,0 +1,1143 @@
+/* ===== СТРАНИЦА "ОБМЕН И ВОЗВРАТ" ===== */
+/* Файл: exchange-refund.css */
+
+.exchange-page {
+	background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%);
+	min-height: 100vh;
+}
+
+.container__main {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+.breadcrumbs {
+	padding: 20px 0;
+	font-size: 14px;
+	color: #999;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.breadcrumbs a {
+	color: #ff3366;
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+.breadcrumbs a:hover {
+	color: #ff6b6b;
+	text-decoration: underline;
+}
+
+.breadcrumbs i {
+	font-size: 10px;
+	color: #666;
+}
+
+.breadcrumbs span {
+	color: #fff;
+	font-weight: 500;
+}
+
+/* ===== ГЕРОЙ-СЕКЦИЯ ===== */
+.exchange-hero {
+	position: relative;
+	padding: 60px 40px;
+	margin-bottom: 40px;
+	background: linear-gradient(135deg, rgba(255, 51, 102, 0.1) 0%, rgba(26, 26, 26, 0.95) 100%);
+	border-radius: 24px;
+	border: 1px solid #333;
+	overflow: hidden;
+	text-align: center;
+}
+
+.hero-content {
+	position: relative;
+	z-index: 2;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.hero-icon {
+	font-size: 64px;
+	color: #ff3366;
+	margin-bottom: 20px;
+	animation: float 3s ease-in-out infinite;
+}
+
+.hero-title {
+	margin-bottom: 15px;
+}
+
+.title-jp {
+	display: block;
+	font-size: 48px;
+	font-weight: 400;
+	color: #ff3366;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	letter-spacing: 8px;
+	margin-bottom: 5px;
+}
+
+.title-ru {
+	display: block;
+	font-size: 42px;
+	font-weight: 700;
+	color: #fff;
+	text-shadow: 1px 1px 2px #ff3366, 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-subtitle {
+	font-size: 20px;
+	color: #ff3366;
+	margin-bottom: 20px;
+	font-weight: 500;
+}
+
+.hero-description {
+	font-size: 18px;
+	color: #ccc;
+	line-height: 1.8;
+	max-width: 700px;
+	margin: 0 auto;
+}
+
+/* Декоративные лепестки сакуры */
+.hero-decoration {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 1;
+}
+
+.sakura-petal {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	background: linear-gradient(135deg, #ffb7c5 0%, #ff3366 100%);
+	border-radius: 80% 0 80% 0;
+	opacity: 0.3;
+	animation: fall 8s linear infinite;
+}
+
+.sakura-petal:nth-child(1) {
+	left: 10%;
+	top: -20px;
+	animation-duration: 7s;
+	animation-delay: 0s;
+}
+
+.sakura-petal:nth-child(2) {
+	left: 25%;
+	top: -20px;
+	animation-duration: 9s;
+	animation-delay: 2s;
+}
+
+.sakura-petal:nth-child(3) {
+	left: 50%;
+	top: -20px;
+	animation-duration: 6s;
+	animation-delay: 4s;
+}
+
+.sakura-petal:nth-child(4) {
+	left: 70%;
+	top: -20px;
+	animation-duration: 8s;
+	animation-delay: 1s;
+}
+
+.sakura-petal:nth-child(5) {
+	left: 85%;
+	top: -20px;
+	animation-duration: 10s;
+	animation-delay: 3s;
+}
+
+@keyframes fall {
+	0% {
+		transform: translateY(-20px) rotate(0deg);
+		opacity: 0.3;
+	}
+
+	100% {
+		transform: translateY(400px) rotate(360deg);
+		opacity: 0;
+	}
+}
+
+@keyframes float {
+
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+/* ===== ЗАГОЛОВКИ СЕКЦИЙ ===== */
+.section-header {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.section-icon {
+	font-size: 36px;
+	color: #ff3366;
+	margin-bottom: 15px;
+}
+
+.section-title {
+	font-size: 36px;
+	color: #fff;
+	margin-bottom: 20px;
+	text-shadow: 1px 1px 2px #ff3366;
+}
+
+.section-divider {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;
+}
+
+.divider-line {
+	width: 60px;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, #ff3366, transparent);
+}
+
+.divider-icon {
+	color: #ff3366;
+	font-size: 16px;
+}
+
+/* ===== УСЛОВИЯ ВОЗВРАТА ===== */
+.exchange-conditions {
+	padding: 60px 0;
+}
+
+.conditions-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 25px;
+}
+
+.condition-card {
+	background: #1a1a1a;
+	padding: 30px 25px;
+	border-radius: 16px;
+	border: 1px solid #333;
+	text-align: center;
+	transition: all 0.3s ease;
+}
+
+.condition-card:hover {
+	border-color: #ff3366;
+	transform: translateY(-5px);
+	box-shadow: 0 8px 25px rgba(255, 51, 102, 0.2);
+}
+
+.condition-icon {
+	width: 70px;
+	height: 70px;
+	margin: 0 auto 20px;
+	background: rgba(255, 51, 102, 0.1);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid rgba(255, 51, 102, 0.3);
+}
+
+.condition-icon i {
+	font-size: 30px;
+	color: #ff3366;
+}
+
+.condition-card h3 {
+	font-size: 20px;
+	color: #fff;
+	margin-bottom: 12px;
+}
+
+.condition-card p {
+	font-size: 14px;
+	color: #ccc;
+	line-height: 1.6;
+}
+
+/* ===== ИСКЛЮЧЕНИЯ ===== */
+.exchange-exceptions {
+	padding: 60px 0;
+}
+
+.exceptions-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 25px;
+}
+
+.exception-item {
+	background: #1a1a1a;
+	padding: 25px;
+	border-radius: 16px;
+	border: 1px solid #333;
+	text-align: center;
+	transition: all 0.3s ease;
+}
+
+.exception-item:hover {
+	border-color: #ff3366;
+}
+
+.exception-icon {
+	width: 60px;
+	height: 60px;
+	margin: 0 auto 15px;
+	background: rgba(255, 51, 102, 0.05);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px dashed rgba(255, 51, 102, 0.3);
+}
+
+.exception-icon i {
+	font-size: 26px;
+	color: #ff3366;
+	opacity: 0.7;
+}
+
+.exception-item h4 {
+	font-size: 16px;
+	color: #ff3366;
+	margin-bottom: 10px;
+}
+
+.exception-item p {
+	font-size: 13px;
+	color: #ccc;
+	line-height: 1.6;
+}
+
+/* ===== СПОСОБЫ ВОЗВРАТА ===== */
+.exchange-methods {
+	padding: 60px 0;
+}
+
+.methods-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 25px;
+}
+
+.method-card {
+	background: #1a1a1a;
+	padding: 30px 25px;
+	border-radius: 16px;
+	border: 1px solid #333;
+	transition: all 0.3s ease;
+}
+
+.method-card:hover {
+	border-color: #ff3366;
+	transform: translateY(-5px);
+	box-shadow: 0 8px 25px rgba(255, 51, 102, 0.2);
+}
+
+.method-card.featured {
+	border-color: #ff3366;
+	background: linear-gradient(135deg, rgba(255, 51, 102, 0.1) 0%, #1a1a1a 100%);
+}
+
+.method-icon {
+	width: 70px;
+	height: 70px;
+	margin-bottom: 20px;
+	background: rgba(255, 51, 102, 0.1);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid rgba(255, 51, 102, 0.3);
+}
+
+.method-icon i {
+	font-size: 30px;
+	color: #ff3366;
+}
+
+.method-card h3 {
+	font-size: 20px;
+	color: #fff;
+	margin-bottom: 10px;
+}
+
+.method-desc {
+	font-size: 14px;
+	color: #ccc;
+	line-height: 1.6;
+	margin-bottom: 20px;
+}
+
+.method-features {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.method-features li {
+	font-size: 13px;
+	color: #ccc;
+	padding: 6px 0;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.method-features li i {
+	color: #2ecc71;
+	font-size: 12px;
+}
+
+/* ===== СРОКИ ВОЗВРАТА ===== */
+.exchange-timing {
+	padding: 60px 0;
+}
+
+.timing-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 25px;
+}
+
+.timing-card {
+	background: #1a1a1a;
+	padding: 25px;
+	border-radius: 16px;
+	border: 1px solid #333;
+	text-align: center;
+	transition: all 0.3s ease;
+}
+
+.timing-card:hover {
+	border-color: #ff3366;
+}
+
+.timing-icon {
+	width: 60px;
+	height: 60px;
+	margin: 0 auto 15px;
+	background: rgba(255, 51, 102, 0.1);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid rgba(255, 51, 102, 0.3);
+}
+
+.timing-icon i {
+	font-size: 26px;
+	color: #ff3366;
+}
+
+.timing-card h4 {
+	font-size: 16px;
+	color: #fff;
+	margin-bottom: 10px;
+}
+
+.timing-card p {
+	font-size: 13px;
+	color: #ccc;
+	line-height: 1.6;
+}
+
+/* ===== FAQ ===== */
+.exchange-faq {
+	padding: 60px 0;
+}
+
+.faq-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 20px;
+}
+
+.faq-item {
+	background: #1a1a1a;
+	border-radius: 12px;
+	border: 1px solid #333;
+	overflow: hidden;
+}
+
+.faq-question {
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+	background: rgba(255, 51, 102, 0.05);
+}
+
+.faq-question i {
+	color: #ff3366;
+	font-size: 14px;
+	transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question i {
+	transform: rotate(180deg);
+}
+
+.faq-question span {
+	font-size: 16px;
+	font-weight: 500;
+	color: #fff;
+}
+
+.faq-answer {
+	padding: 0 20px;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+	padding: 0 20px 20px;
+	max-height: 300px;
+}
+
+.faq-answer p {
+	font-size: 14px;
+	color: #ccc;
+	line-height: 1.6;
+}
+
+/* ===== CTA ===== */
+.exchange-cta {
+	padding: 60px 0 80px;
+}
+
+.cta-content {
+	background: linear-gradient(135deg, #1a1a1a 0%, #2a1a20 100%);
+	padding: 60px 40px;
+	border-radius: 24px;
+	border: 1px solid #333;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+
+.cta-content::before {
+	content: '';
+	position: absolute;
+	top: -50%;
+	right: -10%;
+	width: 400px;
+	height: 400px;
+	background: radial-gradient(circle, rgba(255, 51, 102, 0.1) 0%, transparent 70%);
+	border-radius: 50%;
+}
+
+.cta-icon {
+	font-size: 48px;
+	color: #ff3366;
+	margin-bottom: 20px;
+	position: relative;
+	z-index: 2;
+}
+
+.cta-title {
+	font-size: 36px;
+	color: #fff;
+	margin-bottom: 20px;
+	text-shadow: 1px 1px 2px #ff3366;
+	position: relative;
+	z-index: 2;
+}
+
+.cta-text {
+	font-size: 18px;
+	color: #ccc;
+	max-width: 700px;
+	margin: 0 auto 30px;
+	line-height: 1.7;
+	position: relative;
+	z-index: 2;
+}
+
+.cta-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	flex-wrap: wrap;
+	position: relative;
+	z-index: 2;
+}
+
+.cta-btn {
+	padding: 15px 35px;
+	border-radius: 50px;
+	font-size: 16px;
+	font-weight: 600;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	transition: all 0.3s ease;
+}
+
+.cta-btn.primary {
+	background: #ff3366;
+	color: #fff;
+	box-shadow: 0 4px 15px rgba(255, 51, 102, 0.3);
+}
+
+.cta-btn.primary:hover {
+	background: #ff6b6b;
+	transform: translateY(-3px);
+	box-shadow: 0 6px 20px rgba(255, 51, 102, 0.4);
+}
+
+.cta-btn.secondary {
+	background: transparent;
+	color: #fff;
+	border: 2px solid #ff3366;
+}
+
+.cta-btn.secondary:hover {
+	background: rgba(255, 51, 102, 0.1);
+	transform: translateY(-3px);
+}
+
+/* ===== МЕДИАЗАПРОСЫ ===== */
+
+/* Ультраширокие (1921px+) */
+@media (width >=1921px) {
+	.container__main {
+		max-width: 1800px;
+		padding: 0 40px;
+	}
+
+	.hero-title .title-jp {
+		font-size: 64px;
+	}
+
+	.hero-title .title-ru {
+		font-size: 56px;
+	}
+
+	.section-title {
+		font-size: 48px;
+	}
+
+	.conditions-grid,
+	.methods-grid,
+	.timing-grid,
+	.exceptions-grid {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+/* Очень большой десктоп (1441px - 1920px) */
+@media (1441px <=width < 1921px) {
+
+	.conditions-grid,
+	.methods-grid,
+	.timing-grid,
+	.exceptions-grid {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+/* Большой десктоп (1201px - 1440px) */
+@media (1201px <=width < 1441px) {
+
+	.conditions-grid,
+	.methods-grid,
+	.timing-grid,
+	.exceptions-grid {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+/* Десктоп (993px - 1200px) */
+@media (993px <=width < 1201px) {
+	.conditions-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.methods-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.timing-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.exceptions-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.faq-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
+	.container__main {
+		padding: 0 15px;
+	}
+
+	.hero-title .title-jp {
+		font-size: 36px;
+	}
+
+	.hero-title .title-ru {
+		font-size: 32px;
+	}
+
+	.section-title {
+		font-size: 32px;
+	}
+
+	.conditions-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.methods-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.timing-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.exceptions-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.faq-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
+	.container__main {
+		padding: 0 12px;
+	}
+
+	.exchange-hero {
+		padding: 40px 20px;
+	}
+
+	.hero-title .title-jp {
+		font-size: 32px;
+		letter-spacing: 4px;
+	}
+
+	.hero-title .title-ru {
+		font-size: 28px;
+	}
+
+	.hero-description {
+		font-size: 16px;
+	}
+
+	.section-title {
+		font-size: 28px;
+	}
+
+	.conditions-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+	}
+
+	.methods-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.timing-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+	}
+
+	.exceptions-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+	}
+
+	.faq-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.cta-content {
+		padding: 40px 20px;
+	}
+
+	.cta-title {
+		font-size: 28px;
+	}
+
+	.cta-text {
+		font-size: 16px;
+	}
+}
+
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
+	.container__main {
+		padding: 0 10px;
+	}
+
+	.breadcrumbs {
+		font-size: 12px;
+		padding: 15px 0;
+	}
+
+	.exchange-hero {
+		padding: 30px 15px;
+	}
+
+	.hero-icon {
+		font-size: 48px;
+	}
+
+	.hero-title .title-jp {
+		font-size: 28px;
+		letter-spacing: 3px;
+	}
+
+	.hero-title .title-ru {
+		font-size: 24px;
+	}
+
+	.hero-subtitle {
+		font-size: 16px;
+	}
+
+	.hero-description {
+		font-size: 14px;
+	}
+
+	.section-title {
+		font-size: 24px;
+	}
+
+	.section-icon {
+		font-size: 28px;
+	}
+
+	.conditions-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.methods-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.timing-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.exceptions-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.faq-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.cta-content {
+		padding: 30px 15px;
+	}
+
+	.cta-title {
+		font-size: 24px;
+	}
+
+	.cta-text {
+		font-size: 14px;
+	}
+
+	.cta-buttons {
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.cta-btn {
+		width: 100%;
+		justify-content: center;
+		padding: 12px 20px;
+		font-size: 14px;
+	}
+
+	.faq-question {
+		padding: 15px;
+	}
+
+	.faq-question span {
+		font-size: 14px;
+	}
+}
+
+/* Мобильные (до 481px) */
+@media (width < 481px) {
+	.container__main {
+		padding: 0 8px;
+	}
+
+	.breadcrumbs {
+		font-size: 11px;
+		padding: 12px 0;
+		gap: 5px;
+	}
+
+	.breadcrumbs i {
+		font-size: 8px;
+	}
+
+	.exchange-hero {
+		padding: 25px 12px;
+		margin-bottom: 20px;
+	}
+
+	.hero-icon {
+		font-size: 40px;
+		margin-bottom: 15px;
+	}
+
+	.hero-title .title-jp {
+		font-size: 24px;
+		letter-spacing: 2px;
+	}
+
+	.hero-title .title-ru {
+		font-size: 20px;
+	}
+
+	.hero-subtitle {
+		font-size: 14px;
+		margin-bottom: 15px;
+	}
+
+	.hero-description {
+		font-size: 13px;
+		line-height: 1.6;
+	}
+
+	.section-header {
+		margin-bottom: 30px;
+	}
+
+	.section-icon {
+		font-size: 24px;
+		margin-bottom: 10px;
+	}
+
+	.section-title {
+		font-size: 20px;
+		margin-bottom: 15px;
+	}
+
+	.divider-line {
+		width: 40px;
+	}
+
+	.exchange-conditions,
+	.exchange-exceptions,
+	.exchange-methods,
+	.exchange-timing,
+	.exchange-faq,
+	.exchange-cta {
+		padding: 30px 0;
+	}
+
+	.conditions-grid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+
+	.condition-card {
+		padding: 20px 18px;
+	}
+
+	.condition-icon {
+		width: 55px;
+		height: 55px;
+		margin-bottom: 15px;
+	}
+
+	.condition-icon i {
+		font-size: 24px;
+	}
+
+	.condition-card h3 {
+		font-size: 18px;
+	}
+
+	.condition-card p {
+		font-size: 13px;
+	}
+
+	.methods-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.method-card {
+		padding: 20px 18px;
+	}
+
+	.method-icon {
+		width: 55px;
+		height: 55px;
+		margin-bottom: 15px;
+	}
+
+	.method-icon i {
+		font-size: 24px;
+	}
+
+	.method-card h3 {
+		font-size: 18px;
+	}
+
+	.method-desc {
+		font-size: 13px;
+	}
+
+	.method-features li {
+		font-size: 12px;
+	}
+
+	.timing-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.timing-card {
+		padding: 18px;
+	}
+
+	.timing-icon {
+		width: 55px;
+		height: 55px;
+		margin-bottom: 12px;
+	}
+
+	.timing-icon i {
+		font-size: 22px;
+	}
+
+	.timing-card h4 {
+		font-size: 15px;
+	}
+
+	.timing-card p {
+		font-size: 12px;
+	}
+
+	.exceptions-grid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+
+	.exception-item {
+		padding: 18px;
+	}
+
+	.exception-item h4 {
+		font-size: 15px;
+	}
+
+	.exception-item p {
+		font-size: 12px;
+	}
+
+	.faq-grid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+
+	.faq-question {
+		padding: 12px 15px;
+	}
+
+	.faq-question i {
+		font-size: 12px;
+	}
+
+	.faq-question span {
+		font-size: 14px;
+	}
+
+	.faq-item.active .faq-answer {
+		padding: 0 15px 15px;
+	}
+
+	.faq-answer p {
+		font-size: 13px;
+	}
+
+	.cta-content {
+		padding: 25px 15px;
+	}
+
+	.cta-icon {
+		font-size: 36px;
+		margin-bottom: 15px;
+	}
+
+	.cta-title {
+		font-size: 20px;
+		margin-bottom: 15px;
+	}
+
+	.cta-text {
+		font-size: 13px;
+		margin-bottom: 20px;
+	}
+
+	.cta-buttons {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.cta-btn {
+		width: 100%;
+		justify-content: center;
+		padding: 12px 15px;
+		font-size: 13px;
+	}
+
+	.sakura-petal {
+		width: 12px;
+		height: 12px;
+	}
+}

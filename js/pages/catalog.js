@@ -94,7 +94,7 @@ class CatalogPage {
 				const id = e.currentTarget.dataset.id;
 
 				if ( store.addToCart( id ) ) {
-					API.showNotification( 'Товар добавлен в корзину' );
+					API.showNotification( '✅ Товар добавлен в корзину' );
 
 					// Визуальный эффект
 					const originalText = e.currentTarget.innerHTML;
@@ -106,7 +106,7 @@ class CatalogPage {
 
 					API.updateHeaderCounters();
 				} else {
-					API.showNotification( 'Не удалось добавить товар', 'error' );
+					API.showNotification( '❌ Не удалось добавить товар', 'error' );
 				}
 			};
 			btn.addEventListener( 'click', this.handleAddToCart );
@@ -125,9 +125,9 @@ class CatalogPage {
 
 				// ИСПРАВЛЕНО
 				if ( isFavorite ) {
-					API.showNotification( 'Товар добавлен в избранное' );
+					API.showNotification( '❤️ Товар добавлен в избранное' );
 				} else {
-					API.showNotification( 'Товар удален из избранного' );
+					API.showNotification( '💔 Товар удален из избранного' );
 				}
 
 				API.updateHeaderCounters();

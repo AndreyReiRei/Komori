@@ -206,7 +206,7 @@ class CategoryPage {
 				const id = e.currentTarget.dataset.id;
 
 				if ( store.addToCart( id ) ) {
-					API.showNotification( 'Товар добавлен в корзину' );
+					API.showNotification( '✅ Товар добавлен в корзину' );
 
 					// Визуальный эффект
 					const originalText = e.currentTarget.innerHTML;
@@ -221,7 +221,7 @@ class CategoryPage {
 					// Обновляем количество доступных товаров на карточке
 					this.renderProducts();
 				} else {
-					API.showNotification( 'Не удалось добавить товар', 'error' );
+					API.showNotification( '❌ Не удалось добавить товар', 'error' );
 				}
 			};
 			btn.addEventListener( 'click', this.handleAddToCart );
@@ -236,7 +236,7 @@ class CategoryPage {
 				const isFavorite = store.toggleFavorite( id );
 
 				e.currentTarget.classList.toggle( 'active', isFavorite );
-				API.showNotification( isFavorite ? 'Добавлено в избранное' : 'Удалено из избранного' );
+				API.showNotification( isFavorite ? '❤️ Товар добавлен в избранное' : '💔 Товар удален из избранного' );
 				API.updateHeaderCounters();
 			};
 			btn.addEventListener( 'click', this.handleToggleFavorite );

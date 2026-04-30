@@ -1,10 +1,10 @@
 /**
  * ============================================================================
- * СТРАНИЦА НОВИНОК (new-arrivals.html)
+ * СТРАНИЦА КОЛЛЕКЦИЙ (collections.html)
  * ============================================================================
  * 
  * ОСНОВНЫЕ ФУНКЦИИ:
- * 1. Отображает все товары с пометкой "Новинка" (isNew = true)
+ * 1. Отображает все товары с пометкой "Хит продаж" (isHit = true)
  * 2. Группирует товары по категориям
  * 3. Позволяет сворачивать/разворачивать категории
  * 4. Добавление товаров в корзину
@@ -14,10 +14,10 @@
  * ============================================================================
  */
 
-class NewArrivalsPage {
+class CollectionsPage {
 	constructor() {
-		// Список категорий, в которых есть товары-новинки
-		this.categoriesWithNewItems = [];
+		// Список категорий, в которых есть товары-хиты
+		this.categoriesWithHitItems = [];
 
 		// Инициализация страницы
 		this.init();
@@ -32,14 +32,14 @@ class NewArrivalsPage {
 	 * Вызывается при создании экземпляра класса
 	 */
 	init() {
-		console.log( '🎯 Инициализация страницы новинок...' );
+		console.log( '🔥 Инициализация страницы коллекций...' );
 
-		// Рендерим категории с новинками
+		// Рендерим категории с хитами
 		this.renderCategories();
 
 		// Слушаем обновление товаров (добавление/редактирование в админке)
 		window.addEventListener( 'store:productsUpdated', () => {
-			console.log( '🔄 Товары обновлены, перезагружаем новинки...' );
+			console.log( '🔄 Товары обновлены, перезагружаем коллекции...' );
 			this.renderCategories();
 		} );
 
@@ -63,27 +63,27 @@ class NewArrivalsPage {
 	// =========================================================================
 
 	/**
-	 * Получает все товары с пометкой "Новинка", сгруппированные по категориям
+	 * Получает все товары с пометкой "Хит продаж", сгруппированные по категориям
 	 * @returns {Array} Массив объектов категорий с товарами
 	 */
-	getNewArrivalsByCategory() {
+	getHitItemsByCategory() {
 		// Получаем все товары из глобального хранилища store
 		const allProducts = store.products;
 
-		// Фильтруем только новинки (isNew = true) и только те, что есть в наличии
-		const newProducts = allProducts.filter( product =>
-			product.isNew === true &&
+		// Фильтруем только хиты (isHit = true) и только те, что есть в наличии
+		const hitProducts = allProducts.filter( product =>
+			product.isHit === true &&
 			product.status === 'in-stock' &&
 			product.quantity > 0
 		);
 
-		console.log( '📦 Найдено новинок:', newProducts.length );
+		console.log( '📦 Найдено хитов:', hitProducts.length );
 
 		// Группируем товары по категориям
 		// Результат: { categoryKey: [product1, product2, ...] }
 		const groupedByCategory = {};
 
-		newProducts.forEach( product => {
+		hitProducts.forEach( product => {
 			const category = product.category;
 			if ( !groupedByCategory[category] ) {
 				groupedByCategory[category] = [];
@@ -157,20 +157,20 @@ class NewArrivalsPage {
 	// =========================================================================
 
 	/**
-	 * Рендерит все категории с новинками
+	 * Рендерит все категории с хитами
 	 * Это главный метод отрисовки страницы
 	 */
 	renderCategories() {
 		const container = document.getElementById( 'categoriesContainer' );
-		const emptyState = document.getElementById( 'emptyNewArrivals' );
+		const emptyState = document.getElementById( 'emptyCollections' );
 
 		if ( !container ) return;
 
-		// Получаем категории с новинками
-		const categories = this.getNewArrivalsByCategory();
-		this.categoriesWithNewItems = categories;
+		// Получаем категории с хитами
+		const categories = this.getHitItemsByCategory();
+		this.categoriesWithHitItems = categories;
 
-		// Если нет новинок - показываем пустое состояние
+		// Если нет хитов - показываем пустое состояние
 		if ( categories.length === 0 ) {
 			if ( container ) container.style.display = 'none';
 			if ( emptyState ) emptyState.style.display = 'block';
@@ -251,9 +251,9 @@ class NewArrivalsPage {
                 <div class="product-image">
                     <a href="${categoryUrl}">
                         <img src="${API.getSafeImageUrl( product.image )}" 
-                            alt="${product.name}"
-                            loading="lazy"
-                            onerror="this.src='${API.getFallbackSvg( product.name )}'">
+                             alt="${product.name}"
+                             loading="lazy"
+                             onerror="this.src='${API.getFallbackSvg( product.name )}'">
                     </a>
                     <!-- Бейджи товара -->
                     <div class="product-badges">
@@ -464,12 +464,12 @@ class NewArrivalsPage {
 
 /**
  * Создаем экземпляр класса при загрузке DOM
- * Проверяем, что мы находимся на странице новинок
+ * Проверяем, что мы находимся на странице коллекций
  */
 document.addEventListener( 'DOMContentLoaded', () => {
 	// Проверяем, есть ли на странице контейнер для категорий
 	if ( document.getElementById( 'categoriesContainer' ) ) {
-		window.newArrivalsPage = new NewArrivalsPage();
-		console.log( '✅ Страница новинок инициализирована' );
+		window.collectionsPage = new CollectionsPage();
+		console.log( '✅ Страница коллекций инициализирована' );
 	}
 } );

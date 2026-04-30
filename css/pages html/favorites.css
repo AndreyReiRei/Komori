@@ -580,38 +580,46 @@
 .recommendations-title {
 	font-size: 28px;
 	color: white;
-	margin-bottom: 40px;
+	margin-bottom: 30px;
 	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
 	text-shadow: 1px 1px 2px #ff3366,
-		2px 2px 4px rgba(0, 0, 0, 0.5),
-		3px 3px 6px rgba(0, 0, 0, 0.3);
+		2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Сетка для карточек рекомендаций */
+.recommendations-title i {
+	color: #ff3366;
+	font-size: 28px;
+}
+
+/* Сетка рекомендаций */
 .recommendations-grid {
 	display: grid;
-	gap: 20px;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 25px;
 }
 
 /* Карточка рекомендации */
 .recommendation-item {
 	background: #1a1a1a;
-	border-radius: 10px;
+	border-radius: 12px;
 	overflow: hidden;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 	transition: all 0.3s ease;
 	text-align: center;
-	padding: 15px;
+	padding: 20px;
 	border: 1px solid #333;
 	cursor: pointer;
-	/* Делаем карточку рекомендации кликабельной */
+	/* Делаем карточку кликабельной */
 }
 
 /* Эффект при наведении на карточку рекомендации */
 .recommendation-item:hover {
-	transform: translateY(-3px);
+	transform: translateY(-5px);
 	border-color: #ff3366;
-	box-shadow: 0 5px 15px rgba(255, 51, 102, 0.2);
+	box-shadow: 0 10px 25px rgba(255, 51, 102, 0.2);
 }
 
 /* Сохраняем кликабельность кнопок внутри рекомендаций */
@@ -623,11 +631,11 @@
 
 /* Изображение в рекомендации */
 .recommendation-image {
-	width: 100px;
-	height: 100px;
+	width: 120px;
+	height: 120px;
 	object-fit: cover;
-	border-radius: 8px;
-	margin: 0 auto 12px auto;
+	border-radius: 10px;
+	margin: 0 auto 15px auto;
 	display: block;
 	transition: transform 0.3s ease;
 }
@@ -637,25 +645,36 @@
 	transform: scale(1.05);
 }
 
-/* Название товара в рекомендации */
+/* Название товара в рекомендации (ссылка) */
 .recommendation-name {
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: 600;
 	color: white;
-	margin: 0 0 5px 0;
+	margin: 0 0 8px 0;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
-	min-height: 40px;
+	min-height: 48px;
+}
+
+/* Сохраняем цвет ссылки */
+.recommendation-name a {
+	color: white;
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+.recommendation-name a:hover {
+	color: #ff3366;
 }
 
 /* Цена в рекомендации */
 .recommendation-price {
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 700;
 	color: #ff3366;
-	margin-bottom: 12px;
+	margin-bottom: 15px;
 	display: block;
 }
 
@@ -664,22 +683,26 @@
 	background: transparent;
 	border: 1px solid #ff3366;
 	color: #ff3366;
-	padding: 6px 12px;
-	border-radius: 5px;
-	font-size: 12px;
+	padding: 10px 15px;
+	border-radius: 8px;
+	font-size: 14px;
 	font-weight: 500;
-	cursor: pointer;
+	transition: all 0.3s ease;
 	display: inline-flex;
 	align-items: center;
-	gap: 4px;
-	transition: all 0.3s ease;
-	width: 100%;
 	justify-content: center;
+	gap: 8px;
+	width: 100%;
 }
 
 .recommendation-add:hover {
 	background: #ff3366;
 	color: white;
+	transform: translateY(-2px);
+}
+
+.recommendation-add:active {
+	transform: translateY(0);
 }
 
 /* Сообщение "Нет рекомендаций" */

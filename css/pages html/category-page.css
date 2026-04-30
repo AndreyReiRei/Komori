@@ -104,12 +104,12 @@ body {
 
 .category-description {
 	font-size: 22px;
-	color: #e62e5c;
+	color: rgb(254, 254, 254);
+	text-shadow: 1px 1px 2px #ff3366,
+		2px 2px 4px rgba(0, 0, 0, 0.5),
+		3px 3px 6px rgba(0, 0, 0, 0.3);
 	font-weight: 500;
 	font-style: italic;
-	text-shadow: 1px 1px 1px #0101018b,
-		1px 1px 1px rgba(0, 0, 0, 0.5),
-		2px 2px 2px rgba(0, 0, 0, 0.3);
 	line-height: 1.6;
 	max-width: 70%;
 	margin: 0;

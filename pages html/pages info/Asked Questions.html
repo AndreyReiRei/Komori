@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Часто задаваемые вопросы - Комори</title>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Часто задаваемые вопросы</title>
+
+		<!-- Основной стиль -->
+		<link rel="stylesheet" href="/css/main.css">
+		<!-- Шапка -->
+		<link rel="stylesheet" href="/css/header.css">
+		<!-- Подвал -->
+		<link rel="stylesheet" href="/css/footer.css">
+
+		<!-- Бургер меню -->
+		<link rel="stylesheet" href="/css/page elements/burger-menu.css">
+		<!-- Помощь и звонок -->
+		<link rel="stylesheet" href="/css/page elements/support.css">
+		<!-- Поиск -->
+		<link rel="stylesheet" href="/css/page elements/search.css">
+
+		<!-- Стили данной страницы -->
+		<link rel="stylesheet" href="/css/pages html/faq-privacy.css">
+		<!-- Библиотека -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	</head>
+
+<body>
+
+	<!-- Шапка сайта -->
+	<header>
+		<div class="container__header">
+			<div class="header-top">
+				<!-- Логотип -->
+				<div class="logo">
+					<a href="/">
+						<div class="logo-icon">
+							<div class="logo-complex">
+								<!-- <i class="fas fa-moon"></i> -->
+								<i class="fas fa-leaf"></i>
+								<!-- <i class="fas fa-mug-hot"></i> -->
+							</div>
+						</div>
+						<div class="logo-text">Комори
+							<span class="logo-tagline">Азиатский магазинчик у дома</span>
+						</div>
+					</a>
+				</div>
+
+				<!-- Блок иконок пользователя (корзина, избранное, вход) + ЧАТ для мобильных -->
+				<div class="user-actions">
+
+
+					<!-- Product management -->
+					<div class="user-action-item admin-action">
+						<a href="/pages html/product-management.html" class="action-link">
+							<i class="fas fa-cog"></i>
+							<span class="action-text">Админка</span>
+						</a>
+					</div>
+
+
+					<!-- ПОИСК -->
+					<div class="user-action-item search-action">
+						<button class="action-link search-btn" id="searchBtn">
+							<i class="fas fa-search"></i>
+							<span class="action-text">Поиск</span>
+						</button>
+					</div>
+
+					<!-- Избранное -->
+					<div class="user-action-item favorites-action">
+						<a href="/pages html/favorites.html" class="action-link" id="favoritesBtn">
+							<i class="fas fa-heart"></i>
+							<span class="action-text">Избранное</span>
+							<span class="action-badge" id="favoritesCount">0</span>
+						</a>
+					</div>
+
+					<!-- Корзина -->
+					<div class="user-action-item cart-action">
+						<a href="/pages html/cart.html" class="action-link" id="cartBtn">
+							<i class="fas fa-shopping-cart"></i>
+							<span class="action-text">Корзина</span>
+							<span class="action-badge" id="cartCount">0</span>
+						</a>
+					</div>
+
+					<!-- Вход/Регистрация -->
+					<div class="user-action-item auth-action" id="authAction">
+						<a href="/pages html/login.html" class="action-link" id="authBtn">
+							<img id="headerAvatar" class="header-avatar" src="" alt="Аватар" style="display: none;">
+							<i class="far fa-user" id="headerAvatarIcon"></i>
+							<span class="action-text" id="authText">Войти</span>
+						</a>
+					</div>
+				</div>
+
+				<!-- Поддержка для мобильных -->
+				<div class="user-action-item chat-action-mobile" id="mobileChatItem">
+					<button class="chat-mobile-btn action-link" id="mobileChatBtn">
+						<i class="fas fa-comment-dots"></i>
+						<span class="action-text">Чат</span>
+						<span class="action-badge chat-badge" id="chatUnreadCount" style="display: none;">1</span>
+					</button>
+				</div>
+
+				<!-- Поддержка для десктопа -->
+				<div class="header-contacts">
+					<!-- кнопка чата с поддержкой (только для десктопа) -->
+					<button class="chat-btn" id="chatBtn">
+						<i class="fas fa-comment-dots"></i>
+						<span>Чат с поддержкой</span>
+					</button>
+				</div>
+
+				<!-- Бургер-меню для мобильных -->
+				<div class="burger-menu" id="burgerMenu">
+					<div class="burger-icon">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Основная навигация для десктопа -->
+			<nav class="main-nav" id="mainNav">
+				<ul class="nav-list">
+					<li class="has-dropdown">
+						<a href="/pages html/catalog.html" class="nav-link">
+							<i class="fas fa-bars"></i> <!-- Иконка меню -->
+							<span>Каталог товаров</span>
+							<i class="fas fa-chevron-down dropdown-arrow"></i>
+						</a>
+						<!-- Обновленное подменю для азиатского магазина -->
+						<ul class="dropdown-menu">
+							<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-user-ninja"></i>
+									Аниме фигурки</a></li>
+							<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-mug-hot"></i>
+									Азиатский чай</a>
+							</li>
+							<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-cookie-bite"></i>
+									Азиатские сладости</a></li>
+							<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-utensils"></i>
+									Азиатская посуда</a></li>
+							<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book"></i> Манга и
+									Книги</a>
+							</li>
+							<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-tshirt"></i> Аниме
+									одежда</a></li>
+							<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
+									Игры</a></li>
+							<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-palette"></i>
+									Канцелярия кавай</a></li>
+							<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-spray-can"></i>
+									Косметика из Азии</a></li>
+							<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-home"></i> Азиатский
+									декор</a></li>
+							<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
+									дисках</a></li>
+							<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-music"></i> Азиатская
+									популярная музыка </a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="/pages html/catalog pages/special offers.html" class="nav-link promo-link">
+							<i class="fas fa-tags"></i> <!-- Иконка ценника -->
+							<span>Новинки</span>
+						</a>
+					</li>
+					<li>
+						<a href="/pages html/catalog pages/collections.html" class="nav-link">
+							<i class="fas fa-star"></i> <!-- Иконка доставки -->
+							<span>Коллекции</span>
+						</a>
+					</li>
+					<li>
+						<a href="/pages html/pages info/rising sun news.html" class="nav-link">
+							<i class="fas fa-newspaper"></i>
+							<span>Новости восходящего солнца</span>
+						</a>
+					</li>
+					<li>
+						<a href="/pages html/pages info/Payment and delivery.html" class="nav-link">
+							<i class="fas fa-shipping-fast"></i> <!-- Иконка доставки -->
+							<span>Наши адреса и Доставка</span>
+						</a>
+					</li>
+					<li>
+						<a href="/pages html/pages info/About us.html" class="nav-link">
+							<i class="fas fa-store"></i> <!-- Иконка магазина -->
+							<span>О нас</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<!-- Модальные окна -->
+	<div class="modal__windows">
+
+		<!-- Модальное окно чата с поддержкой -->
+		<div class="modal" id="chatModal">
+			<div class="modal-content chat-modal">
+				<!-- Шапка чата -->
+				<div class="chat-header">
+					<div class="chat-header-info">
+						<div class="chat-avatar">
+							<i class="fas fa-headset"></i>
+						</div>
+						<div class="chat-title">
+							<h3>Поддержка Комори</h3>
+							<span class="chat-status online">
+								<i class="fas fa-circle"></i>
+								Онлайн
+							</span>
+						</div>
+					</div>
+					<div class="chat-header-actions">
+						<button class="chat-close" id="closeChat" title="Закрыть">
+							<i class="fas fa-times"></i>
+						</button>
+					</div>
+				</div>
+
+				<!-- Основная область чата с сообщениями -->
+				<div class="chat-messages" id="chatMessages">
+					<!-- Системное сообщение-приветствие -->
+					<div class="message system">
+						<div class="message-content">
+							<i class="fas fa-bell"></i>
+							<span>Чат начат</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Форма обратной связи (появляется при выборе опции) -->
+				<div class="callback-form" id="callbackForm">
+					<h4>Обратный звонок</h4>
+					<form id="contactForm">
+						<div class="form-group">
+							<input type="text" id="nameInput" placeholder="Ваше имя" required>
+							<i class="fas fa-user"></i>
+						</div>
+						<div class="form-group">
+							<input type="tel" id="phoneInput" placeholder="Ваш телефон" required>
+							<i class="fas fa-phone"></i>
+						</div>
+						<div class="form-group">
+							<textarea id="messageInput" placeholder="Ваш вопрос (необязательно)"></textarea>
+							<i class="fas fa-pencil-alt"></i>
+						</div>
+						<div class="form-actions">
+							<button type="button" class="btn-cancel" id="cancelCallback">
+								<i class="fas fa-times"></i>
+								Отмена
+							</button>
+							<button type="submit" class="btn-submit">
+								<i class="fas fa-paper-plane"></i>
+								Отправить
+							</button>
+						</div>
+					</form>
+				</div>
+
+				<!-- Поле ввода сообщения и кнопки действий -->
+				<div class="chat-input-area">
+					<!-- Быстрые действия -->
+					<div class="quick-actions">
+						<button class="quick-action" id="quickCallback">
+							<i class="fas fa-phone-alt"></i>
+							<span>Заказать звонок</span>
+						</button>
+						<button class="quick-action" id="quickQuestion">
+							<i class="fas fa-question-circle"></i>
+							<span>Частые вопросы</span>
+						</button>
+					</div>
+
+					<!-- Строка ввода -->
+					<div class="input-wrapper">
+						<input type="text" id="chatInput" placeholder="Введите сообщение..." autocomplete="off">
+						<button class="send-btn" id="sendMessage">
+							<i class="fas fa-paper-plane"></i>
+						</button>
+					</div>
+
+					<!-- Подсказка -->
+					<div class="input-hint">
+						<i class="fas fa-info-circle"></i>
+						<span>Нажмите Enter для отправки</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Модальное окно корзины -->
+		<div id="cartModal" class="modal">
+			<div class="modal-content cart-modal-content">
+				<span class="close-modal">&times;</span>
+				<h2><i class="fas fa-shopping-cart"></i> Корзина</h2>
+				<div class="cart-content">
+					<div class="cart-empty" id="cartEmpty">
+						<i class="fas fa-shopping-basket"></i>
+						<p>Ваша корзина пуста</p>
+						<a href="/pages html/cart.html" class="continue-shopping">Перейти к покупкам</a>
+					</div>
+					<div class="cart-items" id="cartItems" style="display: none;">
+						<div class="cart-item">
+							<img src="https://via.placeholder.com/80x80" alt="Товар" class="cart-item-image">
+							<div class="cart-item-info">
+								<h4 class="cart-item-title">Аниме фигурка Наруто</h4>
+								<div class="cart-item-controls">
+									<button class="quantity-btn minus">-</button>
+									<span class="quantity">1</span>
+									<button class="quantity-btn plus">+</button>
+									<span class="cart-item-price">2 499 ₽</span>
+								</div>
+							</div>
+							<button class="remove-item"><i class="fas fa-times"></i></button>
+						</div>
+						<!-- Другие товары будут добавляться динамически -->
+					</div>
+					<div class="cart-total" id="cartTotal" style="display: none;">
+						<div class="total-row">
+							<span>Итого:</span>
+							<span class="total-price">0 ₽</span>
+						</div>
+						<button class="checkout-btn">Оформить заказ</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Модальное окно избранного -->
+		<div id="favoritesModal" class="modal">
+			<div class="modal-content favorites-modal-content">
+				<span class="close-modal">&times;</span>
+				<h2><i class="fas fa-heart"></i> Избранное</h2>
+				<div class="favorites-content">
+					<div class="favorites-empty" id="favoritesEmpty">
+						<i class="far fa-heart"></i>
+						<p>В избранном пока ничего нет</p>
+						<p>Добавляйте товары, которые понравились</p>
+					</div>
+					<div class="favorites-items" id="favoritesItems" style="display: none;">
+						<div class="favorite-item">
+							<img src="https://via.placeholder.com/80x80" alt="Товар" class="favorite-item-image">
+							<div class="favorite-item-info">
+								<h4 class="favorite-item-title">Чай маття премиум</h4>
+								<span class="favorite-item-price">899 ₽</span>
+							</div>
+							<div class="favorite-item-actions">
+								<button class="add-to-cart-btn">В корзину</button>
+								<button class="remove-favorite"><i class="fas fa-times"></i></button>
+							</div>
+						</div>
+						<!-- Другие товары будут добавляться динамически -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Модальное окно авторизации -->
+		<div id="authModal" class="modal">
+			<div class="modal-content auth-modal-content">
+				<span class="close-modal">&times;</span>
+				<h2><i class="fas fa-user"></i> Вход в аккаунт</h2>
+				<div class="auth-tabs">
+					<button class="auth-tab active" data-tab="login">Вход</button>
+					<button class="auth-tab" data-tab="register">Регистрация</button>
+				</div>
+
+				<form class="auth-form" id="loginForm" style="display: block;">
+					<div class="form-group">
+						<label for="loginEmail">Email</label>
+						<input type="email" id="loginEmail" placeholder="Ваш email" required>
+					</div>
+					<div class="form-group">
+						<label for="loginPassword">Пароль</label>
+						<input type="password" id="loginPassword" placeholder="Ваш пароль" required>
+						<a href="#" class="forgot-password">Забыли пароль?</a>
+					</div>
+					<button type="submit" class="auth-submit-btn">Войти</button>
+					<div class="social-auth">
+						<p>Или войдите через:</p>
+						<div class="social-buttons">
+							<button type="button" class="social-btn vk-btn">
+								<i class="fab fa-vk"></i> ВКонтакте
+							</button>
+							<button type="button" class="social-btn google-btn">
+								<i class="fab fa-google"></i> Google
+							</button>
+						</div>
+					</div>
+				</form>
+
+				<form class="auth-form" id="registerForm" style="display: none;">
+					<div class="form-group">
+						<label for="registerName">Имя</label>
+						<input type="text" id="registerName" placeholder="Ваше имя" required>
+					</div>
+					<div class="form-group">
+						<label for="registerEmail">Email</label>
+						<input type="email" id="registerEmail" placeholder="Ваш email" required>
+					</div>
+					<div class="form-group">
+						<label for="registerPassword">Пароль</label>
+						<input type="password" id="registerPassword" placeholder="Придумайте пароль" required>
+					</div>
+					<div class="form-group">
+						<label for="registerConfirmPassword">Повторите пароль</label>
+						<input type="password" id="registerConfirmPassword" placeholder="Повторите пароль" required>
+					</div>
+					<div class="form-group checkbox-group">
+						<input type="checkbox" id="registerAgreement" required>
+						<label for="registerAgreement">
+							Я согласен с <a href="#">политикой конфиденциальности</a> и <a href="#">правилами сайта</a>
+						</label>
+					</div>
+					<button type="submit" class="auth-submit-btn">Зарегистрироваться</button>
+				</form>
+			</div>
+		</div>
+
+		<!-- Оверлей для мобильного меню -->
+		<div class="nav-overlay" id="navOverlay"></div>
+	</div>
+
+	<!-- Основной контент -->
+	<main class="faq-privacy-page">
+		<div class="container__main">
+
+			<!-- Хлебные крошки -->
+			<div class="breadcrumbs">
+				<a href="/">Главная</a>
+				<i class="fas fa-chevron-right"></i>
+				<span>Частые вопросы и Политика конфиденциальности</span>
+			</div>
+
+			<!-- Герой-секция -->
+			<section class="faq-privacy-hero">
+				<div class="hero-content">
+					<div class="hero-icon">
+						<i class="fas fa-shield-halved"></i>
+					</div>
+					<h1 class="hero-title">
+						<span class="title-jp">質問と方針</span>
+						<span class="title-ru">Часто задаваемые вопросы и конфиденциальность</span>
+					</h1>
+					<p class="hero-subtitle">Ответы на частые вопросы и политика обработки данных</p>
+					<p class="hero-description">
+						Здесь вы найдёте ответы на самые популярные вопросы о магазине, доставке и товарах,
+						а также узнаете, как мы заботимся о вашей конфиденциальности.
+					</p>
+				</div>
+				<div class="hero-decoration">
+					<div class="sakura-petal"></div>
+					<div class="sakura-petal"></div>
+					<div class="sakura-petal"></div>
+					<div class="sakura-petal"></div>
+					<div class="sakura-petal"></div>
+				</div>
+			</section>
+
+			<!-- Навигация по странице -->
+			<section class="page-nav">
+				<div class="nav-tabs">
+					<a href="#faq-section" class="nav-tab active" data-tab="faq">
+						<i class="fas fa-question-circle"></i>
+						<span>Частые вопросы</span>
+					</a>
+					<a href="#privacy-section" class="nav-tab" data-tab="privacy">
+						<i class="fas fa-lock"></i>
+						<span>Политика конфиденциальности</span>
+					</a>
+				</div>
+			</section>
+
+			<!-- ================================================================ -->
+			<!-- РАЗДЕЛ 1: ЧАСТЫЕ ВОПРОСЫ -->
+			<!-- ================================================================ -->
+			<section class="faq-section" id="faq-section">
+				<div class="section-header">
+					<div class="section-icon">
+						<i class="fas fa-question-circle"></i>
+					</div>
+					<h2 class="section-title">Частые вопросы</h2>
+					<div class="section-divider">
+						<span class="divider-line"></span>
+						<i class="fas fa-sakura divider-icon"></i>
+						<span class="divider-line"></span>
+					</div>
+				</div>
+
+				<!-- Категории вопросов -->
+				<div class="faq-categories">
+					<!-- Заказы -->
+					<div class="faq-category">
+						<h3 class="category-title">
+							<i class="fas fa-shopping-bag"></i> Заказы
+						</h3>
+						<div class="faq-grid">
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Как оформить заказ?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Добавьте товары в корзину, перейдите в неё и нажмите «Оформить заказ».
+										Укажите способ доставки, адрес и оплатите заказ удобным способом.
+										Готово! Мы пришлём подтверждение на email.</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Можно ли изменить заказ после оформления?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Да, если заказ ещё не передан в доставку. Свяжитесь с нашей поддержкой
+										в чате или по телефону, и мы поможем внести изменения.</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Как отследить статус заказа?</span>
+								</div>
+								<div class="faq-answer">
+									<p>После отправки заказа вы получите трек-номер на email. Отследить посылку
+										можно в личном кабинете на сайте или на сайте службы доставки.</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Можно ли отменить заказ?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Да, вы можете отменить заказ до момента его передачи в доставку.
+										Напишите в чат или позвоните нам — мы всё сделаем.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Доставка -->
+					<div class="faq-category">
+						<h3 class="category-title">
+							<i class="fas fa-truck-fast"></i> Доставка
+						</h3>
+						<div class="faq-grid">
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Сколько стоит доставка?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Стоимость зависит от способа доставки: курьером — от 290 ₽,
+										в пункты выдачи — от 150 ₽, почтой России — от 200 ₽.
+										Бесплатная доставка при заказе от 3000 ₽ (курьером) и от 5000 ₽ (в пункты
+										выдачи).</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Какие сроки доставки?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Москва и СПб: 1-2 дня. Центральная Россия: 2-4 дня.
+										Урал и Сибирь: 4-7 дней. Дальний Восток: 7-12 дней.</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Доставляете ли вы в другие страны?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Пока мы работаем только по России. Доставка в страны СНГ планируется
+										в ближайшее время. Следите за новостями!</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Можно ли заказать самовывоз из магазина?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Да, при оформлении заказа выберите опцию «Самовывоз из магазина».
+										Это бесплатно, и мы привезём товар в выбранный магазин.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Оплата -->
+					<div class="faq-category">
+						<h3 class="category-title">
+							<i class="fas fa-credit-card"></i> Оплата
+						</h3>
+						<div class="faq-grid">
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Какие способы оплаты доступны?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Вы можете оплатить заказ банковской картой (Visa, MasterCard, МИР),
+										через Apple Pay / Google Pay, наличными при получении,
+										переводом на карту или через СБП (QR-код).</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Безопасно ли вводить данные карты на сайте?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Да, все платежи проходят через защищённое соединение по стандарту PCI DSS.
+										Мы не храним данные ваших карт — они передаются напрямую в платёжную систему.
+									</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Когда спишутся деньги с карты?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Деньги списываются в момент оформления заказа. Если заказ отменён —
+										мы вернём деньги в течение 3-10 рабочих дней.</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Принимаете ли вы подарочные сертификаты?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Да, у нас есть электронные подарочные сертификаты номиналом 500, 1000,
+										3000 и 5000 рублей. Купить можно на сайте в разделе «Подарочные карты».</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Возврат -->
+					<div class="faq-category">
+						<h3 class="category-title">
+							<i class="fas fa-rotate-left"></i> Обмен и возврат
+						</h3>
+						<div class="faq-grid">
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Как вернуть товар?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Вы можете вернуть товар в течение 14 дней в любой наш магазин или
+										отправить курьером/почтой. Подробнее на странице «Обмен и возврат».</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Кто оплачивает доставку при возврате?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Если товар бракованный — доставку оплачиваем мы. Если просто не подошёл —
+										доставку оплачивает покупатель. При возврате в магазин — бесплатно всегда.</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Что делать, если товар пришёл с браком?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Сфотографируйте брак и упаковку, свяжитесь с нами в течение 24 часов.
+										Мы заменим товар или вернём деньги и компенсируем доставку.</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Можно ли обменять товар на другой?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Да, обменять товар на аналогичный или любой другой из каталога можно
+										в течение 14 дней с перерасчётом стоимости.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Товары -->
+					<div class="faq-category">
+						<h3 class="category-title">
+							<i class="fas fa-box"></i> Товары
+						</h3>
+						<div class="faq-grid">
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Все ли товары оригинальные?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Да, мы работаем только с официальными поставщиками и дистрибьюторами.
+										Все фигурки, манга, чай и другие товары — оригинальны и сертифицированы.</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Как узнать о поступлении товара?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Нажмите кнопку «Уведомить о поступлении» на карточке товара, которого нет в
+										наличии.
+										Мы пришлём уведомление на email, как только товар появится.</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Можно ли заказать товар, которого нет в каталоге?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Мы можем попробовать найти товар под заказ. Напишите нам название
+										и описание желаемого товара, и мы проверим возможность поставки.</p>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<div class="faq-question">
+									<i class="fas fa-chevron-down"></i>
+									<span>Есть ли гарантия на товары?</span>
+								</div>
+								<div class="faq-answer">
+									<p>Да, на все товары распространяется гарантия производителя.
+										Сроки зависят от категории товара — от 14 дней до 1 года.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Разделитель секций -->
+			<div class="section-separator" id="privacy-section">
+			</div>
+
+			<!-- ================================================================ -->
+			<!-- РАЗДЕЛ 2: ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ -->
+			<!-- ================================================================ -->
+			<section class="privacy-section">
+				<div class="section-header">
+					<div class="section-icon">
+						<i class="fas fa-lock"></i>
+					</div>
+					<h2 class="section-title">Политика конфиденциальности</h2>
+					<div class="section-divider">
+						<span class="divider-line"></span>
+						<i class="fas fa-sakura divider-icon"></i>
+						<span class="divider-line"></span>
+					</div>
+					<p class="section-updated">Последнее обновление: 15 апреля 2026 года</p>
+				</div>
+
+				<div class="privacy-content">
+					<!-- 1. Общие положения -->
+					<div class="privacy-block">
+						<div class="privacy-number">1</div>
+						<div class="privacy-text">
+							<h3>Общие положения</h3>
+							<p>Настоящая Политика конфиденциальности определяет порядок обработки и защиты персональных
+								данных пользователей сайта komori.ru (далее — «Сайт»).</p>
+							<p>Оператором персональных данных является ООО «Комори» (ИНН 7701234567, ОГРН
+								1234567890123), расположенное по адресу: 123456, г. Москва, ул. Анимешная, д. 7, офис
+								42.</p>
+							<p>Используя Сайт, вы выражаете согласие с условиями настоящей Политики. Если вы не согласны
+								с условиями, пожалуйста, не используйте Сайт.</p>
+						</div>
+					</div>
+
+					<!-- 2. Какие данные мы собираем -->
+					<div class="privacy-block">
+						<div class="privacy-number">2</div>
+						<div class="privacy-text">
+							<h3>Какие данные мы собираем</h3>
+							<p>При использовании Сайта мы можем собирать следующие данные:</p>
+							<ul>
+								<li><strong>При регистрации:</strong> имя, email, номер телефона.</li>
+								<li><strong>При оформлении заказа:</strong> адрес доставки, платёжные данные (передаются
+									напрямую в платёжную систему и не хранятся нами).</li>
+								<li><strong>Автоматически:</strong> IP-адрес, данные о браузере, файлы cookie, история
+									просмотров и покупок.</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- 3. Как мы используем данные -->
+					<div class="privacy-block">
+						<div class="privacy-number">3</div>
+						<div class="privacy-text">
+							<h3>Как мы используем ваши данные</h3>
+							<p>Собранные данные используются для следующих целей:</p>
+							<ul>
+								<li>Обработка и доставка ваших заказов</li>
+								<li>Связь с вами по вопросам заказов и поддержки</li>
+								<li>Улучшение качества работы Сайта и сервиса</li>
+								<li>Отправка информационных и рекламных сообщений (только с вашего согласия)</li>
+								<li>Персонализация контента и рекомендаций</li>
+								<li>Анализ статистики посещений и продаж</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- 4. Передача данных третьим лицам -->
+					<div class="privacy-block">
+						<div class="privacy-number">4</div>
+						<div class="privacy-text">
+							<h3>Передача данных третьим лицам</h3>
+							<p>Мы не продаём и не передаём ваши персональные данные третьим лицам, за исключением
+								случаев:</p>
+							<ul>
+								<li>Службам доставки — для осуществления доставки заказов (только необходимый минимум
+									данных)</li>
+								<li>Платёжным системам — для обработки платежей (данные карт передаются по защищённому
+									протоколу)</li>
+								<li>По требованию законодательства РФ — государственным органам в установленном порядке
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- 5. Защита данных -->
+					<div class="privacy-block">
+						<div class="privacy-number">5</div>
+						<div class="privacy-text">
+							<h3>Защита данных</h3>
+							<p>Мы принимаем все необходимые технические и организационные меры для защиты ваших данных:
+							</p>
+							<ul>
+								<li>SSL-шифрование для передачи данных (протокол HTTPS)</li>
+								<li>Регулярное обновление программного обеспечения</li>
+								<li>Ограниченный доступ к данным только для авторизованных сотрудников</li>
+								<li>Мониторинг и предотвращение несанкционированного доступа</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- 6. Файлы cookie -->
+					<div class="privacy-block">
+						<div class="privacy-number">6</div>
+						<div class="privacy-text">
+							<h3>Файлы cookie</h3>
+							<p>Мы используем файлы cookie для улучшения работы Сайта. Cookie — это небольшие текстовые
+								файлы, которые сохраняются в вашем браузере.</p>
+							<p><strong>Какие cookie мы используем:</strong></p>
+							<ul>
+								<li><strong>Обязательные:</strong> для работы корзины, авторизации и основных функций
+									Сайта</li>
+								<li><strong>Аналитические:</strong> для анализа посещаемости и улучшения Сайта
+									(Яндекс.Метрика)</li>
+								<li><strong>Рекламные:</strong> для показа релевантной рекламы (вы можете отказаться в
+									настройках браузера)</li>
+							</ul>
+							<p>Вы можете отключить cookie в настройках браузера, но это может повлиять на работу
+								некоторых функций Сайта.</p>
+						</div>
+					</div>
+
+					<!-- 7. Ваши права -->
+					<div class="privacy-block">
+						<div class="privacy-number">7</div>
+						<div class="privacy-text">
+							<h3>Ваши права</h3>
+							<p>В соответствии с Федеральным законом «О персональных данных» № 152-ФЗ, вы имеете право:
+							</p>
+							<ul>
+								<li>Запросить информацию о том, какие данные мы храним о вас</li>
+								<li>Потребовать исправления неточных данных</li>
+								<li>Отозвать согласие на обработку данных</li>
+								<li>Потребовать удаления ваших данных (в случаях, предусмотренных законом)</li>
+							</ul>
+							<p>Для реализации ваших прав напишите нам на email: <a
+									href="mailto:privacy@komori.ru">privacy@komori.ru</a></p>
+						</div>
+					</div>
+
+					<!-- 8. Изменения политики -->
+					<div class="privacy-block">
+						<div class="privacy-number">8</div>
+						<div class="privacy-text">
+							<h3>Изменения политики конфиденциальности</h3>
+							<p>Мы оставляем за собой право вносить изменения в настоящую Политику. Актуальная версия
+								всегда доступна на этой странице. О существенных изменениях мы уведомим вас по email или
+								через уведомление на Сайте.</p>
+						</div>
+					</div>
+
+					<!-- 9. Контакты -->
+					<div class="privacy-block">
+						<div class="privacy-number">9</div>
+						<div class="privacy-text">
+							<h3>Контакты для вопросов</h3>
+							<p>Если у вас есть вопросы по поводу обработки ваших данных, пожалуйста, свяжитесь с нами:
+							</p>
+							<ul class="contact-list">
+								<li><i class="fas fa-envelope"></i> <a
+										href="mailto:privacy@komori.ru">privacy@komori.ru</a></li>
+								<li><i class="fas fa-phone"></i> <a href="tel:+78001234567">8 (800) 123-45-67</a></li>
+								<li><i class="fas fa-map-pin"></i> 123456, г. Москва, ул. Анимешная, д. 7, офис 42</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Призыв к действию -->
+			<section class="faq-privacy-cta">
+				<div class="cta-content">
+					<div class="cta-icon">
+						<i class="fas fa-headset"></i>
+					</div>
+					<h2 class="cta-title">Не нашли ответ?</h2>
+					<p class="cta-text">
+						Наша служба поддержки работает 24/7. Напишите нам в чат или позвоните —
+						мы с радостью поможем!
+					</p>
+					<div class="cta-buttons">
+						<a href="#" class="cta-btn primary" id="openChatBtn">
+							<i class="fas fa-comment-dots"></i>
+							Чат с поддержкой
+						</a>
+						<a href="/pages html/pages info/Contacts.html" class="cta-btn secondary">
+							<i class="fas fa-phone"></i>
+							Контакты
+						</a>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<!-- Подвал сайта -->
+	<footer>
+		<div class="container__footer">
+			<div class="footer-content">
+				<!-- Колонка 1: Каталог -->
+				<div class="footer-column">
+					<h3><i class="fas fa-compass"></i> Каталог</h3>
+					<ul class="footer-links">
+						<li><a href="/pages html/catalog pages/figurines.html"><i class="fas fa-dragon"></i> Аниме
+								фигурки</a></li>
+						<li><a href="/pages html/catalog pages/tea.html"><i class="fas fa-leaf"></i> Азиатский чай</a>
+						</li>
+						<li><a href="/pages html/catalog pages/sweets.html"><i class="fas fa-candy-cane"></i> Азиатские
+								сладости</a></li>
+						<li><a href="/pages html/catalog pages/dishes.html"><i class="fas fa-bowl-food"></i> Азиатская
+								посуда</a></li>
+						<li><a href="/pages html/catalog pages/manga.html"><i class="fas fa-book-open"></i> Манга и
+								книги</a></li>
+						<li><a href="/pages html/catalog pages/clothes.html"><i class="fas fa-shirt"></i> Аниме
+								одежда</a></li>
+						<li><a href="/pages html/catalog pages/games.html"><i class="fas fa-gamepad"></i> Японские
+								игры</a></li>
+						<li><a href="/pages html/catalog pages/office.html"><i class="fas fa-pen-fancy"></i> Канцелярия
+								кавай</a></li>
+						<li><a href="/pages html/catalog pages/cosmetics.html"><i class="fas fa-wand-sparkles"></i>
+								Косметика из Азии</a></li>
+						<li><a href="/pages html/catalog pages/decor.html"><i class="fas fa-torii-gate"></i> Азиатский
+								декор</a></li>
+						<li><a href="/pages html/catalog pages/disks.html"><i class="fas fa-film"></i> Аниме на
+								дисках</a></li>
+						<li><a href="/pages html/catalog pages/music.html"><i class="fas fa-headphones-simple"></i>
+								Азиатская популярная музыка</a></li>
+					</ul>
+				</div>
+
+				<!-- Колонка 2: Информация -->
+				<div class="footer-column">
+					<h3><i class="fas fa-circle-info"></i> Информация</h3>
+					<ul class="footer-links">
+						<li><a href="/pages html/pages info/About us.html"><i class="fas fa-store"></i> О нас</a></li>
+						<li><a href="/pages html/pages info/Asked Questions.html"><i class="fas fa-question-circle"></i>
+								Частые вопросы</a></li>
+						<li><a href="/pages html/pages info/Payment and delivery.html"><i class="fas fa-truck-fast"></i>
+								Оплата и доставка</a></li>
+						<li><a href="/pages html/pages info/Exchange and Refund.html"><i class="fas fa-rotate-left"></i>
+								Обмен и возврат</a></li>
+						<li><a href="/pages html/pages info/Contacts.html"><i class="fas fa-address-book"></i>
+								Контакты</a></li>
+						<li><a href="/pages html/pages info/Privacy policy.html"><i class="fas fa-shield"></i> Политика
+								конфиденциальности</a></li>
+					</ul>
+				</div>
+
+				<!-- Колонка 3: Профиль -->
+				<div class="footer-column">
+					<h3><i class="fas fa-user-astronaut"></i> Профиль</h3>
+					<ul class="footer-links profile-links">
+						<li><a href="/pages html/login.html"><i class="fas fa-user-circle"></i> Мой аккаунт</a></li>
+						<li><a href="/pages html/favorites.html"><i class="fas fa-heart"></i> Избранное</a></li>
+						<li><a href="/pages html/cart.html"><i class="fas fa-bag-shopping"></i> Корзина</a></li>
+					</ul>
+				</div>
+
+				<!-- Колонка 4: Соцсети и подписка -->
+				<div class="footer-column">
+					<h3><i class="fas fa-hashtag"></i> Мы в соцсетях</h3>
+					<div class="social-links">
+						<a href="#" class="social-link vk" title="ВКонтакте">
+							<i class="fab fa-vk"></i>
+						</a>
+						<a href="#" class="social-link telegram" title="Telegram">
+							<i class="fab fa-telegram-plane"></i>
+						</a>
+						<a href="#" class="social-link instagram" title="Instagram">
+							<i class="fab fa-instagram"></i>
+						</a>
+						<a href="#" class="social-link youtube" title="YouTube">
+							<i class="fab fa-youtube"></i>
+						</a>
+						<a href="#" class="social-link tiktok" title="TikTok">
+							<i class="fab fa-tiktok"></i>
+						</a>
+					</div>
+
+					<!-- Форма подписки на новости -->
+					<div class="newsletter">
+						<h4><i class="far fa-paper-plane"></i> Подписка на новости</h4>
+						<form class="subscribe-form">
+							<div class="input-group">
+								<input type="email" placeholder="Ваш email" required>
+								<button type="submit">
+									<i class="fas fa-arrow-right"></i>
+								</button>
+							</div>
+							<label class="checkbox">
+								<input type="checkbox" checked>
+								<span>Соглашаюсь на обработку персональных данных</span>
+							</label>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer-bottom">
+				<div class="copyright">
+					<i class="far fa-copyright"></i> 2026 Комори. Азиатский магазинчик у дома
+				</div>
+
+				<div class="payment-methods">
+					<i class="fab fa-cc-visa payment-method" title="Visa"></i>
+					<i class="fab fa-cc-mastercard payment-method" title="MasterCard"></i>
+					<i class="fab fa-cc-mir payment-method" title="Мир"></i>
+					<i class="fab fa-cc-paypal payment-method" title="PayPal"></i>
+					<i class="fab fa-cc-apple-pay payment-method" title="Apple Pay"></i>
+					<i class="fab fa-google-pay payment-method" title="Google Pay"></i>
+				</div>
+
+				<div class="developer">
+					Сделано с <i class="fas fa-heart pulse"></i> для ценителей азиатской культуры
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Подключение JavaScript -->
+
+	<!-- Основной код -->
+	<script src="/js/main.js"></script>
+	<!-- Единое хранилище данных -->
+	<script src="/js/core/store.js"></script>
+	<!-- Работа с изображениями и утилиты  -->
+	<script src="/js/core/api.js"></script>
+	<!-- Управление товарами (админка) -->
+	<script src="/js/pages/product-management.js"></script>
+	<!-- Каталог товаров -->
+	<script src="/js/pages/catalog.js"></script>
+	<!-- Бургер меню -->
+	<script src="/js/pages/burger.js"></script>
+
+	<!-- Поддержка -->
+	<script src="/js/pages/support.js"></script>
+	<!-- Поиск -->
+	<script src="/js/pages/search.js"></script>
+	<!-- Корзина и избранное -->
+	<script src="/js/pages/cart-favorites.js"></script>
+	<!-- Аторизация -->
+	<script src="/js/pages/login.js"></script>
+	<!-- Прифиль -->
+	<script src="/js/pages/profile.js"></script>
+
+	// Аккордеон для FAQ
+	<script>
+		// Аккордеон FAQ
+		document.querySelectorAll( '.faq-question' ).forEach( question => {
+			question.addEventListener( 'click', () => {
+				const faqItem = question.closest( '.faq-item' );
+				faqItem.classList.toggle( 'active' );
+			} );
+		} );
+
+		// Плавный скролл к секциям
+		document.querySelectorAll( '.nav-tab' ).forEach( tab => {
+			tab.addEventListener( 'click', ( e ) => {
+				e.preventDefault();
+
+				// Обновляем активную вкладку
+				document.querySelectorAll( '.nav-tab' ).forEach( t => t.classList.remove( 'active' ) );
+				tab.classList.add( 'active' );
+
+				// Плавный скролл
+				const targetId = tab.getAttribute( 'href' );
+				const target = document.querySelector( targetId );
+				if ( target ) {
+					target.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+				}
+			} );
+		} );
+
+		// Открытие чата
+		document.getElementById( 'openChatBtn' )?.addEventListener( 'click', ( e ) => {
+			e.preventDefault();
+			document.getElementById( 'chatBtn' )?.click();
+		} );
+	</script>
+
+</body>
+
+</html>
