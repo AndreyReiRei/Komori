@@ -372,6 +372,95 @@
 	transform: scale(1.05);
 }
 
+/* ===== НОВЫЕ СТИЛИ ДЛЯ ВЫБОРА ИЗОБРАЖЕНИЙ ===== */
+
+/* Разделитель */
+.form-divider {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	margin: 20px 0;
+	color: #666666;
+}
+
+.form-divider::before,
+.form-divider::after {
+	content: '';
+	flex: 1;
+	border-bottom: 1px solid #333333;
+}
+
+.form-divider span {
+	padding: 0 15px;
+	font-size: 12px;
+	color: #999999;
+}
+
+/* Выпадающий список галереи */
+.image-gallery-select select {
+	width: 100%;
+	padding: 12px;
+	background: #0d0d0d;
+	border: 1px solid #333333;
+	border-radius: 8px;
+	color: #ffffff;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.image-gallery-select select:focus {
+	outline: none;
+	border-color: #ff3366;
+}
+
+.image-gallery-select optgroup {
+	background: #1a1a1a;
+	color: #cccccc;
+}
+
+.image-gallery-select option {
+	padding: 8px;
+	background: #0d0d0d;
+}
+
+/* Предпросмотр текущего изображения */
+.current-image-container {
+	position: relative;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.current-image-container img {
+	max-width: 150px;
+	max-height: 150px;
+	border-radius: 8px;
+	border: 1px solid #333333;
+	background: #0d0d0d;
+}
+
+.btn-clear-image {
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	background: #ff4757;
+	border: none;
+	color: white;
+	border-radius: 50%;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px;
+	transition: all 0.3s ease;
+}
+
+.btn-clear-image:hover {
+	background: #ff3838;
+	transform: scale(1.1);
+}
+
 /* Информация */
 .product-info {
 	padding: 20px;

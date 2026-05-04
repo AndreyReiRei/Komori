@@ -521,7 +521,9 @@ class ProductManager {
 		this.currentProductId = null;
 	}
 
+
 	fillForm( product ) {
+		// Заполнение текстовых полей
 		const fields = {
 			'productName': product.name,
 			'productCategory': product.category,
@@ -540,12 +542,26 @@ class ProductManager {
 			if ( element ) element.value = value || '';
 		} );
 
+		// Заполнение чекбоксов
 		const isNewCheck = document.getElementById( 'productIsNew' );
 		if ( isNewCheck ) isNewCheck.checked = product.isNew || false;
 
 		const isHitCheck = document.getElementById( 'productIsHit' );
 		if ( isHitCheck ) isHitCheck.checked = product.isHit || false;
 
+		// Заполнение выбора изображения из галереи (если путь совпадает)
+		const imageSelect = document.getElementById( 'productImageSelect' );
+		if ( imageSelect && product.image ) {
+			// Проверяем, есть ли такой путь в select
+			const optionExists = Array.from( imageSelect.options ).some( opt => opt.value === product.image );
+			if ( optionExists ) {
+				imageSelect.value = product.image;
+			} else {
+				imageSelect.value = '';
+			}
+		}
+
+		// Обновляем превью изображения
 		this.updateImagePreview( product.image );
 	}
 
@@ -571,14 +587,35 @@ class ProductManager {
 			return;
 		}
 
-		const imageInput = document.getElementById( 'productImageUrl' )?.value.trim() || '';
-		let imageToSave = imageInput;
+		// ===== УНИВЕРСАЛЬНОЕ ПОЛУЧЕНИЕ ИЗОБРАЖЕНИЯ =====
+		// Приоритет: выбранное из галереи > загруженный файл > внешняя ссылка
+		const imageSelect = document.getElementById( 'productImageSelect' );
+		const imageUrl = document.getElementById( 'productImageUrl' );
+		const imageFile = document.getElementById( 'productImageFile' );
 
-		if ( imageInput.startsWith( 'data:image' ) ) {
-			const base64Size = imageInput.length;
+		let imageToSave = '';
+
+		// 1. Проверяем выбор из галереи
+		if ( imageSelect && imageSelect.value ) {
+			imageToSave = imageSelect.value;
+			console.log( '📁 Изображение из галереи:', imageToSave );
+		}
+
+		// 2. Проверяем URL (если не выбран путь из галереи)
+		if ( !imageToSave && imageUrl && imageUrl.value.trim() ) {
+			imageToSave = imageUrl.value.trim();
+			console.log( '🔗 Изображение по URL:', imageToSave );
+		}
+
+		// 3. Проверяем загруженный файл (только если у нас есть dataURL)
+		// dataURL сохраняется в productImageUrl при загрузке файла
+		if ( !imageToSave && imageUrl && imageUrl.value.trim() && imageUrl.value.trim().startsWith( 'data:image' ) ) {
+			imageToSave = imageUrl.value.trim();
+			console.log( '📤 Изображение из загруженного файла (base64)' );
+
+			// Проверка размера base64
+			const base64Size = imageToSave.length;
 			const sizeKB = ( base64Size / 1024 ).toFixed( 2 );
-
-			console.log( `🖼️ Изображение в base64 размером ${sizeKB} KB` );
 
 			if ( base64Size > 200 * 1024 ) {
 				API.showNotification( `❌ Изображение слишком большое (${sizeKB} KB). Максимальный размер 200 KB.`, 'error' );
@@ -586,8 +623,14 @@ class ProductManager {
 			}
 
 			if ( base64Size > 100 * 1024 ) {
-				API.showNotification( `⚠️ Изображение большого размера (${sizeKB} KB). Рекомендуется использовать сжатие или внешнюю ссылку.`, 'warning' );
+				API.showNotification( `⚠️ Изображение большого размера (${sizeKB} KB). Рекомендуется использовать изображение из галереи.`, 'warning' );
 			}
+		}
+
+		// Если изображение не выбрано - предупреждение
+		if ( !imageToSave ) {
+			API.showNotification( 'Выберите или загрузите изображение', 'error' );
+			return;
 		}
 
 		const productData = {
@@ -607,7 +650,8 @@ class ProductManager {
 
 		console.log( 'Сохраняемые данные:', {
 			...productData,
-			imageSize: imageToSave ? `${( imageToSave.length / 1024 ).toFixed( 2 )} KB` : 'нет'
+			imageType: imageToSave.startsWith( 'data:' ) ? 'base64' : ( imageToSave.startsWith( '/' ) ? 'local path' : 'url' ),
+			imageSize: imageToSave.startsWith( 'data:' ) ? `${( imageToSave.length / 1024 ).toFixed( 2 )} KB` : 'N/A'
 		} );
 
 		if ( this.currentProductId ) {
@@ -668,66 +712,192 @@ class ProductManager {
 		} );
 	}
 
-	// ==================== ЗАГРУЗКА ИЗОБРАЖЕНИЙ ====================
+	// ==================== ЗАГРУЗКА ИЗОБРАЖЕНИЙ (УНИВЕРСАЛЬНЫЙ МЕТОД) ====================
 
 	initImageUpload() {
+		// Элементы для загрузки файлов
 		const uploadBtn = document.getElementById( 'uploadImageBtn' );
 		const imageFile = document.getElementById( 'productImageFile' );
 		const imageUrl = document.getElementById( 'productImageUrl' );
+		const imageSelect = document.getElementById( 'productImageSelect' );
+		const clearImageBtn = document.getElementById( 'clearImageBtn' );
 
+		// Загрузка через клик по области
 		if ( uploadBtn && imageFile ) {
 			uploadBtn.addEventListener( 'click', () => imageFile.click() );
 
 			imageFile.addEventListener( 'change', ( e ) => {
 				const file = e.target.files[0];
 				if ( file ) {
-					const maxSize = 200 * 1024;
-
-					if ( file.size > maxSize ) {
-						const sizeKB = ( file.size / 1024 ).toFixed( 2 );
-						API.showNotification( `❌ Изображение слишком большое (${sizeKB} KB). Максимальный размер 200 KB.`, 'error' );
-						return;
-					}
-
-					if ( !file.type.startsWith( 'image/' ) ) {
-						API.showNotification( 'Пожалуйста, выберите изображение', 'error' );
-						return;
-					}
-
-					const sizeKB = ( file.size / 1024 ).toFixed( 2 );
-					if ( file.size > 100 * 1024 ) {
-						API.showNotification( `⚠️ Изображение весит ${sizeKB} KB. Рекомендуется использовать файлы до 100 KB.`, 'warning' );
-					}
-
-					const reader = new FileReader();
-					reader.onload = ( e ) => {
-						const imageData = e.target.result;
-						this.updateImagePreview( imageData );
-						if ( imageUrl ) imageUrl.value = imageData;
-
-						const base64Size = imageData.length;
-						const base64KB = ( base64Size / 1024 ).toFixed( 2 );
-						console.log( `🖼️ Base64 размер: ${base64KB} KB` );
-
-						if ( base64Size > 150 * 1024 ) {
-							API.showNotification( `⚠️ Рекомендуется использовать внешнюю ссылку на изображение вместо загрузки.`, 'warning' );
-						} else {
-							API.showNotification( 'Изображение загружено', 'success' );
-						}
-					};
-					reader.onerror = () => {
-						API.showNotification( 'Ошибка загрузки изображения', 'error' );
-					};
-					reader.readAsDataURL( file );
+					this.handleImageFileUpload( file );
 				}
 			} );
 		}
 
+		// Обновление превью при вводе URL
 		if ( imageUrl ) {
-			imageUrl.addEventListener( 'input', ( e ) => this.updateImagePreview( e.target.value ) );
+			imageUrl.addEventListener( 'input', ( e ) => {
+				const url = e.target.value.trim();
+				if ( url ) {
+					this.updateImagePreview( url );
+					// Сбрасываем select при ручном вводе URL
+					if ( imageSelect ) imageSelect.value = '';
+				} else {
+					this.clearImagePreview();
+				}
+			} );
 		}
 
+		// Обновление превью при выборе из галереи
+		if ( imageSelect ) {
+			imageSelect.addEventListener( 'change', ( e ) => {
+				const selectedPath = e.target.value;
+				if ( selectedPath ) {
+					this.updateImagePreview( selectedPath );
+					// Очищаем URL и файловый input
+					if ( imageUrl ) imageUrl.value = '';
+					if ( imageFile ) imageFile.value = '';
+				} else {
+					this.clearImagePreview();
+				}
+			} );
+		}
+
+		// Кнопка очистки изображения
+		if ( clearImageBtn ) {
+			clearImageBtn.addEventListener( 'click', () => {
+				this.clearImagePreview();
+				if ( imageUrl ) imageUrl.value = '';
+				if ( imageSelect ) imageSelect.value = '';
+				if ( imageFile ) imageFile.value = '';
+				API.showNotification( 'Изображение очищено', 'info' );
+			} );
+		}
+
+		// Добавляем подсказку
 		this.addImageUploadHint();
+	}
+
+	/**
+	 * Обработка загрузки файла изображения
+	 * @param {File} file - загруженный файл
+	 */
+	handleImageFileUpload( file ) {
+		if ( !file ) return;
+
+		// Проверка типа файла
+		if ( !file.type.startsWith( 'image/' ) ) {
+			API.showNotification( 'Пожалуйста, выберите изображение', 'error' );
+			return;
+		}
+
+		// Максимальный размер: 200 KB
+		const maxSize = 200 * 1024;
+		const sizeKB = ( file.size / 1024 ).toFixed( 2 );
+
+		if ( file.size > maxSize ) {
+			API.showNotification( `❌ Изображение слишком большое (${sizeKB} KB). Максимальный размер 200 KB. Используйте изображение из галереи или сожмите файл.`, 'error' );
+			return;
+		}
+
+		// Предупреждение о большом размере
+		if ( file.size > 100 * 1024 ) {
+			API.showNotification( `⚠️ Изображение весит ${sizeKB} KB. Рекомендуется использовать изображения до 100 KB или выбрать из галереи.`, 'warning' );
+		}
+
+		const reader = new FileReader();
+		reader.onload = ( e ) => {
+			const imageData = e.target.result;
+			this.updateImagePreview( imageData );
+
+			// Очищаем select и URL при загрузке файла
+			const imageSelect = document.getElementById( 'productImageSelect' );
+			const imageUrl = document.getElementById( 'productImageUrl' );
+			if ( imageSelect ) imageSelect.value = '';
+			if ( imageUrl ) imageUrl.value = '';
+
+			const base64Size = imageData.length;
+			const base64KB = ( base64Size / 1024 ).toFixed( 2 );
+			console.log( `🖼️ Base64 размер: ${base64KB} KB (исходный файл: ${sizeKB} KB)` );
+
+			if ( base64Size > 150 * 1024 ) {
+				API.showNotification( `⚠️ Размер изображения в хранилище: ${base64KB} KB. Рекомендуется использовать изображение из галереи.`, 'warning' );
+			} else {
+				API.showNotification( 'Изображение загружено', 'success' );
+			}
+		};
+		reader.onerror = () => {
+			API.showNotification( 'Ошибка загрузки изображения', 'error' );
+		};
+		reader.readAsDataURL( file );
+	}
+
+	/**
+	 * Обновляет превью изображения
+	 * @param {string} src - URL, путь или dataURL изображения
+	 */
+	updateImagePreview( src ) {
+		const preview = document.getElementById( 'imagePreview' );
+		const currentImageDisplay = document.getElementById( 'currentImageDisplay' );
+		const currentImagePreview = document.getElementById( 'currentImagePreview' );
+
+		if ( !preview ) return;
+
+		const img = preview.querySelector( 'img' );
+		const icon = preview.querySelector( 'i' );
+		const span = preview.querySelector( 'span' );
+
+		if ( src && src.trim() ) {
+			// Обновляем основное превью
+			if ( img ) {
+				img.src = src;
+				img.style.display = 'block';
+			}
+			if ( icon ) icon.style.display = 'none';
+			if ( span ) span.style.display = 'none';
+
+			// Обновляем блок текущего изображения
+			if ( currentImageDisplay && currentImagePreview ) {
+				currentImageDisplay.src = src;
+				currentImagePreview.style.display = 'block';
+			}
+		} else {
+			// Очищаем превью
+			if ( img ) img.style.display = 'none';
+			if ( icon ) icon.style.display = 'block';
+			if ( span ) span.style.display = 'block';
+
+			if ( currentImageDisplay && currentImagePreview ) {
+				currentImageDisplay.src = '';
+				currentImagePreview.style.display = 'none';
+			}
+		}
+	}
+
+	/**
+	 * Очищает превью изображения
+	 */
+	clearImagePreview() {
+		this.updateImagePreview( null );
+	}
+
+	/**
+	 * Добавляет подсказку о загрузке изображений
+	 */
+	addImageUploadHint() {
+		const imageUrlField = document.getElementById( 'productImageUrl' );
+		if ( !imageUrlField ) return;
+
+		const formGroup = imageUrlField.closest( '.form-group' );
+		if ( formGroup && !formGroup.querySelector( '.image-upload-hint' ) ) {
+			const hint = document.createElement( 'div' );
+			hint.className = 'image-upload-hint form-hint';
+			hint.style.cssText = 'margin-top: 8px; padding: 8px; background: rgba(255,51,102,0.1); border-radius: 6px;';
+			hint.innerHTML = '<i class="fas fa-info-circle" style="color:#ff3366; margin-right: 6px;"></i> ' +
+				'<strong>Рекомендация:</strong> Используйте изображения из галереи (папка /image/) - это экономит место. ' +
+				'При загрузке файла максимальный размер <strong>200 KB</strong>.';
+			formGroup.appendChild( hint );
+		}
 	}
 
 	addImageUploadHint() {
