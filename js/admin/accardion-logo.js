@@ -12,6 +12,7 @@ class PromoSlidesManager {
 	constructor() {
 		this.slides = [];
 		this.currentEditId = null;
+		this.accordionInitialized = false;
 
 		// Определяем, где мы находимся (админка или главная страница)
 		this.isAdmin = !!document.getElementById( 'promoSlidesList' );
@@ -493,20 +494,48 @@ class PromoSlidesManager {
 
 	initFrontend() {
 		console.log( '🏠 Режим отображения промо-слайдов' );
+
+		// Очищаем существующий контейнер от статических слайдов
+		this.clearExistingSlides();
+
+		// Загружаем и отображаем слайды
 		this.loadAndRenderFrontendSlides();
-		this.initAccordion();
+
+		// Инициализируем аккордеон после рендера слайдов
+		// Используем setTimeout чтобы убедиться, что DOM обновился
+		setTimeout( () => {
+			this.initAccordion();
+		}, 50 );
 
 		// Слушаем обновление слайдов из админки
 		window.addEventListener( 'promoslides:updated', () => {
 			console.log( '🔄 Слайды обновлены, перезагружаем...' );
+			this.clearExistingSlides();
 			this.loadAndRenderFrontendSlides();
-			this.initAccordion();
+			// Переинициализируем аккордеон после обновления
+			setTimeout( () => {
+				this.initAccordion();
+			}, 50 );
 		} );
+	}
+
+	/**
+	 * Очищает существующие статические слайды из HTML
+	 */
+	clearExistingSlides() {
+		const container = document.querySelector( '.accordion-logo__container' );
+		if ( container ) {
+			// Очищаем контейнер, но оставляем его пустым
+			container.innerHTML = '';
+		}
 	}
 
 	loadAndRenderFrontendSlides() {
 		const container = document.querySelector( '.accordion-logo__container' );
-		if ( !container ) return;
+		if ( !container ) {
+			console.warn( '⚠️ Контейнер .accordion-logo__container не найден' );
+			return;
+		}
 
 		const saved = localStorage.getItem( 'komori_promo_slides' );
 		let slides = [];
@@ -514,12 +543,17 @@ class PromoSlidesManager {
 		if ( saved ) {
 			slides = JSON.parse( saved );
 			slides = slides.filter( s => s.status === 'active' ).sort( ( a, b ) => a.order - b.order );
+			console.log( `📊 Загружено ${slides.length} активных слайдов` );
+		} else {
+			console.log( '📊 Нет сохраненных слайдов, используются статические' );
+			// Если нет сохраненных слайдов, ничего не делаем - возможно, есть статические
+			return;
 		}
 
 		if ( slides.length > 0 ) {
 			this.renderFrontendSlides( container, slides );
 		} else {
-			// Если нет слайдов, показываем сообщение
+			console.log( '⚠️ Нет активных слайдов для отображения' );
 			container.innerHTML = '<div class="no-slides">Нет активных слайдов</div>';
 		}
 	}
@@ -527,9 +561,9 @@ class PromoSlidesManager {
 	renderFrontendSlides( container, slides ) {
 		container.innerHTML = '';
 
-		slides.forEach( slide => {
+		slides.forEach( ( slide, index ) => {
 			const slideHtml = `
-                <div class="accordion-item" style="background-image: url('${slide.image}');">
+                <div class="accordion-item" style="background-image: url('${slide.image}');" data-slide-index="${index}">
                     <div class="item-content">
                         <h2>${this.escapeHtml( slide.title )}</h2>
                         <p>${this.escapeHtml( slide.description )}</p>
@@ -541,12 +575,16 @@ class PromoSlidesManager {
 			container.insertAdjacentHTML( 'beforeend', slideHtml );
 		} );
 
+		console.log( `✅ Отрендерено ${slides.length} слайдов` );
 		this.updateFrontendNavigationDots( slides.length );
 	}
 
 	updateFrontendNavigationDots( count ) {
 		const navIndicators = document.querySelector( '.custom-navigation .nav-indicators' );
-		if ( !navIndicators ) return;
+		if ( !navIndicators ) {
+			console.warn( '⚠️ Контейнер .nav-indicators не найден' );
+			return;
+		}
 
 		navIndicators.innerHTML = '';
 		for ( let i = 0; i < count; i++ ) {
@@ -555,23 +593,36 @@ class PromoSlidesManager {
 			dot.dataset.index = i;
 			navIndicators.appendChild( dot );
 		}
+		console.log( `✅ Создано ${count} навигационных точек` );
 	}
 
 	initAccordion() {
 		const container = document.querySelector( '.accordion-logo__container' );
-		if ( !container ) return;
+		if ( !container ) {
+			console.warn( '⚠️ Аккордеон: контейнер не найден' );
+			return;
+		}
 
 		const navDots = document.querySelectorAll( '.nav-dot' );
 		const totalItems = navDots.length;
 
-		if ( totalItems === 0 ) return;
+		if ( totalItems === 0 ) {
+			console.warn( '⚠️ Аккордеон: нет навигационных точек' );
+			return;
+		}
+
+		console.log( `🎯 Аккордеон: инициализация с ${totalItems} слайдами` );
+
+		// Останавливаем предыдущий интервал если был
+		if ( this.autoPlayInterval ) {
+			clearInterval( this.autoPlayInterval );
+		}
 
 		let currentIndex = 0;
-		let autoPlayInterval;
 		let isUserInteracting = false;
 		let scrollAnimationFrame;
 
-		function updateActiveNav() {
+		const updateActiveNav = () => {
 			if ( scrollAnimationFrame ) cancelAnimationFrame( scrollAnimationFrame );
 
 			scrollAnimationFrame = requestAnimationFrame( () => {
@@ -586,9 +637,9 @@ class PromoSlidesManager {
 					} );
 				}
 			} );
-		}
+		};
 
-		function nextSlide() {
+		const nextSlide = () => {
 			if ( isUserInteracting ) return;
 
 			const itemWidth = container.clientWidth;
@@ -599,32 +650,40 @@ class PromoSlidesManager {
 				left: itemWidth * nextIndex,
 				behavior: 'smooth'
 			} );
-		}
+		};
 
-		function startAutoPlay() {
-			if ( autoPlayInterval ) clearInterval( autoPlayInterval );
-			autoPlayInterval = setInterval( nextSlide, 5000 );
-		}
+		const startAutoPlay = () => {
+			if ( this.autoPlayInterval ) clearInterval( this.autoPlayInterval );
+			this.autoPlayInterval = setInterval( nextSlide, 5000 );
+		};
 
-		function stopAutoPlay() {
-			if ( autoPlayInterval ) {
-				clearInterval( autoPlayInterval );
-				autoPlayInterval = null;
+		const stopAutoPlay = () => {
+			if ( this.autoPlayInterval ) {
+				clearInterval( this.autoPlayInterval );
+				this.autoPlayInterval = null;
 			}
-		}
+		};
 
-		function pauseAutoPlay( duration = 2000 ) {
+		const pauseAutoPlay = ( duration = 2000 ) => {
 			stopAutoPlay();
 			isUserInteracting = true;
 			setTimeout( () => {
 				isUserInteracting = false;
 				startAutoPlay();
 			}, duration );
-		}
+		};
 
+		// Удаляем старые обработчики, чтобы не было дублирования
+		container.removeEventListener( 'scroll', updateActiveNav );
+		container.removeEventListener( 'scrollend', updateActiveNav );
+		container.removeEventListener( 'touchstart', stopAutoPlay );
+		container.removeEventListener( 'touchend', () => { } );
+
+		// Добавляем новые обработчики
 		container.addEventListener( 'scroll', updateActiveNav );
 
 		navDots.forEach( ( dot, index ) => {
+			dot.removeEventListener( 'click', () => { } );
 			dot.addEventListener( 'click', () => {
 				const itemWidth = container.clientWidth;
 				container.scrollTo( { left: itemWidth * index, behavior: 'smooth' } );
@@ -636,11 +695,13 @@ class PromoSlidesManager {
 
 		const navContainer = document.querySelector( '.custom-navigation' );
 		if ( navContainer ) {
+			navContainer.removeEventListener( 'mouseenter', stopAutoPlay );
+			navContainer.removeEventListener( 'mouseleave', startAutoPlay );
+
 			navContainer.addEventListener( 'mouseenter', () => {
 				stopAutoPlay();
 				isUserInteracting = true;
 			} );
-
 			navContainer.addEventListener( 'mouseleave', () => {
 				isUserInteracting = false;
 				startAutoPlay();
@@ -659,10 +720,15 @@ class PromoSlidesManager {
 			}, 2000 );
 		} );
 
+		window.removeEventListener( 'resize', updateActiveNav );
 		window.addEventListener( 'resize', updateActiveNav );
 
+		// Запускаем аккордеон
 		updateActiveNav();
 		startAutoPlay();
+
+		this.accordionInitialized = true;
+		console.log( '✅ Аккордеон успешно инициализирован' );
 	}
 }
 
@@ -670,7 +736,24 @@ class PromoSlidesManager {
 // ИНИЦИАЛИЗАЦИЯ
 // ============================================================================
 
-document.addEventListener( 'DOMContentLoaded', () => {
+// Проверяем, загружен ли уже DOM
+if ( document.readyState === 'loading' ) {
+	document.addEventListener( 'DOMContentLoaded', () => {
+		window.promoSlidesManager = new PromoSlidesManager();
+		console.log( '✅ Модуль промо-слайдов инициализирован (DOMContentLoaded)' );
+	} );
+} else {
+	// DOM уже загружен, инициализируем immediately
 	window.promoSlidesManager = new PromoSlidesManager();
-	console.log( '✅ Модуль промо-слайдов инициализирован' );
-} );
+	console.log( '✅ Модуль промо-слайдов инициализирован (immediate)' );
+}
+
+// Дополнительная страховка - если что-то пошло не так, инициализируем через небольшую задержку
+setTimeout( () => {
+	if ( !window.promoSlidesManager || !window.promoSlidesManager.accordionInitialized ) {
+		if ( !document.getElementById( 'promoSlidesList' ) ) {
+			console.log( '🔄 Повторная инициализация промо-слайдов (fallback)' );
+			window.promoSlidesManager = new PromoSlidesManager();
+		}
+	}
+}, 500 );

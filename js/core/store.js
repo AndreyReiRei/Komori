@@ -49,18 +49,61 @@ class Store {
 		}
 	}
 
+	/**
+	 * Сохраняет данные в localStorage с проверкой размера
+	 * Предотвращает переполнение хранилища
+	 */
 	saveToStorage() {
 		try {
-			localStorage.setItem( 'komori_products', JSON.stringify( this.products ) );
+			// Проверка размера товаров перед сохранением
+			const productsStr = JSON.stringify( this.products );
+			const productsSizeKB = ( productsStr.length / 1024 ).toFixed( 2 );
+
+			console.log( `📦 Размер данных:` );
+			console.log( `   Товары: ${productsSizeKB} KB` );
+
+			// Предупреждение при приближении к лимиту (5 MB = 5120 KB)
+			if ( productsStr.length > 4.5 * 1024 * 1024 ) {
+				console.warn( '⚠️ Внимание! Размер товаров приближается к лимиту localStorage (5MB)' );
+				console.warn( '   Рекомендуется удалить старые товары или использовать меньшие изображения' );
+			}
+
+			// Проверка на превышение лимита
+			if ( productsStr.length > 5 * 1024 * 1024 ) {
+				throw new Error( 'QuotaExceededError' );
+			}
+
+			localStorage.setItem( 'komori_products', productsStr );
 			localStorage.setItem( 'komori_cart', JSON.stringify( this.cart ) );
 			localStorage.setItem( 'komori_favorites', JSON.stringify( this.favorites ) );
 			localStorage.setItem( 'komori_users', JSON.stringify( this.users ) );
 
+			console.log( '✅ Данные сохранены в localStorage' );
+
 			// Отправляем события об обновлении
 			this.dispatchEvents();
 		} catch ( e ) {
-			console.error( 'Ошибка сохранения в localStorage:', e );
+			if ( e.name === 'QuotaExceededError' || e.message === 'QuotaExceededError' ) {
+				console.error( '❌ Ошибка: превышен лимит localStorage (5MB)' );
+				this.showStorageError();
+			} else {
+				console.error( 'Ошибка сохранения в localStorage:', e );
+			}
 		}
+	}
+
+	/**
+	 * Показывает уведомление о переполнении хранилища
+	 */
+	showStorageError() {
+		const message = '⚠️ Слишком много данных в хранилище!\n\n' +
+			'Чтобы продолжить работу:\n' +
+			'1. Удалите старые товары с большими изображениями\n' +
+			'2. Используйте изображения меньшего размера (до 200KB)\n\n' +
+			'Рекомендуется очистить кэш сайта и перезагрузить страницу.';
+
+		API.showNotification( 'Превышен лимит хранилища! Очистите данные.', 'error' );
+		alert( message );
 	}
 
 	dispatchEvents() {
@@ -78,7 +121,8 @@ class Store {
 			filtered = filtered.filter( p =>
 				p.name.toLowerCase().includes( term ) ||
 				( p.description && p.description.toLowerCase().includes( term ) ) ||
-				( p.sku && p.sku.toLowerCase().includes( term ) )
+				( p.sku && p.sku.toLowerCase().includes( term ) ) ||
+				( p.col && p.col.toLowerCase().includes( term ) )
 			);
 		}
 
@@ -106,10 +150,9 @@ class Store {
 	}
 
 	/**
-	 * Получение товара по ID (используем == для совместимости)
+	 * Получение товара по ID
 	 */
 	getProduct( id ) {
-		// Используем ==, так как ID могут быть числами или строками
 		return this.products.find( p => p.id == id );
 	}
 
@@ -136,11 +179,23 @@ class Store {
 	}
 
 	deleteProduct( id ) {
-		// Удаляем товар из корзины и избранного
 		this.cart = this.cart.filter( item => item.id != id );
 		this.favorites = this.favorites.filter( favId => favId != id );
 		this.products = this.products.filter( p => p.id != id );
 		this.saveToStorage();
+	}
+
+	/**
+	 * Получить размер хранилища в KB
+	 */
+	getStorageSize() {
+		let total = 0;
+		for ( let i = 0; i < localStorage.length; i++ ) {
+			const key = localStorage.key( i );
+			const value = localStorage.getItem( key );
+			total += value.length;
+		}
+		return ( total / 1024 ).toFixed( 2 );
 	}
 
 	// ========== Управление корзиной ==========
@@ -171,7 +226,6 @@ class Store {
 			return false;
 		}
 
-		// ВАЖНО: используем == для сравнения
 		const existingItem = this.cart.find( item => item.id == productId );
 
 		if ( existingItem ) {
@@ -190,7 +244,6 @@ class Store {
 
 	updateCartQuantity( productId, newQuantity ) {
 		const product = this.getProduct( productId );
-		// ВАЖНО: используем == для сравнения
 		const item = this.cart.find( i => i.id == productId );
 
 		if ( !item ) return false;
@@ -263,7 +316,6 @@ class Store {
 
 	// ========== Управление пользователями ==========
 	registerUser( userData ) {
-		// Проверяем, существует ли пользователь с таким email
 		if ( this.users.some( u => u.email === userData.email ) ) {
 			return { success: false, error: 'Пользователь с таким email уже существует' };
 		}
@@ -285,8 +337,6 @@ class Store {
 
 		this.users.push( newUser );
 		this.saveToStorage();
-
-		// Сохраняем текущего пользователя
 		localStorage.setItem( 'komori_current_user', JSON.stringify( newUser ) );
 
 		return { success: true, user: newUser };
@@ -347,6 +397,7 @@ class Store {
 					name: 'Фигурка Наруто Узумаки',
 					category: 'figures',
 					sku: 'FIG-NAR-001',
+					col: 'NARUTO',
 					price: 1890,
 					oldPrice: 2390,
 					description: 'Детализированная фигурка главного героя из аниме "Наруто"',
@@ -360,6 +411,7 @@ class Store {
 					name: 'Чай маття премиум',
 					category: 'tea',
 					sku: 'TEA-MAT-001',
+					col: 'TEA COLLECTION',
 					price: 890,
 					oldPrice: 1190,
 					description: 'Настоящий японский зелёный чай высшего сорта',
@@ -372,6 +424,7 @@ class Store {
 					name: 'Набор японских сладостей',
 					category: 'sweets',
 					sku: 'SWT-SET-001',
+					col: 'SWEETS',
 					price: 1490,
 					oldPrice: 1990,
 					description: 'Ассорти из моти, рамена и традиционных десертов',
@@ -384,6 +437,7 @@ class Store {
 					name: 'Манга "Наруто" том 1',
 					category: 'manga',
 					sku: 'MANGA-NAR-001',
+					col: 'MANGA',
 					price: 690,
 					oldPrice: 890,
 					description: 'Первый том легендарной манги на русском языке',
