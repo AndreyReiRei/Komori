@@ -484,7 +484,7 @@
 							<label for="productCOL">Коллекция</label>
 							<input type="text" id="productCOL" class="form-control"
 								placeholder="Например: NARUTO, SAKURA">
-							<small class="form-text text-muted">Название коллекции (необязательно)</small>
+							<small class="form-hint">Название коллекции (необязательно)</small>
 						</div>
 
 						<div class="form-group">
@@ -539,92 +539,44 @@
 					</div>
 				</div>
 
-				<!-- Вкладка Изображение -->
+				<!-- Вкладка Изображение (упрощенная версия - только пути) -->
 				<div class="form-tab-content" data-tab="image">
 					<div class="modal-body">
-						<!-- СЕКЦИЯ 1: ВЫБОР ИЗ ПАПКИ /image/ -->
+
+						<!-- Поле для ручного ввода пути -->
 						<div class="form-group">
-							<label><i class="fas fa-folder-open"></i> Выбрать из галереи</label>
-							<div class="image-gallery-select">
-								<select id="productImageSelect" class="form-control">
-									<option value="">-- Выберите изображение из галереи --</option>
-									<optgroup label="Аниме фигурки">
-										<option value="/image/figures.jpg">Фигурки (общее)</option>
-									</optgroup>
-									<optgroup label="Чай">
-										<option value="/image/tea.jpg">Чай маття</option>
-									</optgroup>
-									<optgroup label="Сладости">
-										<option value="/image/swits.jpg">Японские сладости</option>
-									</optgroup>
-									<optgroup label="Манга">
-										<option value="/image/manga.jpg">Манга Наруто</option>
-									</optgroup>
-									<optgroup label="Одежда">
-										<option value="/image/T-shirt.webp">Аниме футболка</option>
-									</optgroup>
-									<optgroup label="Посуда">
-										<option value="/image/sakura.jpg">Чайный набор сакура</option>
-									</optgroup>
-									<optgroup label="Канцелярия">
-										<option value="/image/kawai.jpg">Канцелярия кавай</option>
-									</optgroup>
-									<optgroup label="Музыка">
-										<option value="/image/BTS.jpg">K-POP мерч</option>
-									</optgroup>
-									<optgroup label="Дополнительные">
-										<option value="/image/office.jpg">Офис</option>
-										<option value="/image/offices.jpg">Канцелярия набор</option>
-									</optgroup>
-								</select>
-								<small class="form-hint">Выберите изображение из已有的 коллекции (рекомендуется)</small>
+							<label for="productImageUrl">Путь к изображению</label>
+							<input type="text" id="productImageUrl" class="form-control"
+								placeholder="/image/figures.jpg">
+							<small class="form-hint">
+								Укажите путь к файлу в папке <strong>/image/</strong>
+							</small>
+						</div>
+
+						<!-- Кнопка выбора файла с компьютера -->
+						<div class="form-group">
+							<label>Или выберите файл</label>
+							<div class="image-folder-upload" id="imageFolderUpload">
+								<i class="fas fa-folder-open"></i>
+								<span>Выбрать изображение</span>
 							</div>
+							<input type="file" id="imageFolderFile" accept="image/*" style="display: none;">
+							<small class="form-hint">
+								Выберите файл на компьютере. Путь будет подставлен автоматически:
+								<strong>/image/имя_файла.jpg</strong>
+							</small>
 						</div>
 
-						<!-- РАЗДЕЛИТЕЛЬ -->
-						<div class="form-divider">
-							<span>или</span>
-						</div>
-
-						<!-- СЕКЦИЯ 2: ЗАГРУЗКА ФАЙЛА (base64) -->
-						<div class="form-group">
-							<label><i class="fas fa-upload"></i> Загрузить новое изображение</label>
-							<div class="image-upload-area" id="uploadImageBtn">
-								<div id="imagePreview">
-									<img src="" alt="Preview" style="display: none;">
-									<i class="fas fa-cloud-upload-alt"></i>
-									<span>Нажмите для загрузки или перетащите файл</span>
-								</div>
-							</div>
-							<input type="file" id="productImageFile" accept="image/*" style="display: none;">
-							<small class="form-hint">Максимальный размер: 200 KB. Рекомендуется использовать изображения
-								из галереи</small>
-						</div>
-
-						<!-- РАЗДЕЛИТЕЛЬ -->
-						<div class="form-divider">
-							<span>или</span>
-						</div>
-
-						<!-- СЕКЦИЯ 3: ВНЕШНЯЯ ССЫЛКА -->
-						<div class="form-group">
-							<label><i class="fas fa-link"></i> Внешняя ссылка</label>
-							<input type="url" id="productImageUrl" class="form-control"
-								placeholder="https://example.com/image.jpg">
-							<small class="form-hint">Вставьте прямую ссылку на изображение (например, с Imgur)</small>
-						</div>
-
-						<!-- ПРЕДПРОСМОТР ТЕКУЩЕГО ИЗОБРАЖЕНИЯ -->
-						<div class="form-group" id="currentImagePreview" style="display: none;">
-							<label>Текущее изображение</label>
-							<div class="current-image-container">
-								<img id="currentImageDisplay" src="" alt="Текущее изображение">
-								<button type="button" class="btn-clear-image" id="clearImageBtn"
-									title="Очистить изображение">
-									<i class="fas fa-times-circle"></i>
+						<!-- Превью изображения -->
+						<div class="form-group" id="imagePreviewContainer" style="display: none;">
+							<label>Превью</label>
+							<div class="image-preview-wrapper">
+								<img id="imagePreviewImg" src="" alt="Превью">
+								<button type="button" class="btn-clear-preview" id="clearPreviewBtn" title="Очистить">
 								</button>
 							</div>
 						</div>
+
 					</div>
 				</div>
 
@@ -1154,8 +1106,7 @@
 	<script src="/js/admin/promo-code.js"></script>
 	<!-- Лого Рекламы -->
 	<script src="/js/admin/accardion-logo.js"></script>
-	<!-- Каталог товаров -->
-	<script src="/js/pages/catalog.js"></script>
+
 	<!-- Бургер меню -->
 	<script src="/js/pages/burger.js"></script>
 
@@ -1164,8 +1115,7 @@
 
 	<!-- Поиск -->
 	<script src="/js/pages/search.js"></script>
-	<!-- Корзина и избранное -->
-	<script src="/js/pages/cart-favorites.js"></script>
+
 
 </body>
 

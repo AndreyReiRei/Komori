@@ -372,95 +372,6 @@
 	transform: scale(1.05);
 }
 
-/* ===== НОВЫЕ СТИЛИ ДЛЯ ВЫБОРА ИЗОБРАЖЕНИЙ ===== */
-
-/* Разделитель */
-.form-divider {
-	display: flex;
-	align-items: center;
-	text-align: center;
-	margin: 20px 0;
-	color: #666666;
-}
-
-.form-divider::before,
-.form-divider::after {
-	content: '';
-	flex: 1;
-	border-bottom: 1px solid #333333;
-}
-
-.form-divider span {
-	padding: 0 15px;
-	font-size: 12px;
-	color: #999999;
-}
-
-/* Выпадающий список галереи */
-.image-gallery-select select {
-	width: 100%;
-	padding: 12px;
-	background: #0d0d0d;
-	border: 1px solid #333333;
-	border-radius: 8px;
-	color: #ffffff;
-	font-size: 14px;
-	cursor: pointer;
-}
-
-.image-gallery-select select:focus {
-	outline: none;
-	border-color: #ff3366;
-}
-
-.image-gallery-select optgroup {
-	background: #1a1a1a;
-	color: #cccccc;
-}
-
-.image-gallery-select option {
-	padding: 8px;
-	background: #0d0d0d;
-}
-
-/* Предпросмотр текущего изображения */
-.current-image-container {
-	position: relative;
-	display: inline-block;
-	margin-top: 10px;
-}
-
-.current-image-container img {
-	max-width: 150px;
-	max-height: 150px;
-	border-radius: 8px;
-	border: 1px solid #333333;
-	background: #0d0d0d;
-}
-
-.btn-clear-image {
-	position: absolute;
-	top: -8px;
-	right: -8px;
-	background: #ff4757;
-	border: none;
-	color: white;
-	border-radius: 50%;
-	width: 24px;
-	height: 24px;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 12px;
-	transition: all 0.3s ease;
-}
-
-.btn-clear-image:hover {
-	background: #ff3838;
-	transform: scale(1.1);
-}
-
 /* Информация */
 .product-info {
 	padding: 20px;
@@ -825,6 +736,7 @@ form {
 	transition: all 0.2s ease;
 	background: #0d0d0d;
 	color: #ffffff;
+	box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -853,58 +765,114 @@ form {
 	display: block;
 }
 
-/* ===== ЗАГРУЗКА ИЗОБРАЖЕНИЯ ===== */
-.image-upload-area {
-	border: 2px dashed #333333;
-	border-radius: 12px;
-	padding: 30px;
-	text-align: center;
-	cursor: pointer;
-	transition: all 0.3s ease;
-	background: #0d0d0d;
-	min-height: 150px;
+/* ===== ВЫБОР ИЗОБРАЖЕНИЯ ===== */
+
+/* Кнопка выбора файла */
+.image-folder-upload {
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-}
-
-.image-upload-area:hover {
-	border-color: #ff3366;
-	background: #252525;
-}
-
-.image-upload-area i {
-	font-size: 48px;
-	color: #ff3366;
-	margin-bottom: 10px;
-}
-
-.image-upload-area img {
-	max-width: 100%;
-	max-height: 200px;
-	margin-bottom: 10px;
+	gap: 12px;
+	padding: 15px 20px;
+	background: #0d0d0d;
+	border: 2px dashed #333333;
 	border-radius: 8px;
-}
-
-.image-upload-area span {
-	display: block;
-	color: #cccccc;
-	font-size: 14px;
-}
-
-.image-upload-hint {
-	margin-top: 8px;
-	padding: 8px;
-	background: rgba(255, 51, 102, 0.1);
-	border-radius: 6px;
-	font-size: 12px;
-	color: #cccccc;
-}
-
-.image-upload-hint i {
+	cursor: pointer;
+	transition: all 0.3s ease;
 	color: #ff3366;
-	margin-right: 6px;
+}
+
+.image-folder-upload:hover {
+	border-color: #ff3366;
+	background: #1a1a1a;
+	transform: translateY(-2px);
+}
+
+.image-folder-upload i {
+	font-size: 24px;
+}
+
+.image-folder-upload span {
+	font-size: 14px;
+	font-weight: 500;
+}
+
+/* Поле ввода пути */
+#productImageUrl {
+	font-family: monospace;
+	font-size: 13px;
+	background: #0d0d0d;
+	color: #ffffff;
+	border: 1px solid #333333;
+	padding: 10px 12px;
+	border-radius: 6px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#productImageUrl:focus {
+	outline: none;
+	border-color: #ff3366;
+}
+
+/* Превью контейнер */
+#imagePreviewContainer {
+	margin-top: 15px;
+	display: flex;
+	justify-content: flex-start;
+}
+
+.image-preview-wrapper {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 200px;
+	max-width: 100%;
+	min-height: 150px;
+	background: #0d0d0d;
+	border-radius: 8px;
+	border: 1px solid #333333;
+}
+
+.image-preview-wrapper img {
+	max-width: 100%;
+	max-height: 140px;
+	object-fit: contain;
+}
+
+.btn-clear-preview {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.6);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	color: white;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s ease;
+}
+
+.btn-clear-preview:hover {
+	background: #ff4757;
+	border-color: #ff4757;
+}
+
+.btn-clear-preview::before {
+	content: "✕";
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
 }
 
 /* ===== ЧЕКБОКСЫ ДЛЯ БЕЙДЖЕЙ ===== */
@@ -1055,11 +1023,6 @@ form {
 	color: #ffffff;
 	font-size: 14px;
 	cursor: pointer;
-}
-
-.promocodes-filters .filter-group select:focus {
-	outline: none;
-	border-color: #ff3366;
 }
 
 /* Таблица промокодов */
@@ -1216,7 +1179,7 @@ form {
 	font-size: 14px;
 }
 
-/* ===== УПРАВЛЕНИЕ ПРОМО-СЛАЙДАМИ ===== */
+/* ===== УПРАВЛЕНИЕ ПРОМО-СЛАЙДАМИ (ИСПРАВЛЕННЫЕ СТИЛИ) ===== */
 .promo-slides-module {
 	margin-top: 50px;
 	padding-top: 30px;
@@ -1314,10 +1277,6 @@ form {
 	font-size: 18px;
 }
 
-.slide-item:active .drag-handle {
-	cursor: grabbing;
-}
-
 .slide-preview {
 	width: 80px;
 	height: 60px;
@@ -1331,16 +1290,6 @@ form {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-}
-
-.slide-preview-placeholder {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: #999999;
-	font-size: 20px;
 }
 
 .slide-info {
@@ -1364,24 +1313,6 @@ form {
 	font-size: 12px;
 	color: #ff3366;
 	font-weight: 500;
-}
-
-.slide-status-badge {
-	display: inline-block;
-	padding: 4px 10px;
-	border-radius: 20px;
-	font-size: 11px;
-	font-weight: 500;
-}
-
-.slide-status-badge.active {
-	background: rgba(46, 204, 113, 0.2);
-	color: #2ecc71;
-}
-
-.slide-status-badge.inactive {
-	background: rgba(153, 153, 153, 0.2);
-	color: #999999;
 }
 
 .slide-order {
@@ -1420,18 +1351,46 @@ form {
 	color: #ff4757;
 }
 
+/* Статус бейджи для слайдов */
+.slide-status-badge {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 20px;
+	font-size: 11px;
+	font-weight: 500;
+}
+
+.slide-status-badge.active {
+	background: rgba(46, 204, 113, 0.2);
+	color: #2ecc71;
+}
+
+.slide-status-badge.inactive {
+	background: rgba(153, 153, 153, 0.2);
+	color: #999999;
+}
+
+/* Загрузка изображения для слайдов */
 .slide-image-upload {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 50px;
 	border: 2px dashed #333333;
 	border-radius: 12px;
 	cursor: pointer;
 	transition: all 0.3s ease;
 	background: #0d0d0d;
+	text-align: center;
+	color: #cccccc;
 }
 
 .slide-image-upload:hover {
 	border-color: #ff3366;
 	background: rgba(255, 51, 102, 0.05);
 }
+
+
 
 /* ===== МОДАЛЬНЫЕ ОКНА ДЛЯ ПРОМОКОДОВ И СЛАЙДОВ ===== */
 .promocode-modal-content,
@@ -1677,10 +1636,6 @@ form {
 
 	.category-group-title i {
 		font-size: 18px;
-	}
-
-	.category-group-count {
-		font-size: 11px;
 	}
 
 	.products-grid-inner {
@@ -2197,15 +2152,6 @@ form {
 		width: 24px;
 		height: 24px;
 		font-size: 10px;
-	}
-
-	.image-preview {
-		min-height: 120px;
-		padding: 15px;
-	}
-
-	.image-preview i {
-		font-size: 28px;
 	}
 }
 

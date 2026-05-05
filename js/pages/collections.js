@@ -4,9 +4,9 @@
  * ============================================================================
  * 
  * ОСНОВНЫЕ ФУНКЦИИ:
- * 1. Отображает все товары с пометкой "Хит продаж" (isHit = true)
- * 2. Группирует товары по категориям
- * 3. Позволяет сворачивать/разворачивать категории
+ * 1. Отображает все товары, у которых указана КОЛЛЕКЦИЯ (поле col)
+ * 2. Группирует товары по коллекциям
+ * 3. Позволяет сворачивать/разворачивать коллекции
  * 4. Добавление товаров в корзину
  * 5. Добавление/удаление товаров из избранного
  * 6. Автоматическое обновление при изменении данных в store
@@ -16,8 +16,8 @@
 
 class CollectionsPage {
 	constructor() {
-		// Список категорий, в которых есть товары-хиты
-		this.categoriesWithHitItems = [];
+		// Список коллекций с товарами
+		this.collectionsWithItems = [];
 
 		// Инициализация страницы
 		this.init();
@@ -32,15 +32,15 @@ class CollectionsPage {
 	 * Вызывается при создании экземпляра класса
 	 */
 	init() {
-		console.log( '🔥 Инициализация страницы коллекций...' );
+		console.log( '📦 Инициализация страницы коллекций...' );
 
-		// Рендерим категории с хитами
-		this.renderCategories();
+		// Рендерим коллекции с товарами
+		this.renderCollections();
 
 		// Слушаем обновление товаров (добавление/редактирование в админке)
 		window.addEventListener( 'store:productsUpdated', () => {
 			console.log( '🔄 Товары обновлены, перезагружаем коллекции...' );
-			this.renderCategories();
+			this.renderCollections();
 		} );
 
 		// Слушаем обновление корзины (чтобы обновить кнопки "В корзину")
@@ -63,69 +63,100 @@ class CollectionsPage {
 	// =========================================================================
 
 	/**
-	 * Получает все товары с пометкой "Хит продаж", сгруппированные по категориям
-	 * @returns {Array} Массив объектов категорий с товарами
+	 * Получает все товары, у которых есть коллекция, сгруппированные по коллекциям
+	 * @returns {Array} Массив объектов коллекций с товарами
 	 */
-	getHitItemsByCategory() {
+	getItemsByCollection() {
 		// Получаем все товары из глобального хранилища store
 		const allProducts = store.products;
 
-		// Фильтруем только хиты (isHit = true) и только те, что есть в наличии
-		const hitProducts = allProducts.filter( product =>
-			product.isHit === true &&
-			product.status === 'in-stock' &&
-			product.quantity > 0
-		);
+		// Фильтруем товары, у которых есть коллекция (поле col не пустое)
+		// Исключаем товары, у которых коллекция не указана или равна 'Нет'
+		const productsWithCollection = allProducts.filter( product => {
+			const hasCollection = product.col &&
+				product.col.trim() !== '' &&
+				product.col !== 'Нет';
+			return hasCollection;
+		} );
 
-		console.log( '📦 Найдено хитов:', hitProducts.length );
+		console.log( '📦 Всего товаров:', allProducts.length );
+		console.log( '📦 Товаров с коллекцией:', productsWithCollection.length );
 
-		// Группируем товары по категориям
-		// Результат: { categoryKey: [product1, product2, ...] }
-		const groupedByCategory = {};
+		// Группируем товары по КОЛЛЕКЦИЯМ (поле col)
+		const groupedByCollection = {};
 
-		hitProducts.forEach( product => {
-			const category = product.category;
-			if ( !groupedByCategory[category] ) {
-				groupedByCategory[category] = [];
+		productsWithCollection.forEach( product => {
+			const collectionName = product.col.trim();
+
+			if ( !groupedByCollection[collectionName] ) {
+				groupedByCollection[collectionName] = [];
 			}
-			groupedByCategory[category].push( product );
+			groupedByCollection[collectionName].push( product );
 		} );
 
 		// Преобразуем объект в массив для удобного рендеринга
-		const result = Object.keys( groupedByCategory ).map( categoryKey => ( {
-			key: categoryKey,                        // Ключ категории (figures, tea и т.д.)
-			name: store.getCategoryName( categoryKey ), // Отображаемое имя категории
-			products: groupedByCategory[categoryKey]  // Массив товаров в категории
+		const result = Object.keys( groupedByCollection ).map( collectionKey => ( {
+			key: collectionKey,                              // Название коллекции
+			name: collectionKey,                              // Отображаемое имя коллекции
+			products: groupedByCollection[collectionKey]      // Массив товаров в коллекции
 		} ) );
 
-		// Сортируем категории по алфавиту для удобства
+		// Сортируем коллекции по алфавиту для удобства
 		result.sort( ( a, b ) => a.name.localeCompare( b.name ) );
 
+		console.log( '📦 Найдено коллекций:', result.length );
 		return result;
 	}
 
 	/**
-	 * Получает иконку Font Awesome для категории
-	 * @param {string} categoryKey - ключ категории
+	 * Возвращает список уникальных категорий для фильтрации
+	 * @returns {Array} Массив уникальных категорий
+	 */
+	getUniqueCategories() {
+		const allProducts = store.products;
+		const categories = new Set();
+
+		allProducts.forEach( product => {
+			if ( product.category ) {
+				categories.add( product.category );
+			}
+		} );
+
+		return Array.from( categories ).sort();
+	}
+
+	/**
+	 * Получает иконку Font Awesome для коллекции
+	 * @param {string} collectionName - название коллекции
 	 * @returns {string} - класс иконки
 	 */
-	getCategoryIcon( categoryKey ) {
+	getCollectionIcon( collectionName ) {
+		// Можно добавить соответствие названий коллекций и иконок
 		const icons = {
-			'figures': 'fa-user-ninja',
-			'tea': 'fa-mug-hot',
-			'sweets': 'fa-cookie-bite',
-			'manga': 'fa-book',
-			'clothing': 'fa-tshirt',
-			'tableware': 'fa-utensils',
-			'games': 'fa-gamepad',
-			'stationery': 'fa-palette',
-			'cosmetics': 'fa-spray-can',
-			'decor': 'fa-home',
-			'anime': 'fa-film',
-			'music': 'fa-music',
-			'other': 'fa-box'
+			'NARUTO': 'fa-user-ninja',
+			'TEA COLLECTION': 'fa-mug-hot',
+			'SWEETS': 'fa-cookie-bite',
+			'MANGA': 'fa-book',
+			'CLOTHING': 'fa-tshirt',
+			'TABLEWARE': 'fa-utensils',
+			'GAMES': 'fa-gamepad',
+			'STATIONERY': 'fa-palette',
+			'COSMETICS': 'fa-spray-can',
+			'DECOR': 'fa-home',
+			'ANIME': 'fa-film',
+			'MUSIC': 'fa-music'
 		};
-		return icons[categoryKey] || 'fa-tag';
+
+		// Поиск иконки без учета регистра
+		const upperName = collectionName.toUpperCase();
+		for ( const [key, icon] of Object.entries( icons ) ) {
+			if ( upperName.includes( key ) ) {
+				return icon;
+			}
+		}
+
+		// Если иконка не найдена, возвращаем стандартную
+		return 'fa-tag';
 	}
 
 	/**
@@ -157,21 +188,21 @@ class CollectionsPage {
 	// =========================================================================
 
 	/**
-	 * Рендерит все категории с хитами
+	 * Рендерит все коллекции с товарами
 	 * Это главный метод отрисовки страницы
 	 */
-	renderCategories() {
+	renderCollections() {
 		const container = document.getElementById( 'categoriesContainer' );
 		const emptyState = document.getElementById( 'emptyCollections' );
 
 		if ( !container ) return;
 
-		// Получаем категории с хитами
-		const categories = this.getHitItemsByCategory();
-		this.categoriesWithHitItems = categories;
+		// Получаем коллекции с товарами
+		const collections = this.getItemsByCollection();
+		this.collectionsWithItems = collections;
 
-		// Если нет хитов - показываем пустое состояние
-		if ( categories.length === 0 ) {
+		// Если нет коллекций - показываем пустое состояние
+		if ( collections.length === 0 ) {
 			if ( container ) container.style.display = 'none';
 			if ( emptyState ) emptyState.style.display = 'block';
 			return;
@@ -184,44 +215,44 @@ class CollectionsPage {
 		}
 		if ( emptyState ) emptyState.style.display = 'none';
 
-		// Рендерим каждую категорию
-		categories.forEach( category => {
-			const categoryHTML = this.renderCategorySection( category );
-			container.insertAdjacentHTML( 'beforeend', categoryHTML );
+		// Рендерим каждую коллекцию
+		collections.forEach( collection => {
+			const collectionHTML = this.renderCollectionSection( collection );
+			container.insertAdjacentHTML( 'beforeend', collectionHTML );
 		} );
 
 		// Прикрепляем обработчики событий
-		this.attachCategoryEvents();   // Сворачивание/разворачивание категорий
-		this.attachProductEvents();    // Кнопки "В корзину" и "Избранное"
+		this.attachCollectionEvents();   // Сворачивание/разворачивание коллекций
+		this.attachProductEvents();       // Кнопки "В корзину" и "Избранное"
 	}
 
 	/**
-	 * Рендерит секцию категории (заголовок + сетка товаров)
-	 * @param {Object} category - объект категории {key, name, products}
+	 * Рендерит секцию коллекции (заголовок + сетка товаров)
+	 * @param {Object} collection - объект коллекции {key, name, products}
 	 * @returns {string} - HTML-код секции
 	 */
-	renderCategorySection( category ) {
-		const productsCount = category.products.length;
+	renderCollectionSection( collection ) {
+		const productsCount = collection.products.length;
 
 		return `
-            <div class="category-section" data-category="${category.key}" id="category-${category.key}">
-                <!-- Заголовок категории (кликабельный для сворачивания) -->
+            <div class="category-section" data-collection="${this.escapeHtml( collection.key )}" id="collection-${this.safeId( collection.key )}">
+                <!-- Заголовок коллекции (кликабельный для сворачивания) -->
                 <div class="category-header">
                     <div class="category-title-wrapper">
                         <div class="category-icon">
-                            <i class="fas ${this.getCategoryIcon( category.key )}"></i>
+                            <i class="fas ${this.getCollectionIcon( collection.name )}"></i>
                         </div>
-                        <h2 class="category-name">${category.name}</h2>
+                        <h2 class="category-name">${this.escapeHtml( collection.name )}</h2>
                         <span class="category-count">${productsCount}</span>
                     </div>
                     <div class="category-toggle">
                         <i class="fas fa-chevron-down"></i>
                     </div>
                 </div>
-                <!-- Контейнер с товарами категории -->
+                <!-- Контейнер с товарами коллекции -->
                 <div class="category-products">
                     <div class="products-grid-category">
-                        ${category.products.map( product => this.renderProductCard( product ) ).join( '' )}
+                        ${collection.products.map( product => this.renderProductCard( product ) ).join( '' )}
                     </div>
                 </div>
             </div>
@@ -244,6 +275,11 @@ class CollectionsPage {
 
 		// Получаем ссылку на страницу категории
 		const categoryUrl = `/pages html/catalog pages/${this.getCategoryUrl( product.category )}`;
+
+		// Определяем статус наличия
+		const stockClass = product.quantity > 0 && product.status === 'in-stock' ? 'in-stock' : 'out-of-stock';
+		const stockText = product.quantity > 0 && product.status === 'in-stock' ? 'В наличии' : 'Нет в наличии';
+		const stockIcon = product.quantity > 0 && product.status === 'in-stock' ? 'fa-check-circle' : 'fa-times-circle';
 
 		return `
             <div class="product-card" data-id="${product.id}">
@@ -279,11 +315,10 @@ class CollectionsPage {
                     </div>
                     
                     <!-- Статус наличия -->
-                    <div class="product-stock">
-                        <i class="fas ${product.quantity > 0 ? 'fa-check-circle in-stock' : 'fa-times-circle out-of-stock'}"></i>
-                        <span class="${product.quantity > 0 ? 'in-stock' : 'out-of-stock'}">
-                            ${product.quantity > 0 ? 'В наличии' : 'Нет в наличии'}
-                        </span>
+                    <div class="product-stock ${stockClass}">
+                        <i class="fas ${stockIcon}"></i>
+                        <span>${stockText}</span>
+                        ${product.quantity > 0 ? `<span class="product-quantity">${availableQuantity} шт.</span>` : ''}
                     </div>
                     
                     <!-- Кнопки действий -->
@@ -307,15 +342,15 @@ class CollectionsPage {
 	// =========================================================================
 
 	/**
-	 * Прикрепляет обработчики для сворачивания/разворачивания категорий
+	 * Прикрепляет обработчики для сворачивания/разворачивания коллекций
 	 */
-	attachCategoryEvents() {
+	attachCollectionEvents() {
 		document.querySelectorAll( '.category-header' ).forEach( header => {
 			// Удаляем старый обработчик, чтобы не было дублирования
-			header.removeEventListener( 'click', this.handleCategoryToggle );
+			header.removeEventListener( 'click', this.handleCollectionToggle );
 
 			// Создаем новый обработчик
-			this.handleCategoryToggle = () => {
+			this.handleCollectionToggle = () => {
 				const section = header.closest( '.category-section' );
 				if ( section ) {
 					// Переключаем класс collapsed (свернуто/развернуто)
@@ -323,7 +358,7 @@ class CollectionsPage {
 				}
 			};
 
-			header.addEventListener( 'click', this.handleCategoryToggle );
+			header.addEventListener( 'click', this.handleCollectionToggle );
 		} );
 	}
 
@@ -455,6 +490,39 @@ class CollectionsPage {
 		if ( favoritesCount ) {
 			favoritesCount.textContent = store.favorites.length;
 		}
+	}
+
+	// =========================================================================
+	// ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ
+	// =========================================================================
+
+	/**
+	 * Экранирует HTML-символы для безопасного вывода
+	 * @param {string} str - строка для экранирования
+	 * @returns {string} - экранированная строка
+	 */
+	escapeHtml( str ) {
+		if ( !str ) return '';
+		return str
+			.replace( /&/g, '&amp;' )
+			.replace( /</g, '&lt;' )
+			.replace( />/g, '&gt;' )
+			.replace( /"/g, '&quot;' )
+			.replace( /'/g, '&#39;' );
+	}
+
+	/**
+	 * Преобразует строку в безопасный ID для HTML
+	 * @param {string} str - исходная строка
+	 * @returns {string} - безопасный ID
+	 */
+	safeId( str ) {
+		if ( !str ) return 'empty';
+		return str
+			.toLowerCase()
+			.replace( /[^a-z0-9]/g, '-' )
+			.replace( /-+/g, '-' )
+			.replace( /^-|-$/g, '' );
 	}
 }
 

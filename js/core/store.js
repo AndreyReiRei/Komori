@@ -1,14 +1,18 @@
 /**
- * Единое хранилище данных для сайта "Комори"
- * Управляет всеми данными: товары, корзина, избранное, пользователи
+ * ============================================================================
+ * ЕДИНОЕ ХРАНИЛИЩЕ ДАННЫХ ДЛЯ САЙТА "КОМОРИ"
+ * ============================================================================
  */
 
 class Store {
 	constructor() {
+		// ========== ОСНОВНЫЕ ХРАНИЛИЩА ==========
 		this.products = [];
 		this.cart = [];
 		this.favorites = [];
 		this.users = [];
+
+		// ========== КАТЕГОРИИ ТОВАРОВ ==========
 		this.categories = {
 			'figures': 'Аниме фигурки',
 			'tea': 'Японский чай',
@@ -28,12 +32,19 @@ class Store {
 		this.init();
 	}
 
+	// =========================================================================
+	// ИНИЦИАЛИЗАЦИЯ
+	// =========================================================================
+
 	init() {
 		this.loadFromStorage();
 		this.addDemoProductsIfNeeded();
 	}
 
-	// ========== Работа с localStorage ==========
+	// =========================================================================
+	// РАБОТА С LOCALSTORAGE
+	// =========================================================================
+
 	loadFromStorage() {
 		try {
 			this.products = JSON.parse( localStorage.getItem( 'komori_products' ) ) || [];
@@ -41,7 +52,7 @@ class Store {
 			this.favorites = JSON.parse( localStorage.getItem( 'komori_favorites' ) ) || [];
 			this.users = JSON.parse( localStorage.getItem( 'komori_users' ) ) || [];
 		} catch ( e ) {
-			console.error( 'Ошибка загрузки из localStorage:', e );
+			console.error( '❌ Ошибка загрузки из localStorage:', e );
 			this.products = [];
 			this.cart = [];
 			this.favorites = [];
@@ -50,27 +61,15 @@ class Store {
 	}
 
 	/**
-	 * Сохраняет данные в localStorage с проверкой размера
-	 * Предотвращает переполнение хранилища
+	 * Сохраняет данные с проверкой размера
 	 */
 	saveToStorage() {
 		try {
-			// Проверка размера товаров перед сохранением
 			const productsStr = JSON.stringify( this.products );
 			const productsSizeKB = ( productsStr.length / 1024 ).toFixed( 2 );
 
-			console.log( `📦 Размер данных:` );
-			console.log( `   Товары: ${productsSizeKB} KB` );
-
-			// Предупреждение при приближении к лимиту (5 MB = 5120 KB)
 			if ( productsStr.length > 4.5 * 1024 * 1024 ) {
-				console.warn( '⚠️ Внимание! Размер товаров приближается к лимиту localStorage (5MB)' );
-				console.warn( '   Рекомендуется удалить старые товары или использовать меньшие изображения' );
-			}
-
-			// Проверка на превышение лимита
-			if ( productsStr.length > 5 * 1024 * 1024 ) {
-				throw new Error( 'QuotaExceededError' );
+				console.warn( `⚠️ Размер товаров: ${productsSizeKB} KB, приближается к лимиту (5MB)` );
 			}
 
 			localStorage.setItem( 'komori_products', productsStr );
@@ -78,32 +77,41 @@ class Store {
 			localStorage.setItem( 'komori_favorites', JSON.stringify( this.favorites ) );
 			localStorage.setItem( 'komori_users', JSON.stringify( this.users ) );
 
-			console.log( '✅ Данные сохранены в localStorage' );
-
-			// Отправляем события об обновлении
 			this.dispatchEvents();
 		} catch ( e ) {
-			if ( e.name === 'QuotaExceededError' || e.message === 'QuotaExceededError' ) {
-				console.error( '❌ Ошибка: превышен лимит localStorage (5MB)' );
-				this.showStorageError();
+			if ( e.name === 'QuotaExceededError' ) {
+				console.error( '❌ Превышен лимит localStorage!' );
+				this.showStorageWarning();
 			} else {
-				console.error( 'Ошибка сохранения в localStorage:', e );
+				console.error( '❌ Ошибка сохранения:', e );
 			}
 		}
 	}
 
 	/**
-	 * Показывает уведомление о переполнении хранилища
+	 * Показывает предупреждение о переполнении хранилища
 	 */
-	showStorageError() {
-		const message = '⚠️ Слишком много данных в хранилище!\n\n' +
-			'Чтобы продолжить работу:\n' +
-			'1. Удалите старые товары с большими изображениями\n' +
-			'2. Используйте изображения меньшего размера (до 200KB)\n\n' +
-			'Рекомендуется очистить кэш сайта и перезагрузить страницу.';
-
-		API.showNotification( 'Превышен лимит хранилища! Очистите данные.', 'error' );
-		alert( message );
+	showStorageWarning() {
+		const warning = document.createElement( 'div' );
+		warning.style.cssText = `
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			background: #ff4757;
+			color: white;
+			padding: 15px 20px;
+			border-radius: 8px;
+			z-index: 10000;
+			font-size: 14px;
+			box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+		`;
+		warning.innerHTML = `
+			<strong>⚠️ Внимание!</strong><br>
+			Превышен лимит хранилища.<br>
+			Удалите старые товары или используйте внешние изображения.
+		`;
+		document.body.appendChild( warning );
+		setTimeout( () => warning.remove(), 5000 );
 	}
 
 	dispatchEvents() {
@@ -112,7 +120,13 @@ class Store {
 		window.dispatchEvent( new CustomEvent( 'store:favoritesUpdated', { detail: this.favorites } ) );
 	}
 
-	// ========== Управление товарами ==========
+	// =========================================================================
+	// УПРАВЛЕНИЕ ТОВАРАМИ
+	// =========================================================================
+
+	/**
+	 * Возвращает отфильтрованный список товаров (для админки)
+	 */
 	getProducts( filters = {} ) {
 		let filtered = [...this.products];
 
@@ -150,121 +164,8 @@ class Store {
 	}
 
 	/**
-	 * Получение товара по ID
+	 * Получение товаров для каталога (главная страница)
 	 */
-	getProduct( id ) {
-		return this.products.find( p => p.id == id );
-	}
-
-	addProduct( productData ) {
-		const newProduct = {
-			id: this.generateId(),
-			...productData,
-			createdAt: new Date().toISOString()
-		};
-
-		this.products.push( newProduct );
-		this.saveToStorage();
-		return newProduct;
-	}
-
-	updateProduct( id, productData ) {
-		const index = this.products.findIndex( p => p.id == id );
-		if ( index !== -1 ) {
-			this.products[index] = { ...this.products[index], ...productData };
-			this.saveToStorage();
-			return true;
-		}
-		return false;
-	}
-
-	deleteProduct( id ) {
-		this.cart = this.cart.filter( item => item.id != id );
-		this.favorites = this.favorites.filter( favId => favId != id );
-		this.products = this.products.filter( p => p.id != id );
-		this.saveToStorage();
-	}
-
-	/**
-	 * Получить размер хранилища в KB
-	 */
-	getStorageSize() {
-		let total = 0;
-		for ( let i = 0; i < localStorage.length; i++ ) {
-			const key = localStorage.key( i );
-			const value = localStorage.getItem( key );
-			total += value.length;
-		}
-		return ( total / 1024 ).toFixed( 2 );
-	}
-
-	// ========== Управление корзиной ==========
-	getCart() {
-		return this.cart.map( item => {
-			const product = this.getProduct( item.id );
-			return {
-				...item,
-				name: product?.name,
-				price: product?.price,
-				image: product?.image,
-				maxQuantity: product?.quantity || 0
-			};
-		} ).filter( item => item.name );
-	}
-
-	getCartTotal() {
-		return this.getCart().reduce( ( sum, item ) => sum + ( item.price * item.quantity ), 0 );
-	}
-
-	getCartCount() {
-		return this.cart.reduce( ( sum, item ) => sum + item.quantity, 0 );
-	}
-
-	addToCart( productId, quantity = 1 ) {
-		const product = this.getProduct( productId );
-		if ( !product || product.status !== 'in-stock' || product.quantity < quantity ) {
-			return false;
-		}
-
-		const existingItem = this.cart.find( item => item.id == productId );
-
-		if ( existingItem ) {
-			if ( existingItem.quantity + quantity <= product.quantity ) {
-				existingItem.quantity += quantity;
-			} else {
-				return false;
-			}
-		} else {
-			this.cart.push( { id: productId, quantity } );
-		}
-
-		this.saveToStorage();
-		return true;
-	}
-
-	updateCartQuantity( productId, newQuantity ) {
-		const product = this.getProduct( productId );
-		const item = this.cart.find( i => i.id == productId );
-
-		if ( !item ) return false;
-
-		if ( newQuantity <= 0 ) {
-			this.cart = this.cart.filter( i => i.id != productId );
-		} else if ( product && newQuantity <= product.quantity ) {
-			item.quantity = newQuantity;
-		} else {
-			return false;
-		}
-
-		this.saveToStorage();
-		return true;
-	}
-
-	removeFromCart( productId ) {
-		this.cart = this.cart.filter( item => item.id != productId );
-		this.saveToStorage();
-	}
-
 	getCatalogProducts( filters = {} ) {
 		let filtered = [...this.products];
 
@@ -287,34 +188,236 @@ class Store {
 		return filtered;
 	}
 
-	// ========== Управление избранным ==========
+	/**
+	 * Получение товара по ID
+	 */
+	getProduct( id ) {
+		return this.products.find( p => p.id == id );
+	}
+
+	/**
+	 * Добавляет новый товар
+	 */
+	addProduct( productData ) {
+		const newProduct = {
+			id: this.generateId(),
+			...productData,
+			createdAt: new Date().toISOString()
+		};
+		this.products.push( newProduct );
+		this.saveToStorage();
+		return newProduct;
+	}
+
+	/**
+	 * Обновляет существующий товар
+	 */
+	updateProduct( id, productData ) {
+		const index = this.products.findIndex( p => p.id == id );
+		if ( index !== -1 ) {
+			this.products[index] = { ...this.products[index], ...productData };
+			this.saveToStorage();
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Удаляет товар из всех хранилищ
+	 */
+	deleteProduct( id ) {
+		this.cart = this.cart.filter( item => item.id != id );
+		this.favorites = this.favorites.filter( favId => favId != id );
+		this.products = this.products.filter( p => p.id != id );
+		this.saveToStorage();
+	}
+
+	// =========================================================================
+	// УПРАВЛЕНИЕ КОРЗИНОЙ
+	// =========================================================================
+
+	/**
+	 * Возвращает товары в корзине с полной информацией
+	 */
+	getCart() {
+		return this.cart.map( item => {
+			const product = this.getProduct( item.id );
+			return {
+				...item,
+				name: product?.name,
+				price: product?.price,
+				image: product?.image,
+				maxQuantity: product?.quantity || 0
+			};
+		} ).filter( item => item.name );
+	}
+
+	/**
+	 * Общая сумма корзины без скидки
+	 */
+	getCartTotal() {
+		return this.getCart().reduce( ( sum, item ) => sum + ( item.price * item.quantity ), 0 );
+	}
+
+	/**
+	 * Общее количество товаров в корзине
+	 */
+	getCartCount() {
+		return this.cart.reduce( ( sum, item ) => sum + item.quantity, 0 );
+	}
+
+	/**
+	 * Проверяет, есть ли товар в корзине
+	 */
+	isInCart( productId ) {
+		return this.cart.some( item => item.id == productId );
+	}
+
+	/**
+	 * Получает количество конкретного товара в корзине
+	 */
+	getCartItemQuantity( productId ) {
+		const item = this.cart.find( i => i.id == productId );
+		return item ? item.quantity : 0;
+	}
+
+	/**
+	 * Получает общую сумму корзины со скидкой
+	 */
+	getCartTotals( promo = null ) {
+		const subtotal = this.getCartTotal();
+		let discount = 0;
+
+		if ( promo ) {
+			if ( promo.type === 'percent' ) {
+				discount = subtotal * promo.discount;
+			} else if ( promo.type === 'fixed' ) {
+				discount = promo.discount;
+			}
+			discount = Math.min( discount, subtotal );
+		}
+
+		return { subtotal, discount, total: subtotal - discount };
+	}
+
+	/**
+	 * Получает все ID товаров в корзине
+	 */
+	getCartProductIds() {
+		return this.cart.map( item => item.id );
+	}
+
+	/**
+	 * Добавляет товар в корзину
+	 */
+	addToCart( productId, quantity = 1 ) {
+		const product = this.getProduct( productId );
+		if ( !product || product.status !== 'in-stock' || product.quantity < quantity ) {
+			return false;
+		}
+
+		const existingItem = this.cart.find( item => item.id == productId );
+
+		if ( existingItem ) {
+			if ( existingItem.quantity + quantity <= product.quantity ) {
+				existingItem.quantity += quantity;
+			} else {
+				return false;
+			}
+		} else {
+			this.cart.push( { id: productId, quantity } );
+		}
+
+		this.saveToStorage();
+		return true;
+	}
+
+	/**
+	 * Обновляет количество товара в корзине
+	 */
+	updateCartQuantity( productId, newQuantity ) {
+		const product = this.getProduct( productId );
+		const itemIndex = this.cart.findIndex( i => i.id == productId );
+
+		if ( itemIndex === -1 ) return false;
+
+		if ( newQuantity <= 0 ) {
+			this.cart.splice( itemIndex, 1 );
+		} else if ( product && newQuantity <= product.quantity ) {
+			this.cart[itemIndex].quantity = newQuantity;
+		} else {
+			return false;
+		}
+
+		this.saveToStorage();
+		return true;
+	}
+
+	/**
+	 * Удаляет товар из корзины
+	 */
+	removeFromCart( productId ) {
+		this.cart = this.cart.filter( item => item.id != productId );
+		this.saveToStorage();
+	}
+
+	/**
+	 * Полностью очищает корзину
+	 */
+	clearCart() {
+		this.cart = [];
+		this.saveToStorage();
+		console.log( '🧹 Корзина полностью очищена' );
+	}
+
+	// =========================================================================
+	// УПРАВЛЕНИЕ ИЗБРАННЫМ
+	// =========================================================================
+
+	/**
+	 * Возвращает избранные товары с полной информацией
+	 */
 	getFavorites() {
 		return this.products.filter( p => this.favorites.includes( p.id ) );
 	}
 
+	/**
+	 * Проверяет, есть ли товар в избранном
+	 */
 	isFavorite( productId ) {
 		return this.favorites.includes( productId );
 	}
 
+	/**
+	 * Получает количество товаров в избранном
+	 */
+	getFavoritesCount() {
+		return this.favorites.length;
+	}
+
+	/**
+	 * Переключает статус избранного для товара
+	 */
 	toggleFavorite( productId ) {
 		const index = this.favorites.indexOf( productId );
-		let isNowFavorite;
 
 		if ( index === -1 ) {
 			this.favorites.push( productId );
-			isNowFavorite = true;
 			console.log( '❤️ Товар добавлен в избранное:', productId );
+			this.saveToStorage();
+			return true;
 		} else {
 			this.favorites.splice( index, 1 );
-			isNowFavorite = false;
 			console.log( '💔 Товар удален из избранного:', productId );
+			this.saveToStorage();
+			return false;
 		}
-
-		this.saveToStorage();
-		return isNowFavorite;
 	}
 
-	// ========== Управление пользователями ==========
+	// =========================================================================
+	// УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ
+	// =========================================================================
+
 	registerUser( userData ) {
 		if ( this.users.some( u => u.email === userData.email ) ) {
 			return { success: false, error: 'Пользователь с таким email уже существует' };
@@ -370,7 +473,6 @@ class Store {
 			if ( currentUser && currentUser.id === userId ) {
 				localStorage.setItem( 'komori_current_user', JSON.stringify( this.users[index] ) );
 			}
-
 			return true;
 		}
 		return false;
@@ -381,15 +483,75 @@ class Store {
 		localStorage.removeItem( 'komori_remembered_user' );
 	}
 
-	// ========== Вспомогательные методы ==========
+	// =========================================================================
+	// ОБЩИЕ УТИЛИТЫ
+	// =========================================================================
+
+	/**
+	 * Очищает "битые" ссылки в корзине и избранном
+	 */
+	cleanInvalidReferences() {
+		const validProductIds = this.products.map( p => p.id );
+
+		const originalCartLength = this.cart.length;
+		this.cart = this.cart.filter( item => validProductIds.includes( item.id ) );
+
+		const originalFavoritesLength = this.favorites.length;
+		this.favorites = this.favorites.filter( id => validProductIds.includes( id ) );
+
+		const result = {
+			cartCleaned: originalCartLength - this.cart.length,
+			favoritesCleaned: originalFavoritesLength - this.favorites.length,
+			totalRemoved: ( originalCartLength - this.cart.length ) + ( originalFavoritesLength - this.favorites.length )
+		};
+
+		if ( result.totalRemoved > 0 ) {
+			this.saveToStorage();
+			console.log( `🧹 Очищено: корзина (${result.cartCleaned}), избранное (${result.favoritesCleaned})` );
+		}
+
+		return result;
+	}
+
+	/**
+	 * Генерирует уникальный ID
+	 */
 	generateId() {
 		return Date.now() + '-' + Math.random().toString( 36 ).substr( 2, 9 );
 	}
 
+	/**
+	 * Возвращает название категории
+	 */
 	getCategoryName( categoryKey ) {
 		return this.categories[categoryKey] || categoryKey;
 	}
 
+	/**
+	 * Возвращает URL страницы категории
+	 */
+	getCategoryUrl( categoryKey ) {
+		const urls = {
+			'figures': '/pages html/catalog pages/figurines.html',
+			'tea': '/pages html/catalog pages/tea.html',
+			'sweets': '/pages html/catalog pages/sweets.html',
+			'manga': '/pages html/catalog pages/manga.html',
+			'clothing': '/pages html/catalog pages/clothes.html',
+			'tableware': '/pages html/catalog pages/dishes.html',
+			'games': '/pages html/catalog pages/games.html',
+			'stationery': '/pages html/catalog pages/office.html',
+			'cosmetics': '/pages html/catalog pages/cosmetics.html',
+			'decor': '/pages html/catalog pages/decor.html',
+			'anime': '/pages html/catalog pages/disks.html',
+			'music': '/pages html/catalog pages/music.html',
+			'other': '/pages html/catalog.html'
+		};
+		return urls[categoryKey] || '/pages html/catalog.html';
+	}
+
+	/**
+	 * Добавляет демонстрационные товары
+	 */
 	addDemoProductsIfNeeded() {
 		if ( this.products.length === 0 ) {
 			const demos = [
@@ -450,9 +612,12 @@ class Store {
 			demos.forEach( demo => {
 				this.addProduct( demo );
 			} );
+
+			console.log( '📦 Добавлены демонстрационные товары' );
 		}
 	}
 }
 
 // Создаем глобальный экземпляр
 window.store = new Store();
+console.log( '✅ Store инициализирован' );
