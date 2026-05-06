@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#2d2d2d"/>
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff3366"/>
+      <stop offset="100%" stop-color="#ffb7c5"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Фоновый круг -->
+  <circle cx="50" cy="50" r="48" fill="url(#bgGrad)" stroke="#ff3366" stroke-width="2"/>
+  
+  <!-- Форма листа сакуры -->
+  <path d="M50 15 
+           C50 15, 32 28, 28 42 
+           C24 56, 28 72, 50 85 
+           C72 72, 76 56, 72 42 
+           C68 28, 50 15, 50 15Z" 
+        fill="url(#leafGrad)"/>
+  
+  <!-- Прожилка листа -->
+  <path d="M50 28 L50 78" 
+        stroke="white" 
+        stroke-width="2.5" 
+        fill="none" 
+        opacity="0.6"/>
+  
+  <!-- Маленькие прожилки -->
+  <path d="M50 40 L40 35" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <path d="M50 40 L60 35" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <path d="M50 55 L40 60" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <path d="M50 55 L60 60" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+  
+  <!-- Блики -->
+  <circle cx="38" cy="38" r="3" fill="white" opacity="0.3"/>
+</svg>

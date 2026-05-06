@@ -1,10 +1,296 @@
 /**
  * Скрипт для горизонтального скролл-аккордеона товаров с навигационной полоской
- * Только навигация и скролл, добавление товаров находится в catalog.js
+ * Загружает товары с пометками: Новинки, Хиты, Скидки
+ * 
+ * Логика отбора:
+ * - Приоритет: сначала Хиты, затем Новинки, затем Скидки
+ * - Из каждой категории берется не более 2 товаров
+ * - Всего не более 26 товаров (чтобы не перегружать аккордеон)
  */
 
 document.addEventListener( 'DOMContentLoaded', function () {
-	// ========== ПОЛУЧЕНИЕ ЭЛЕМЕНТОВ ==========
+	// ========== ЗАГРУЗКА И ОТОБРАЖЕНИЕ ТОВАРОВ ==========
+
+	/**
+	 * Получает товары для аккордеона: Новинки, Хиты, Скидки
+	 * @returns {Array} отсортированный массив товаров
+	 */
+	function getAccordionProducts() {
+		const allProducts = store.products || [];
+
+		// Фильтруем только товары в наличии
+		const availableProducts = allProducts.filter( p =>
+			p.status === 'in-stock' && p.quantity > 0
+		);
+
+		// Группируем товары по категориям
+		const productsByCategory = {};
+
+		availableProducts.forEach( product => {
+			const category = product.category;
+			if ( !productsByCategory[category] ) {
+				productsByCategory[category] = [];
+			}
+			productsByCategory[category].push( product );
+		} );
+
+		// Собираем товары по приоритетам
+		const selectedProducts = [];
+		const maxPerCategory = 2;      // Не более 2 товаров из категории
+		const maxTotal = 26;            // Всего не более 26 товаров
+
+		// Список категорий в порядке приоритета (можно настроить)
+		const categoryOrder = [
+			'figures', 'tea', 'sweets', 'manga', 'clothing',
+			'tableware', 'games', 'stationery', 'cosmetics',
+			'decor', 'anime', 'music', 'other'
+		];
+
+		// Для каждой категории выбираем до 2 лучших товаров
+		for ( const category of categoryOrder ) {
+			if ( selectedProducts.length >= maxTotal ) break;
+
+			const categoryProducts = productsByCategory[category] || [];
+			if ( categoryProducts.length === 0 ) continue;
+
+			// Сортируем товары в категории по приоритету:
+			// 1. Хиты (isHit) и Новинки (isNew) и Скидки (oldPrice)
+			const sorted = [...categoryProducts].sort( ( a, b ) => {
+				// Функция приоритета: Хит = 3, Новинка = 2, Скидка = 1
+				const getPriority = ( p ) => {
+					let priority = 0;
+					if ( p.isHit ) priority += 3;
+					if ( p.isNew ) priority += 2;
+					if ( p.oldPrice && p.oldPrice > p.price ) priority += 1;
+					return priority;
+				};
+				return getPriority( b ) - getPriority( a );
+			} );
+
+			// Берем до maxPerCategory товаров из категории
+			const takeCount = Math.min( maxPerCategory, sorted.length );
+			for ( let i = 0; i < takeCount; i++ ) {
+				if ( selectedProducts.length >= maxTotal ) break;
+				selectedProducts.push( sorted[i] );
+			}
+		}
+
+		console.log( `🎯 Аккордеон: загружено ${selectedProducts.length} товаров (${availableProducts.length} доступно)` );
+
+		// Перемешиваем финальный список для разнообразия
+		return shuffleArray( selectedProducts );
+	}
+
+	/**
+	 * Перемешивает массив
+	 * @param {Array} array - исходный массив
+	 * @returns {Array} перемешанный массив
+	 */
+	function shuffleArray( array ) {
+		const shuffled = [...array];
+		for ( let i = shuffled.length - 1; i > 0; i-- ) {
+			const j = Math.floor( Math.random() * ( i + 1 ) );
+			[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+		}
+		return shuffled;
+	}
+
+	/**
+	 * Рендерит товары в аккордеоне
+	 */
+	function renderAccordionProducts() {
+		const container = document.getElementById( 'productsScroll' );
+		if ( !container ) {
+			console.error( 'Элемент productsScroll не найден' );
+			return;
+		}
+
+		// Очищаем контейнер от статических товаров
+		container.innerHTML = '';
+
+		// Получаем товары для аккордеона
+		const products = getAccordionProducts();
+
+		if ( products.length === 0 ) {
+			container.innerHTML = '<div class="no-products">Товары скоро появятся</div>';
+			return;
+		}
+
+		// Генерируем HTML для каждого товара
+		products.forEach( product => {
+			const productCard = createProductCard( product );
+			container.appendChild( productCard );
+		} );
+
+		// После добавления товаров, обновляем навигацию аккордеона
+		if ( typeof productsUpdateNavigation === 'function' ) {
+			productsUpdateNavigation();
+		}
+
+		// Добавляем обработчики для кнопок "В корзину" и "Избранное"
+		attachProductEventHandlers();
+	}
+
+	/**
+	 * Создает карточку товара
+	 * @param {Object} product - объект товара
+	 * @returns {HTMLElement} карточка товара
+	 */
+	function createProductCard( product ) {
+		const card = document.createElement( 'div' );
+		card.className = 'product-card';
+		card.dataset.id = product.id;
+
+		// Определяем бейджи
+		let badges = '';
+		if ( product.isNew ) badges += '<span class="product-badge new">Новинка</span>';
+		if ( product.isHit ) badges += '<span class="product-badge hit">Хит</span>';
+		if ( product.oldPrice && product.oldPrice > product.price ) {
+			const discount = Math.round( ( 1 - product.price / product.oldPrice ) * 100 );
+			if ( discount > 0 ) badges += `<span class="product-badge sale">-${discount}%</span>`;
+		}
+
+		// Формируем HTML карточки
+		card.innerHTML = `
+            <div class="product-image">
+                <img src="${API.getSafeImageUrl( product.image )}" 
+                     alt="${product.name}" 
+                     loading="lazy"
+                     onerror="this.src='${API.getFallbackSvg( product.name )}'">
+                ${badges ? `<div class="product-badges">${badges}</div>` : ''}
+            </div>
+            <div class="product-content">
+                <h3 class="product-title">${escapeHtml( product.name )}</h3>
+                <p class="product-description">${escapeHtml( product.description || '' )}</p>
+                <div class="product-meta">
+                    <span class="product-price">${API.formatPrice( product.price )}</span>
+                    ${product.oldPrice ? `<span class="product-old-price">${API.formatPrice( product.oldPrice )}</span>` : ''}
+                </div>
+                <div class="product-actions">
+                    <button class="product-btn add-to-cart" data-id="${product.id}">
+                        <i class="fas fa-shopping-cart"></i> В корзину
+                    </button>
+                    <button class="favorite-btn" data-id="${product.id}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+
+		return card;
+	}
+
+	/**
+	 * Экранирует HTML для безопасности
+	 * @param {string} str - строка
+	 * @returns {string} экранированная строка
+	 */
+	function escapeHtml( str ) {
+		if ( !str ) return '';
+		return str
+			.replace( /&/g, '&amp;' )
+			.replace( /</g, '&lt;' )
+			.replace( />/g, '&gt;' )
+			.replace( /"/g, '&quot;' )
+			.replace( /'/g, '&#39;' );
+	}
+
+	/**
+	 * Добавляет обработчики для кнопок "В корзину" и "Избранное"
+	 * Использует делегирование событий
+	 */
+	function attachProductEventHandlers() {
+		const container = document.getElementById( 'productsScroll' );
+		if ( !container ) return;
+
+		// Удаляем старый обработчик, если был
+		if ( container._delegateHandler ) {
+			container.removeEventListener( 'click', container._delegateHandler );
+		}
+
+		// Создаем обработчик через делегирование
+		container._delegateHandler = function ( e ) {
+			// Кнопка "В корзину"
+			const cartBtn = e.target.closest( '.add-to-cart' );
+			if ( cartBtn ) {
+				e.preventDefault();
+				e.stopPropagation();
+				const productId = cartBtn.dataset.id;
+
+				if ( store.addToCart( productId ) ) {
+					API.showNotification( '✅ Товар добавлен в корзину' );
+
+					// Визуальный эффект
+					const originalHTML = cartBtn.innerHTML;
+					cartBtn.innerHTML = '<i class="fas fa-check"></i> Добавлено';
+					cartBtn.style.background = '#2ecc71';
+
+					setTimeout( () => {
+						cartBtn.innerHTML = originalHTML;
+						cartBtn.style.background = '';
+					}, 1500 );
+
+					updateHeaderCounters();
+				} else {
+					API.showNotification( '❌ Не удалось добавить товар', 'error' );
+				}
+				return;
+			}
+
+			// Кнопка "Избранное"
+			const favBtn = e.target.closest( '.favorite-btn' );
+			if ( favBtn ) {
+				e.preventDefault();
+				e.stopPropagation();
+				const productId = favBtn.dataset.id;
+				const isFavorite = store.toggleFavorite( productId );
+
+				if ( isFavorite ) {
+					favBtn.classList.add( 'active' );
+					API.showNotification( '❤️ Добавлено в избранное' );
+				} else {
+					favBtn.classList.remove( 'active' );
+					API.showNotification( '💔 Удалено из избранного' );
+				}
+
+				updateHeaderCounters();
+				return;
+			}
+		};
+
+		container.addEventListener( 'click', container._delegateHandler );
+	}
+
+	/**
+	 * Обновляет счетчики в шапке
+	 */
+	function updateHeaderCounters() {
+		const cartCount = document.getElementById( 'cartCount' );
+		const favoritesCount = document.getElementById( 'favoritesCount' );
+
+		if ( cartCount ) {
+			cartCount.textContent = store.getCartCount();
+		}
+		if ( favoritesCount ) {
+			favoritesCount.textContent = store.favorites.length;
+		}
+	}
+
+	/**
+	 * Обновляет активное состояние кнопок избранного
+	 */
+	function updateFavoriteButtonsState() {
+		document.querySelectorAll( '.favorite-btn' ).forEach( btn => {
+			const productId = btn.dataset.id;
+			if ( productId && store.isFavorite( productId ) ) {
+				btn.classList.add( 'active' );
+			}
+		} );
+	}
+
+	// ========== ИНИЦИАЛИЗАЦИЯ АККОРДЕОНА ==========
+
+	// Получаем элементы
 	let productsScroll = document.getElementById( 'productsScroll' );
 	const navbarTrack = document.querySelector( '.navbar-track' );
 
@@ -14,122 +300,77 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		return;
 	}
 
-	// ========== КОНФИГУРАЦИЯ ==========
+	// Конфигурация
 	const config = {
-		autoScrollInterval: 4000, // Интервал автоскролла (4 секунды)
-		hoverScrollInterval: 6000, // Интервал автоскролла при наведении на товар (6 секунд)
-		transitionDuration: 600, // Длительность анимации прокрутки
-		loopScroll: true, // Зацикленная прокрутка (true - включена, false - выключена)
-		animationEnabled: true, // Включить анимацию пульсации сегментов
+		autoScrollInterval: 4000,
+		hoverScrollInterval: 6000,
+		transitionDuration: 600,
+		loopScroll: true,
+		animationEnabled: true,
 	};
 
-	// ========== СОСТОЯНИЕ ==========
-	let productsCurrentIndex = 0; // Текущий индекс (номер видимой группы товаров)
-	let productsAutoScrollTimer = null; // Таймер для автоматической прокрутки
-	let productsIsScrolling = false; // Флаг, указывающий что сейчас происходит программная прокрутка
-	let productsIsHovering = false; // Флаг наведения на товар
-	let productsCardWidth = 0; // Ширина одной карточки товара + отступ (gap)
-	let productsTotalItems = 0; // Общее количество товаров
-	let productsVisibleItems = 0; // Количество товаров, помещающихся на экране
-	let productsMaxIndex = 0; // Максимальный индекс (общее количество "экранов" - 1)
-	let productsSegments = []; // Массив с элементами сегментов навигационной полоски
-	let productsHoverTimer = null; // Таймер для задержки перед сменой скорости
+	// Состояние
+	let productsCurrentIndex = 0;
+	let productsAutoScrollTimer = null;
+	let productsIsScrolling = false;
+	let productsIsHovering = false;
+	let productsCardWidth = 0;
+	let productsTotalItems = 0;
+	let productsVisibleItems = 0;
+	let productsMaxIndex = 0;
+	let productsSegments = [];
+	let productsHoverTimer = null;
 
-	// ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
+	// ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (оставляем без изменений) ==========
 
-	/**
-	 * Обновление измерений - вычисляет актуальные размеры карточек и контейнера
-	 * Вызывается при загрузке, изменении размера окна и обновлении контента
-	 */
 	function productsUpdateMeasurements() {
 		const cards = productsScroll.querySelectorAll( '.product-card' );
 		if ( cards.length === 0 ) return;
-
 		const card = cards[0];
-		// Получаем значение gap из стилей контейнера
 		const style = window.getComputedStyle( productsScroll );
-		const gap = parseInt( style.gap ) || 30; // По умолчанию 30px
-
-		// Полная ширина карточки включая отступ справа
+		const gap = parseInt( style.gap ) || 30;
 		productsCardWidth = card.offsetWidth + gap;
-
-		// Обновляем общую статистику
 		productsTotalItems = cards.length;
 		productsVisibleItems = Math.floor( productsScroll.clientWidth / productsCardWidth );
-
-		// Максимальный индекс = общее количество "экранов" минус 1
 		productsMaxIndex = Math.max( 0, productsTotalItems - productsVisibleItems );
 	}
 
-	/**
-	 * Создание сегментов навигационной полоски
-	 * Динамически создает прямоугольные сегменты по количеству "экранов"
-	 */
 	function productsCreateNavbarSegments() {
 		if ( !navbarTrack ) return;
-
 		productsUpdateMeasurements();
-
-		// Очищаем трек перед созданием новых сегментов
 		navbarTrack.innerHTML = '';
 		productsSegments = [];
-
-		// Количество сегментов = максимальный индекс + 1 (или хотя бы 1)
 		const segmentCount = Math.max( 1, productsMaxIndex + 1 );
-
-		// Создаем сегменты
 		for ( let i = 0; i < segmentCount; i++ ) {
 			const segment = document.createElement( 'div' );
 			segment.className = 'navbar-segment';
 			segment.dataset.index = i;
-
-			// Добавляем обработчик клика на каждый сегмент
 			segment.addEventListener( 'click', function ( e ) {
 				e.stopPropagation();
 				const index = parseInt( this.dataset.index );
-				productsScrollToIndex( index ); // Прокручиваем к выбранному индексу
+				productsScrollToIndex( index );
 			} );
-
 			navbarTrack.appendChild( segment );
 			productsSegments.push( segment );
 		}
-
-		// Активируем текущий сегмент
 		productsUpdateActiveSegment();
-
 		console.debug( 'Created segments:', segmentCount );
 	}
 
-	/**
-	 * Обновление активного сегмента навигационной полоски
-	 * Подсвечивает текущий сегмент и убирает подсветку с остальных
-	 */
 	function productsUpdateActiveSegment() {
 		if ( productsSegments.length === 0 ) return;
-
-		// Деактивируем все сегменты
 		productsSegments.forEach( segment => {
 			segment.classList.remove( 'active' );
-			segment.style.animation = ''; // Сбрасываем анимацию
+			segment.style.animation = '';
 		} );
-
-		// Активируем текущий сегмент
 		if ( productsSegments[productsCurrentIndex] ) {
 			productsSegments[productsCurrentIndex].classList.add( 'active' );
 		}
 	}
 
-	/**
-	 * Обновление текущего индекса на основе позиции скролла
-	 * Используется при ручном скролле мышкой или тачпадом
-	 */
 	function productsUpdateCurrentIndex() {
-		// Не обновляем индекс во время программной прокрутки
 		if ( productsIsScrolling ) return;
-
 		productsUpdateMeasurements();
-
-		// Защита от деления на ноль
 		if ( productsCardWidth === 0 || productsMaxIndex === 0 ) {
 			if ( productsCurrentIndex !== 0 ) {
 				productsCurrentIndex = 0;
@@ -137,137 +378,62 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			}
 			return;
 		}
-
-		// Вычисляем примерный индекс на основе позиции скролла
 		const rawIndex = Math.round( productsScroll.scrollLeft / productsCardWidth );
 		let newIndex;
-
 		if ( config.loopScroll ) {
-			// ЗАЦИКЛЕННАЯ ПРОКРУТКА:
-			// Если индекс меньше 0 - переходим в конец
 			if ( rawIndex < 0 ) {
 				newIndex = productsMaxIndex + ( ( rawIndex + 1 ) % productsMaxIndex ) - 1;
 				if ( newIndex < 0 ) newIndex = productsMaxIndex;
-			}
-			// Если индекс больше максимума - переходим в начало
-			else if ( rawIndex > productsMaxIndex ) {
+			} else if ( rawIndex > productsMaxIndex ) {
 				newIndex = rawIndex % ( productsMaxIndex + 1 );
-			}
-			// Нормальный диапазон
-			else {
+			} else {
 				newIndex = rawIndex;
 			}
-
-			// Корректируем позицию скролла для зацикленности
 			if ( rawIndex < 0 || rawIndex > productsMaxIndex ) {
 				productsScroll.scrollLeft = newIndex * productsCardWidth;
 			}
 		} else {
-			// ОБЫЧНАЯ ПРОКРУТКА (без зацикливания)
 			newIndex = Math.max( 0, Math.min( rawIndex, productsMaxIndex ) );
 		}
-
-		// Обновляем индекс только если он действительно изменился
 		if ( newIndex !== productsCurrentIndex ) {
 			productsCurrentIndex = newIndex;
 			productsUpdateActiveSegment();
 		}
 	}
 
-	/**
-	 * Плавная прокрутка к указанной позиции
-	 * @param {number} position - позиция в пикселях
-	 * @param {boolean} instant - мгновенная прокрутка без анимации
-	 */
 	function productsSmoothScrollTo( position, instant = false ) {
-		// Предотвращаем множественные вызовы во время анимации
 		if ( productsIsScrolling && !instant ) return;
-
 		productsIsScrolling = true;
-
-		// Выполняем прокрутку
-		productsScroll.scrollTo( {
-			left: position,
-			behavior: instant ? 'auto' : 'smooth'
-		} );
-
-		// Сбрасываем флаг после завершения анимации
-		setTimeout( () => {
-			productsIsScrolling = false;
-		}, config.transitionDuration );
+		productsScroll.scrollTo( { left: position, behavior: instant ? 'auto' : 'smooth' } );
+		setTimeout( () => { productsIsScrolling = false; }, config.transitionDuration );
 	}
 
-	/**
-	 * Прокрутка к определенному индексу
-	 * @param {number} index - индекс для прокрутки
-	 */
 	function productsScrollToIndex( index ) {
 		productsUpdateMeasurements();
-
-		// Проверки валидности индекса
 		if ( index < 0 || index > productsMaxIndex || productsIsScrolling || index === productsCurrentIndex ) return;
-
-		// Обновляем индекс ДО анимации (чтобы полоска переключилась сразу)
 		productsCurrentIndex = index;
-		productsUpdateActiveSegment(); // Полоска меняется мгновенно
-
-		// Затем плавно прокручиваем
+		productsUpdateActiveSegment();
 		productsSmoothScrollTo( productsCurrentIndex * productsCardWidth );
-
-		// Перезапускаем автоскролл после ручного взаимодействия
 		productsStopAutoScroll();
 		productsStartAutoScroll();
 	}
 
-	/**
-	 * Функция автоматической прокрутки вперед с зацикливанием
-	 * Вызывается по таймеру
-	 */
 	function productsAutoScrollNext() {
-		// Не запускаем новую прокрутку, если предыдущая еще не завершилась
 		if ( productsIsScrolling ) return;
-
 		productsUpdateMeasurements();
-
-		// Защита от некорректных измерений
 		if ( productsCardWidth === 0 || productsMaxIndex === 0 ) return;
-
-		let nextIndex;
-
-		// Определяем следующий индекс с учетом зацикливания
-		if ( productsCurrentIndex >= productsMaxIndex ) {
-			// Если достигли конца - возвращаемся в начало
-			nextIndex = 0;
-		} else {
-			// Иначе просто увеличиваем индекс
-			nextIndex = productsCurrentIndex + 1;
-		}
-
-		// Обновляем индекс ДО анимации
+		let nextIndex = productsCurrentIndex >= productsMaxIndex ? 0 : productsCurrentIndex + 1;
 		productsCurrentIndex = nextIndex;
-		productsUpdateActiveSegment(); // Полоска обновляется сразу
-
-		// Затем прокручиваем
+		productsUpdateActiveSegment();
 		productsSmoothScrollTo( productsCurrentIndex * productsCardWidth );
 	}
 
-	/**
-	 * Запуск автоматической прокрутки с учетом состояния наведения
-	 */
 	function productsStartAutoScroll() {
-		// Останавливаем предыдущий таймер
 		productsStopAutoScroll();
-
-		// Определяем интервал в зависимости от наличия наведения
 		const interval = productsIsHovering ? config.hoverScrollInterval : config.autoScrollInterval;
-
-		// Запускаем новый таймер
 		productsAutoScrollTimer = setInterval( productsAutoScrollNext, interval );
 	}
 
-	/**
-	 * Остановка автоматической прокрутки
-	 */
 	function productsStopAutoScroll() {
 		if ( productsAutoScrollTimer ) {
 			clearInterval( productsAutoScrollTimer );
@@ -275,173 +441,109 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		}
 	}
 
-	/**
-	 * Обработчик наведения на карточку товара
-	 */
 	function productsHandleProductHover() {
-		// Если уже в состоянии наведения - ничего не делаем
 		if ( productsIsHovering ) return;
-
-		// Очищаем предыдущий таймер задержки
-		if ( productsHoverTimer ) {
-			clearTimeout( productsHoverTimer );
-		}
-
-		// Устанавливаем флаг наведения
+		if ( productsHoverTimer ) clearTimeout( productsHoverTimer );
 		productsIsHovering = true;
-
-		// Перезапускаем автоскролл с новым интервалом
 		productsStopAutoScroll();
 		productsStartAutoScroll();
 	}
 
-	/**
-	 * Обработчик ухода мыши с карточки товара
-	 */
 	function productsHandleProductLeave() {
-		// Очищаем предыдущий таймер задержки
-		if ( productsHoverTimer ) {
-			clearTimeout( productsHoverTimer );
-		}
-
-		// Добавляем небольшую задержку перед возвратом к обычной скорости
+		if ( productsHoverTimer ) clearTimeout( productsHoverTimer );
 		productsHoverTimer = setTimeout( () => {
-			// Сбрасываем флаг наведения
 			productsIsHovering = false;
-
-			// Перезапускаем автоскролл с обычным интервалом
 			productsStopAutoScroll();
 			productsStartAutoScroll();
-
 			productsHoverTimer = null;
 		}, 300 );
 	}
 
-	/**
-	 * Добавление обработчиков наведения на карточки товаров
-	 */
 	function productsAddProductHoverHandlers() {
 		document.querySelectorAll( '.product-card' ).forEach( card => {
-			// Удаляем старые обработчики, чтобы не было дубликатов
 			card.removeEventListener( 'mouseenter', productsHandleProductHover );
 			card.removeEventListener( 'mouseleave', productsHandleProductLeave );
-
-			// Добавляем новые обработчики
 			card.addEventListener( 'mouseenter', productsHandleProductHover );
 			card.addEventListener( 'mouseleave', productsHandleProductLeave );
 		} );
 	}
 
-	/**
-	 * Обновление навигации при изменении количества товаров
-	 * Без перезагрузки всего аккордеона
-	 */
 	function productsUpdateNavigation() {
-		// Сохраняем текущую позицию
 		const oldScrollLeft = productsScroll.scrollLeft;
-
-		// Обновляем измерения
 		productsUpdateMeasurements();
-
-		// Пересоздаем сегменты навигации
 		productsCreateNavbarSegments();
-
-		// Корректируем индекс, если он вышел за пределы
 		if ( productsCurrentIndex > productsMaxIndex ) {
 			productsCurrentIndex = Math.max( 0, productsMaxIndex );
 		}
-
-		// Восстанавливаем позицию скролла или корректируем её
 		if ( productsCardWidth > 0 ) {
 			const newScrollLeft = Math.min( oldScrollLeft, productsMaxIndex * productsCardWidth );
 			productsScroll.scrollLeft = newScrollLeft;
 		}
-
-		// Обновляем активный сегмент
 		productsUpdateActiveSegment();
 	}
 
-	// ========== ОБРАБОТЧИКИ СОБЫТИЙ ==========
-
-	/**
-	 * Обработчик скролла - срабатывает при любом скролле (ручном или программном)
-	 */
-	productsScroll.addEventListener( 'scroll', function () {
-		// Обновляем индекс только при ручном скролле
-		productsUpdateCurrentIndex();
-	} );
-
-	/**
-	 * Остановка автоскролла при наведении на контейнер
-	 */
+	// ========== СЛУШАТЕЛИ СОБЫТИЙ ==========
+	productsScroll.addEventListener( 'scroll', productsUpdateCurrentIndex );
 	productsScroll.addEventListener( 'mouseenter', productsStopAutoScroll );
-
-	/**
-	 * Возобновление автоскролла при уходе мыши с контейнера
-	 */
 	productsScroll.addEventListener( 'mouseleave', productsStartAutoScroll );
 
 	// ========== ИНИЦИАЛИЗАЦИЯ ==========
 
-	// Первоначальные измерения
-	productsUpdateMeasurements();
+	// Сначала рендерим товары
+	renderAccordionProducts();
 
-	// Создание навигационных сегментов
-	productsCreateNavbarSegments();
+	// Обновляем состояние кнопок избранного
+	updateFavoriteButtonsState();
 
-	// Добавление обработчиков наведения на карточки
-	productsAddProductHoverHandlers();
+	// Затем настраиваем аккордеон
+	setTimeout( () => {
+		productsUpdateMeasurements();
+		productsCreateNavbarSegments();
+		productsAddProductHoverHandlers();
+		productsUpdateCurrentIndex();
+		productsStartAutoScroll();
+	}, 100 );
 
-	// Обновление текущего индекса
-	productsUpdateCurrentIndex();
-
-	// Запуск автоскролла
-	productsStartAutoScroll();
-
-	// ========== ОБРАБОТЧИК ИЗМЕНЕНИЯ РАЗМЕРА ОКНА ==========
+	// Обработчик изменения размера окна
 	let productsResizeTimer;
 	window.addEventListener( 'resize', function () {
 		clearTimeout( productsResizeTimer );
 		productsResizeTimer = setTimeout( () => {
 			productsUpdateNavigation();
-
-			// Перезапускаем автоскролл
 			productsStopAutoScroll();
 			productsStartAutoScroll();
 		}, 250 );
 	} );
 
-	// ========== НАБЛЮДАТЕЛЬ ЗА ИЗМЕНЕНИЯМИ В DOM ==========
-	// MutationObserver отслеживает добавление/удаление товаров
+	// Наблюдатель за изменениями в DOM
 	const productsObserver = new MutationObserver( function ( mutations ) {
 		let shouldUpdate = false;
-
 		mutations.forEach( function ( mutation ) {
-			if ( mutation.type === 'childList' && mutation.addedNodes.length > 0 || mutation.removedNodes.length > 0 ) {
+			if ( mutation.type === 'childList' && ( mutation.addedNodes.length > 0 || mutation.removedNodes.length > 0 ) ) {
 				shouldUpdate = true;
 			}
 		} );
-
 		if ( shouldUpdate ) {
-			// Обновляем навигацию без перезагрузки
 			productsUpdateNavigation();
-
-			// Добавляем обработчики для новых карточек
 			productsAddProductHoverHandlers();
+			updateFavoriteButtonsState();
 		}
 	} );
-
-	// Запускаем наблюдение за изменениями в контейнере товаров
 	productsObserver.observe( productsScroll, { childList: true, subtree: false } );
 
-	// ========== СЛУШАЕМ ОБНОВЛЕНИЯ ТОВАРОВ ==========
-	// Слушаем кастомное событие обновления товаров
+	// Слушаем обновление товаров
 	window.addEventListener( 'store:productsUpdated', function () {
-		// Обновляем навигацию
-		productsUpdateNavigation();
+		renderAccordionProducts();
+		setTimeout( () => {
+			productsUpdateNavigation();
+			productsAddProductHoverHandlers();
+			updateFavoriteButtonsState();
+		}, 100 );
+	} );
 
-		// Добавляем обработчики для новых карточек
-		productsAddProductHoverHandlers();
+	// Слушаем обновление избранного (чтобы обновить состояние кнопок)
+	window.addEventListener( 'store:favoritesUpdated', function () {
+		updateFavoriteButtonsState();
 	} );
 
 	console.log( '✅ Скролл-аккордеон товаров инициализирован' );

@@ -1,3 +1,8 @@
+/* ===== ПОДКЛЮЧЕНИЕ ШРИФТОВ ДЛЯ ПОДВАЛА ===== */
+/* Шрифты уже подключены в шапке, но для подвала используем те же */
+/* Основной шрифт: Montserrat */
+/* Азиатский/аниме шрифт: Zen Maru Gothic, M PLUS Rounded 1c */
+
 /* Стили для подвала сайта "Комори" */
 
 footer {
@@ -77,6 +82,7 @@ footer::after {
 	position: relative;
 }
 
+/* НАЗВАНИЯ КОЛОНОК - японский/аниме стиль */
 .footer-column h3 {
 	color: #ffb7c5;
 	font-size: clamp(16px, 2vw, 20px);
@@ -86,8 +92,9 @@ footer::after {
 	display: flex;
 	align-items: center;
 	gap: 10px;
-	letter-spacing: -0.3px;
+	letter-spacing: 1px;
 	position: relative;
+	font-family: 'Zen Maru Gothic', 'M PLUS Rounded 1c', 'Montserrat', sans-serif;
 }
 
 .footer-column h3 i {
@@ -110,7 +117,7 @@ footer::after {
 	background: linear-gradient(90deg, #ffb7c5, transparent);
 }
 
-/* Ссылки */
+/* СТИЛИ ДЛЯ ССЫЛОК В ПОДВАЛЕ - современный читаемый шрифт */
 .footer-links {
 	list-style: none;
 	padding: 0;
@@ -124,6 +131,7 @@ footer::after {
 	position: relative;
 }
 
+/* ОПИСАНИЕ/ТЕКСТ ССЫЛОК - аккуратный, с азиатским акцентом */
 .footer-links a {
 	color: rgba(255, 255, 255, 0.7);
 	text-decoration: none;
@@ -135,6 +143,8 @@ footer::after {
 	padding: 6px 0;
 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	border-radius: 8px;
+	font-family: 'Montserrat', 'M PLUS Rounded 1c', sans-serif;
+	letter-spacing: 0.3px;
 }
 
 .footer-links a i {
@@ -234,14 +244,22 @@ footer::after {
 	border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* ЗАГОЛОВОК ПОДПИСКИ - аниме стиль */
 .newsletter h4 {
 	color: #ffb7c5;
 	font-size: clamp(14px, 1.8vw, 16px);
-	font-weight: 500;
+	font-weight: 600;
 	margin-bottom: 15px;
 	display: flex;
 	align-items: center;
 	gap: 8px;
+	font-family: 'Zen Maru Gothic', 'M PLUS Rounded 1c', 'Montserrat', sans-serif;
+	letter-spacing: 0.8px;
+}
+
+/* ТЕКСТ В ПОЛЕ ВВОДА */
+.newsletter h4 i {
+	font-size: 18px;
 }
 
 .input-group {
@@ -258,6 +276,13 @@ footer::after {
 	color: white;
 	font-size: 14px;
 	transition: all 0.3s ease;
+	font-family: 'Montserrat', 'M PLUS Rounded 1c', sans-serif;
+}
+
+.subscribe-form input::placeholder {
+	color: rgba(255, 255, 255, 0.4);
+	font-family: 'Montserrat', 'M PLUS Rounded 1c', sans-serif;
+	font-weight: 300;
 }
 
 .subscribe-form input:focus {
@@ -287,14 +312,11 @@ footer::after {
 	box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
 }
 
-.subscribe-form button i {
-	transition: transform 0.3s ease;
-}
-
 .subscribe-form button:hover i {
 	transform: scale(1.2);
 }
 
+/* ТЕКСТ ЧЕКБОКСА */
 .checkbox {
 	display: flex;
 	align-items: center;
@@ -303,10 +325,19 @@ footer::after {
 	font-size: 11px;
 	color: rgba(255, 255, 255, 0.5);
 	cursor: pointer;
+	font-family: 'Montserrat', 'M PLUS Rounded 1c', sans-serif;
 }
 
 .checkbox input {
 	accent-color: #ffb7c5;
+}
+
+.checkbox span {
+	transition: color 0.3s ease;
+}
+
+.checkbox:hover span {
+	color: rgba(255, 255, 255, 0.8);
 }
 
 /* Нижняя часть футера */
@@ -320,20 +351,26 @@ footer::after {
 	gap: 20px;
 }
 
+/* ТЕКСТ КОПИРАЙТА */
 .copyright {
 	color: rgba(255, 255, 255, 0.6);
 	font-size: 13px;
 	display: flex;
 	align-items: center;
 	gap: 5px;
+	font-family: 'Montserrat', 'M PLUS Rounded 1c', sans-serif;
+	letter-spacing: 0.3px;
 }
 
+/* ТЕКСТ РАЗРАБОТЧИКА */
 .developer {
 	color: rgba(255, 255, 255, 0.6);
 	font-size: 13px;
 	display: flex;
 	align-items: center;
 	gap: 5px;
+	font-family: 'Montserrat', 'M PLUS Rounded 1c', sans-serif;
+	letter-spacing: 0.3px;
 }
 
 .developer i {
@@ -491,6 +528,15 @@ footer::after {
 		width: 100%;
 		height: 48px;
 	}
+
+	/* Уменьшаем размер шрифтов на мобильных */
+	.footer-column h3 {
+		font-size: 18px;
+	}
+
+	.footer-links a {
+		font-size: 13px;
+	}
 }
 
 /* Мобильные (до 481px) */
@@ -541,6 +587,20 @@ footer::after {
 		width: 100%;
 		height: 46px;
 	}
+
+	/* Адаптация шрифтов */
+	.footer-column h3 {
+		font-size: 17px;
+	}
+
+	.footer-links a {
+		font-size: 12px;
+	}
+
+	.copyright,
+	.developer {
+		font-size: 11px;
+	}
 }
 
 /* Очень маленькие экраны (до 360px) */
@@ -554,7 +614,7 @@ footer::after {
 	}
 
 	.footer-links a {
-		font-size: 12px;
+		font-size: 11px;
 	}
 
 	.social-links {
@@ -572,17 +632,17 @@ footer::after {
 	}
 
 	.subscribe-form input {
-		padding: 12px 10px;
-		font-size: 13px;
+		padding: 10px;
+		font-size: 12px;
 	}
 
 	.subscribe-form button {
-		height: 44px;
+		height: 42px;
 	}
 
 	.copyright,
 	.developer {
-		font-size: 11px;
+		font-size: 10px;
 	}
 }
 
@@ -615,7 +675,6 @@ footer::after {
 		font-size: 32px;
 	}
 }
-
 
 /* Декоративные лепестки сакуры */
 .hero-decoration {

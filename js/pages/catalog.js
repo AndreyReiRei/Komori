@@ -59,9 +59,9 @@ class CatalogPage {
             <div class="product-card" data-id="${product.id}">
                 <div class="product-image">
                     <img src="${API.getSafeImageUrl( product.image )}" 
-                         alt="${product.name}" 
-                         loading="lazy"
-                         onerror="this.src='${API.getFallbackSvg( product.name )}'">
+                        alt="${product.name}" 
+                        loading="lazy"
+                        onerror="this.src='${API.getFallbackSvg( product.name )}'">
                     ${badges ? `<div class="product-badges">${badges}</div>` : ''}
                 </div>
                 <div class="product-content">

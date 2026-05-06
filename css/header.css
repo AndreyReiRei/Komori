@@ -1,4 +1,22 @@
+/* ===== ПОДКЛЮЧЕНИЕ ШРИФТОВ ===== */
+/* Основной шрифт для азиатской тематики (Montserrat - читаемый, современный) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+/* Японский/азиатский стиль для заголовков (Zen Maru Gothic - мягкий, азиатский характер) */
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
+
+/* Дополнительный шрифт для акцентов (M PLUS Rounded 1c - округлый, современный) */
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap');
+
+/* Стиль для логотипа и заголовков (Noto Serif JP - японский серифный) */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;900&display=swap');
+
 /* Стили для шапки сайта "Комори" */
+
+/* ===== БАЗОВЫЕ СТИЛИ ДЛЯ ВСЕГО САЙТА ===== */
+body {
+	font-family: 'Montserrat', 'M PLUS Rounded 1c', sans-serif;
+}
 
 /* ===== ОСНОВНЫЕ СТИЛИ ШАПКИ ===== */
 header {
@@ -79,22 +97,28 @@ header::before {
 	transform: scale(0.95);
 }
 
+/* НАЗВАНИЕ САЙТА - японский стиль */
 .logo-text {
 	font-size: 22px;
-	font-weight: 700;
+	font-weight: 800;
 	line-height: 1.2;
 	color: white;
-	letter-spacing: 1px;
+	letter-spacing: 2px;
+	font-family: 'Noto Serif JP', 'Zen Maru Gothic', 'Montserrat', serif;
+	text-shadow: 1px 1px 1px rgba(255, 183, 197, 0.3);
 }
 
+/* ТЕГЛАЙН ЛОГОТИПА - восточная эстетика */
 .logo-tagline {
 	display: block;
 	font-size: 12px;
-	font-weight: 300;
-	opacity: 0.7;
+	font-weight: 400;
+	opacity: 0.8;
 	margin-top: 4px;
 	color: #ffb7c5;
-	letter-spacing: 0.5px;
+	letter-spacing: 1.5px;
+	font-family: 'Zen Maru Gothic', 'M PLUS Rounded 1c', sans-serif;
+	font-style: normal;
 }
 
 /* ===== КНОПКА ЧАТА (ДЕСКТОП) ===== */
@@ -103,6 +127,7 @@ header::before {
 	align-items: center;
 }
 
+/* НАДПИСИ НА КНОПКАХ - современный стиль */
 .chat-btn {
 	background: transparent;
 	color: #ffb7c5;
@@ -110,16 +135,17 @@ header::before {
 	padding: 10px 22px;
 	border-radius: 30px;
 	cursor: pointer;
-	font-weight: 500;
+	font-weight: 600;
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	transition: all 0.3s ease;
 	font-size: 13px;
 	text-transform: uppercase;
-	letter-spacing: 1px;
+	letter-spacing: 1.5px;
 	background: rgba(26, 26, 26, 0.5);
 	backdrop-filter: blur(5px);
+	font-family: 'Montserrat', 'M PLUS Rounded 1c', sans-serif;
 }
 
 .chat-btn:hover {
@@ -168,7 +194,7 @@ header::before {
 	border: none;
 	cursor: pointer;
 	width: 100%;
-	font-family: inherit;
+	font-family: 'Montserrat', 'M PLUS Rounded 1c', sans-serif;
 }
 
 /* Единый hover-эффект для всех иконок */
@@ -208,7 +234,7 @@ header::before {
 	transform: scale(1.1);
 }
 
-/* Текст под иконками */
+/* ТЕКСТ ПОД ИКОНКАМИ - современный аниме-стиль */
 .action-text,
 .chat-mobile-btn .action-text,
 .search-btn .action-text {
@@ -216,6 +242,8 @@ header::before {
 	font-weight: 500;
 	white-space: nowrap;
 	transition: color 0.3s ease;
+	font-family: 'Zen Maru Gothic', 'M PLUS Rounded 1c', 'Montserrat', sans-serif;
+	letter-spacing: 0.8px;
 }
 
 /* ===== БЕЙДЖИ ДЛЯ ИКОНОК ===== */
@@ -237,6 +265,7 @@ header::before {
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	animation: badgePulse 2s infinite;
+	font-family: 'Montserrat', sans-serif;
 }
 
 @keyframes badgePulse {
@@ -310,6 +339,7 @@ header::before {
 		text-align: center;
 	}
 
+	/* НАЗВАНИЯ КОЛОНОК МЕНЮ - аккуратный современный стиль */
 	.nav-link {
 		color: rgba(255, 255, 255, 0.9);
 		text-decoration: none;
@@ -320,10 +350,12 @@ header::before {
 		gap: 8px;
 		transition: all 0.3s ease;
 		font-size: 15px;
-		font-weight: 400;
+		font-weight: 500;
 		height: 100%;
 		white-space: nowrap;
 		border-right: 1px solid rgba(255, 255, 255, 0.05);
+		font-family: 'Montserrat', 'M PLUS Rounded 1c', sans-serif;
+		letter-spacing: 0.5px;
 	}
 
 	.nav-list>li:last-child .nav-link {
@@ -357,7 +389,7 @@ header::before {
 	}
 
 	.has-dropdown>.nav-link {
-		font-weight: 500;
+		font-weight: 600;
 	}
 
 	.has-dropdown>.nav-link i:first-child {
@@ -377,6 +409,7 @@ header::before {
 		opacity: 1;
 	}
 
+	/* ПУНКТЫ ВЫПАДАЮЩЕГО МЕНЮ */
 	.dropdown-menu {
 		position: absolute;
 		top: 100%;
@@ -414,6 +447,7 @@ header::before {
 		list-style: none;
 	}
 
+	/* ТЕКСТ В ВЫПАДАЮЩЕМ МЕНЮ - азиатский акцент */
 	.dropdown-menu li a {
 		color: rgba(255, 255, 255, 0.8);
 		text-decoration: none;
@@ -425,6 +459,9 @@ header::before {
 		transition: all 0.3s ease;
 		font-size: 14px;
 		white-space: nowrap;
+		font-family: 'Zen Maru Gothic', 'M PLUS Rounded 1c', sans-serif;
+		font-weight: 500;
+		letter-spacing: 0.8px;
 	}
 
 	.dropdown-menu li:last-child a {
@@ -442,10 +479,12 @@ header::before {
 		color: #ffb7c5;
 		min-width: 18px;
 		opacity: 0.8;
+		transition: transform 0.3s ease;
 	}
 
 	.dropdown-menu li a:hover i {
 		opacity: 1;
+		transform: scale(1.05);
 	}
 }
 
@@ -469,10 +508,12 @@ header::before {
 	/* Логотип */
 	.logo-text {
 		font-size: 20px;
+		font-weight: 800;
 	}
 
 	.logo-tagline {
 		font-size: 11px;
+		letter-spacing: 1.2px;
 	}
 
 	.logo-icon {
@@ -628,6 +669,7 @@ header::before {
 		padding: 18px 8px;
 		font-size: 13px;
 		gap: 4px;
+		font-weight: 500;
 	}
 
 	.nav-link i:first-child {
@@ -645,6 +687,7 @@ header::before {
 	.nav-link {
 		padding: 18px 10px;
 		font-size: 14px;
+		font-weight: 500;
 	}
 }
 
@@ -656,6 +699,7 @@ header::before {
 
 	.nav-link {
 		font-size: 16px;
+		font-weight: 500;
 		padding: 20px 15px;
 	}
 }
@@ -668,6 +712,7 @@ header::before {
 
 	.nav-link {
 		font-size: 17px;
+		font-weight: 600;
 		padding: 22px 20px;
 	}
 }
@@ -682,11 +727,10 @@ header::before {
 
 	.nav-link {
 		font-size: 18px;
+		font-weight: 600;
 		padding: 24px 25px;
 	}
 }
-
-
 
 /* Аватар в шапке */
 .header-avatar {

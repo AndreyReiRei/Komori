@@ -1,10 +1,21 @@
+/* Импорт азиатских/аниме шрифтов */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;900&display=swap');
+
+
+
 /* Основные стили сайта "Комори" - азиатский магазинчик */
 
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: 'Segoe UI', Tahoma, 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+	/* Базовый шрифт с азиатскими приоритетами */
+	font-family: 'Montserrat', 'Zen Maru Gothic', 'M PLUS Rounded 1c',
+		'Segoe UI', 'Hiragino Kaku Gothic Pro', 'Meiryo',
+		-apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 html,
@@ -25,6 +36,12 @@ body {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+	/* Основной шрифт для всего тела */
+	font-family: 'Montserrat', 'Zen Maru Gothic', 'M PLUS Rounded 1c',
+		'Segoe UI', 'Hiragino Kaku Gothic Pro', 'Meiryo',
+		-apple-system, BlinkMacSystemFont, sans-serif;
+	font-weight: 400;
+	font-size: 16px;
 }
 
 /* Основной контейнер для контента */
@@ -33,4 +50,311 @@ body {
 	margin: 0 auto;
 	padding: 0 1%;
 	flex: 1;
+}
+
+/* ===== ГЛОБАЛЬНЫЕ СТИЛИ ДЛЯ ЗАГОЛОВКОВ ===== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Noto Serif JP', 'Zen Maru Gothic', 'Montserrat',
+		'Hiragino Kaku Gothic Pro', serif;
+	font-weight: 600;
+	letter-spacing: -0.3px;
+}
+
+/* ===== ГЛОБАЛЬНЫЕ СТИЛИ ДЛЯ ПАРАГРАФОВ ===== */
+p,
+span,
+li,
+a {
+	font-family: 'Montserrat', 'M PLUS Rounded 1c',
+		'Segoe UI', 'Hiragino Kaku Gothic Pro', sans-serif;
+}
+
+/* ===== ГЛОБАЛЬНЫЕ СТИЛИ ДЛЯ КНОПОК ===== */
+button,
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+	font-family: 'Montserrat', 'Zen Maru Gothic',
+		'Segoe UI', 'Hiragino Kaku Gothic Pro', sans-serif;
+	font-weight: 500;
+	letter-spacing: 0.5px;
+}
+
+/* ===== ГЛОБАЛЬНЫЕ СТИЛИ ДЛЯ ПОЛЕЙ ВВОДА ===== */
+input,
+textarea,
+select {
+	font-family: 'Montserrat', 'M PLUS Rounded 1c',
+		'Segoe UI', 'Hiragino Kaku Gothic Pro', sans-serif;
+}
+
+/* ===== УЛУЧШЕННАЯ ТИПОГРАФИКА ДЛЯ АЗИАТСКОЙ ТЕМАТИКИ ===== */
+
+/* Специальный стиль для важных акцентов - восточная эстетика */
+.accent-text {
+	font-family: 'Noto Serif JP', 'Zen Maru Gothic', serif;
+	font-weight: 700;
+	letter-spacing: 1px;
+	color: #ff3366;
+}
+
+/* Стиль для цитат и особых текстов - дзен-эстетика */
+.quote-text,
+.zen-text {
+	font-family: 'Zen Maru Gothic', 'M PLUS Rounded 1c', sans-serif;
+	font-weight: 400;
+	letter-spacing: 0.5px;
+	line-height: 1.8;
+}
+
+/* Стиль для цен и важных чисел */
+.price-value,
+.stat-value,
+.order-total strong {
+	font-family: 'Montserrat', 'Zen Maru Gothic', sans-serif;
+	font-weight: 800;
+	letter-spacing: -0.5px;
+}
+
+/* Стиль для тегов и бейджей */
+.badge,
+.tag,
+.product-badge {
+	font-family: 'Montserrat', 'M PLUS Rounded 1c', sans-serif;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+}
+
+/* Стиль для навигационных элементов */
+.nav-item,
+.breadcrumb-item,
+.menu-link {
+	font-family: 'Zen Maru Gothic', 'Montserrat', sans-serif;
+	font-weight: 500;
+	letter-spacing: 0.3px;
+}
+
+/* ===== АДАПТИВНАЯ ТИПОГРАФИКА ===== */
+
+/* Планшеты (769px - 992px) */
+@media (769px <=width < 993px) {
+	body {
+		font-size: 15px;
+	}
+
+	h1 {
+		font-size: 32px;
+	}
+
+	h2 {
+		font-size: 26px;
+	}
+
+	h3 {
+		font-size: 22px;
+	}
+}
+
+/* Большие мобильные (577px - 768px) */
+@media (577px <=width < 769px) {
+	body {
+		font-size: 14px;
+	}
+
+	h1 {
+		font-size: 28px;
+	}
+
+	h2 {
+		font-size: 24px;
+	}
+
+	h3 {
+		font-size: 20px;
+	}
+}
+
+/* Мобильные L (481px - 576px) */
+@media (481px <=width < 577px) {
+	body {
+		font-size: 14px;
+	}
+
+	h1 {
+		font-size: 26px;
+	}
+
+	h2 {
+		font-size: 22px;
+	}
+
+	h3 {
+		font-size: 18px;
+	}
+}
+
+/* Мобильные (до 481px) */
+@media (width < 481px) {
+	body {
+		font-size: 13px;
+	}
+
+	h1 {
+		font-size: 24px;
+	}
+
+	h2 {
+		font-size: 20px;
+	}
+
+	h3 {
+		font-size: 18px;
+	}
+}
+
+/* Очень маленькие экраны (до 360px) */
+@media (width < 360px) {
+	body {
+		font-size: 12px;
+	}
+
+	h1 {
+		font-size: 22px;
+	}
+
+	h2 {
+		font-size: 18px;
+	}
+
+	h3 {
+		font-size: 16px;
+	}
+}
+
+/* Ультраширокие экраны (1921px и выше) */
+@media (width >=1921px) {
+	body {
+		font-size: 18px;
+	}
+
+	h1 {
+		font-size: 42px;
+	}
+
+	h2 {
+		font-size: 36px;
+	}
+
+	h3 {
+		font-size: 28px;
+	}
+
+	.container__main {
+		max-width: 1800px;
+		margin: 0 auto;
+	}
+}
+
+/* ===== УТИЛИТЫ ДЛЯ РАБОТЫ СО ШРИФТАМИ ===== */
+
+/* Классы для разных семейств шрифтов */
+.font-montserrat {
+	font-family: 'Montserrat', sans-serif;
+}
+
+.font-zen-maru {
+	font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+.font-m-plus {
+	font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+.font-noto-serif {
+	font-family: 'Noto Serif JP', serif;
+}
+
+/* Классы для начертаний */
+.font-light {
+	font-weight: 300;
+}
+
+.font-regular {
+	font-weight: 400;
+}
+
+.font-medium {
+	font-weight: 500;
+}
+
+.font-semibold {
+	font-weight: 600;
+}
+
+.font-bold {
+	font-weight: 700;
+}
+
+.font-extrabold {
+	font-weight: 800;
+}
+
+.font-black {
+	font-weight: 900;
+}
+
+/* Классы для интервалов */
+.letter-spacing-tight {
+	letter-spacing: -0.5px;
+}
+
+.letter-spacing-normal {
+	letter-spacing: 0px;
+}
+
+.letter-spacing-wide {
+	letter-spacing: 1px;
+}
+
+.letter-spacing-wider {
+	letter-spacing: 2px;
+}
+
+/* Классы для восточной эстетики */
+.oriental-text {
+	font-family: 'Noto Serif JP', 'Zen Maru Gothic', serif;
+	font-weight: 500;
+	letter-spacing: 1px;
+	line-height: 1.8;
+}
+
+.anime-text {
+	font-family: 'Zen Maru Gothic', 'M PLUS Rounded 1c', sans-serif;
+	font-weight: 600;
+	letter-spacing: 0.8px;
+	text-transform: uppercase;
+}
+
+/* ===== ОПТИМИЗАЦИЯ ДЛЯ РАЗНЫХ БРАУЗЕРОВ ===== */
+
+/* Улучшенная читаемость на Windows */
+@media screen and (-ms-high-contrast: active),
+(-ms-high-contrast: none) {
+	body {
+		font-family: 'Segoe UI', 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+	}
+}
+
+/* Улучшенная читаемость на macOS */
+@supports (font: -apple-system-body) {
+	body {
+		font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', 'Zen Maru Gothic', 'M PLUS Rounded 1c', sans-serif;
+	}
 }
