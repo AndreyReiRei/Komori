@@ -640,7 +640,10 @@
 /* Группа: поле ввода + кнопка */
 .promo-code-input-group {
 	display: flex;
+	flex-wrap: wrap;
+	/* перенос на новую строку */
 	gap: 10px;
+
 }
 
 /* Поле ввода промокода */

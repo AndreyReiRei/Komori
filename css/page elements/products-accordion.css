@@ -566,6 +566,93 @@
 	animation: slideIn 0.5s ease forwards;
 }
 
+/* ===== ОБЛАСТЬ ЗАГРУЗКИ ИЗОБРАЖЕНИЯ ДЛЯ СЛАЙДОВ (АКТУАЛЬНЫЕ СТИЛИ) ===== */
+.image-folder-upload {
+	border: 2px dashed #333;
+	border-radius: 12px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	background: #0d0d0d;
+	padding: 20px;
+	text-align: center;
+}
+
+.image-folder-upload:hover {
+	border-color: #ff3366;
+	background: rgba(255, 51, 102, 0.05);
+}
+
+#slideImagePreview {
+	min-height: 120px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#slideImagePreview i {
+	font-size: 48px;
+	color: #ff3366;
+}
+
+#slideImagePreview span {
+	color: #ccc;
+	font-size: 14px;
+}
+
+#slideImagePreview img {
+	max-width: 100%;
+	max-height: 200px;
+	border-radius: 8px;
+	object-fit: cover;
+}
+
+#slideImagePreview div {
+	width: 100%;
+}
+
+/* Кнопка очистки внутри превью */
+.clear-preview-btn {
+	transition: all 0.3s ease;
+	z-index: 10;
+}
+
+.clear-preview-btn:hover {
+	transform: scale(1.1);
+	background: #ff3838 !important;
+}
+
+/* Спиннер загрузки */
+.fa-spinner {
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* Кнопка повторной попытки выбора файла */
+.retry-select-btn {
+	margin-top: 10px;
+	padding: 5px 10px;
+	background: #ff3366;
+	border: none;
+	border-radius: 4px;
+	color: white;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.retry-select-btn:hover {
+	background: #ff6b6b;
+	transform: translateY(-1px);
+}
+
 /* ===== АДАПТИВНОСТЬ ===== */
 
 /* Ультраширокие экраны (1921px и выше) */

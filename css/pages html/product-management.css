@@ -408,7 +408,7 @@
 	margin-bottom: 15px;
 	line-height: 1.5;
 	display: -webkit-box;
-	-webkit-line-clamp: 2;
+	/* -webkit-line-clamp: 2; */
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
@@ -875,6 +875,133 @@ form {
 	line-height: 1;
 }
 
+/* ===== НОВЫЕ СТИЛИ ДЛЯ ЗАГРУЗКИ ИЗОБРАЖЕНИЙ В СЛАЙДАХ ===== */
+
+/* Область загрузки изображения для слайдов */
+.slide-image-upload {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 150px;
+	border: 2px dashed #333333;
+	border-radius: 12px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	background: #0d0d0d;
+	text-align: center;
+	color: #cccccc;
+	position: relative;
+	overflow: hidden;
+}
+
+.slide-image-upload:hover {
+	border-color: #ff3366;
+	background: rgba(255, 51, 102, 0.05);
+}
+
+/* Плейсхолдер для загрузки */
+.upload-placeholder {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 20px;
+}
+
+.upload-text {
+	font-size: 14px;
+	font-weight: 500;
+	color: #ff3366;
+}
+
+.upload-hint {
+	font-size: 12px;
+	color: #999999;
+}
+
+/* Индикатор загрузки */
+.loading-placeholder {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	padding: 20px;
+}
+
+.loading-spinner {
+	width: 40px;
+	height: 40px;
+	border: 3px solid #333333;
+	border-top-color: #ff3366;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.loading-text {
+	font-size: 13px;
+	color: #cccccc;
+}
+
+/* Контейнер для превью */
+.preview-container {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 15px;
+	min-height: 150px;
+	background: #0d0d0d;
+}
+
+.preview-container img {
+	max-width: 100%;
+	max-height: 200px;
+	border-radius: 8px;
+	object-fit: contain;
+}
+
+/* Кнопка очистки превью */
+.clear-preview-btn {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.7);
+	border: 1px solid #ff4757;
+	color: white;
+	cursor: pointer;
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
+	font-size: 16px;
+	transition: all 0.3s ease;
+	z-index: 10;
+}
+
+
+.clear-preview-btn:hover {
+	background: #ff4757;
+	transform: scale(1.1);
+}
+
+.clear-preview-btn::before {
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+
 /* ===== ЧЕКБОКСЫ ДЛЯ БЕЙДЖЕЙ ===== */
 .badges-group {
 	display: flex;
@@ -1179,7 +1306,7 @@ form {
 	font-size: 14px;
 }
 
-/* ===== УПРАВЛЕНИЕ ПРОМО-СЛАЙДАМИ (ИСПРАВЛЕННЫЕ СТИЛИ) ===== */
+/* ===== УПРАВЛЕНИЕ ПРОМО-СЛАЙДАМИ ===== */
 .promo-slides-module {
 	margin-top: 50px;
 	padding-top: 30px;
@@ -1369,28 +1496,6 @@ form {
 	background: rgba(153, 153, 153, 0.2);
 	color: #999999;
 }
-
-/* Загрузка изображения для слайдов */
-.slide-image-upload {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 50px;
-	border: 2px dashed #333333;
-	border-radius: 12px;
-	cursor: pointer;
-	transition: all 0.3s ease;
-	background: #0d0d0d;
-	text-align: center;
-	color: #cccccc;
-}
-
-.slide-image-upload:hover {
-	border-color: #ff3366;
-	background: rgba(255, 51, 102, 0.05);
-}
-
-
 
 /* ===== МОДАЛЬНЫЕ ОКНА ДЛЯ ПРОМОКОДОВ И СЛАЙДОВ ===== */
 .promocode-modal-content,
@@ -1913,19 +2018,6 @@ form {
 
 	.badge-checkbox {
 		width: 100%;
-	}
-
-	.image-upload-area {
-		padding: 20px;
-		min-height: 120px;
-	}
-
-	.image-upload-area i {
-		font-size: 32px;
-	}
-
-	.image-upload-area span {
-		font-size: 12px;
 	}
 
 	.promocodes-module .module-header,

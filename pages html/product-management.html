@@ -567,7 +567,6 @@
 						<div class="form-group">
 							<label>Или выберите файл</label>
 							<div class="image-folder-upload" id="imageFolderUpload">
-								<i class="fas fa-folder-open"></i>
 								<span>Выбрать изображение</span>
 							</div>
 							<input type="file" id="imageFolderFile" accept="image/*" style="display: none;">
@@ -676,18 +675,32 @@
 										placeholder="/pages html/catalog pages/office.html">
 								</div>
 
+								<!-- Область загрузки изображения -->
 								<div class="form-group">
-									<label>Изображение *</label>
-									<div class="slide-image-upload" id="slideImageUpload">
-										<div class="image-preview" id="slideImagePreview">
-											<i class="fas fa-cloud-upload-alt"></i>
-											<span>Нажмите для загрузки изображения</span>
+									<label> Изображение *</label>
+									<div class="image-folder-upload" id="slideImageUpload">
+										<!-- Плейсхолдер для загрузки -->
+										<div class="upload-placeholder">
+											<span class="upload-text">Нажмите для выбора файла</span>
+											<span class="upload-hint">Поддерживаются JPG, PNG, WebP</span>
 										</div>
-										<input type="file" id="slideImageFile" accept="image/*" style="display: none;">
-										<input type="hidden" id="slideImageUrl">
+
+										<!-- Индикатор загрузки (ДОБАВИТЬ) -->
+										<div class="loading-placeholder" style="display: none;">
+											<div class="loading-spinner"></div>
+											<span class="loading-text">Загрузка изображения...</span>
+										</div>
+
+										<!-- Контейнер для превью -->
+										<div class="preview-container" id="slidePreviewContainer"
+											style="display: none;">
+											<img id="slidePreviewImage" src="" alt="Превью" style="display: none;">
+											<button type="button" class="clear-preview-btn" id="clearPreviewBtn"
+												style="display: none;">✕</button>
+										</div>
 									</div>
-									<small class="form-hint">Рекомендуемый размер: 1920x1080px. Форматы: JPG, PNG,
-										WebP</small>
+									<input type="file" id="slideImageFile" accept="image/*" style="display: none;">
+									<input type="hidden" id="slideImageUrl">
 								</div>
 
 								<div class="form-row">

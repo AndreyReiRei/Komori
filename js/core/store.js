@@ -11,6 +11,7 @@ class Store {
 		this.cart = [];
 		this.favorites = [];
 		this.users = [];
+		this.promoSlides = []; // Промо-слайды для главной страницы
 
 		// ========== КАТЕГОРИИ ТОВАРОВ ==========
 		this.categories = {
@@ -39,6 +40,7 @@ class Store {
 	init() {
 		this.loadFromStorage();
 		this.addDemoProductsIfNeeded();
+		this.addDemoSlidesIfNeeded();
 	}
 
 	// =========================================================================
@@ -51,12 +53,14 @@ class Store {
 			this.cart = JSON.parse( localStorage.getItem( 'komori_cart' ) ) || [];
 			this.favorites = JSON.parse( localStorage.getItem( 'komori_favorites' ) ) || [];
 			this.users = JSON.parse( localStorage.getItem( 'komori_users' ) ) || [];
+			this.promoSlides = JSON.parse( localStorage.getItem( 'komori_promo_slides' ) ) || [];
 		} catch ( e ) {
 			console.error( '❌ Ошибка загрузки из localStorage:', e );
 			this.products = [];
 			this.cart = [];
 			this.favorites = [];
 			this.users = [];
+			this.promoSlides = [];
 		}
 	}
 
@@ -76,6 +80,7 @@ class Store {
 			localStorage.setItem( 'komori_cart', JSON.stringify( this.cart ) );
 			localStorage.setItem( 'komori_favorites', JSON.stringify( this.favorites ) );
 			localStorage.setItem( 'komori_users', JSON.stringify( this.users ) );
+			localStorage.setItem( 'komori_promo_slides', JSON.stringify( this.promoSlides ) );
 
 			this.dispatchEvents();
 		} catch ( e ) {
@@ -118,6 +123,7 @@ class Store {
 		window.dispatchEvent( new CustomEvent( 'store:productsUpdated', { detail: this.products } ) );
 		window.dispatchEvent( new CustomEvent( 'store:cartUpdated', { detail: this.cart } ) );
 		window.dispatchEvent( new CustomEvent( 'store:favoritesUpdated', { detail: this.favorites } ) );
+		window.dispatchEvent( new CustomEvent( 'promoslides:updated', { detail: this.promoSlides } ) );
 	}
 
 	// =========================================================================
@@ -484,6 +490,174 @@ class Store {
 	}
 
 	// =========================================================================
+	// УПРАВЛЕНИЕ ПРОМО-СЛАЙДАМИ
+	// =========================================================================
+
+	/**
+	 * Получить все слайды (для админки)
+	 */
+	getPromoSlides() {
+		return [...this.promoSlides].sort( ( a, b ) => a.order - b.order );
+	}
+
+	/**
+	 * Получить активные слайды для главной страницы
+	 */
+	getActivePromoSlides() {
+		return this.promoSlides
+			.filter( slide => slide.status === 'active' )
+			.sort( ( a, b ) => a.order - b.order );
+	}
+
+	/**
+	 * Добавить новый слайд
+	 */
+	addPromoSlide( slideData ) {
+		const newSlide = {
+			id: Date.now(),
+			...slideData,
+			createdAt: new Date().toISOString()
+		};
+		this.promoSlides.push( newSlide );
+		this.saveToStorage();
+		window.dispatchEvent( new CustomEvent( 'promoslides:updated', { detail: this.promoSlides } ) );
+		return newSlide;
+	}
+
+	/**
+	 * Обновить существующий слайд
+	 */
+	updatePromoSlide( id, slideData ) {
+		const index = this.promoSlides.findIndex( s => s.id == id );
+		if ( index !== -1 ) {
+			this.promoSlides[index] = { ...this.promoSlides[index], ...slideData };
+			this.saveToStorage();
+			window.dispatchEvent( new CustomEvent( 'promoslides:updated', { detail: this.promoSlides } ) );
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Удалить слайд
+	 */
+	deletePromoSlide( id ) {
+		this.promoSlides = this.promoSlides.filter( s => s.id != id );
+		// Перенумеровываем order
+		this.promoSlides.forEach( ( slide, idx ) => {
+			slide.order = idx;
+		} );
+		this.saveToStorage();
+		window.dispatchEvent( new CustomEvent( 'promoslides:updated', { detail: this.promoSlides } ) );
+	}
+
+	/**
+	 * Добавляет демонстрационные слайды, если их нет
+	 */
+	addDemoSlidesIfNeeded() {
+		if ( this.promoSlides.length === 0 ) {
+			const demoSlides = [  // ← ИСПРАВЛЕНО: demoSlides
+				{
+					id: Date.now() + 1,
+					title: 'Канцелярия',
+					description: 'Широкий ассортимент канцелярии',
+					price: '',
+					link: '/pages html/catalog pages/office.html',
+					image: '/image/kawai.jpg',
+					order: 0,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					id: Date.now() + 2,
+					title: 'Фигурки',
+					description: 'Широкий ассортимент фигурок',
+					price: '',
+					link: '/pages html/catalog pages/figurines.html',
+					image: '/image/figures.jpg',
+					order: 1,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					id: Date.now() + 3,
+					title: 'Одежда',
+					description: 'Футболки / Худи / Свитшоты',
+					price: '',
+					link: '/pages html/catalog pages/clothes.html',
+					image: '/image/T-shirt.jpg',
+					order: 2,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					id: Date.now() + 4,
+					title: 'Музыка',
+					description: 'Азиатская популярная музыка',
+					price: '',
+					link: '/pages html/catalog pages/music.html',
+					image: '/image/music.jpg',
+					order: 3,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					id: Date.now() + 5,
+					title: 'Манга',
+					description: 'Большой ассортимент книг и манги',
+					price: '',
+					link: '/pages html/catalog pages/manga.html',
+					image: '/image/manga.jpg',
+					order: 4,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					id: Date.now() + 6,
+					title: 'Чай',
+					description: 'Большой ассортимент чая',
+					price: '',
+					link: '/pages html/catalog pages/tea.html',
+					image: '/image/tea.jpg',
+					order: 5,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					id: Date.now() + 7,
+					title: 'Посуда',
+					description: 'Большой ассортимент посуды',
+					price: '',
+					link: '/pages html/catalog pages/dishes.html',
+					image: '/image/sakura.jpg',
+					order: 6,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					id: Date.now() + 8,
+					title: 'Сладости',
+					description: 'Большой ассортимент азиатской еды и сладостей',
+					price: 'начиная от 15 ₽!',
+					link: '/pages html/catalog pages/sweets.html',
+					image: '/image/swits.jpg',
+					order: 7,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				}
+			];
+
+			demoSlides.forEach( slide => {
+				this.promoSlides.push( slide );
+			} );
+
+			this.saveToStorage();
+			console.log( `📦 Добавлено ${demoSlides.length} демонстрационных слайдов` );
+		}
+	}
+
+
+	// =========================================================================
 	// ОБЩИЕ УТИЛИТЫ
 	// =========================================================================
 
@@ -549,9 +723,8 @@ class Store {
 		return urls[categoryKey] || '/pages html/catalog.html';
 	}
 
-	/**
-	 * Добавляет демонстрационные товары
-	 */
+	// Добавляет демонстрационные товары
+
 	addDemoProductsIfNeeded() {
 		if ( this.products.length === 0 ) {
 			const demos = [
@@ -568,7 +741,7 @@ class Store {
 					quantity: 15,
 					isNew: true,
 					isHit: true,
-					image: '/image/figures.jpg'
+					image: '/image/Фигурка Наруто Узумаки.jpg'
 				},
 				{
 					name: 'Фигурка Саске Учиха',
@@ -582,7 +755,7 @@ class Store {
 					quantity: 12,
 					isNew: false,
 					isHit: true,
-					image: '/image/figures.jpg'
+					image: '/image/Фигурка Саске Учиха.jpg'
 				},
 				{
 					name: 'Фигурка Гоку Супер Сайян',
@@ -596,7 +769,7 @@ class Store {
 					quantity: 8,
 					isNew: true,
 					isHit: false,
-					image: '/image/figures.jpg'
+					image: '/image/Фигурка Гоку Супер Сайян.jpg'
 				},
 
 				// ========== ЯПОНСКИЙ ЧАЙ (tea) ==========
@@ -612,7 +785,7 @@ class Store {
 					quantity: 45,
 					isNew: true,
 					isHit: false,
-					image: '/image/tea.jpg'
+					image: '/image/Чай маття премиум.jpg'
 				},
 				{
 					name: 'Сенча органический',
@@ -626,7 +799,7 @@ class Store {
 					quantity: 30,
 					isNew: false,
 					isHit: true,
-					image: '/image/tea.jpg'
+					image: '/image/Сенча органический.jpg'
 				},
 				{
 					name: 'Ходзитя обжаренный',
@@ -640,7 +813,7 @@ class Store {
 					quantity: 25,
 					isNew: true,
 					isHit: false,
-					image: '/image/tea.jpg'
+					image: '/image/Ходзитя обжаренный.jpg'
 				},
 
 				// ========== АЗИАТСКИЕ СЛАДОСТИ (sweets) ==========
@@ -656,7 +829,7 @@ class Store {
 					quantity: 23,
 					isNew: false,
 					isHit: true,
-					image: '/image/swits.jpg'
+					image: '/image/Набор японских сладостей.jpg'
 				},
 				{
 					name: 'Моти клубничные',
@@ -670,7 +843,7 @@ class Store {
 					quantity: 35,
 					isNew: true,
 					isHit: false,
-					image: '/image/swits.jpg'
+					image: '/image/Моти клубничные.jpg'
 				},
 				{
 					name: 'Дораяки с красной фасолью',
@@ -684,7 +857,7 @@ class Store {
 					quantity: 28,
 					isNew: false,
 					isHit: false,
-					image: '/image/swits.jpg'
+					image: '/image/Дораяки с красной фасолью.jpg'
 				},
 
 				// ========== МАНГА И КНИГИ (manga) ==========
@@ -700,7 +873,7 @@ class Store {
 					quantity: 0,
 					isNew: false,
 					isHit: false,
-					image: '/image/manga.jpg'
+					image: '/image/Манга Наруто том 1.jpg'
 				},
 				{
 					name: 'Манга "Атака Титанов" том 1',
@@ -714,7 +887,7 @@ class Store {
 					quantity: 18,
 					isNew: true,
 					isHit: true,
-					image: '/image/manga.jpg'
+					image: '/image/Манга Атака Титанов том 1.jpg'
 				},
 				{
 					name: 'Манга "Клинок, рассекающий демонов" том 1',
@@ -728,7 +901,7 @@ class Store {
 					quantity: 22,
 					isNew: true,
 					isHit: false,
-					image: '/image/manga.jpg'
+					image: '/image/Манга Клинок, рассекающий демонов том 1.jpg'
 				},
 
 				// ========== АНИМЕ ОДЕЖДА (clothing) ==========
@@ -744,7 +917,7 @@ class Store {
 					quantity: 25,
 					isNew: false,
 					isHit: true,
-					image: '/image/T-shirt.webp'
+					image: '/image/Футболка Наруто.jpg'
 				},
 				{
 					name: 'Худи "Атака Титанов"',
@@ -758,10 +931,10 @@ class Store {
 					quantity: 12,
 					isNew: true,
 					isHit: false,
-					image: '/image/T-shirt.webp'
+					image: '/image/Худи Атака Титанов.jpg'
 				},
 				{
-					name: 'Футболка "Демон-убийца"',
+					name: 'Футболка Демон-убийца',
 					category: 'clothing',
 					sku: 'CLO-DEM-003',
 					col: 'CLOTHING',
@@ -772,7 +945,7 @@ class Store {
 					quantity: 20,
 					isNew: true,
 					isHit: false,
-					image: '/image/T-shirt.webp'
+					image: '/image/Футболка Демон-убийца.jpeg'
 				},
 
 				// ========== ЯПОНСКАЯ ПОСУДА (tableware) ==========
@@ -788,7 +961,7 @@ class Store {
 					quantity: 10,
 					isNew: true,
 					isHit: true,
-					image: '/image/sakura.jpg'
+					image: '/image/Чайный набор Сакура.jpg'
 				},
 				{
 					name: 'Пиала для чая "Сакура"',
@@ -802,7 +975,7 @@ class Store {
 					quantity: 35,
 					isNew: false,
 					isHit: false,
-					image: '/image/sakura.jpg'
+					image: '/image/Пиала для чая Сакура.jpg'
 				},
 				{
 					name: 'Набор палочек для еды',
@@ -816,7 +989,7 @@ class Store {
 					quantity: 40,
 					isNew: false,
 					isHit: false,
-					image: '/image/sakura.jpg'
+					image: '/image/Набор палочек для еды.jpeg'
 				},
 
 				// ========== ЯПОНСКИЕ ИГРЫ (games) ==========
@@ -832,7 +1005,7 @@ class Store {
 					quantity: 8,
 					isNew: false,
 					isHit: false,
-					image: '/image/games.jpg'
+					image: '/image/Го классическое.jpg'
 				},
 				{
 					name: 'Нинтендо Свитч Про контроллер',
@@ -846,7 +1019,7 @@ class Store {
 					quantity: 15,
 					isNew: true,
 					isHit: true,
-					image: '/image/games.jpg'
+					image: '/image/Нинтендо Свитч Про контроллер.jpg'
 				},
 				{
 					name: 'Коллекционная карточная игра "Pokémon"',
@@ -860,7 +1033,7 @@ class Store {
 					quantity: 30,
 					isNew: true,
 					isHit: false,
-					image: '/image/games.jpg'
+					image: '/image/Коллекционная карточная игра Pokémon.jpg'
 				},
 
 				// ========== КАНЦЕЛЯРИЯ КАВАЙ (stationery) ==========
@@ -876,7 +1049,7 @@ class Store {
 					quantity: 50,
 					isNew: false,
 					isHit: false,
-					image: '/image/kawai.jpg'
+					image: '/image/Тетрадь в стиле кавай.jpg'
 				},
 				{
 					name: 'Набор ручек "Кавай"',
@@ -890,7 +1063,7 @@ class Store {
 					quantity: 45,
 					isNew: true,
 					isHit: false,
-					image: '/image/kawai.jpg'
+					image: '/image/Набор ручек Кавай.jpg'
 				},
 				{
 					name: 'Наклейки "Аниме" набор 50шт',
@@ -904,7 +1077,7 @@ class Store {
 					quantity: 100,
 					isNew: true,
 					isHit: true,
-					image: '/image/kawai.jpg'
+					image: '/image/Наклейки Аниме набор 50шт.jpg'
 				},
 
 				// ========== КОСМЕТИКА ИЗ АЗИИ (cosmetics) ==========
@@ -920,7 +1093,7 @@ class Store {
 					quantity: 80,
 					isNew: true,
 					isHit: false,
-					image: '/image/cosmetics.jpg'
+					image: '/image/Корейская маска для лица.jpg'
 				},
 				{
 					name: 'Тональный крем BB',
@@ -934,7 +1107,7 @@ class Store {
 					quantity: 25,
 					isNew: false,
 					isHit: true,
-					image: '/image/cosmetics.jpg'
+					image: '/image/Тональный крем BB.jpg'
 				},
 				{
 					name: 'Патчи для глаз с коллагеном',
@@ -948,7 +1121,7 @@ class Store {
 					quantity: 35,
 					isNew: true,
 					isHit: false,
-					image: '/image/cosmetics.jpg'
+					image: '/image/Патчи для глаз с коллагеном.jpg'
 				},
 
 				// ========== АЗИАТСКИЙ ДЕКОР (decor) ==========
@@ -964,7 +1137,7 @@ class Store {
 					quantity: 20,
 					isNew: true,
 					isHit: false,
-					image: '/image/decor.jpg'
+					image: '/image/Китайский фонарик Красный дракон.jpg'
 				},
 				{
 					name: 'Фигурка "Дракон" из нефрита',
@@ -978,7 +1151,7 @@ class Store {
 					quantity: 5,
 					isNew: false,
 					isHit: true,
-					image: '/image/decor.jpg'
+					image: '/image/Фигурка Дракон из нефрита.jpg'
 				},
 				{
 					name: 'Веер японский "Весна"',
@@ -992,7 +1165,7 @@ class Store {
 					quantity: 30,
 					isNew: false,
 					isHit: false,
-					image: '/image/decor.jpg'
+					image: '/image/Веер японский Весна.jpeg'
 				},
 
 				// ========== АНИМЕ НА ДИСКАХ (anime) ==========
@@ -1008,7 +1181,7 @@ class Store {
 					quantity: 12,
 					isNew: false,
 					isHit: false,
-					image: '/image/anime.jpg'
+					image: '/image/Наруто Коллекция фильмов DVD.jpg'
 				},
 				{
 					name: 'Унесённые призраками Blu-ray',
@@ -1022,7 +1195,7 @@ class Store {
 					quantity: 18,
 					isNew: true,
 					isHit: true,
-					image: '/image/anime.jpg'
+					image: '/image/Унесённые призраками Blu-ray.jpg'
 				},
 				{
 					name: 'Атака Титанов Сезон 1 DVD',
@@ -1036,7 +1209,7 @@ class Store {
 					quantity: 15,
 					isNew: false,
 					isHit: false,
-					image: '/image/anime.jpg'
+					image: '/image/Атака Титанов Сезон 1 DVD.jpg'
 				},
 
 				// ========== АЗИАТСКАЯ МУЗЫКА (music) ==========
@@ -1052,7 +1225,7 @@ class Store {
 					quantity: 20,
 					isNew: true,
 					isHit: true,
-					image: '/image/BTS.jpg'
+					image: '/image/K-POP альбом BTS BE.jpg'
 				},
 				{
 					name: 'J-POP альбом LiSA "Best"',
@@ -1066,7 +1239,7 @@ class Store {
 					quantity: 15,
 					isNew: true,
 					isHit: false,
-					image: '/image/music.jpg'
+					image: '/image/J-POP альбом LiSA Best.jpg'
 				},
 				{
 					name: 'OST аниме "Наруто" на виниле',
@@ -1080,7 +1253,7 @@ class Store {
 					quantity: 5,
 					isNew: false,
 					isHit: true,
-					image: '/image/music.jpg'
+					image: '/image/OST аниме Наруто на виниле.jpg'
 				},
 
 				// ========== ДРУГОЕ (other) ==========
@@ -1096,7 +1269,7 @@ class Store {
 					quantity: 10,
 					isNew: true,
 					isHit: false,
-					image: '/image/other.jpg'
+					image: '/image/Подарочный набор Комори.jpg'
 				},
 				{
 					name: 'Сертификат на 1000 ₽',
@@ -1110,7 +1283,7 @@ class Store {
 					quantity: 50,
 					isNew: false,
 					isHit: false,
-					image: '/image/other.jpg'
+					image: '/image/Сертификат на 1000 ₽.jpg'
 				},
 				{
 					name: 'Сумка-шоппер "Аниме"',
@@ -1124,7 +1297,7 @@ class Store {
 					quantity: 25,
 					isNew: true,
 					isHit: false,
-					image: '/image/other.jpg'
+					image: '/image/Сумка-шоппер Аниме.jpg'
 				}
 			];
 
@@ -1140,3 +1313,8 @@ class Store {
 // Создаем глобальный экземпляр
 window.store = new Store();
 console.log( '✅ Store инициализирован' );
+
+
+
+
+

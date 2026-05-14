@@ -4,6 +4,7 @@
  * 
  * ИСТОЧНИК 1: Shikimori API — русскоязычный каталог аниме (ОСНОВНОЙ)
  * ИСТОЧНИК 2: Jikan API v4 — /seasons/now (РЕЗЕРВ)
+ * ИСТОЧНИК 3: AniList API — GraphQL (ВТОРОЙ РЕЗЕРВ, не блокируется)
  * ГАРАНТИЯ: 9 аниме всегда отображаются в сетке 3x3
  */
 
@@ -27,8 +28,6 @@ class RisingSunNews {
 
 		/**
 		 * ИСТОЧНИК 1 (ОСНОВНОЙ): Shikimori API
-		 * Русскоязычная база данных аниме и манги
-		 * Документация: https://shikimori.one/api/doc
 		 */
 		this.shikimoriApiUrl = 'https://shikimori.one/api/animes';
 
@@ -41,20 +40,50 @@ class RisingSunNews {
 
 		/**
 		 * ИСТОЧНИК 2 (РЕЗЕРВ): Jikan API v4
-		 * Бесплатный REST API для MyAnimeList
-		 * Документация: https://docs.api.jikan.moe/
 		 */
 		this.jikanApiUrl = `https://api.jikan.moe/v4/seasons/${this.currentYear}/${this.currentSeason}`;
 
-		/** Таймаут запроса */
-		this.apiTimeout = 10000;
+		/**
+		 * ИСТОЧНИК 3 (ВТОРОЙ РЕЗЕРВ): AniList API (GraphQL)
+		 * Не блокируется, хороший источник данных
+		 */
+		this.anilistGraphqlUrl = 'https://graphql.anilist.co';
+
+		this.anilistQuery = `
+			query ($season: MediaSeason, $seasonYear: Int, $perPage: Int) {
+				Page(perPage: $perPage) {
+					media(season: $season, seasonYear: $seasonYear, status: RELEASING, sort: POPULARITY_DESC, type: ANIME) {
+						id
+						title {
+							romaji
+							english
+							native
+						}
+						description
+						coverImage {
+							large
+							extraLarge
+						}
+						format
+						status
+						episodes
+						averageScore
+						genres
+						siteUrl
+					}
+				}
+			}
+		`;
+
+		/** Таймаут запроса - увеличен до 15 секунд */
+		this.apiTimeout = 15000;
 
 		// ============================================================
 		// ЗАГЛУШКА ДЛЯ ИЗОБРАЖЕНИЙ
 		// ============================================================
 
 		/** Путь к локальной заглушке */
-		this.fallbackImage = '/image/404.JPEG';
+		this.fallbackImage = '/image/404.jpg';
 
 		// ============================================================
 		// РУССКИЕ НАЗВАНИЯ
@@ -67,13 +96,21 @@ class RisingSunNews {
 			'fall': '🍂 Осень'
 		};
 
-		this.typeNames = {
-			'tv': '📺 Сериал',
-			'movie': '🎬 Фильм',
-			'ova': '💿 OVA',
-			'ona': '🌐 ONA',
-			'special': '⭐ Спецвыпуск',
-			'music': '🎵 Клип'
+		this.seasonMap = {
+			'winter': 'WINTER',
+			'spring': 'SPRING',
+			'summer': 'SUMMER',
+			'fall': 'FALL'
+		};
+
+		this.formatNames = {
+			'TV': '📺 Сериал',
+			'TV_SHORT': '📺 Короткий сериал',
+			'MOVIE': '🎬 Фильм',
+			'OVA': '💿 OVA',
+			'ONA': '🌐 ONA',
+			'SPECIAL': '⭐ Спецвыпуск',
+			'MUSIC': '🎵 Клип'
 		};
 
 		this.statusNames = {
@@ -82,11 +119,14 @@ class RisingSunNews {
 			'anons': '📅 Анонс',
 			'airing': '▶️ Выходит',
 			'complete': '✅ Завершён',
-			'upcoming': '📅 Скоро'
+			'upcoming': '📅 Скоро',
+			'RELEASING': '▶️ Выходит',
+			'FINISHED': '✅ Завершён',
+			'NOT_YET_RELEASED': '📅 Скоро'
 		};
 
 		// ============================================================
-		// МАРКЕРЫ ЗАГЛУШЕК API (для фильтрации)
+		// МАРКЕРЫ ЗАГЛУШЕК API
 		// ============================================================
 
 		this.apiPlaceholderMarkers = [
@@ -102,13 +142,11 @@ class RisingSunNews {
 			'default.jpg',
 			'default.png',
 			'questionmark',
-			'na_series',
-			'na_series.jpg'
+			'na_series'
 		];
 
 		// ============================================================
 		// РЕЗЕРВНЫЕ АНИМЕ (100% ГАРАНТИЯ)
-		// Все названия на русском языке
 		// ============================================================
 
 		this.fallbackAnime = [
@@ -116,7 +154,7 @@ class RisingSunNews {
 				id: 1,
 				title: 'Клинок, рассекающий демонов: Тренировка столпов',
 				excerpt: 'Продолжение культового аниме. Тандзиро и его друзья проходят тренировку у столпов, готовясь к финальной битве с демонами.',
-				image: '/image/404.png',
+				image: this.fallbackImage,
 				type: 'tv',
 				status: 'ongoing',
 				episodes: '11 эп.',
@@ -129,7 +167,7 @@ class RisingSunNews {
 				id: 2,
 				title: 'Моя геройская академия 7',
 				excerpt: 'Седьмой сезон популярного аниме про академию героев. Новые злодеи, новые способности и эпические сражения.',
-				image: '/image/404.png',
+				image: this.fallbackImage,
 				type: 'tv',
 				status: 'ongoing',
 				episodes: '25 эп.',
@@ -142,7 +180,7 @@ class RisingSunNews {
 				id: 3,
 				title: 'Ван-Пис',
 				excerpt: 'Легендарное аниме продолжается. Луффи и его команда исследуют новые острова и сражаются с могущественными врагами.',
-				image: '/image/404.png',
+				image: this.fallbackImage,
 				type: 'tv',
 				status: 'ongoing',
 				episodes: 'продолжается',
@@ -154,8 +192,8 @@ class RisingSunNews {
 			{
 				id: 4,
 				title: 'Реинкарнация безработного 2 (часть 2)',
-				excerpt: 'Продолжение истории Рудеуса Грейрата. Новые приключения, магия и развитие персонажей в мире меча и магии.',
-				image: '/image/404.png',
+				excerpt: 'Продолжение истории Рудеуса Грейрата. Новые приключения, магия и развитие персонажей.',
+				image: this.fallbackImage,
 				type: 'tv',
 				status: 'ongoing',
 				episodes: '12 эп.',
@@ -167,8 +205,8 @@ class RisingSunNews {
 			{
 				id: 5,
 				title: 'Звёздное дитя 2',
-				excerpt: 'Второй сезон нашумевшего аниме о мире шоу-бизнеса. Аква и Руби продолжают свой путь к славе и мести.',
-				image: '/image/404.png',
+				excerpt: 'Второй сезон нашумевшего аниме о мире шоу-бизнеса. Аква и Руби продолжают свой путь к славе.',
+				image: this.fallbackImage,
 				type: 'tv',
 				status: 'ongoing',
 				episodes: '13 эп.',
@@ -181,7 +219,7 @@ class RisingSunNews {
 				id: 6,
 				title: 'Семья шпиона 3',
 				excerpt: 'Третий сезон комедийного хита. Ллойд, Йор и Аня продолжают свою тайную жизнь под одной крышей.',
-				image: '/image/404.png',
+				image: this.fallbackImage,
 				type: 'tv',
 				status: 'ongoing',
 				episodes: '12 эп.',
@@ -194,7 +232,7 @@ class RisingSunNews {
 				id: 7,
 				title: 'Магическая битва 3',
 				excerpt: 'Третий сезон тёмного фэнтези. Новые проклятия, новые техники и раскрытие тайн мира магов.',
-				image: '/image/404.png',
+				image: this.fallbackImage,
 				type: 'tv',
 				status: 'ongoing',
 				episodes: '24 эп.',
@@ -207,7 +245,7 @@ class RisingSunNews {
 				id: 8,
 				title: 'Провожающая в последний путь Фрирен 2',
 				excerpt: 'Продолжение трогательной истории эльфийки Фрирен, путешествующей по миру после победы над королём демонов.',
-				image: '/image/404.png',
+				image: this.fallbackImage,
 				type: 'tv',
 				status: 'ongoing',
 				episodes: '12 эп.',
@@ -219,8 +257,8 @@ class RisingSunNews {
 			{
 				id: 9,
 				title: 'О моём перерождении в слизь 4',
-				excerpt: 'Четвёртый сезон исекая. Римуру продолжает строить свою нацию монстров и противостоять новым угрозам.',
-				image: '/image/404.png',
+				excerpt: 'Четвёртый сезон исекая. Римуру продолжает строить свою нацию монстров.',
+				image: this.fallbackImage,
 				type: 'tv',
 				status: 'ongoing',
 				episodes: '24 эп.',
@@ -242,11 +280,6 @@ class RisingSunNews {
 	// ОПРЕДЕЛЕНИЕ ТЕКУЩЕГО СЕЗОНА
 	// ====================================================================
 
-	/**
-	 * Автоматически определяет текущий аниме-сезон
-	 * Зима: январь-март, Весна: апрель-июнь
-	 * Лето: июль-сентябрь, Осень: октябрь-декабрь
-	 */
 	getCurrentSeason() {
 		const month = new Date().getMonth();
 		if ( month >= 0 && month <= 2 ) return 'winter';
@@ -263,7 +296,8 @@ class RisingSunNews {
 		const seasonName = this.seasonNames[this.currentSeason];
 		console.log( `[RSN] 🚀 Загрузка аниме сезона ${seasonName} ${this.currentYear}` );
 		console.log( '[RSN] 📡 Основной источник: Shikimori (русскоязычный)' );
-		console.log( '[RSN] 📡 Резервный источник: Jikan API' );
+		console.log( '[RSN] 📡 Резервный источник 1: Jikan API' );
+		console.log( '[RSN] 📡 Резервный источник 2: AniList API' );
 		console.log( '[RSN] 🖼️ Заглушка:', this.fallbackImage );
 
 		this.updateHeroTitle();
@@ -271,9 +305,6 @@ class RisingSunNews {
 		await this.loadAnime();
 	}
 
-	/**
-	 * Обновляет заголовок с указанием текущего сезона
-	 */
 	updateHeroTitle() {
 		const subtitle = document.querySelector( '.hero-subtitle' );
 		const description = document.querySelector( '.hero-description' );
@@ -288,7 +319,6 @@ class RisingSunNews {
 
 	// ====================================================================
 	// ЗАГРУЗКА АНИМЕ
-	// ПРИОРИТЕТ: Shikimori → Jikan → Фолбэк
 	// ====================================================================
 
 	async loadAnime() {
@@ -296,8 +326,8 @@ class RisingSunNews {
 		this.animeList = [];
 
 		try {
-			// ШАГ 1: Shikimori API (РУССКОЯЗЫЧНЫЙ — ОСНОВНОЙ)
-			console.log( '[RSN] 📡 Попытка 1: Shikimori API (русскоязычный)' );
+			// ШАГ 1: Shikimori API (ОСНОВНОЙ)
+			console.log( '[RSN] 📡 Попытка 1: Shikimori API' );
 			this.animeList = await this.fetchFromShikimori();
 
 			if ( this.animeList.length >= 6 ) {
@@ -313,8 +343,8 @@ class RisingSunNews {
 			console.warn( '[RSN] ❌ Shikimori недоступен:', shikimoriError.message );
 
 			try {
-				// ШАГ 2: Jikan API (РЕЗЕРВ)
-				console.log( '[RSN] 📡 Попытка 2: Jikan API (резерв)' );
+				// ШАГ 2: Jikan API (РЕЗЕРВ 1)
+				console.log( '[RSN] 📡 Попытка 2: Jikan API' );
 				this.animeList = await this.fetchFromJikan();
 
 				if ( this.animeList.length >= 6 ) {
@@ -329,14 +359,32 @@ class RisingSunNews {
 			} catch ( jikanError ) {
 				console.warn( '[RSN] ❌ Jikan недоступен:', jikanError.message );
 
-				// ШАГ 3: Локальные данные (100% ГАРАНТИЯ)
-				console.log( '[RSN] 📦 Используем локальный список аниме' );
-				this.animeList = [...this.fallbackAnime];
+				try {
+					// ШАГ 3: AniList API (РЕЗЕРВ 2 - не блокируется)
+					console.log( '[RSN] 📡 Попытка 3: AniList API (GraphQL)' );
+					this.animeList = await this.fetchFromAniList();
 
-				this.showNotification(
-					'Показан список аниме текущего сезона из нашего каталога.',
-					'info'
-				);
+					if ( this.animeList.length >= 6 ) {
+						console.log( `[RSN] ✅ AniList: загружено ${this.animeList.length} аниме` );
+						this.finalizeList( 'AniList' );
+						return;
+					}
+
+					console.warn( `[RSN] ⚠️ AniList вернул только ${this.animeList.length} записей` );
+					throw new Error( 'Недостаточно данных от AniList' );
+
+				} catch ( anilistError ) {
+					console.warn( '[RSN] ❌ AniList недоступен:', anilistError.message );
+
+					// ШАГ 4: Локальные данные (100% ГАРАНТИЯ)
+					console.log( '[RSN] 📦 Используем локальный список аниме' );
+					this.animeList = [...this.fallbackAnime];
+
+					this.showNotification(
+						'Показан список аниме текущего сезона из нашего каталога.',
+						'info'
+					);
+				}
 			}
 		} finally {
 			this.showLoader( false );
@@ -345,7 +393,7 @@ class RisingSunNews {
 	}
 
 	// ====================================================================
-	// ИСТОЧНИК 1: SHIKIMORI API (РУССКОЯЗЫЧНЫЙ)
+	// ИСТОЧНИК 1: SHIKIMORI API
 	// ====================================================================
 
 	async fetchFromShikimori() {
@@ -368,11 +416,9 @@ class RisingSunNews {
 				signal: controller.signal,
 				headers: {
 					'Accept': 'application/json',
-					'User-Agent': 'Komori-Store/1.0 (shikimori client)'
+					'User-Agent': 'Komori-Store/1.0'
 				}
 			} );
-
-			console.log( '[RSN] 📡 Shikimori статус:', response.status );
 
 			if ( !response.ok ) {
 				throw new Error( `HTTP ${response.status}` );
@@ -385,23 +431,6 @@ class RisingSunNews {
 			}
 
 			console.log( `[RSN] Shikimori вернул ${data.length} аниме` );
-
-			// Логируем первое аниме для отладки
-			if ( data.length > 0 ) {
-				const first = data[0];
-				console.log( '[RSN] 📋 Пример из Shikimori:', {
-					id: first.id,
-					name: first.name,
-					russian: first.russian || '(нет русского названия)',
-					kind: first.kind,
-					status: first.status,
-					score: first.score,
-					episodes: first.episodes,
-					imageOriginal: first.image?.original ? first.image.original.substring( 0, 60 ) + '...' : 'нет',
-					imagePreview: first.image?.preview ? first.image.preview.substring( 0, 60 ) + '...' : 'нет',
-					genres: first.genres?.map( g => g.russian || g.name ).slice( 0, 3 )
-				} );
-			}
 
 			return data.slice( 0, 9 ).map( ( anime, index ) => ( {
 				id: index + 1,
@@ -423,7 +452,7 @@ class RisingSunNews {
 	}
 
 	// ====================================================================
-	// ИСТОЧНИК 2: JIKAN API (РЕЗЕРВ)
+	// ИСТОЧНИК 2: JIKAN API
 	// ====================================================================
 
 	async fetchFromJikan() {
@@ -441,8 +470,6 @@ class RisingSunNews {
 				headers: { 'Accept': 'application/json' }
 			} );
 
-			console.log( '[RSN] 📡 Jikan статус:', response.status );
-
 			if ( !response.ok ) {
 				throw new Error( `HTTP ${response.status}` );
 			}
@@ -452,24 +479,10 @@ class RisingSunNews {
 
 			console.log( `[RSN] Jikan вернул ${animeData.length} аниме` );
 
-			if ( animeData.length > 0 ) {
-				const first = animeData[0];
-				console.log( '[RSN] 📋 Пример из Jikan:', {
-					title: first.title,
-					type: first.type,
-					status: first.status,
-					score: first.score,
-					episodes: first.episodes,
-					imageJpg: first.images?.jpg?.large_image_url ? first.images.jpg.large_image_url.substring( 0, 60 ) + '...' : 'нет',
-					imageWebp: first.images?.webp?.large_image_url ? first.images.webp.large_image_url.substring( 0, 60 ) + '...' : 'нет',
-					genres: first.genres?.map( g => g.name ).slice( 0, 3 )
-				} );
-			}
-
 			return animeData.slice( 0, 9 ).map( ( anime, index ) => ( {
 				id: index + 1,
 				title: anime.title || anime.title_english || 'Без названия',
-				excerpt: this.truncateText( anime.synopsis || '', 250 ),
+				excerpt: this.truncateText( anime.synopsis || '', 200 ),
 				image: this.extractJikanImage( anime.images ),
 				type: anime.type || 'tv',
 				status: anime.status || 'airing',
@@ -486,71 +499,111 @@ class RisingSunNews {
 	}
 
 	// ====================================================================
-	// ИЗВЛЕЧЕНИЕ ИЗОБРАЖЕНИЙ С ПРОВЕРКОЙ НА ЗАГЛУШКИ API
+	// ИСТОЧНИК 3: ANILIST API (НЕ БЛОКИРУЕТСЯ)
 	// ====================================================================
 
-	/**
-	 * Извлекает URL изображения из объекта anime Shikimori
-	 * Проверяет, не является ли изображение заглушкой API
-	 */
+	async fetchFromAniList() {
+		console.log( '[RSN] 🌐 AniList GraphQL запрос' );
+
+		const variables = {
+			season: this.seasonMap[this.currentSeason],
+			seasonYear: this.currentYear,
+			perPage: 9
+		};
+
+		const controller = new AbortController();
+		const timeoutId = setTimeout( () => {
+			console.warn( '[RSN] ⏰ Таймаут AniList' );
+			controller.abort();
+		}, this.apiTimeout );
+
+		try {
+			const response = await fetch( this.anilistGraphqlUrl, {
+				method: 'POST',
+				signal: controller.signal,
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json'
+				},
+				body: JSON.stringify( {
+					query: this.anilistQuery,
+					variables: variables
+				} )
+			} );
+
+			if ( !response.ok ) {
+				throw new Error( `HTTP ${response.status}` );
+			}
+
+			const data = await response.json();
+			const mediaList = data?.data?.Page?.media || [];
+
+			console.log( `[RSN] AniList вернул ${mediaList.length} аниме` );
+
+			if ( mediaList.length > 0 ) {
+				const first = mediaList[0];
+				console.log( '[RSN] 📋 Пример из AniList:', {
+					title: first.title?.romaji,
+					format: first.format,
+					status: first.status,
+					score: first.averageScore,
+					episodes: first.episodes
+				} );
+			}
+
+			return mediaList.map( ( anime, index ) => ( {
+				id: index + 1,
+				title: anime.title?.romaji || anime.title?.english || 'Без названия',
+				excerpt: this.cleanHtml( anime.description || '' ).substring( 0, 200 ),
+				image: this.extractAniListImage( anime.coverImage ),
+				type: this.getAniListFormat( anime.format ),
+				status: this.getAniListStatus( anime.status ),
+				episodes: anime.episodes ? `${anime.episodes} эп.` : '? эп.',
+				score: ( anime.averageScore || 0 ) / 10,
+				genres: ( anime.genres || [] ).slice( 0, 3 ),
+				source: 'AniList',
+				sourceUrl: anime.siteUrl || '#'
+			} ) );
+
+		} finally {
+			clearTimeout( timeoutId );
+		}
+	}
+
+	// ====================================================================
+	// ИЗВЛЕЧЕНИЕ ИЗОБРАЖЕНИЙ
+	// ====================================================================
+
 	extractShikimoriImage( anime ) {
-		// Shikimori v2 API — оригинальное изображение
 		if ( anime.image?.original ) {
 			const imgUrl = anime.image.original;
-			// Проверяем, не заглушка ли это Shikimori (missing_original.jpg и т.д.)
-			if ( this.isApiPlaceholder( imgUrl ) ) {
-				console.warn( '[RSN] 🖼️ Shikimori original — заглушка:', imgUrl );
-				return this.fallbackImage;
+			if ( !this.isApiPlaceholder( imgUrl ) ) {
+				return imgUrl.startsWith( 'http' ) ? imgUrl : `https://shikimori.one${imgUrl}`;
 			}
-			return imgUrl.startsWith( 'http' ) ? imgUrl : `https://shikimori.one${imgUrl}`;
 		}
 
-		// Shikimori v2 API — превью
 		if ( anime.image?.preview ) {
 			const imgUrl = anime.image.preview;
-			if ( this.isApiPlaceholder( imgUrl ) ) {
-				console.warn( '[RSN] 🖼️ Shikimori preview — заглушка:', imgUrl );
-				return this.fallbackImage;
+			if ( !this.isApiPlaceholder( imgUrl ) ) {
+				return imgUrl.startsWith( 'http' ) ? imgUrl : `https://shikimori.one${imgUrl}`;
 			}
-			return imgUrl.startsWith( 'http' ) ? imgUrl : `https://shikimori.one${imgUrl}`;
 		}
 
-		// Shikimori v1 API (старый формат)
-		if ( anime.poster?.originalUrl && !this.isApiPlaceholder( anime.poster.originalUrl ) ) {
-			return anime.poster.originalUrl;
-		}
-		if ( anime.poster?.mainUrl && !this.isApiPlaceholder( anime.poster.mainUrl ) ) {
-			return anime.poster.mainUrl;
-		}
-
-		// Если ничего нет — локальная заглушка
 		return this.fallbackImage;
 	}
 
-	/**
-	 * Извлекает URL изображения из объекта images Jikan API
-	 * Проверяет все форматы и фильтрует заглушки
-	 */
 	extractJikanImage( images ) {
 		if ( !images ) return this.fallbackImage;
 
-		// Проверяем все возможные форматы
 		const candidates = [
 			images.jpg?.large_image_url,
 			images.jpg?.image_url,
-			images.jpg?.small_image_url,
 			images.webp?.large_image_url,
-			images.webp?.image_url,
-			images.webp?.small_image_url
+			images.webp?.image_url
 		];
 
 		for ( const url of candidates ) {
-			if ( url && url.startsWith( 'http' ) ) {
-				// Проверяем, не заглушка ли это MAL
-				if ( this.isApiPlaceholder( url ) ) {
-					console.warn( '[RSN] 🖼️ Jikan — заглушка:', url );
-					continue; // Пропускаем, пробуем следующий формат
-				}
+			if ( url && url.startsWith( 'http' ) && !this.isApiPlaceholder( url ) ) {
 				return url;
 			}
 		}
@@ -558,96 +611,79 @@ class RisingSunNews {
 		return this.fallbackImage;
 	}
 
-	/**
-	 * Проверяет, является ли URL изображения заглушкой API
-	 * @param {string} url — URL изображения
-	 * @returns {boolean} true если это заглушка
-	 */
+	extractAniListImage( coverImage ) {
+		if ( !coverImage ) return this.fallbackImage;
+
+		const candidates = [
+			coverImage.extraLarge,
+			coverImage.large
+		];
+
+		for ( const url of candidates ) {
+			if ( url && url.startsWith( 'http' ) ) {
+				return url;
+			}
+		}
+
+		return this.fallbackImage;
+	}
+
 	isApiPlaceholder( url ) {
 		if ( !url || typeof url !== 'string' ) return true;
-
 		const lowerUrl = url.toLowerCase();
 
-		// Проверяем по маркерам
 		for ( const marker of this.apiPlaceholderMarkers ) {
 			if ( lowerUrl.includes( marker ) ) {
 				return true;
 			}
 		}
 
-		// Дополнительная проверка для Shikimori
-		if ( lowerUrl.includes( '/assets/globals/' ) && lowerUrl.includes( 'missing' ) ) {
-			return true;
-		}
-
 		return false;
 	}
 
 	/**
-	 * Валидация URL изображения
-	 * Проверяет URL и возвращает либо его, либо заглушку
-	 */
-	validateImageUrl( url ) {
-		// Если URL пустой или невалидный
-		if ( !url || typeof url !== 'string' || url.trim().length === 0 ) {
-			return this.fallbackImage;
-		}
-
-		// Проверяем на заглушки API
-		if ( this.isApiPlaceholder( url ) ) {
-			console.warn( '[RSN] 🖼️ validateImageUrl — заглушка API:', url );
-			return this.fallbackImage;
-		}
-
-		// Абсолютный URL
-		if ( url.startsWith( 'http://' ) || url.startsWith( 'https://' ) ) {
-			return url;
-		}
-
-		// Относительный путь Shikimori
-		if ( url.startsWith( '/' ) ) {
-			return `https://shikimori.one${url}`;
-		}
-
-		// Локальный путь (начинается с /image/ или просто image/)
-		if ( url.includes( '404.png' ) || url.includes( 'image/' ) ) {
-			return url;
-		}
-
-		// Всё остальное — заглушка
-		return this.fallbackImage;
-	}
-
-	/**
 	 * Обработчик ошибки загрузки изображения
-	 * Вызывается из onerror в теге <img>
 	 */
 	handleImageError( img ) {
-		// Проверяем, не загружена ли уже наша заглушка
-		if ( img.src.includes( '404.png' ) ) {
-			return; // Уже заглушка, ничего не делаем
+		if ( img.src === this.fallbackImage ) {
+			return;
 		}
-
-		console.warn( '[RSN] 🖼️ Ошибка загрузки изображения:', img.src.substring( 0, 80 ) );
-
-		// Подставляем локальную заглушку
+		console.warn( '[RSN] 🖼️ Ошибка загрузки изображения, используем заглушку' );
 		img.src = this.fallbackImage;
-		img.onerror = null; // Убираем обработчик, чтобы избежать бесконечного цикла
+		img.onerror = null;
+	}
+
+	getAniListFormat( format ) {
+		const formats = {
+			'TV': 'tv',
+			'TV_SHORT': 'tv',
+			'MOVIE': 'movie',
+			'OVA': 'ova',
+			'ONA': 'ona',
+			'SPECIAL': 'special',
+			'MUSIC': 'music'
+		};
+		return formats[format] || 'tv';
+	}
+
+	getAniListStatus( status ) {
+		const statuses = {
+			'RELEASING': 'ongoing',
+			'FINISHED': 'complete',
+			'NOT_YET_RELEASED': 'upcoming'
+		};
+		return statuses[status] || 'ongoing';
 	}
 
 	// ====================================================================
 	// ОБРАБОТКА ТЕКСТА
 	// ====================================================================
 
-	/**
-	 * Извлекает описание из данных Shikimori
-	 */
 	extractShikimoriExcerpt( anime ) {
 		if ( anime.description ) {
-			return this.cleanHtml( anime.description ).substring( 0, 250 );
+			return this.cleanHtml( anime.description ).substring( 0, 200 );
 		}
 
-		// Формируем описание из характеристик
 		const parts = [];
 		if ( anime.kind ) parts.push( this.getKindName( anime.kind ) );
 		if ( anime.episodes ) parts.push( `${anime.episodes} эп.` );
@@ -656,30 +692,20 @@ class RisingSunNews {
 		return parts.join( ' · ' ) || 'Новое аниме в каталоге Shikimori';
 	}
 
-	/**
-	 * Очистка HTML-тегов и BB-кодов Shikimori
-	 */
 	cleanHtml( text ) {
 		if ( !text ) return '';
 		return text
-			.replace( /\[(\/?(?:b|i|u|s|quote|spoiler|code|url|img|comment|rn|post|topic|user|club|video|youtube|screen|list|\*|hr|size|color|center|right|left|table|tr|td|th))\]/gi, '' )
-			.replace( /<[^>]*>/g, '' )
 			.replace( /\[[^\]]*\]/g, '' )
+			.replace( /<[^>]*>/g, '' )
 			.replace( /\s+/g, ' ' )
 			.trim();
 	}
 
-	/**
-	 * Обрезает текст до указанной длины
-	 */
 	truncateText( text, maxLength ) {
 		if ( !text || text.length <= maxLength ) return text || '';
 		return text.substring( 0, maxLength ).trim() + '...';
 	}
 
-	/**
-	 * Русские названия типов аниме
-	 */
 	getKindName( kind ) {
 		const kinds = {
 			'tv': 'Сериал',
@@ -687,10 +713,7 @@ class RisingSunNews {
 			'ova': 'OVA',
 			'ona': 'ONA',
 			'special': 'Спецвыпуск',
-			'music': 'Клип',
-			'tv_13': 'Сериал',
-			'tv_24': 'Сериал',
-			'tv_48': 'Сериал'
+			'music': 'Клип'
 		};
 		return kinds[kind] || kind || 'Аниме';
 	}
@@ -699,26 +722,21 @@ class RisingSunNews {
 	// ФИНАЛИЗАЦИЯ СПИСКА
 	// ====================================================================
 
-	/**
-	 * Дополняет список до 9 аниме из резерва
-	 */
 	finalizeList( sourceName ) {
 		if ( this.animeList.length < 9 ) {
 			const needed = 9 - this.animeList.length;
 			console.log( `[RSN] ➕ Дополняем ${needed} аниме из резерва` );
 
-			// Берём только те, которых ещё нет в списке
 			const existingTitles = new Set( this.animeList.map( a => a.title.toLowerCase() ) );
 			const extra = this.fallbackAnime
 				.filter( f => !existingTitles.has( f.title.toLowerCase() ) )
 				.slice( 0, needed );
 
+			extra.forEach( a => a.image = this.fallbackImage );
 			this.animeList = [...this.animeList, ...extra];
 		}
 
 		console.log( `[RSN] Итого: ${this.animeList.length} аниме (источник: ${sourceName})` );
-
-		// Логируем первые 3 названия для проверки русского языка
 		console.log( '[RSN] Первые 3 аниме:', this.animeList.slice( 0, 3 ).map( a => a.title ) );
 	}
 
@@ -726,9 +744,6 @@ class RisingSunNews {
 	// ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ
 	// ====================================================================
 
-	/**
-	 * Экранирование HTML
-	 */
 	escapeHtml( text ) {
 		if ( !text ) return '';
 		const div = document.createElement( 'div' );
@@ -736,9 +751,6 @@ class RisingSunNews {
 		return div.innerHTML;
 	}
 
-	/**
-	 * Отрисовка звёзд рейтинга
-	 */
 	renderStars( score ) {
 		if ( !score || score === 0 ) return 'Нет оценки';
 
@@ -759,19 +771,16 @@ class RisingSunNews {
 	// ОТОБРАЖЕНИЕ
 	// ====================================================================
 
-	/**
-	 * Показ/скрытие лоадера
-	 */
 	showLoader( show ) {
 		this.isLoading = show;
 		const loader = document.getElementById( 'newsLoader' );
 		const grid = document.getElementById( 'newsGrid' );
 
 		if ( loader ) {
-			loader.style.display = show ? 'block' : 'none';
+			loader.style.display = show ? 'flex' : 'none';
 			const text = loader.querySelector( 'p' );
 			if ( text ) {
-				text.textContent = `Загружаем аниме сезона ${this.seasonNames[this.currentSeason]} с Shikimori...`;
+				text.textContent = `Загружаем аниме сезона ${this.seasonNames[this.currentSeason]}...`;
 			}
 		}
 
@@ -780,9 +789,6 @@ class RisingSunNews {
 		}
 	}
 
-	/**
-	 * Отрисовка сетки аниме
-	 */
 	render() {
 		const grid = document.getElementById( 'newsGrid' );
 		const empty = document.getElementById( 'emptyState' );
@@ -804,26 +810,19 @@ class RisingSunNews {
 		grid.innerHTML = this.animeList.map( anime => this.renderAnimeCard( anime ) ).join( '' );
 	}
 
-	/**
-	 * Отрисовка карточки аниме
-	 */
 	renderAnimeCard( anime ) {
-		const typeName = this.typeNames[anime.type] || '📺 Сериал';
+		const typeName = this.formatNames[anime.type?.toUpperCase()] || this.typeNames[anime.type] || '📺 Сериал';
 		const statusName = this.statusNames[anime.status] || '▶️ Выходит';
 		const stars = this.renderStars( anime.score );
 		const genres = ( anime.genres || [] ).slice( 0, 3 ).join( ' · ' );
-		const url = anime.sourceUrl || '#';
-		const imageUrl = this.validateImageUrl( anime.image );
-		const sourceLabel = anime.source || 'Shikimori';
 
 		return `
 			<div class="news-card anime-card">
 				<div class="news-image">
-					<img src="${imageUrl}" 
+					<img src="${anime.image}" 
 						 alt="${this.escapeHtml( anime.title )}" 
 						 loading="lazy"
-						 onerror="window.risingSunNews.handleImageError(this);"
-						 data-fallback="${this.fallbackImage}">
+						 onerror="window.risingSunNews.handleImageError(this);">
 					<div class="news-badges">
 						<span class="news-country">${typeName}</span>
 						<span class="news-category">${statusName}</span>
@@ -841,8 +840,8 @@ class RisingSunNews {
 					<p class="news-excerpt">${this.escapeHtml( anime.excerpt )}</p>
 					<div class="anime-genres">${genres}</div>
 					<div class="news-footer">
-						<span class="news-source"><i class="fas fa-database"></i> ${sourceLabel}</span>
-						<a href="${url}" class="news-link" target="_blank" rel="noopener noreferrer">
+						<span class="news-source"><i class="fas fa-database"></i> ${anime.source}</span>
+						<a href="${anime.sourceUrl}" class="news-link" target="_blank" rel="noopener noreferrer">
 							Подробнее <i class="fas fa-arrow-right"></i>
 						</a>
 					</div>
@@ -851,9 +850,6 @@ class RisingSunNews {
 		`;
 	}
 
-	/**
-	 * Показ уведомления
-	 */
 	showNotification( message, type = 'info' ) {
 		const el = document.createElement( 'div' );
 		el.className = `api-notification api-notification-${type}`;
@@ -885,26 +881,30 @@ class RisingSunNews {
 	// ====================================================================
 
 	bindEvents() {
-		// Подписка
-		document.getElementById( 'newsSubscribeForm' )?.addEventListener( 'submit', ( e ) => {
-			e.preventDefault();
-			const emailInput = e.target.querySelector( 'input[type="email"]' );
-			const email = emailInput?.value;
+		const subscribeForm = document.getElementById( 'newsSubscribeForm' );
+		if ( subscribeForm ) {
+			subscribeForm.addEventListener( 'submit', ( e ) => {
+				e.preventDefault();
+				const emailInput = e.target.querySelector( 'input[type="email"]' );
+				const email = emailInput?.value;
 
-			if ( email ) {
-				console.log( '[RSN] 📧 Подписка:', email );
-				this.showNotification(
-					'✅ Спасибо за подписку! Вы будете получать новости о новинках аниме.',
-					'success'
-				);
-				e.target.reset();
-			}
-		} );
+				if ( email ) {
+					console.log( '[RSN] 📧 Подписка:', email );
+					this.showNotification(
+						'✅ Спасибо за подписку! Вы будете получать новости о новинках аниме.',
+						'success'
+					);
+					e.target.reset();
+				}
+			} );
+		}
 
-		// Кнопка обновления на странице ошибки
-		document.getElementById( 'refreshEmptyBtn' )?.addEventListener( 'click', async () => {
-			await this.loadAnime();
-		} );
+		const refreshBtn = document.getElementById( 'refreshEmptyBtn' );
+		if ( refreshBtn ) {
+			refreshBtn.addEventListener( 'click', async () => {
+				await this.loadAnime();
+			} );
+		}
 	}
 }
 

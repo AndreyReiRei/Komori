@@ -1,36 +1,268 @@
+Структура проекта (в доработке)
+
 /project/
 │
 ├── index.html
-├── pages/
+│
+├── README.md
+├── favicon.svg
+│
+├── pages html/
 │   ├── cart.html
 │   ├── catalog.html
 │   ├── favorites.html
 │   ├── info.html
 │   ├── login.html
 │   ├── product-management.html
+│   ├── profile.html
+│   │
+│   ├── catalog pages/
+│   │   ├── figurines.html
+│   │   ├── tea.html
+│   │   ├── sweets.html
+│   │   ├── dishes.html
+│   │   ├── manga.html
+│   │   ├── clothes.html
+│   │   ├── games.html
+│   │   ├── office.html
+│   │   ├── cosmetics.html
+│   │   ├── decor.html
+│   │   ├── disks.html
+│   │   └── music.html
+│   │
+│   └── pages info/
+│       ├── About us.html
+│       ├── Asked Questions.html
+│       ├── Payment and delivery.html
+│       ├── Exchange and Refund.html
+│       ├── Contacts.html
+│       ├── Privacy policy.html
+│       └── rising sun news.html
+│
 ├── css/
 │   ├── main.css
 │   ├── header.css
 │   ├── footer.css
-│   ├── products-accordion.css
-│   └── burger-menu.css
-└── js/
-    ├── accardion-logo.js
-    ├── burger.js
-	├── buttons.js
-	├── cart.js
-    ├── catalog-expand.js
-	├── favorites.js
-	├── login.js
-    ├── product-management.js
-    ├── products-accordion.js
-	├── search.js
-	├── support.js
-    └── main.js
+│   │
+│   ├── page elements/
+│   │   ├── accordion-logo.css
+│   │   ├── burger-menu.css
+│   │   ├── catalog-product.css
+│   │   ├── catalog-styles.css
+│   │   ├── products-accordion.css
+│   │   ├── search.css
+│   │   └── support.css
+│   │
+│   └── pages html/
+│       ├── About as.css
+│       ├── cart.css
+│       ├── category-page.css
+│       ├── collections.css
+│       ├── contacts.css
+│       ├── delivery.css
+│       ├── exchange-refund.css
+│       ├── faq-privacy.css
+│       ├── favorites.css
+│       ├── info.css
+│       ├── login.css
+│       ├── product-management.css
+│       ├── profile.css
+│       ├── rising-sun-news.css
+│       └── special offers.css
+│
+├── js/
+│   ├── main.js
+│   │
+│   ├── admin/
+│   │   ├── accordion-logo.js
+│   │   ├── product-management.js
+│   │   └── promo-code.js
+│   │
+│   ├── core/
+│   │   ├── api.js
+│   │   └── store.js
+│   │
+│   └── pages/
+│       ├── burger.js
+│       ├── buttons.js
+│       ├── cart.js
+│       ├── catalog.js
+│       ├── category-page.js
+│       ├── collections.js
+│       ├── favorites.js
+│       ├── login.js
+│       ├── products-accordion.js
+│       ├── profile.js
+│       ├── rising-sun-news.js
+│       ├── search.js
+│       ├── special offers.js
+│       └── support.js
+│
+└── image/
+    ├── figures.jpg
+    ├── tea.jpg
+    ├── swits.jpg
+    ├── manga.jpg
+    ├── T-shirt.webp
+    ├── sakura.jpg
+    ├── kawai.jpg
+    ├── BTS.jpg
+    ├── office.jpg
+    ├── offices.jpg
+    ├── cosmetics.jpg
+    ├── decor.jpg
+    ├── anime.jpg
+    ├── music.jpg
+    ├── other.jpg
+    ├── 404.jpg
+    └── 404.png
+
+
+/project/
+├── index.html
+├── pages html/
+│   ├── catalog pages/      (12 страниц категорий)
+│   └── pages info/         (7 информационных страниц)
+├── css/
+│   ├── page elements/      (7 файлов стилей элементов)
+│   └── pages html/         (15 файлов стилей страниц)
+├── js/
+│   ├── admin/              (3 файла админки)
+│   ├── core/               (2 файла ядра)
+│   └── pages/              (15 файлов скриптов страниц)
+└── image/                  (17 изображений)
+
+
+/project/                                 # Корень проекта
+│
+├── 📄 index.html                         # Главная страница
+├── 📄 README.md                          # Документация
+├── 📄 favicon.svg                        # Иконка сайта
+│
+├── 📁 pages html/                        # HTML страницы сайта
+│   ├── 📄 cart.html                      # Корзина
+│   ├── 📄 catalog.html                   # Каталог
+│   ├── 📄 favorites.html                 # Избранное
+│   ├── 📄 info.html                      # Информация
+│   ├── 📄 login.html                     # Вход/регистрация
+│   ├── 📄 product-management.html        # Управление товарами (админка)
+│   ├── 📄 profile.html                   # Профиль пользователя
+│   │
+│   ├── 📁 catalog pages/                 # Страницы категорий
+│   │   ├── 📄 figurines.html             # Аниме фигурки
+│   │   ├── 📄 tea.html                   # Японский чай
+│   │   ├── 📄 sweets.html                # Азиатские сладости
+│   │   ├── 📄 dishes.html                # Японская посуда
+│   │   ├── 📄 manga.html                 # Манга и книги
+│   │   ├── 📄 clothes.html               # Аниме одежда
+│   │   ├── 📄 games.html                 # Японские игры
+│   │   ├── 📄 office.html                # Канцелярия кавай
+│   │   ├── 📄 cosmetics.html             # Косметика из Азии
+│   │   ├── 📄 decor.html                 # Азиатский декор
+│   │   ├── 📄 disks.html                 # Аниме на дисках
+│   │   └── 📄 music.html                 # Азиатская музыка
+│   │
+│   └── 📁 pages info/                    # Информационные страницы
+│       ├── 📄 About us.html              # О нас
+│       ├── 📄 Asked Questions.html       # Частые вопросы
+│       ├── 📄 Payment and delivery.html  # Оплата и доставка
+│       ├── 📄 Exchange and Refund.html   # Обмен и возврат
+│       ├── 📄 Contacts.html              # Контакты
+│       ├── 📄 Privacy policy.html        # Политика конфиденциальности
+│       └── 📄 rising sun news.html       # Новости восходящего солнца
+│
+├── 📁 css/                               # Стили CSS
+│   ├── 📄 main.css                       # Основные стили
+│   ├── 📄 header.css                     # Шапка сайта
+│   ├── 📄 footer.css                     # Подвал сайта
+│   │
+│   ├── 📁 page elements/                 # Стили элементов страницы
+│   │   ├── 📄 accordion-logo.css         # Аккордеон с логотипами
+│   │   ├── 📄 burger-menu.css            # Бургер-меню
+│   │   ├── 📄 catalog-product.css        # Карточки товаров
+│   │   ├── 📄 catalog-styles.css         # Стили каталога
+│   │   ├── 📄 products-accordion.css     # Аккордеон товаров
+│   │   ├── 📄 search.css                 # Поиск
+│   │   └── 📄 support.css                # Поддержка/чат
+│   │
+│   └── 📁 pages html/                    # Стили отдельных страниц
+│       ├── 📄 About as.css
+│       ├── 📄 cart.css
+│       ├── 📄 category-page.css
+│       ├── 📄 collections.css
+│       ├── 📄 contacts.css
+│       ├── 📄 delivery.css
+│       ├── 📄 exchange-refund.css
+│       ├── 📄 faq-privacy.css
+│       ├── 📄 favorites.css
+│       ├── 📄 info.css
+│       ├── 📄 login.css
+│       ├── 📄 product-management.css
+│       ├── 📄 profile.css
+│       ├── 📄 rising-sun-news.css
+│       └── 📄 special offers.css
+│
+├── 📁 js/                                # JavaScript файлы
+│   ├── 📄 main.js                        # Главный JS файл
+│   │
+│   ├── 📁 admin/                         # Административные скрипты
+│   │   ├── 📄 accordion-logo.js          # Управление слайдами
+│   │   ├── 📄 product-management.js      # Управление товарами
+│   │   └── 📄 promo-code.js              # Управление промокодами
+│   │
+│   ├── 📁 core/                          # Ядро приложения
+│   │   ├── 📄 api.js                     # Работа с API и утилиты
+│   │   └── 📄 store.js                   # Хранилище данных
+│   │
+│   └── 📁 pages/                         # Скрипты страниц
+│       ├── 📄 burger.js                  # Бургер-меню
+│       ├── 📄 buttons.js                 # Кнопки (дополнительные)
+│       ├── 📄 cart.js                    # Корзина
+│       ├── 📄 catalog.js                 # Каталог товаров
+│       ├── 📄 category-page.js           # Страницы категорий
+│       ├── 📄 collections.js             # Коллекции
+│       ├── 📄 favorites.js               # Избранное
+│       ├── 📄 login.js                   # Авторизация/регистрация
+│       ├── 📄 products-accordion.js      # Аккордеон товаров
+│       ├── 📄 profile.js                 # Профиль пользователя
+│       ├── 📄 rising-sun-news.js         # Новости аниме
+│       ├── 📄 search.js                  # Поиск
+│       ├── 📄 special offers.js          # Акции и скидки
+│       └── 📄 support.js                 # Чат поддержки
+│
+└── 📁 image/                             # Изображения
+    ├── 📄 figures.jpg
+    ├── 📄 tea.jpg
+    ├── 📄 swits.jpg
+    ├── 📄 manga.jpg
+    ├── 📄 T-shirt.webp
+    ├── 📄 sakura.jpg
+    ├── 📄 kawai.jpg
+    ├── 📄 BTS.jpg
+    ├── 📄 office.jpg
+    ├── 📄 offices.jpg
+    ├── 📄 cosmetics.jpg
+    ├── 📄 decor.jpg
+    ├── 📄 anime.jpg
+    ├── 📄 music.jpg
+    ├── 📄 other.jpg
+    ├── 📄 404.jpg
+    └── 📄 404.png
 
 
 
 
+Очистить старые товары - в консоли выполните:
+
+localStorage.removeItem('komori_products');
+location.reload();
+
+// Полная очистка всех данных сайта
+localStorage.clear();
+console.log('✅ Все данные очищены');
+
+// Перезагрузить страницу
+location.reload();
 
 
 Медиазапросы:
