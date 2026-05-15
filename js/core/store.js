@@ -556,7 +556,7 @@ class Store {
 	 */
 	addDemoSlidesIfNeeded() {
 		if ( this.promoSlides.length === 0 ) {
-			const demoSlides = [  // ← ИСПРАВЛЕНО: demoSlides
+			const demoSlides = [
 				{
 					id: Date.now() + 1,
 					title: 'Канцелярия',

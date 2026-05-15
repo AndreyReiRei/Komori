@@ -1,100 +1,177 @@
 /**
- * Вспомогательные функции для работы с API и изображениями
+ * ============================================================================
+ * API.JS - ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ДЛЯ РАБОТЫ С ИЗОБРАЖЕНИЯМИ И УТИЛИТАМИ
+ * ============================================================================
+ * 
+ * Этот файл содержит:
+ * 1. Работу с изображениями (пути, заглушки)
+ * 2. Форматирование (цены, склонения)
+ * 3. Уведомления
+ * 4. Общие функции для страниц
+ * 
+ * ============================================================================
  */
 
 const API = {
-	// Динамическое определение корня сайта
+	// =========================================================================
+	// 1. РАБОТА С ПУТЯМИ И КОРНЕМ САЙТА
+	// =========================================================================
+
+	/**
+	 * Динамическое определение корня сайта относительно текущей страницы
+	 * 
+	 * Как это работает:
+	 * - Если страница в корне (index.html) -> возвращает './'
+	 * - Если страница в папке pages html/ -> возвращает '../'
+	 * - Если страница в подпапке (catalog pages/) -> возвращает '../../'
+	 * 
+	 * @returns {string} Относительный путь к корню сайта
+	 */
 	siteRoot: ( function () {
-		// Определяем путь к корню сайта
+		// Получаем текущий путь страницы
 		const path = window.location.pathname;
 
-		// Если мы в папке pages html/ или pages/
+		console.log( '🔍 API: Определение корня сайта для пути:', path );
+
+		// Проверяем, находимся ли мы в папке pages html/
 		if ( path.includes( '/pages html/' ) || path.includes( '/pages/' ) ) {
-			return '../';  // Поднимаемся на уровень выше
+			console.log( '📁 API: Страница в папке pages html/, siteRoot = "../"' );
+			return '../';
 		}
 
-		// Если мы в подпапке catalog pages/ или pages info/
+		// Проверяем, находимся ли мы в подпапке catalog pages/ или pages info/
 		if ( path.includes( '/catalog pages/' ) || path.includes( '/pages info/' ) ) {
-			return '../../';  // Поднимаемся на два уровня выше
+			console.log( '📁 API: Страница в подпапке, siteRoot = "../../"' );
+			return '../../';
 		}
 
-		// Иначе мы в корне
+		// По умолчанию - корень сайта
+		console.log( '📁 API: Страница в корне, siteRoot = "./"' );
 		return './';
 	} )(),
 
-	// Путь к папке с изображениями (относительный)
+	/**
+	 * Путь к папке с изображениями (относительный)
+	 */
 	imageFolderPath: 'image/',
 
-	// ========== Работа с изображениями ==========
+	// =========================================================================
+	// 2. РАБОТА С ИЗОБРАЖЕНИЯМИ
+	// =========================================================================
+
 	/**
 	 * Получает безопасный URL изображения
-	 * @param {string} url - исходный URL
-	 * @returns {string} корректный URL
+	 * 
+	 * Алгоритм:
+	 * 1. Если URL пустой - возвращаем заглушку
+	 * 2. Если это внешняя ссылка (http://, https://) - возвращаем как есть
+	 * 3. Если это base64 (data:image) - возвращаем как есть
+	 * 4. Если это путь из папки /image/ - очищаем и подставляем правильный относительный путь
+	 * 
+	 * @param {string} url - исходный URL изображения
+	 * @returns {string} корректный URL для отображения
 	 */
 	getSafeImageUrl( url ) {
-		if ( !url ) return this.getFallbackSvg();
+		// Если URL не передан - показываем заглушку
+		if ( !url ) {
+			console.warn( '⚠️ API: Пустой URL изображения, используем заглушку' );
+			return this.getFallbackSvg();
+		}
 
-		// Внешние ссылки и base64 оставляем как есть
+		// Внешние ссылки и base64 оставляем без изменений
 		if ( url.startsWith( 'http' ) || url.startsWith( 'https' ) || url.startsWith( 'data:' ) ) {
 			return url;
 		}
 
-		// Убираем возможные дублирования image в пути
+		// Очищаем путь от лишних символов
 		let cleanUrl = url;
 
-		// Убираем лишние слеши в начале
+		// Убираем ведущие слеши (один или несколько)
 		cleanUrl = cleanUrl.replace( /^\/+/, '' );
 
-		// Убираем дублирование папки image
+		// Убираем дублирование папки image (если путь начинается с image/)
 		if ( cleanUrl.startsWith( 'image/' ) ) {
-			cleanUrl = cleanUrl.substring( 6 );
+			cleanUrl = cleanUrl.substring( 6 ); // удаляем 'image/'
 		}
 		if ( cleanUrl.startsWith( 'image' ) ) {
-			cleanUrl = cleanUrl.substring( 5 );
+			cleanUrl = cleanUrl.substring( 5 ); // удаляем 'image'
 		}
 
-		// Формируем путь относительно корня сайта
-		return this.siteRoot + this.imageFolderPath + cleanUrl;
+		// Убираем лишние слеши внутри пути
+		cleanUrl = cleanUrl.replace( /\/+/g, '/' );
+
+		// Формируем полный путь относительно корня сайта
+		const fullPath = this.siteRoot + this.imageFolderPath + cleanUrl;
+
+		console.log( `🖼️ API: Преобразование пути: ${url} -> ${fullPath}` );
+
+		return fullPath;
 	},
 
 	/**
-	 * Получает SVG заглушку для отсутствующих изображений
-	 * @param {string} text - текст на заглушке
-	 * @returns {string} data:image/svg+xml
+	 * Генерирует SVG заглушку для отсутствующих изображений
+	 * 
+	 * Использует встроенный SVG, который отображает текст "Нет фото"
+	 * Это позволяет не зависеть от внешних сервисов
+	 * 
+	 * @param {string} text - текст на заглушке (по умолчанию "Нет фото")
+	 * @returns {string} data:image/svg+xml строка
 	 */
 	getFallbackSvg( text = 'Нет фото' ) {
 		return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23e0e0e0'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999' font-size='16' font-family='Arial'%3E${encodeURIComponent( text )}%3C/text%3E%3C/svg%3E`;
 	},
 
 	/**
-	 * Обработка загрузки изображения (преобразование в base64)
-	 * @param {File} file - файл изображения
-	 * @param {Function} callback - функция обратного вызова
+	 * Обработка загрузки изображения через input file
+	 * Преобразует файл в base64 строку для предпросмотра
+	 * 
+	 * @param {File} file - загруженный файл изображения
+	 * @param {Function} callback - функция, которая получит base64 строку
 	 */
 	handleImageUpload( file, callback ) {
-		if ( !file ) return;
+		if ( !file ) {
+			console.warn( '⚠️ API: Файл не выбран' );
+			return;
+		}
 
+		// Проверка типа файла
 		if ( !file.type.startsWith( 'image/' ) ) {
 			this.showNotification( 'Пожалуйста, выберите изображение', 'error' );
 			return;
 		}
 
+		// Проверка размера (максимум 5MB)
 		if ( file.size > 5 * 1024 * 1024 ) {
-			this.showNotification( 'Размер файла не должен превышать 5MB', 'error' );
+			const sizeMB = ( file.size / 1024 / 1024 ).toFixed( 2 );
+			this.showNotification( `Размер файла (${sizeMB} MB) превышает лимит 5MB`, 'error' );
 			return;
 		}
 
 		const reader = new FileReader();
-		reader.onload = ( e ) => callback( e.target.result );
-		reader.onerror = () => this.showNotification( 'Ошибка загрузки изображения', 'error' );
+
+		reader.onload = ( e ) => {
+			console.log( '✅ API: Изображение загружено, размер base64:', ( e.target.result.length / 1024 ).toFixed( 2 ), 'KB' );
+			callback( e.target.result );
+		};
+
+		reader.onerror = () => {
+			console.error( '❌ API: Ошибка загрузки изображения' );
+			this.showNotification( 'Ошибка загрузки изображения', 'error' );
+		};
+
 		reader.readAsDataURL( file );
 	},
 
-	// ========== Форматирование ==========
+	// =========================================================================
+	// 3. ФОРМАТИРОВАНИЕ
+	// =========================================================================
+
 	/**
-	 * Форматирует цену (добавляет пробелы и знак рубля)
+	 * Форматирует цену
+	 * Добавляет пробелы между тысячами и знак рубля
+	 * 
 	 * @param {number} price - цена
-	 * @returns {string} отформатированная цена
+	 * @returns {string} отформатированная цена (например: "1 890 ₽")
 	 */
 	formatPrice( price ) {
 		return price.toString().replace( /\B(?=(\d{3})+(?!\d))/g, ' ' ) + ' ₽';
@@ -102,9 +179,10 @@ const API = {
 
 	/**
 	 * Склонение слов (1 товар, 2 товара, 5 товаров)
+	 * 
 	 * @param {number} number - число
 	 * @param {Array} words - варианты слов ['товар', 'товара', 'товаров']
-	 * @returns {string} правильная форма
+	 * @returns {string} правильная форма (например: "3 товара")
 	 */
 	getDeclension( number, words ) {
 		const cases = [2, 0, 1, 1, 1, 2];
@@ -112,13 +190,18 @@ const API = {
 		return `${number} ${words[index]}`;
 	},
 
-	// ========== Уведомления ==========
+	// =========================================================================
+	// 4. УВЕДОМЛЕНИЯ
+	// =========================================================================
+
 	/**
 	 * Показывает всплывающее уведомление
+	 * 
 	 * @param {string} message - текст уведомления
 	 * @param {string} type - тип уведомления (success, error, info)
 	 */
 	showNotification( message, type = 'success' ) {
+		// Ищем или создаем контейнер для уведомлений
 		let container = document.querySelector( '.notification-container' );
 
 		if ( !container ) {
@@ -126,6 +209,7 @@ const API = {
 			container.className = 'notification-container';
 			document.body.appendChild( container );
 
+			// Добавляем стили для уведомлений (если их нет)
 			const style = document.createElement( 'style' );
 			style.textContent = `
                 .notification-container {
@@ -172,10 +256,12 @@ const API = {
 			document.head.appendChild( style );
 		}
 
+		// Создаем уведомление
 		const notification = document.createElement( 'div' );
 		notification.className = 'notification';
 		notification.textContent = message;
 
+		// Закрытие по клику
 		notification.addEventListener( 'click', () => {
 			notification.style.animation = 'slideOut 0.3s ease forwards';
 			setTimeout( () => notification.remove(), 300 );
@@ -183,6 +269,7 @@ const API = {
 
 		container.appendChild( notification );
 
+		// Автоматическое закрытие через 3 секунды
 		setTimeout( () => {
 			if ( notification.parentNode ) {
 				notification.style.animation = 'slideOut 0.3s ease forwards';
@@ -191,37 +278,62 @@ const API = {
 		}, 3000 );
 	},
 
-	// ========== Общие функции для страниц ==========
+	// =========================================================================
+	// 5. ОБЩИЕ ФУНКЦИИ ДЛЯ СТРАНИЦ
+	// =========================================================================
+
 	/**
 	 * Обновляет счетчики в шапке сайта (корзина и избранное)
+	 * Использует глобальный объект store
 	 */
 	updateHeaderCounters() {
 		const cartCount = document.getElementById( 'cartCount' );
 		const favoritesCount = document.getElementById( 'favoritesCount' );
 
-		if ( cartCount ) cartCount.textContent = store.getCartCount();
-		if ( favoritesCount ) favoritesCount.textContent = store.favorites.length;
+		if ( cartCount ) {
+			const count = store.getCartCount();
+			cartCount.textContent = count;
+			console.log( `🛒 API: Счетчик корзины обновлен: ${count}` );
+		}
+
+		if ( favoritesCount ) {
+			const count = store.favorites.length;
+			favoritesCount.textContent = count;
+			console.log( `❤️ API: Счетчик избранного обновлен: ${count}` );
+		}
 	},
 
 	/**
-	 * Инициализирует обработчики модальных окон
+	 * Инициализирует обработчики для модальных окон
+	 * 
+	 * Обрабатывает:
+	 * - Закрытие по крестику (.close-modal)
+	 * - Закрытие по клику на оверлей (вне модального окна)
 	 */
 	initModalHandlers() {
 		// Закрытие модальных окон по крестику
 		document.querySelectorAll( '.close-modal, .modal .close' ).forEach( btn => {
 			btn.addEventListener( 'click', ( e ) => {
 				const modal = e.target.closest( '.modal' );
-				if ( modal ) modal.classList.remove( 'show' );
+				if ( modal ) {
+					modal.classList.remove( 'show' );
+					console.log( '🔒 API: Модальное окно закрыто по крестику' );
+				}
 			} );
 		} );
 
-		// Закрытие по клику вне модального окна
+		// Закрытие по клику вне модального окна (на оверлей)
 		document.querySelectorAll( '.modal' ).forEach( modal => {
 			modal.addEventListener( 'click', ( e ) => {
-				if ( e.target === modal ) modal.classList.remove( 'show' );
+				if ( e.target === modal ) {
+					modal.classList.remove( 'show' );
+					console.log( '🔒 API: Модальное окно закрыто по клику на оверлей' );
+				}
 			} );
 		} );
 	}
 };
 
+// Экспортируем API в глобальную область видимости
 window.API = API;
+console.log( '✅ API.JS: Модуль загружен, корень сайта:', API.siteRoot );
