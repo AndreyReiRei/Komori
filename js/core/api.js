@@ -3,20 +3,74 @@
  */
 
 const API = {
-	imageFolderPath: '/image/',
+	// Динамическое определение корня сайта
+	siteRoot: ( function () {
+		// Определяем путь к корню сайта
+		const path = window.location.pathname;
+
+		// Если мы в папке pages html/ или pages/
+		if ( path.includes( '/pages html/' ) || path.includes( '/pages/' ) ) {
+			return '../';  // Поднимаемся на уровень выше
+		}
+
+		// Если мы в подпапке catalog pages/ или pages info/
+		if ( path.includes( '/catalog pages/' ) || path.includes( '/pages info/' ) ) {
+			return '../../';  // Поднимаемся на два уровня выше
+		}
+
+		// Иначе мы в корне
+		return './';
+	} )(),
+
+	// Путь к папке с изображениями (относительный)
+	imageFolderPath: 'image/',
 
 	// ========== Работа с изображениями ==========
+	/**
+	 * Получает безопасный URL изображения
+	 * @param {string} url - исходный URL
+	 * @returns {string} корректный URL
+	 */
 	getSafeImageUrl( url ) {
 		if ( !url ) return this.getFallbackSvg();
-		if ( url.startsWith( 'http' ) || url.startsWith( 'data:' ) ) return url;
-		if ( url.startsWith( '/' ) ) return url;
-		return this.imageFolderPath + url;
+
+		// Внешние ссылки и base64 оставляем как есть
+		if ( url.startsWith( 'http' ) || url.startsWith( 'https' ) || url.startsWith( 'data:' ) ) {
+			return url;
+		}
+
+		// Убираем возможные дублирования image в пути
+		let cleanUrl = url;
+
+		// Убираем лишние слеши в начале
+		cleanUrl = cleanUrl.replace( /^\/+/, '' );
+
+		// Убираем дублирование папки image
+		if ( cleanUrl.startsWith( 'image/' ) ) {
+			cleanUrl = cleanUrl.substring( 6 );
+		}
+		if ( cleanUrl.startsWith( 'image' ) ) {
+			cleanUrl = cleanUrl.substring( 5 );
+		}
+
+		// Формируем путь относительно корня сайта
+		return this.siteRoot + this.imageFolderPath + cleanUrl;
 	},
 
+	/**
+	 * Получает SVG заглушку для отсутствующих изображений
+	 * @param {string} text - текст на заглушке
+	 * @returns {string} data:image/svg+xml
+	 */
 	getFallbackSvg( text = 'Нет фото' ) {
 		return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23e0e0e0'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999' font-size='16' font-family='Arial'%3E${encodeURIComponent( text )}%3C/text%3E%3C/svg%3E`;
 	},
 
+	/**
+	 * Обработка загрузки изображения (преобразование в base64)
+	 * @param {File} file - файл изображения
+	 * @param {Function} callback - функция обратного вызова
+	 */
 	handleImageUpload( file, callback ) {
 		if ( !file ) return;
 
@@ -37,10 +91,21 @@ const API = {
 	},
 
 	// ========== Форматирование ==========
+	/**
+	 * Форматирует цену (добавляет пробелы и знак рубля)
+	 * @param {number} price - цена
+	 * @returns {string} отформатированная цена
+	 */
 	formatPrice( price ) {
 		return price.toString().replace( /\B(?=(\d{3})+(?!\d))/g, ' ' ) + ' ₽';
 	},
 
+	/**
+	 * Склонение слов (1 товар, 2 товара, 5 товаров)
+	 * @param {number} number - число
+	 * @param {Array} words - варианты слов ['товар', 'товара', 'товаров']
+	 * @returns {string} правильная форма
+	 */
 	getDeclension( number, words ) {
 		const cases = [2, 0, 1, 1, 1, 2];
 		const index = ( number % 100 > 4 && number % 100 < 20 ) ? 2 : cases[Math.min( number % 10, 5 )];
@@ -48,6 +113,11 @@ const API = {
 	},
 
 	// ========== Уведомления ==========
+	/**
+	 * Показывает всплывающее уведомление
+	 * @param {string} message - текст уведомления
+	 * @param {string} type - тип уведомления (success, error, info)
+	 */
 	showNotification( message, type = 'success' ) {
 		let container = document.querySelector( '.notification-container' );
 
@@ -122,6 +192,9 @@ const API = {
 	},
 
 	// ========== Общие функции для страниц ==========
+	/**
+	 * Обновляет счетчики в шапке сайта (корзина и избранное)
+	 */
 	updateHeaderCounters() {
 		const cartCount = document.getElementById( 'cartCount' );
 		const favoritesCount = document.getElementById( 'favoritesCount' );
@@ -130,8 +203,11 @@ const API = {
 		if ( favoritesCount ) favoritesCount.textContent = store.favorites.length;
 	},
 
+	/**
+	 * Инициализирует обработчики модальных окон
+	 */
 	initModalHandlers() {
-		// Закрытие модальных окон
+		// Закрытие модальных окон по крестику
 		document.querySelectorAll( '.close-modal, .modal .close' ).forEach( btn => {
 			btn.addEventListener( 'click', ( e ) => {
 				const modal = e.target.closest( '.modal' );

@@ -3,6 +3,31 @@
  * Общие функции для всех страниц
  */
 
+// ========== ОПРЕДЕЛЕНИЕ КОРНЯ САЙТА ==========
+/**
+ * Динамическое определение корня сайта
+ * @returns {string} относительный путь к корню
+ */
+function getSiteRoot() {
+	const path = window.location.pathname;
+
+	// Если мы в папке pages html/ или pages/
+	if ( path.includes( '/pages html/' ) || path.includes( '/pages/' ) ) {
+		return '../';
+	}
+
+	// Если мы в подпапке catalog pages/ или pages info/
+	if ( path.includes( '/catalog pages/' ) || path.includes( '/pages info/' ) ) {
+		return '../../';
+	}
+
+	// Иначе мы в корне
+	return './';
+}
+
+// Глобальная переменная для доступа из других скриптов
+window.siteRoot = getSiteRoot();
+
 document.addEventListener( 'DOMContentLoaded', function () {
 	// Плавный скролл для якорных ссылок
 	initSmoothScroll();
@@ -25,10 +50,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	// Обновление счетчиков в шапке
 	API.updateHeaderCounters();
 
-	// Обновление аватара в шапке (новая функция)
+	// Обновление аватара в шапке
 	updateHeaderAvatar();
 
 	console.log( 'Сайт "Комори" загружен' );
+	console.log( '📁 Корень сайта:', window.siteRoot );
 } );
 
 // ========== ОБНОВЛЕНИЕ АВАТАРА В ШАПКЕ ==========
@@ -54,7 +80,7 @@ function updateHeaderAvatar() {
 
 			// Обновляем ссылку на страницу профиля
 			if ( authBtn ) {
-				authBtn.href = '/pages html/profile.html';
+				authBtn.href = window.siteRoot + 'pages html/profile.html';
 			}
 
 			// Обновляем аватар, если он есть
@@ -83,13 +109,15 @@ function updateHeaderAvatar() {
 			authText.textContent = 'Войти';
 		}
 		if ( authBtn ) {
-			authBtn.href = '/pages html/login.html';
+			authBtn.href = window.siteRoot + 'pages html/login.html';
 		}
 	}
 }
 
 // ========== ПЛАВНЫЙ СКРОЛЛ ==========
-// Плавный скролл
+/**
+ * Инициализация плавного скролла для якорных ссылок
+ */
 function initSmoothScroll() {
 	document.querySelectorAll( 'a[href^="#"]:not([href="#"])' ).forEach( anchor => {
 		anchor.addEventListener( 'click', function ( e ) {
@@ -110,7 +138,9 @@ function initSmoothScroll() {
 	} );
 }
 
-// Закрытие мобильного меню
+/**
+ * Закрытие мобильного меню
+ */
 function closeMobileMenu() {
 	if ( window.innerWidth <= 768 ) {
 		const mainNav = document.getElementById( 'mainNav' );
@@ -127,7 +157,9 @@ function closeMobileMenu() {
 }
 
 // ========== ФУТЕР ==========
-// Обновление года в копирайте
+/**
+ * Обновление года в копирайте
+ */
 function updateCopyrightYear() {
 	const copyright = document.querySelector( '.copyright' );
 	if ( copyright && copyright.textContent.includes( '2024' ) ) {
@@ -137,7 +169,9 @@ function updateCopyrightYear() {
 }
 
 // ========== ФОРМЫ ==========
-// Валидация форм
+/**
+ * Валидация форм (проверка обязательных полей)
+ */
 function initFormValidation() {
 	document.querySelectorAll( 'form' ).forEach( form => {
 		form.addEventListener( 'submit', function ( e ) {
@@ -164,7 +198,9 @@ function initFormValidation() {
 }
 
 // ========== АНИМАЦИИ ==========
-// Анимации при скролле
+/**
+ * Инициализация анимаций при скролле
+ */
 function initScrollAnimations() {
 	const animatedElements = document.querySelectorAll( '.animate-on-scroll' );
 
@@ -186,7 +222,9 @@ function initScrollAnimations() {
 }
 
 // ========== ДОСТУПНОСТЬ ==========
-// Улучшение доступности
+/**
+ * Улучшение доступности (клавиатурная навигация)
+ */
 function enhanceAccessibility() {
 	document.querySelectorAll( 'button, [role="button"]' ).forEach( button => {
 		if ( button.getAttribute( 'role' ) === 'button' ) {
@@ -211,7 +249,9 @@ function enhanceAccessibility() {
 }
 
 // ========== ОТСТУП ДЛЯ MAIN ==========
-// Отступ для Main от Header
+/**
+ * Отступ для Main от Header (для мобильных устройств)
+ */
 function initHeaderOffset() {
 	const header = document.querySelector( 'header' );
 	const main = document.querySelector( 'main' );
@@ -222,11 +262,9 @@ function initHeaderOffset() {
 		const isMobile = window.innerWidth < 993;
 
 		if ( isMobile ) {
-			// На мобильных header фиксированный
 			const headerHeight = header.offsetHeight;
 			main.style.marginTop = headerHeight + 'px';
 		} else {
-			// На десктопе header статичный
 			main.style.marginTop = '0';
 		}
 	}
@@ -242,9 +280,7 @@ function initHeaderOffset() {
  */
 window.addEventListener( 'storage', function ( e ) {
 	if ( e.key === 'komori_current_user' ) {
-		// Обновляем аватар в шапке при изменении данных пользователя
 		updateHeaderAvatar();
-		// Обновляем счетчики
 		API.updateHeaderCounters();
 	}
 } );
@@ -252,13 +288,13 @@ window.addEventListener( 'storage', function ( e ) {
 // ========== СЛУШАТЕЛЬ КАСТОМНЫХ СОБЫТИЙ ==========
 /**
  * Слушаем кастомные события обновления пользователя
- * (можно вызывать из других скриптов)
  */
 window.addEventListener( 'userUpdated', function () {
 	updateHeaderAvatar();
 	API.updateHeaderCounters();
 } );
 
+// ========== ИНИЦИАЛИЗАЦИЯ ==========
 // Вызываем после загрузки
 if ( document.readyState === 'loading' ) {
 	document.addEventListener( 'DOMContentLoaded', initHeaderOffset );
