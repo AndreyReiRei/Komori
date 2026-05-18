@@ -39,6 +39,7 @@ class Store {
 
 	init() {
 		this.loadFromStorage();
+		this.loadUserData(); // Загружаем данные текущего пользователя
 		this.addDemoProductsIfNeeded();
 		this.addDemoSlidesIfNeeded();
 	}
@@ -50,22 +51,18 @@ class Store {
 	loadFromStorage() {
 		try {
 			this.products = JSON.parse( localStorage.getItem( 'komori_products' ) ) || [];
-			this.cart = JSON.parse( localStorage.getItem( 'komori_cart' ) ) || [];
-			this.favorites = JSON.parse( localStorage.getItem( 'komori_favorites' ) ) || [];
 			this.users = JSON.parse( localStorage.getItem( 'komori_users' ) ) || [];
 			this.promoSlides = JSON.parse( localStorage.getItem( 'komori_promo_slides' ) ) || [];
 		} catch ( e ) {
 			console.error( '❌ Ошибка загрузки из localStorage:', e );
 			this.products = [];
-			this.cart = [];
-			this.favorites = [];
 			this.users = [];
 			this.promoSlides = [];
 		}
 	}
 
 	/**
-	 * Сохраняет данные с проверкой размера
+	 * Сохраняет данные в localStorage
 	 */
 	saveToStorage() {
 		try {
@@ -77,10 +74,11 @@ class Store {
 			}
 
 			localStorage.setItem( 'komori_products', productsStr );
-			localStorage.setItem( 'komori_cart', JSON.stringify( this.cart ) );
-			localStorage.setItem( 'komori_favorites', JSON.stringify( this.favorites ) );
 			localStorage.setItem( 'komori_users', JSON.stringify( this.users ) );
 			localStorage.setItem( 'komori_promo_slides', JSON.stringify( this.promoSlides ) );
+
+			// Сохраняем данные текущего пользователя
+			this.saveUserData();
 
 			this.dispatchEvents();
 		} catch ( e ) {
@@ -91,6 +89,89 @@ class Store {
 				console.error( '❌ Ошибка сохранения:', e );
 			}
 		}
+	}
+
+	/**
+	 * Сохраняет данные текущего пользователя (корзина, избранное)
+	 */
+	saveUserData() {
+		const currentUser = this.getCurrentUser();
+		if ( !currentUser ) return;
+
+		// Сохраняем корзину и избранное для текущего пользователя
+		localStorage.setItem( `komori_cart_${currentUser.id}`, JSON.stringify( this.cart ) );
+		localStorage.setItem( `komori_favorites_${currentUser.id}`, JSON.stringify( this.favorites ) );
+		console.log( `💾 Сохранены данные пользователя ${currentUser.name}: корзина (${this.cart.length}), избранное (${this.favorites.length})` );
+	}
+
+	/**
+	 * Загружает данные текущего пользователя (корзина, избранное)
+	 */
+	loadUserData() {
+		const currentUser = this.getCurrentUser();
+
+		if ( currentUser ) {
+			// Загружаем корзину пользователя
+			const savedCart = localStorage.getItem( `komori_cart_${currentUser.id}` );
+			this.cart = savedCart ? JSON.parse( savedCart ) : [];
+
+			// Загружаем избранное пользователя
+			const savedFavorites = localStorage.getItem( `komori_favorites_${currentUser.id}` );
+			this.favorites = savedFavorites ? JSON.parse( savedFavorites ) : [];
+
+			console.log( `👤 Загружены данные пользователя ${currentUser.name}: корзина (${this.cart.length}), избранное (${this.favorites.length})` );
+		} else {
+			// Если пользователь не авторизован, используем временные данные (гостевой режим)
+			this.cart = JSON.parse( localStorage.getItem( 'komori_cart_guest' ) ) || [];
+			this.favorites = JSON.parse( localStorage.getItem( 'komori_favorites_guest' ) ) || [];
+			console.log( `👤 Гостевой режим: корзина (${this.cart.length}), избранное (${this.favorites.length})` );
+		}
+	}
+
+	/**
+	 * Сохраняет гостевые данные (когда пользователь не авторизован)
+	 */
+	saveGuestData() {
+		localStorage.setItem( 'komori_cart_guest', JSON.stringify( this.cart ) );
+		localStorage.setItem( 'komori_favorites_guest', JSON.stringify( this.favorites ) );
+	}
+
+	/**
+	 * Переносит гостевые данные в аккаунт пользователя при входе
+	 */
+	migrateGuestDataToUser( userId ) {
+		const guestCart = JSON.parse( localStorage.getItem( 'komori_cart_guest' ) ) || [];
+		const guestFavorites = JSON.parse( localStorage.getItem( 'komori_favorites_guest' ) ) || [];
+
+		if ( guestCart.length > 0 || guestFavorites.length > 0 ) {
+			// Объединяем гостевые данные с существующими
+			const existingCart = JSON.parse( localStorage.getItem( `komori_cart_${userId}` ) ) || [];
+			const existingFavorites = JSON.parse( localStorage.getItem( `komori_favorites_${userId}` ) ) || [];
+
+			const mergedCart = [...existingCart, ...guestCart];
+			const mergedFavorites = [...new Set( [...existingFavorites, ...guestFavorites] )];
+
+			localStorage.setItem( `komori_cart_${userId}`, JSON.stringify( mergedCart ) );
+			localStorage.setItem( `komori_favorites_${userId}`, JSON.stringify( mergedFavorites ) );
+
+			// Очищаем гостевые данные
+			localStorage.removeItem( 'komori_cart_guest' );
+			localStorage.removeItem( 'komori_favorites_guest' );
+
+			console.log( `🔄 Перенесены гостевые данные: корзина (${guestCart.length}), избранное (${guestFavorites.length})` );
+		}
+	}
+
+	/**
+	 * Очищает данные текущего пользователя при выходе
+	 */
+	clearUserData() {
+		// Сохраняем гостевые данные перед очисткой
+		this.saveGuestData();
+
+		this.cart = [];
+		this.favorites = [];
+		console.log( '🧹 Данные пользователя очищены, сохранены как гостевые' );
 	}
 
 	/**
@@ -446,7 +527,10 @@ class Store {
 
 		this.users.push( newUser );
 		this.saveToStorage();
+
+		// Вход после регистрации
 		localStorage.setItem( 'komori_current_user', JSON.stringify( newUser ) );
+		this.loadUserData(); // Загружаем данные нового пользователя
 
 		return { success: true, user: newUser };
 	}
@@ -458,6 +542,11 @@ class Store {
 			user.lastLogin = new Date().toISOString();
 			this.saveToStorage();
 			localStorage.setItem( 'komori_current_user', JSON.stringify( user ) );
+
+			// Переносим гостевые данные в аккаунт
+			this.migrateGuestDataToUser( user.id );
+
+			this.loadUserData(); // Загружаем данные пользователя
 			return { success: true, user };
 		}
 
@@ -478,6 +567,7 @@ class Store {
 			const currentUser = this.getCurrentUser();
 			if ( currentUser && currentUser.id === userId ) {
 				localStorage.setItem( 'komori_current_user', JSON.stringify( this.users[index] ) );
+				this.loadUserData(); // Перезагружаем данные
 			}
 			return true;
 		}
@@ -485,8 +575,19 @@ class Store {
 	}
 
 	logoutUser() {
+		// Сохраняем данные текущего пользователя как гостевые перед выходом
+		this.saveGuestData();
+
+		// Очищаем локальные данные
+		this.cart = [];
+		this.favorites = [];
 		localStorage.removeItem( 'komori_current_user' );
 		localStorage.removeItem( 'komori_remembered_user' );
+
+		// Загружаем гостевые данные
+		this.loadUserData();
+
+		console.log( '👋 Пользователь вышел, данные сохранены в гостевом режиме' );
 	}
 
 	// =========================================================================
@@ -556,29 +657,23 @@ class Store {
 	 */
 	addDemoSlidesIfNeeded() {
 		// ВЕРСИЯ ДЕМО-СЛАЙДОВ
-		// Увеличивайте эту цифру при каждом добавлении/изменении слайдов
-		const CURRENT_SLIDES_VERSION = 1;  // ← Увеличивайте при добавлении новых слайдов
+		const CURRENT_SLIDES_VERSION = 1;
 
-		// Проверяем текущую версию в localStorage
 		const savedVersion = localStorage.getItem( 'komori_slides_version' );
 		const needsUpdate = this.promoSlides.length === 0 ||
 			( savedVersion && parseInt( savedVersion ) < CURRENT_SLIDES_VERSION );
 
-		// Если слайды есть и версия актуальна - ничего не делаем
 		if ( !needsUpdate ) {
 			console.log( `✅ Демо-слайды актуальны (версия ${savedVersion})` );
 			return;
 		}
 
-		// Если нужно обновить, но старые слайды есть - предупреждаем
 		if ( this.promoSlides.length > 0 ) {
 			console.log( `🔄 Обновление демо-слайдов: версия ${savedVersion} → ${CURRENT_SLIDES_VERSION}` );
 		}
 
-		// ОЧИЩАЕМ СТАРЫЕ СЛАЙДЫ (если были)
 		this.promoSlides = [];
 
-		// ========== ДЕМО-СЛАЙДЫ ==========
 		const demoSlides = [
 			{
 				title: 'Канцелярия',
@@ -662,17 +757,13 @@ class Store {
 			}
 		];
 
-		// Добавляем слайды (без id, они сгенерируются автоматически)
 		demoSlides.forEach( slide => {
 			this.addPromoSlide( slide );
 		} );
 
-		// Сохраняем версию демо-слайдов в localStorage
 		localStorage.setItem( 'komori_slides_version', CURRENT_SLIDES_VERSION );
-
 		console.log( `📦 Добавлено ${demoSlides.length} демонстрационных слайдов (версия ${CURRENT_SLIDES_VERSION})` );
 	}
-
 
 	// =========================================================================
 	// ОБЩИЕ УТИЛИТЫ
@@ -744,30 +835,23 @@ class Store {
 	 * Добавляет демонстрационные товары, если их нет или если версия устарела
 	 */
 	addDemoProductsIfNeeded() {
-		// ВЕРСИЯ ДЕМО-ТОВАРОВ
-		// Увеличивайте эту цифру при каждом добавлении/изменении товаров
-		const CURRENT_DEMO_VERSION = 2;  // ← Было 1, стало 2 (добавлены новые товары)
+		const CURRENT_DEMO_VERSION = 2;
 
-		// Проверяем текущую версию в localStorage
 		const savedVersion = localStorage.getItem( 'komori_demo_version' );
 		const needsUpdate = this.products.length === 0 ||
 			( savedVersion && parseInt( savedVersion ) < CURRENT_DEMO_VERSION );
 
-		// Если товары есть и версия актуальна - ничего не делаем
 		if ( !needsUpdate ) {
 			console.log( `✅ Демо-товары актуальны (версия ${savedVersion})` );
 			return;
 		}
 
-		// Если нужно обновить, но старые товары есть - предупреждаем
 		if ( this.products.length > 0 ) {
 			console.log( `🔄 Обновление демо-товаров: версия ${savedVersion} → ${CURRENT_DEMO_VERSION}` );
 		}
 
-		// ОЧИЩАЕМ СТАРЫЕ ТОВАРЫ (если были)
 		this.products = [];
 
-		// ========== ДЕМО-ТОВАРЫ ==========
 		const demos = [
 			// ========== АНИМЕ ФИГУРКИ (figures) ==========
 			{
@@ -1342,14 +1426,11 @@ class Store {
 			}
 		];
 
-		// Добавляем товары
 		demos.forEach( demo => {
 			this.addProduct( demo );
 		} );
 
-		// Сохраняем версию демо-товаров в localStorage
 		localStorage.setItem( 'komori_demo_version', CURRENT_DEMO_VERSION );
-
 		console.log( `📦 Добавлено ${demos.length} демонстрационных товаров (версия ${CURRENT_DEMO_VERSION})` );
 	}
 }
@@ -1357,8 +1438,3 @@ class Store {
 // Создаем глобальный экземпляр
 window.store = new Store();
 console.log( '✅ Store инициализирован' );
-
-
-
-
-
