@@ -5,8 +5,9 @@
  * 
  * Этот файл содержит:
  * 1. Определение корня сайта (для корректных путей к изображениям)
- * 2. Общие функции для всех страниц
- * 3. Инициализацию глобальных обработчиков
+ * 2. Проверку версии демо-товаров и автоматическое обновление
+ * 3. Общие функции для всех страниц
+ * 4. Инициализацию глобальных обработчиков
  * 
  * ============================================================================
  */
@@ -52,7 +53,129 @@ window.siteRoot = getSiteRoot();
 console.log( '✅ MAIN: Корень сайта установлен:', window.siteRoot );
 
 // ============================================================================
-// 2. ОБНОВЛЕНИЕ АВАТАРА В ШАПКЕ
+// 2. ПРОВЕРКА ВЕРСИИ ДЕМО-ТОВАРОВ
+// ============================================================================
+
+// Текущая версия демо-товаров (должна совпадать с версией в store.js)
+const DEMO_VERSION = 2; // ← Увеличивайте при каждом обновлении товаров
+const SLIDES_VERSION = 1; // Версия демо-слайдов
+
+/**
+ * Проверяет версию демо-товаров и обновляет их при необходимости
+ * @returns {boolean} true если было обновление
+ */
+function checkAndUpdateDemoProducts() {
+	const savedVersion = localStorage.getItem( 'komori_demo_version' );
+	const currentVersion = parseInt( savedVersion );
+
+	console.log( `🔍 MAIN: Проверка версии демо-товаров: сохраненная=${savedVersion}, текущая=${DEMO_VERSION}` );
+	console.log( `📦 MAIN: Товаров в store: ${store?.products?.length || 0}` );
+
+	// Если версия не совпадает или товаров нет - обновляем
+	if ( !savedVersion || currentVersion < DEMO_VERSION || ( store && store.products.length === 0 ) ) {
+		console.log( `🔄 MAIN: Обнаружено обновление демо-товаров! Версия ${savedVersion || '0'} → ${DEMO_VERSION}` );
+
+		// Сохраняем корзину и избранное перед обновлением
+		const currentCart = store && store.cart ? [...store.cart] : [];
+		const currentFavorites = store && store.favorites ? [...store.favorites] : [];
+
+		// Обновляем товары
+		if ( store && typeof store.addDemoProductsIfNeeded === 'function' ) {
+			store.addDemoProductsIfNeeded();
+		} else {
+			console.warn( '⚠️ MAIN: Метод addDemoProductsIfNeeded не найден в store' );
+		}
+
+		// Восстанавливаем корзину (только существующие товары)
+		if ( currentCart.length > 0 && store ) {
+			store.cart = currentCart.filter( item =>
+				store.products && store.products.some( p => p.id == item.id )
+			);
+		}
+
+		// Восстанавливаем избранное
+		if ( currentFavorites.length > 0 && store ) {
+			store.favorites = currentFavorites.filter( id =>
+				store.products && store.products.some( p => p.id == id )
+			);
+		}
+
+		if ( store ) store.saveToStorage();
+
+		console.log( `✅ MAIN: Демо-товары обновлены до версии ${DEMO_VERSION}` );
+
+		// Показываем уведомление пользователю (если API доступен)
+		if ( window.API && typeof API.showNotification === 'function' ) {
+			setTimeout( () => {
+				API.showNotification( '🔄 Каталог товаров обновлён! Появились новые позиции.', 'info' );
+			}, 1000 );
+		}
+
+		return true;
+	}
+
+	console.log( '✅ MAIN: Демо-товары актуальны' );
+	return false;
+}
+
+/**
+ * Проверяет версию демо-слайдов и обновляет их при необходимости
+ * @returns {boolean} true если было обновление
+ */
+function checkAndUpdateDemoSlides() {
+	const savedVersion = localStorage.getItem( 'komori_slides_version' );
+
+	console.log( `🔍 MAIN: Проверка версии демо-слайдов: сохраненная=${savedVersion}, текущая=${SLIDES_VERSION}` );
+
+	if ( !savedVersion || parseInt( savedVersion ) < SLIDES_VERSION || ( store && store.promoSlides && store.promoSlides.length === 0 ) ) {
+		console.log( `🔄 MAIN: Обновление демо-слайдов: версия ${savedVersion || '0'} → ${SLIDES_VERSION}` );
+
+		if ( store && typeof store.addDemoSlidesIfNeeded === 'function' ) {
+			store.addDemoSlidesIfNeeded();
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * Принудительное обновление товаров (можно вызвать из консоли)
+ */
+window.forceUpdateProducts = function () {
+	console.log( '🔄 MAIN: Принудительное обновление товаров' );
+	localStorage.removeItem( 'komori_demo_version' );
+	localStorage.removeItem( 'komori_products' );
+	location.reload();
+};
+
+/**
+ * Сброс порядка товаров в аккордеоне
+ */
+window.resetAccordionOrder = function () {
+	console.log( '🔄 MAIN: Сброс порядка товаров в аккордеоне' );
+	localStorage.removeItem( 'komori_accordion_order' );
+	if ( window.cartFavoritesPage ) {
+		location.reload();
+	}
+};
+
+/**
+ * Показать информацию о версии товаров (для отладки)
+ */
+window.showProductsInfo = function () {
+	console.log( '=== ИНФОРМАЦИЯ О ТОВАРАХ ===' );
+	console.log( 'Версия демо-товаров в store:', localStorage.getItem( 'komori_demo_version' ) );
+	console.log( 'Текущая версия кода:', DEMO_VERSION );
+	console.log( 'Количество товаров:', store?.products?.length || 0 );
+	if ( store && store.products && store.products.length > 0 ) {
+		console.log( 'Первые 5 товаров:', store.products.slice( 0, 5 ).map( p => p.name ) );
+	}
+};
+
+// ============================================================================
+// 3. ОБНОВЛЕНИЕ АВАТАРА В ШАПКЕ
 // ============================================================================
 
 /**
@@ -130,7 +253,7 @@ function updateHeaderAvatar() {
 }
 
 // ============================================================================
-// 3. ОБНОВЛЕНИЕ ССЫЛКИ В ПОДВАЛЕ
+// 4. ОБНОВЛЕНИЕ ССЫЛКИ В ПОДВАЛЕ
 // ============================================================================
 
 /**
@@ -174,11 +297,23 @@ function updateFooterProfileLink() {
 }
 
 // ============================================================================
-// 4. ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+// 5. ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
 // ============================================================================
 
 document.addEventListener( 'DOMContentLoaded', function () {
 	console.log( '🚀 MAIN: DOM загружен, инициализация...' );
+
+	// ========== ПРОВЕРКА ВЕРСИИ ДЕМО-ТОВАРОВ (САМАЯ ВАЖНАЯ ЧАСТЬ) ==========
+	const wasUpdated = checkAndUpdateDemoProducts();
+	checkAndUpdateDemoSlides();
+
+	// Если было обновление и есть менеджер товаров, обновляем отображение
+	if ( wasUpdated && window.productManager ) {
+		setTimeout( () => {
+			console.log( '🔄 MAIN: Обновляем отображение товаров после обновления демо' );
+			window.productManager.renderProducts();
+		}, 500 );
+	}
 
 	// Плавный скролл для якорных ссылок
 	initSmoothScroll();
@@ -211,7 +346,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 } );
 
 // ============================================================================
-// 5. ПЛАВНЫЙ СКРОЛЛ
+// 6. ПЛАВНЫЙ СКРОЛЛ
 // ============================================================================
 
 /**
@@ -272,7 +407,7 @@ function closeMobileMenu() {
 }
 
 // ============================================================================
-// 6. ФУТЕР
+// 7. ФУТЕР
 // ============================================================================
 
 /**
@@ -289,7 +424,7 @@ function updateCopyrightYear() {
 }
 
 // ============================================================================
-// 7. ВАЛИДАЦИЯ ФОРМ
+// 8. ВАЛИДАЦИЯ ФОРМ
 // ============================================================================
 
 /**
@@ -334,7 +469,7 @@ function initFormValidation() {
 }
 
 // ============================================================================
-// 8. АНИМАЦИИ ПРИ СКРОЛЛЕ
+// 9. АНИМАЦИИ ПРИ СКРОЛЛЕ
 // ============================================================================
 
 /**
@@ -367,7 +502,7 @@ function initScrollAnimations() {
 }
 
 // ============================================================================
-// 9. УЛУЧШЕНИЕ ДОСТУПНОСТИ
+// 10. УЛУЧШЕНИЕ ДОСТУПНОСТИ
 // ============================================================================
 
 /**
@@ -406,7 +541,7 @@ function enhanceAccessibility() {
 }
 
 // ============================================================================
-// 10. ОТСТУП ДЛЯ MAIN (МОБИЛЬНЫЕ УСТРОЙСТВА)
+// 11. ОТСТУП ДЛЯ MAIN (МОБИЛЬНЫЕ УСТРОЙСТВА)
 // ============================================================================
 
 /**
@@ -441,7 +576,7 @@ function initHeaderOffset() {
 }
 
 // ============================================================================
-// 11. СЛУШАТЕЛИ ГЛОБАЛЬНЫХ СОБЫТИЙ
+// 12. СЛУШАТЕЛИ ГЛОБАЛЬНЫХ СОБЫТИЙ
 // ============================================================================
 
 /**
@@ -469,7 +604,56 @@ window.addEventListener( 'userUpdated', function () {
 } );
 
 // ============================================================================
-// 12. ЗАПУСК ИНИЦИАЛИЗАЦИИ
+// 13. ПРОВЕРКА ПРИ ВОЗВРАЩЕНИИ НА СТРАНИЦУ (ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ)
+// ============================================================================
+
+/**
+ * Проверка при возвращении на страницу (для мобильных браузеров)
+ * Обновляет товары, если страница была в кэше
+ */
+document.addEventListener( 'visibilitychange', function () {
+	if ( !document.hidden ) {
+		console.log( '📱 MAIN: Страница стала видимой, проверяем обновления...' );
+		const wasUpdated = checkAndUpdateDemoProducts();
+
+		// Обновляем отображение, если нужно
+		if ( wasUpdated ) {
+			if ( window.productManager ) {
+				window.productManager.renderProducts();
+			}
+			if ( window.catalogPage ) {
+				window.catalogPage.renderProducts();
+			}
+			if ( window.cartFavoritesPage ) {
+				window.cartFavoritesPage.renderCart();
+				window.cartFavoritesPage.renderRecommendations();
+			}
+		}
+
+		API.updateHeaderCounters();
+		updateHeaderAvatar();
+	}
+} );
+
+/**
+ * Проверка при загрузке с сервера (для кэшированных страниц)
+ * Актуально для мобильных устройств
+ */
+window.addEventListener( 'pageshow', function ( event ) {
+	if ( event.persisted ) {
+		console.log( '📱 MAIN: Страница загружена из кэша, проверяем обновления...' );
+		const wasUpdated = checkAndUpdateDemoProducts();
+
+		if ( wasUpdated && window.productManager ) {
+			setTimeout( () => {
+				window.productManager.renderProducts();
+			}, 100 );
+		}
+	}
+} );
+
+// ============================================================================
+// 14. ЗАПУСК ИНИЦИАЛИЗАЦИИ
 // ============================================================================
 
 // Запускаем initHeaderOffset после загрузки DOM
