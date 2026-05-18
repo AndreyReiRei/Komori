@@ -55,6 +55,9 @@ class AuthPage {
 		if ( currentUser ) {
 			const user = JSON.parse( currentUser );
 			this.updateUIForLoggedInUser( user );
+		} else {
+			// Пользователь не авторизован - обновляем ссылку в подвале
+			this.updateFooterProfileLink();
 		}
 	}
 
@@ -86,6 +89,35 @@ class AuthPage {
 				headerAvatarIcon.style.display = 'block';
 			}
 		}
+
+		// Обновляем ссылку в подвале
+		this.updateFooterProfileLink();
+	}
+
+	/**
+	 * Обновляет ссылку "Мой аккаунт" в подвале в зависимости от авторизации
+	 * Этот метод работает на всех страницах сайта
+	 */
+	updateFooterProfileLink() {
+		// Ищем ссылку на профиль в подвале (первая ссылка в блоке profile-links)
+		const profileLink = document.querySelector( '.footer-column .profile-links li:first-child a' );
+		if ( !profileLink ) return;
+
+		const currentUser = localStorage.getItem( 'komori_current_user' );
+
+		if ( currentUser ) {
+			try {
+				const user = JSON.parse( currentUser );
+				profileLink.href = '/pages html/profile.html';
+				profileLink.innerHTML = '<i class="fas fa-user-circle"></i> Мой профиль';
+			} catch ( e ) {
+				profileLink.href = '/pages html/login.html';
+				profileLink.innerHTML = '<i class="fas fa-user-circle"></i> Войти / Регистрация';
+			}
+		} else {
+			profileLink.href = '/pages html/login.html';
+			profileLink.innerHTML = '<i class="fas fa-user-circle"></i> Войти / Регистрация';
+		}
 	}
 
 	// ========== ИНИЦИАЛИЗАЦИЯ ==========
@@ -102,6 +134,9 @@ class AuthPage {
 		this.bindRecoveryTab();
 		this.checkUrlParams();
 		this.checkAuthStatus();
+
+		// Дополнительно обновляем ссылку в подвале при загрузке
+		this.updateFooterProfileLink();
 	}
 
 	/**
@@ -341,6 +376,9 @@ class AuthPage {
 				if ( window.API && window.API.updateHeaderCounters ) {
 					window.API.updateHeaderCounters();
 				}
+
+				// Обновляем ссылку в подвале
+				this.updateFooterProfileLink();
 
 				// Отправляем событие об обновлении пользователя
 				window.dispatchEvent( new CustomEvent( 'userUpdated' ) );

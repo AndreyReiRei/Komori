@@ -4,7 +4,7 @@
  * ============================================================================
  * 
  * Этот файл содержит:
- * 1. Определение корня сайта (для корректных путей)
+ * 1. Определение корня сайта (для корректных путей к изображениям)
  * 2. Общие функции для всех страниц
  * 3. Инициализацию глобальных обработчиков
  * 
@@ -52,41 +52,7 @@ window.siteRoot = getSiteRoot();
 console.log( '✅ MAIN: Корень сайта установлен:', window.siteRoot );
 
 // ============================================================================
-// 2. ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
-// ============================================================================
-
-document.addEventListener( 'DOMContentLoaded', function () {
-	console.log( '🚀 MAIN: DOM загружен, инициализация...' );
-
-	// Плавный скролл для якорных ссылок
-	initSmoothScroll();
-
-	// Обработка модальных окон (закрытие)
-	API.initModalHandlers();
-
-	// Обновление года в футере
-	updateCopyrightYear();
-
-	// Валидация форм
-	initFormValidation();
-
-	// Анимации при скролле
-	initScrollAnimations();
-
-	// Улучшение доступности (клавиатура, фокус)
-	enhanceAccessibility();
-
-	// Обновление счетчиков в шапке (корзина, избранное)
-	API.updateHeaderCounters();
-
-	// Обновление аватара пользователя в шапке
-	updateHeaderAvatar();
-
-	console.log( '✅ MAIN: Сайт "Комори" полностью загружен и инициализирован' );
-} );
-
-// ============================================================================
-// 3. ОБНОВЛЕНИЕ АВАТАРА В ШАПКЕ
+// 2. ОБНОВЛЕНИЕ АВАТАРА В ШАПКЕ
 // ============================================================================
 
 /**
@@ -122,12 +88,12 @@ function updateHeaderAvatar() {
 
 			// Обновляем ссылку на страницу профиля
 			if ( authBtn ) {
-				authBtn.href = window.siteRoot + 'pages html/profile.html';
+				authBtn.href = '/pages html/profile.html';
 			}
 
 			// Обновляем аватар, если он есть
 			if ( headerAvatar && headerAvatarIcon ) {
-				if ( user.avatar && user.avatar !== 'null' ) {
+				if ( user.avatar && user.avatar !== 'null' && user.avatar !== '' ) {
 					headerAvatar.src = user.avatar;
 					headerAvatar.style.display = 'block';
 					headerAvatarIcon.style.display = 'none';
@@ -140,6 +106,11 @@ function updateHeaderAvatar() {
 			}
 		} catch ( e ) {
 			console.error( '❌ MAIN: Ошибка при обновлении аватара:', e );
+			// В случае ошибки показываем обычную иконку входа
+			if ( headerAvatar ) headerAvatar.style.display = 'none';
+			if ( headerAvatarIcon ) headerAvatarIcon.style.display = 'block';
+			if ( authText ) authText.textContent = 'Войти';
+			if ( authBtn ) authBtn.href = '/pages html/login.html';
 		}
 	} else {
 		// Пользователь не авторизован - показываем иконку входа
@@ -153,13 +124,94 @@ function updateHeaderAvatar() {
 			authText.textContent = 'Войти';
 		}
 		if ( authBtn ) {
-			authBtn.href = window.siteRoot + 'pages html/login.html';
+			authBtn.href = '/pages html/login.html';
 		}
 	}
 }
 
 // ============================================================================
-// 4. ПЛАВНЫЙ СКРОЛЛ
+// 3. ОБНОВЛЕНИЕ ССЫЛКИ В ПОДВАЛЕ
+// ============================================================================
+
+/**
+ * Обновляет ссылку "Мой аккаунт" в подвале в зависимости от авторизации
+ * 
+ * Если пользователь авторизован:
+ * - Ссылка ведёт на страницу профиля
+ * - Текст: "Мой профиль"
+ * 
+ * Если пользователь не авторизован:
+ * - Ссылка ведёт на страницу входа
+ * - Текст: "Войти / Регистрация"
+ */
+function updateFooterProfileLink() {
+	// Ищем ссылку на профиль в подвале (первая ссылка в блоке profile-links)
+	const profileLink = document.querySelector( '.footer-column .profile-links li:first-child a' );
+
+	if ( !profileLink ) {
+		console.log( '⚠️ MAIN: Ссылка на профиль в подвале не найдена' );
+		return;
+	}
+
+	const currentUser = localStorage.getItem( 'komori_current_user' );
+
+	if ( currentUser ) {
+		try {
+			const user = JSON.parse( currentUser );
+			profileLink.href = '/pages html/profile.html';
+			profileLink.innerHTML = '<i class="fas fa-user-circle"></i> Мой профиль';
+			console.log( '🔗 MAIN: Ссылка в подвале обновлена на профиль для:', user.name );
+		} catch ( e ) {
+			profileLink.href = '/pages html/login.html';
+			profileLink.innerHTML = '<i class="fas fa-user-circle"></i> Войти / Регистрация';
+			console.log( '🔗 MAIN: Ошибка парсинга, ссылка на вход' );
+		}
+	} else {
+		profileLink.href = '/pages html/login.html';
+		profileLink.innerHTML = '<i class="fas fa-user-circle"></i> Войти / Регистрация';
+		console.log( '🔗 MAIN: Ссылка в подвале обновлена на вход' );
+	}
+}
+
+// ============================================================================
+// 4. ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+// ============================================================================
+
+document.addEventListener( 'DOMContentLoaded', function () {
+	console.log( '🚀 MAIN: DOM загружен, инициализация...' );
+
+	// Плавный скролл для якорных ссылок
+	initSmoothScroll();
+
+	// Обработка модальных окон (закрытие)
+	API.initModalHandlers();
+
+	// Обновление года в футере
+	updateCopyrightYear();
+
+	// Валидация форм
+	initFormValidation();
+
+	// Анимации при скролле
+	initScrollAnimations();
+
+	// Улучшение доступности (клавиатура, фокус)
+	enhanceAccessibility();
+
+	// Обновление счетчиков в шапке (корзина, избранное)
+	API.updateHeaderCounters();
+
+	// Обновление аватара пользователя в шапке
+	updateHeaderAvatar();
+
+	// Обновление ссылки в подвале
+	updateFooterProfileLink();
+
+	console.log( '✅ MAIN: Сайт "Комори" полностью загружен и инициализирован' );
+} );
+
+// ============================================================================
+// 5. ПЛАВНЫЙ СКРОЛЛ
 // ============================================================================
 
 /**
@@ -220,7 +272,7 @@ function closeMobileMenu() {
 }
 
 // ============================================================================
-// 5. ФУТЕР
+// 6. ФУТЕР
 // ============================================================================
 
 /**
@@ -237,7 +289,7 @@ function updateCopyrightYear() {
 }
 
 // ============================================================================
-// 6. ВАЛИДАЦИЯ ФОРМ
+// 7. ВАЛИДАЦИЯ ФОРМ
 // ============================================================================
 
 /**
@@ -282,7 +334,7 @@ function initFormValidation() {
 }
 
 // ============================================================================
-// 7. АНИМАЦИИ ПРИ СКРОЛЛЕ
+// 8. АНИМАЦИИ ПРИ СКРОЛЛЕ
 // ============================================================================
 
 /**
@@ -315,7 +367,7 @@ function initScrollAnimations() {
 }
 
 // ============================================================================
-// 8. УЛУЧШЕНИЕ ДОСТУПНОСТИ
+// 9. УЛУЧШЕНИЕ ДОСТУПНОСТИ
 // ============================================================================
 
 /**
@@ -354,7 +406,7 @@ function enhanceAccessibility() {
 }
 
 // ============================================================================
-// 9. ОТСТУП ДЛЯ MAIN (МОБИЛЬНЫЕ УСТРОЙСТВА)
+// 10. ОТСТУП ДЛЯ MAIN (МОБИЛЬНЫЕ УСТРОЙСТВА)
 // ============================================================================
 
 /**
@@ -389,17 +441,18 @@ function initHeaderOffset() {
 }
 
 // ============================================================================
-// 10. СЛУШАТЕЛИ ГЛОБАЛЬНЫХ СОБЫТИЙ
+// 11. СЛУШАТЕЛИ ГЛОБАЛЬНЫХ СОБЫТИЙ
 // ============================================================================
 
 /**
  * Слушаем изменения localStorage в других вкладках
- * Если пользователь вышел из аккаунта в другой вкладке, обновляем шапку
+ * Если пользователь вышел из аккаунта в другой вкладке, обновляем шапку и подвал
  */
 window.addEventListener( 'storage', function ( e ) {
 	if ( e.key === 'komori_current_user' ) {
 		console.log( '🔄 MAIN: Изменены данные пользователя в другой вкладке' );
 		updateHeaderAvatar();
+		updateFooterProfileLink();
 		API.updateHeaderCounters();
 	}
 } );
@@ -411,11 +464,12 @@ window.addEventListener( 'storage', function ( e ) {
 window.addEventListener( 'userUpdated', function () {
 	console.log( '🔄 MAIN: Получено событие userUpdated' );
 	updateHeaderAvatar();
+	updateFooterProfileLink();
 	API.updateHeaderCounters();
 } );
 
 // ============================================================================
-// 11. ЗАПУСК ИНИЦИАЛИЗАЦИИ
+// 12. ЗАПУСК ИНИЦИАЛИЗАЦИИ
 // ============================================================================
 
 // Запускаем initHeaderOffset после загрузки DOM

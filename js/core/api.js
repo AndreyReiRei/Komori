@@ -89,12 +89,12 @@ const API = {
 		// Убираем ведущие слеши (один или несколько)
 		cleanUrl = cleanUrl.replace( /^\/+/, '' );
 
-		// Убираем дублирование папки image (если путь начинается с image/)
+		// Убираем дублирование папки image
 		if ( cleanUrl.startsWith( 'image/' ) ) {
-			cleanUrl = cleanUrl.substring( 6 ); // удаляем 'image/'
+			cleanUrl = cleanUrl.substring( 6 );
 		}
 		if ( cleanUrl.startsWith( 'image' ) ) {
-			cleanUrl = cleanUrl.substring( 5 ); // удаляем 'image'
+			cleanUrl = cleanUrl.substring( 5 );
 		}
 
 		// Убираем лишние слеши внутри пути
@@ -103,9 +103,15 @@ const API = {
 		// Формируем полный путь относительно корня сайта
 		const fullPath = this.siteRoot + this.imageFolderPath + cleanUrl;
 
-		console.log( `🖼️ API: Преобразование пути: ${url} -> ${fullPath}` );
+		// Если путь начинается с ./, заменяем на /
+		let finalPath = fullPath;
+		if ( finalPath.startsWith( './' ) ) {
+			finalPath = finalPath.substring( 1 );
+		}
 
-		return fullPath;
+		console.log( `🖼️ API: Преобразование пути: ${url} -> ${finalPath}` );
+
+		return finalPath;
 	},
 
 	/**
@@ -148,17 +154,14 @@ const API = {
 		}
 
 		const reader = new FileReader();
-
 		reader.onload = ( e ) => {
 			console.log( '✅ API: Изображение загружено, размер base64:', ( e.target.result.length / 1024 ).toFixed( 2 ), 'KB' );
 			callback( e.target.result );
 		};
-
 		reader.onerror = () => {
 			console.error( '❌ API: Ошибка загрузки изображения' );
 			this.showNotification( 'Ошибка загрузки изображения', 'error' );
 		};
-
 		reader.readAsDataURL( file );
 	},
 
@@ -212,47 +215,47 @@ const API = {
 			// Добавляем стили для уведомлений (если их нет)
 			const style = document.createElement( 'style' );
 			style.textContent = `
-                .notification-container {
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    z-index: 10000;
-                }
-                
-                .notification {
-                    background: ${type === 'success' ? '#2ecc71' : '#ff4757'};
-                    color: white;
-                    padding: 15px 25px;
-                    border-radius: 10px;
-                    margin-bottom: 10px;
-                    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-                    animation: slideIn 0.3s ease;
-                    cursor: pointer;
-                    max-width: 350px;
-                }
-                
-                @keyframes slideIn {
-                    from {
-                        opacity: 0;
-                        transform: translateX(100px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateX(0);
-                    }
-                }
-                
-                @keyframes slideOut {
-                    from {
-                        opacity: 1;
-                        transform: translateX(0);
-                    }
-                    to {
-                        opacity: 0;
-                        transform: translateX(100px);
-                    }
-                }
-            `;
+				.notification-container {
+					position: fixed;
+					top: 20px;
+					right: 20px;
+					z-index: 10000;
+				}
+				
+				.notification {
+					background: ${type === 'success' ? '#2ecc71' : '#ff4757'};
+					color: white;
+					padding: 15px 25px;
+					border-radius: 10px;
+					margin-bottom: 10px;
+					box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+					animation: slideIn 0.3s ease;
+					cursor: pointer;
+					max-width: 350px;
+				}
+				
+				@keyframes slideIn {
+					from {
+						opacity: 0;
+						transform: translateX(100px);
+					}
+					to {
+						opacity: 1;
+						transform: translateX(0);
+					}
+				}
+				
+				@keyframes slideOut {
+					from {
+						opacity: 1;
+						transform: translateX(0);
+					}
+					to {
+						opacity: 0;
+						transform: translateX(100px);
+					}
+				}
+			`;
 			document.head.appendChild( style );
 		}
 
