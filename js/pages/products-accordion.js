@@ -1,91 +1,57 @@
 /**
  * Скрипт для горизонтального скролл-аккордеона товаров с навигационной полоской
  * Загружает товары с пометками: Новинки, Хиты, Скидки
- * 
- * Логика отбора:
- * - Приоритет: сначала Хиты, затем Новинки, затем Скидки
- * - Из каждой категории берется не более 2 товаров
- * - Всего не более 26 товаров (чтобы не перегружать аккордеон)
  */
 
 document.addEventListener( 'DOMContentLoaded', function () {
-	// ========== ЗАГРУЗКА И ОТОБРАЖЕНИЕ ТОВАРОВ ==========
+	// ========== ПЕРЕМЕННЫЕ ДЛЯ СОХРАНЕНИЯ ПОРЯДКА ==========
+	let cachedProducts = null;
+	let productsHash = null;
+	let isUpdating = false; // Флаг для предотвращения повторных обновлений
 
-	/**
-	 * Получает товары для аккордеона: Новинки, Хиты, Скидки
-	 * @returns {Array} отсортированный массив товаров
-	 */
-	function getAccordionProducts() {
-		const allProducts = store.products || [];
+	// ========== ФУНКЦИИ ДЛЯ РАБОТЫ С ПОРЯДКОМ ==========
 
-		// Фильтруем только товары в наличии
-		const availableProducts = allProducts.filter( p =>
-			p.status === 'in-stock' && p.quantity > 0
-		);
-
-		// Группируем товары по категориям
-		const productsByCategory = {};
-
-		availableProducts.forEach( product => {
-			const category = product.category;
-			if ( !productsByCategory[category] ) {
-				productsByCategory[category] = [];
-			}
-			productsByCategory[category].push( product );
-		} );
-
-		// Собираем товары по приоритетам
-		const selectedProducts = [];
-		const maxPerCategory = 2;      // Не более 2 товаров из категории
-		const maxTotal = 26;            // Всего не более 26 товаров
-
-		// Список категорий в порядке приоритета (можно настроить)
-		const categoryOrder = [
-			'figures', 'tea', 'sweets', 'manga', 'clothing',
-			'tableware', 'games', 'stationery', 'cosmetics',
-			'decor', 'anime', 'music', 'other'
-		];
-
-		// Для каждой категории выбираем до 2 лучших товаров
-		for ( const category of categoryOrder ) {
-			if ( selectedProducts.length >= maxTotal ) break;
-
-			const categoryProducts = productsByCategory[category] || [];
-			if ( categoryProducts.length === 0 ) continue;
-
-			// Сортируем товары в категории по приоритету:
-			// 1. Хиты (isHit) и Новинки (isNew) и Скидки (oldPrice)
-			const sorted = [...categoryProducts].sort( ( a, b ) => {
-				// Функция приоритета: Хит = 3, Новинка = 2, Скидка = 1
-				const getPriority = ( p ) => {
-					let priority = 0;
-					if ( p.isHit ) priority += 3;
-					if ( p.isNew ) priority += 2;
-					if ( p.oldPrice && p.oldPrice > p.price ) priority += 1;
-					return priority;
-				};
-				return getPriority( b ) - getPriority( a );
-			} );
-
-			// Берем до maxPerCategory товаров из категории
-			const takeCount = Math.min( maxPerCategory, sorted.length );
-			for ( let i = 0; i < takeCount; i++ ) {
-				if ( selectedProducts.length >= maxTotal ) break;
-				selectedProducts.push( sorted[i] );
-			}
-		}
-
-		console.log( `🎯 Аккордеон: загружено ${selectedProducts.length} товаров (${availableProducts.length} доступно)` );
-
-		// Перемешиваем финальный список для разнообразия
-		return shuffleArray( selectedProducts );
+	function getProductsHash( products ) {
+		const ids = products.map( p => p.id ).join( ',' );
+		return `${products.length}_${ids}`;
 	}
 
-	/**
-	 * Перемешивает массив
-	 * @param {Array} array - исходный массив
-	 * @returns {Array} перемешанный массив
-	 */
+	function saveProductsOrder( products ) {
+		const order = products.map( p => p.id );
+		localStorage.setItem( 'komori_accordion_order', JSON.stringify( order ) );
+	}
+
+	function loadProductsOrder() {
+		const saved = localStorage.getItem( 'komori_accordion_order' );
+		if ( saved ) {
+			try {
+				return JSON.parse( saved );
+			} catch ( e ) {
+				return null;
+			}
+		}
+		return null;
+	}
+
+	function applySavedOrder( products ) {
+		const savedOrder = loadProductsOrder();
+		if ( !savedOrder || savedOrder.length !== products.length ) {
+			const shuffled = shuffleArray( [...products] );
+			saveProductsOrder( shuffled );
+			return shuffled;
+		}
+
+		const orderedProducts = [];
+		for ( const id of savedOrder ) {
+			const product = products.find( p => p.id == id );
+			if ( product ) orderedProducts.push( product );
+		}
+		for ( const product of products ) {
+			if ( !orderedProducts.includes( product ) ) orderedProducts.push( product );
+		}
+		return orderedProducts;
+	}
+
 	function shuffleArray( array ) {
 		const shuffled = [...array];
 		for ( let i = shuffled.length - 1; i > 0; i-- ) {
@@ -96,52 +62,101 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	}
 
 	/**
-	 * Рендерит товары в аккордеоне
+	 * Получает товары для аккордеона
 	 */
-	function renderAccordionProducts() {
-		const container = document.getElementById( 'productsScroll' );
-		if ( !container ) {
-			console.error( 'Элемент productsScroll не найден' );
-			return;
-		}
+	function getAccordionProducts() {
+		const allProducts = store.products || [];
+		const availableProducts = allProducts.filter( p =>
+			p.status === 'in-stock' && p.quantity > 0
+		);
 
-		// Очищаем контейнер от статических товаров
-		container.innerHTML = '';
-
-		// Получаем товары для аккордеона
-		const products = getAccordionProducts();
-
-		if ( products.length === 0 ) {
-			container.innerHTML = '<div class="no-products">Товары скоро появятся</div>';
-			return;
-		}
-
-		// Генерируем HTML для каждого товара
-		products.forEach( product => {
-			const productCard = createProductCard( product );
-			container.appendChild( productCard );
+		const productsByCategory = {};
+		availableProducts.forEach( product => {
+			const category = product.category;
+			if ( !productsByCategory[category] ) productsByCategory[category] = [];
+			productsByCategory[category].push( product );
 		} );
 
-		// После добавления товаров, обновляем навигацию аккордеона
-		if ( typeof productsUpdateNavigation === 'function' ) {
-			productsUpdateNavigation();
+		const selectedProducts = [];
+		const maxPerCategory = 2;
+		const maxTotal = 26;
+
+		const categoryOrder = [
+			'figures', 'tea', 'sweets', 'manga', 'clothing',
+			'tableware', 'games', 'stationery', 'cosmetics',
+			'decor', 'anime', 'music', 'other'
+		];
+
+		for ( const category of categoryOrder ) {
+			if ( selectedProducts.length >= maxTotal ) break;
+			const categoryProducts = productsByCategory[category] || [];
+			if ( categoryProducts.length === 0 ) continue;
+
+			const sorted = [...categoryProducts].sort( ( a, b ) => {
+				const getPriority = ( p ) => {
+					let priority = 0;
+					if ( p.isHit ) priority += 3;
+					if ( p.isNew ) priority += 2;
+					if ( p.oldPrice && p.oldPrice > p.price ) priority += 1;
+					return priority;
+				};
+				return getPriority( b ) - getPriority( a );
+			} );
+
+			const takeCount = Math.min( maxPerCategory, sorted.length );
+			for ( let i = 0; i < takeCount; i++ ) {
+				if ( selectedProducts.length >= maxTotal ) break;
+				selectedProducts.push( sorted[i] );
+			}
 		}
 
-		// Добавляем обработчики для кнопок "В корзину" и "Избранное"
-		attachProductEventHandlers();
+		const newHash = getProductsHash( selectedProducts );
+		if ( cachedProducts && productsHash === newHash ) {
+			return cachedProducts;
+		}
+
+		productsHash = newHash;
+		const orderedProducts = applySavedOrder( selectedProducts );
+		cachedProducts = orderedProducts;
+		return orderedProducts;
+	}
+
+	/**
+	 * Обновляет состояние кнопки "В корзину" (без перерисовки карточки)
+	 */
+	function updateCartButtonState( button, productId ) {
+		const product = store.getProduct( productId );
+		const inCart = store.cart.find( item => item.id == productId );
+		const inCartQuantity = inCart ? inCart.quantity : 0;
+		const availableQuantity = product ? product.quantity - inCartQuantity : 0;
+
+		if ( !product || product.quantity <= 0 || availableQuantity <= 0 ) {
+			button.disabled = true;
+		} else {
+			button.disabled = false;
+		}
+	}
+
+	/**
+	 * Обновляет состояние кнопки "Избранное" (без перерисовки карточки)
+	 */
+	function updateFavoriteButtonState( button, productId ) {
+		const isFavorite = store.isFavorite( productId );
+		if ( isFavorite ) {
+			button.classList.add( 'active' );
+		} else {
+			button.classList.remove( 'active' );
+		}
 	}
 
 	/**
 	 * Создает карточку товара
-	 * @param {Object} product - объект товара
-	 * @returns {HTMLElement} карточка товара
 	 */
 	function createProductCard( product ) {
 		const card = document.createElement( 'div' );
 		card.className = 'product-card';
 		card.dataset.id = product.id;
 
-		// Определяем бейджи
 		let badges = '';
 		if ( product.isNew ) badges += '<span class="product-badge new">Новинка</span>';
 		if ( product.isHit ) badges += '<span class="product-badge hit">Хит</span>';
@@ -150,41 +165,35 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			if ( discount > 0 ) badges += `<span class="product-badge sale">-${discount}%</span>`;
 		}
 
-		// Формируем HTML карточки
 		card.innerHTML = `
-            <div class="product-image">
-                <img src="${API.getSafeImageUrl( product.image )}" 
-                     alt="${product.name}" 
-                     loading="lazy"
-                     onerror="this.src='${API.getFallbackSvg( product.name )}'">
-                ${badges ? `<div class="product-badges">${badges}</div>` : ''}
-            </div>
-            <div class="product-content">
-                <h3 class="product-title">${escapeHtml( product.name )}</h3>
-                <p class="product-description">${escapeHtml( product.description || '' )}</p>
-                <div class="product-meta">
-                    <span class="product-price">${API.formatPrice( product.price )}</span>
-                    ${product.oldPrice ? `<span class="product-old-price">${API.formatPrice( product.oldPrice )}</span>` : ''}
-                </div>
-                <div class="product-actions">
-                    <button class="product-btn add-to-cart" data-id="${product.id}">
-                        <i class="fas fa-shopping-cart"></i> В корзину
-                    </button>
-                    <button class="favorite-btn" data-id="${product.id}">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                </div>
-            </div>
-        `;
+			<div class="product-image">
+				<img src="${API.getSafeImageUrl( product.image )}" 
+					 alt="${product.name}" 
+					 loading="lazy"
+					 onerror="this.src='${API.getFallbackSvg( product.name )}'">
+				${badges ? `<div class="product-badges">${badges}</div>` : ''}
+			</div>
+			<div class="product-content">
+				<h3 class="product-title">${escapeHtml( product.name )}</h3>
+				<p class="product-description">${escapeHtml( product.description || '' )}</p>
+				<div class="product-meta">
+					<span class="product-price">${API.formatPrice( product.price )}</span>
+					${product.oldPrice ? `<span class="product-old-price">${API.formatPrice( product.oldPrice )}</span>` : ''}
+				</div>
+				<div class="product-actions">
+					<button class="product-btn add-to-cart" data-id="${product.id}">
+						<i class="fas fa-shopping-cart"></i> В корзину
+					</button>
+					<button class="favorite-btn" data-id="${product.id}">
+						<i class="fas fa-heart"></i>
+					</button>
+				</div>
+			</div>
+		`;
 
 		return card;
 	}
 
-	/**
-	 * Экранирует HTML для безопасности
-	 * @param {string} str - строка
-	 * @returns {string} экранированная строка
-	 */
 	function escapeHtml( str ) {
 		if ( !str ) return '';
 		return str
@@ -196,19 +205,59 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	}
 
 	/**
-	 * Добавляет обработчики для кнопок "В корзину" и "Избранное"
-	 * Использует делегирование событий
+	 * Рендерит товары в аккордеоне (только при загрузке страницы или изменении состава товаров)
+	 */
+	function renderAccordionProducts( preserveScroll = false ) {
+		const container = document.getElementById( 'productsScroll' );
+		if ( !container ) return;
+
+		let savedScrollLeft = 0;
+		if ( preserveScroll && container ) {
+			savedScrollLeft = container.scrollLeft;
+		}
+
+		container.innerHTML = '';
+		const products = getAccordionProducts();
+
+		if ( products.length === 0 ) {
+			container.innerHTML = '<div class="no-products">Товары скоро появятся</div>';
+			return;
+		}
+
+		products.forEach( product => {
+			container.appendChild( createProductCard( product ) );
+		} );
+
+		if ( typeof productsUpdateNavigation === 'function' ) {
+			productsUpdateNavigation();
+		}
+
+		if ( preserveScroll && container && savedScrollLeft > 0 ) {
+			setTimeout( () => {
+				if ( savedScrollLeft <= container.scrollWidth - container.clientWidth ) {
+					container.scrollLeft = savedScrollLeft;
+				}
+				if ( typeof productsUpdateCurrentIndex === 'function' ) {
+					productsUpdateCurrentIndex();
+				}
+			}, 50 );
+		}
+
+		// Прикрепляем обработчики для кнопок
+		attachProductEventHandlers();
+	}
+
+	/**
+	 * Прикрепляет обработчики для кнопок (без перерисовки)
 	 */
 	function attachProductEventHandlers() {
 		const container = document.getElementById( 'productsScroll' );
 		if ( !container ) return;
 
-		// Удаляем старый обработчик, если был
 		if ( container._delegateHandler ) {
 			container.removeEventListener( 'click', container._delegateHandler );
 		}
 
-		// Создаем обработчик через делегирование
 		container._delegateHandler = function ( e ) {
 			// Кнопка "В корзину"
 			const cartBtn = e.target.closest( '.add-to-cart' );
@@ -224,6 +273,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 					const originalHTML = cartBtn.innerHTML;
 					cartBtn.innerHTML = '<i class="fas fa-check"></i> Добавлено';
 					cartBtn.style.background = '#2ecc71';
+
+					// Обновляем состояние кнопки (без перерисовки!)
+					updateCartButtonState( cartBtn, productId );
 
 					setTimeout( () => {
 						cartBtn.innerHTML = originalHTML;
@@ -245,14 +297,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				const productId = favBtn.dataset.id;
 				const isFavorite = store.toggleFavorite( productId );
 
-				if ( isFavorite ) {
-					favBtn.classList.add( 'active' );
-					API.showNotification( '❤️ Добавлено в избранное' );
-				} else {
-					favBtn.classList.remove( 'active' );
-					API.showNotification( '💔 Удалено из избранного' );
-				}
+				// Обновляем состояние кнопки (без перерисовки!)
+				updateFavoriteButtonState( favBtn, productId );
 
+				API.showNotification( isFavorite ? '❤️ Добавлено в избранное' : '💔 Удалено из избранного' );
 				updateHeaderCounters();
 				return;
 			}
@@ -261,55 +309,31 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		container.addEventListener( 'click', container._delegateHandler );
 	}
 
-	/**
-	 * Обновляет счетчики в шапке
-	 */
 	function updateHeaderCounters() {
 		const cartCount = document.getElementById( 'cartCount' );
 		const favoritesCount = document.getElementById( 'favoritesCount' );
-
-		if ( cartCount ) {
-			cartCount.textContent = store.getCartCount();
-		}
-		if ( favoritesCount ) {
-			favoritesCount.textContent = store.favorites.length;
-		}
-	}
-
-	/**
-	 * Обновляет активное состояние кнопок избранного
-	 */
-	function updateFavoriteButtonsState() {
-		document.querySelectorAll( '.favorite-btn' ).forEach( btn => {
-			const productId = btn.dataset.id;
-			if ( productId && store.isFavorite( productId ) ) {
-				btn.classList.add( 'active' );
-			}
-		} );
+		if ( cartCount ) cartCount.textContent = store.getCartCount();
+		if ( favoritesCount ) favoritesCount.textContent = store.favorites.length;
 	}
 
 	// ========== ИНИЦИАЛИЗАЦИЯ АККОРДЕОНА ==========
 
-	// Получаем элементы
 	let productsScroll = document.getElementById( 'productsScroll' );
 	const navbarTrack = document.querySelector( '.navbar-track' );
 
-	// Проверка наличия основного элемента
 	if ( !productsScroll ) {
 		console.error( 'Элемент продуктового скролла не найден' );
 		return;
 	}
 
-	// Конфигурация
 	const config = {
-		autoScrollInterval: 4000,
-		hoverScrollInterval: 6000,
-		transitionDuration: 600,
-		loopScroll: true,
-		animationEnabled: true,
+		autoScrollInterval: 5000,      // Интервал автоскролла (5000 мс = 5 секунд)
+		hoverScrollInterval: 8000,     // Интервал при наведении на товар (8 секунд)
+		transitionDuration: 600,       // Длительность анимации прокрутки (600 мс)
+		loopScroll: true,              // Зацикленная прокрутка
+		animationEnabled: true,        // Включить анимацию
 	};
 
-	// Состояние
 	let productsCurrentIndex = 0;
 	let productsAutoScrollTimer = null;
 	let productsIsScrolling = false;
@@ -321,7 +345,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	let productsSegments = [];
 	let productsHoverTimer = null;
 
-	// ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (оставляем без изменений) ==========
+	// ========== ФУНКЦИИ АККОРДЕОНА (без изменений) ==========
 
 	function productsUpdateMeasurements() {
 		const cards = productsScroll.querySelectorAll( '.product-card' );
@@ -354,7 +378,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			productsSegments.push( segment );
 		}
 		productsUpdateActiveSegment();
-		console.debug( 'Created segments:', segmentCount );
 	}
 
 	function productsUpdateActiveSegment() {
@@ -489,13 +512,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	// ========== ИНИЦИАЛИЗАЦИЯ ==========
 
-	// Сначала рендерим товары
-	renderAccordionProducts();
+	// ОДИН РАЗ рендерим товары при загрузке
+	renderAccordionProducts( false );
 
-	// Обновляем состояние кнопок избранного
-	updateFavoriteButtonsState();
-
-	// Затем настраиваем аккордеон
 	setTimeout( () => {
 		productsUpdateMeasurements();
 		productsCreateNavbarSegments();
@@ -504,7 +523,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		productsStartAutoScroll();
 	}, 100 );
 
-	// Обработчик изменения размера окна
 	let productsResizeTimer;
 	window.addEventListener( 'resize', function () {
 		clearTimeout( productsResizeTimer );
@@ -515,7 +533,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		}, 250 );
 	} );
 
-	// Наблюдатель за изменениями в DOM
+	// Наблюдатель за изменениями в DOM (ТОЛЬКО для обновления навигации, НЕ для перерисовки)
 	const productsObserver = new MutationObserver( function ( mutations ) {
 		let shouldUpdate = false;
 		mutations.forEach( function ( mutation ) {
@@ -526,24 +544,40 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		if ( shouldUpdate ) {
 			productsUpdateNavigation();
 			productsAddProductHoverHandlers();
-			updateFavoriteButtonsState();
 		}
 	} );
 	productsObserver.observe( productsScroll, { childList: true, subtree: false } );
 
-	// Слушаем обновление товаров
+	// Слушаем обновление товаров - ПЕРЕРИСОВЫВАЕМ ТОЛЬКО ЕСЛИ СОСТАВ ИЗМЕНИЛСЯ
 	window.addEventListener( 'store:productsUpdated', function () {
-		renderAccordionProducts();
-		setTimeout( () => {
-			productsUpdateNavigation();
-			productsAddProductHoverHandlers();
-			updateFavoriteButtonsState();
-		}, 100 );
+		const oldHash = productsHash;
+		const newProducts = getAccordionProducts();
+		const newHash = getProductsHash( newProducts );
+
+		if ( oldHash !== newHash ) {
+			// Состав товаров изменился - перерисовываем
+			console.log( '🔄 Состав товаров изменился, обновляем аккордеон' );
+			renderAccordionProducts( true );
+			setTimeout( () => {
+				productsUpdateNavigation();
+				productsAddProductHoverHandlers();
+			}, 100 );
+		} else {
+			console.log( '📦 Состав товаров не изменился, перерисовка не требуется' );
+		}
 	} );
 
-	// Слушаем обновление избранного (чтобы обновить состояние кнопок)
+	// НЕ ПЕРЕРИСОВЫВАЕМ АККОРДЕОН ПРИ ДОБАВЛЕНИИ В КОРЗИНУ ИЛИ ИЗБРАННОЕ!
+	// Только обновляем состояние кнопок через updateCartButtonState и updateFavoriteButtonState
+
+	// Обновляем состояние кнопок избранного при изменении избранного
 	window.addEventListener( 'store:favoritesUpdated', function () {
-		updateFavoriteButtonsState();
+		document.querySelectorAll( '.favorite-btn' ).forEach( btn => {
+			const productId = btn.dataset.id;
+			if ( productId ) {
+				updateFavoriteButtonState( btn, productId );
+			}
+		} );
 	} );
 
 	console.log( '✅ Скролл-аккордеон товаров инициализирован' );
