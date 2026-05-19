@@ -2,16 +2,29 @@
  * ============================================================================
  * ЕДИНОЕ ХРАНИЛИЩЕ ДАННЫХ ДЛЯ САЙТА "КОМОРИ"
  * ============================================================================
+ * 
+ * Store - центральное хранилище всех данных приложения.
+ * Отвечает за:
+ * - Товары (products)
+ * - Корзину (cart) - привязана к пользователю
+ * - Избранное (favorites) - привязано к пользователю
+ * - Пользователей (users)
+ * - Промо-слайды (promoSlides)
+ * 
+ * Все изменения данных сохраняются в localStorage и генерируют события,
+ * на которые могут подписываться другие компоненты.
+ * 
+ * ============================================================================
  */
 
 class Store {
 	constructor() {
 		// ========== ОСНОВНЫЕ ХРАНИЛИЩА ==========
-		this.products = [];
-		this.cart = [];
-		this.favorites = [];
-		this.users = [];
-		this.promoSlides = []; // Промо-слайды для главной страницы
+		this.products = [];      // Массив всех товаров
+		this.cart = [];          // Массив товаров в корзине текущего пользователя { id, quantity }
+		this.favorites = [];     // Массив ID товаров в избранном текущего пользователя
+		this.users = [];         // Массив зарегистрированных пользователей
+		this.promoSlides = [];   // Промо-слайды для главной страницы
 
 		// ========== КАТЕГОРИИ ТОВАРОВ ==========
 		this.categories = {
@@ -39,9 +52,11 @@ class Store {
 
 	init() {
 		this.loadFromStorage();
-		this.loadUserData(); // Загружаем данные текущего пользователя
-		this.addDemoProductsIfNeeded();
-		this.addDemoSlidesIfNeeded();
+		this.addDemoProductsIfNeeded();  // Добавляет демо-товары (с версионированием)
+		this.addDemoSlidesIfNeeded();    // Добавляет демо-слайды (с версионированием)
+
+		// Загружаем данные текущего пользователя (корзину и избранное)
+		this.loadUserData();
 	}
 
 	// =========================================================================
@@ -66,14 +81,7 @@ class Store {
 	 */
 	saveToStorage() {
 		try {
-			const productsStr = JSON.stringify( this.products );
-			const productsSizeKB = ( productsStr.length / 1024 ).toFixed( 2 );
-
-			if ( productsStr.length > 4.5 * 1024 * 1024 ) {
-				console.warn( `⚠️ Размер товаров: ${productsSizeKB} KB, приближается к лимиту (5MB)` );
-			}
-
-			localStorage.setItem( 'komori_products', productsStr );
+			localStorage.setItem( 'komori_products', JSON.stringify( this.products ) );
 			localStorage.setItem( 'komori_users', JSON.stringify( this.users ) );
 			localStorage.setItem( 'komori_promo_slides', JSON.stringify( this.promoSlides ) );
 
@@ -82,12 +90,7 @@ class Store {
 
 			this.dispatchEvents();
 		} catch ( e ) {
-			if ( e.name === 'QuotaExceededError' ) {
-				console.error( '❌ Превышен лимит localStorage!' );
-				this.showStorageWarning();
-			} else {
-				console.error( '❌ Ошибка сохранения:', e );
-			}
+			console.error( '❌ Ошибка сохранения:', e );
 		}
 	}
 
@@ -101,7 +104,6 @@ class Store {
 		// Сохраняем корзину и избранное для текущего пользователя
 		localStorage.setItem( `komori_cart_${currentUser.id}`, JSON.stringify( this.cart ) );
 		localStorage.setItem( `komori_favorites_${currentUser.id}`, JSON.stringify( this.favorites ) );
-		console.log( `💾 Сохранены данные пользователя ${currentUser.name}: корзина (${this.cart.length}), избранное (${this.favorites.length})` );
 	}
 
 	/**
@@ -121,44 +123,10 @@ class Store {
 
 			console.log( `👤 Загружены данные пользователя ${currentUser.name}: корзина (${this.cart.length}), избранное (${this.favorites.length})` );
 		} else {
-			// Если пользователь не авторизован, используем временные данные (гостевой режим)
-			this.cart = JSON.parse( localStorage.getItem( 'komori_cart_guest' ) ) || [];
-			this.favorites = JSON.parse( localStorage.getItem( 'komori_favorites_guest' ) ) || [];
-			console.log( `👤 Гостевой режим: корзина (${this.cart.length}), избранное (${this.favorites.length})` );
-		}
-	}
-
-	/**
-	 * Сохраняет гостевые данные (когда пользователь не авторизован)
-	 */
-	saveGuestData() {
-		localStorage.setItem( 'komori_cart_guest', JSON.stringify( this.cart ) );
-		localStorage.setItem( 'komori_favorites_guest', JSON.stringify( this.favorites ) );
-	}
-
-	/**
-	 * Переносит гостевые данные в аккаунт пользователя при входе
-	 */
-	migrateGuestDataToUser( userId ) {
-		const guestCart = JSON.parse( localStorage.getItem( 'komori_cart_guest' ) ) || [];
-		const guestFavorites = JSON.parse( localStorage.getItem( 'komori_favorites_guest' ) ) || [];
-
-		if ( guestCart.length > 0 || guestFavorites.length > 0 ) {
-			// Объединяем гостевые данные с существующими
-			const existingCart = JSON.parse( localStorage.getItem( `komori_cart_${userId}` ) ) || [];
-			const existingFavorites = JSON.parse( localStorage.getItem( `komori_favorites_${userId}` ) ) || [];
-
-			const mergedCart = [...existingCart, ...guestCart];
-			const mergedFavorites = [...new Set( [...existingFavorites, ...guestFavorites] )];
-
-			localStorage.setItem( `komori_cart_${userId}`, JSON.stringify( mergedCart ) );
-			localStorage.setItem( `komori_favorites_${userId}`, JSON.stringify( mergedFavorites ) );
-
-			// Очищаем гостевые данные
-			localStorage.removeItem( 'komori_cart_guest' );
-			localStorage.removeItem( 'komori_favorites_guest' );
-
-			console.log( `🔄 Перенесены гостевые данные: корзина (${guestCart.length}), избранное (${guestFavorites.length})` );
+			// Если пользователь не авторизован, используем временные данные
+			this.cart = [];
+			this.favorites = [];
+			console.log( '👤 Гостевой режим: корзина и избранное не загружены' );
 		}
 	}
 
@@ -166,38 +134,10 @@ class Store {
 	 * Очищает данные текущего пользователя при выходе
 	 */
 	clearUserData() {
-		// Сохраняем гостевые данные перед очисткой
-		this.saveGuestData();
-
 		this.cart = [];
 		this.favorites = [];
-		console.log( '🧹 Данные пользователя очищены, сохранены как гостевые' );
-	}
-
-	/**
-	 * Показывает предупреждение о переполнении хранилища
-	 */
-	showStorageWarning() {
-		const warning = document.createElement( 'div' );
-		warning.style.cssText = `
-			position: fixed;
-			bottom: 20px;
-			right: 20px;
-			background: #ff4757;
-			color: white;
-			padding: 15px 20px;
-			border-radius: 8px;
-			z-index: 10000;
-			font-size: 14px;
-			box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-		`;
-		warning.innerHTML = `
-			<strong>⚠️ Внимание!</strong><br>
-			Превышен лимит хранилища.<br>
-			Удалите старые товары или используйте внешние изображения.
-		`;
-		document.body.appendChild( warning );
-		setTimeout( () => warning.remove(), 5000 );
+		this.saveUserData();
+		console.log( '🧹 Данные пользователя очищены' );
 	}
 
 	dispatchEvents() {
@@ -521,6 +461,8 @@ class Store {
 			defaultAddress: null,
 			avatar: null,
 			subscribe: userData.subscribe || false,
+			cart: [],      // Корзина пользователя (резерв)
+			favorites: [], // Избранное пользователя (резерв)
 			createdAt: new Date().toISOString(),
 			lastLogin: new Date().toISOString()
 		};
@@ -542,10 +484,6 @@ class Store {
 			user.lastLogin = new Date().toISOString();
 			this.saveToStorage();
 			localStorage.setItem( 'komori_current_user', JSON.stringify( user ) );
-
-			// Переносим гостевые данные в аккаунт
-			this.migrateGuestDataToUser( user.id );
-
 			this.loadUserData(); // Загружаем данные пользователя
 			return { success: true, user };
 		}
@@ -575,8 +513,8 @@ class Store {
 	}
 
 	logoutUser() {
-		// Сохраняем данные текущего пользователя как гостевые перед выходом
-		this.saveGuestData();
+		// Сохраняем данные текущего пользователя перед выходом
+		this.saveUserData();
 
 		// Очищаем локальные данные
 		this.cart = [];
@@ -584,10 +522,7 @@ class Store {
 		localStorage.removeItem( 'komori_current_user' );
 		localStorage.removeItem( 'komori_remembered_user' );
 
-		// Загружаем гостевые данные
-		this.loadUserData();
-
-		console.log( '👋 Пользователь вышел, данные сохранены в гостевом режиме' );
+		console.log( '👋 Пользователь вышел, данные сохранены' );
 	}
 
 	// =========================================================================
@@ -644,7 +579,6 @@ class Store {
 	 */
 	deletePromoSlide( id ) {
 		this.promoSlides = this.promoSlides.filter( s => s.id != id );
-		// Перенумеровываем order
 		this.promoSlides.forEach( ( slide, idx ) => {
 			slide.order = idx;
 		} );
@@ -652,117 +586,765 @@ class Store {
 		window.dispatchEvent( new CustomEvent( 'promoslides:updated', { detail: this.promoSlides } ) );
 	}
 
+	// =========================================================================
+	// ДЕМО-ДАННЫЕ С ВЕРСИОНИРОВАНИЕМ
+	// =========================================================================
+
 	/**
 	 * Добавляет демонстрационные слайды, если их нет или если версия устарела
+	 * 
+	 * КАК РАБОТАЕТ ВЕРСИОНИРОВАНИЕ:
+	 * 
+	 * 1. При первом запуске сайта у пользователя нет слайдов (promoSlides.length === 0)
+	 *    → Добавляются демо-слайды и сохраняется версия 1
+	 * 
+	 * 2. Когда вы добавляете новые слайды в код, вы увеличиваете CURRENT_SLIDES_VERSION
+	 *    (например, с 1 на 2)
+	 * 
+	 * 3. При следующем запуске у пользователя будет savedVersion = 1,
+	 *    а CURRENT_SLIDES_VERSION = 2. Условие savedVersion < CURRENT_SLIDES_VERSION
+	 *    сработает → слайды обновятся!
+	 * 
+	 * 4. Версия сохраняется в localStorage под ключом 'komori_slides_version'
+	 * 
+	 * ВАЖНО: При каждом добавлении новых слайдов УВЕЛИЧИВАЙТЕ CURRENT_SLIDES_VERSION!
 	 */
 	addDemoSlidesIfNeeded() {
+		// ============================================================
 		// ВЕРСИЯ ДЕМО-СЛАЙДОВ
-		const CURRENT_SLIDES_VERSION = 1;
+		// УВЕЛИЧЬТЕ ЭТУ ЦИФРУ при каждом добавлении новых слайдов!
+		// ============================================================
+		const CURRENT_SLIDES_VERSION = 1;  // ← Увеличивайте при добавлении новых слайдов
 
 		const savedVersion = localStorage.getItem( 'komori_slides_version' );
-		const needsUpdate = this.promoSlides.length === 0 ||
-			( savedVersion && parseInt( savedVersion ) < CURRENT_SLIDES_VERSION );
 
-		if ( !needsUpdate ) {
-			console.log( `✅ Демо-слайды актуальны (версия ${savedVersion})` );
-			return;
+		// Обновляем если: нет слайдов ИЛИ версия устарела
+		if ( this.promoSlides.length === 0 || ( savedVersion && parseInt( savedVersion ) < CURRENT_SLIDES_VERSION ) ) {
+
+			console.log( `🔄 Обновление демо-слайдов: версия ${savedVersion || '0'} → ${CURRENT_SLIDES_VERSION}` );
+
+			// Очищаем старые слайды
+			this.promoSlides = [];
+
+			// ========== ДЕМО-СЛАЙДЫ ==========
+			const demoSlides = [
+				{
+					title: 'Канцелярия',
+					description: 'Широкий ассортимент канцелярии',
+					price: '',
+					link: '/pages html/catalog pages/office.html',
+					image: '/image/kawai.jpg',
+					order: 0,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					title: 'Фигурки',
+					description: 'Широкий ассортимент фигурок',
+					price: '',
+					link: '/pages html/catalog pages/figurines.html',
+					image: '/image/figures.jpg',
+					order: 1,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					title: 'Одежда',
+					description: 'Футболки / Худи / Свитшоты',
+					price: '',
+					link: '/pages html/catalog pages/clothes.html',
+					image: '/image/T-shirt.jpg',
+					order: 2,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					title: 'Музыка',
+					description: 'Азиатская популярная музыка',
+					price: '',
+					link: '/pages html/catalog pages/music.html',
+					image: '/image/music.jpg',
+					order: 3,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					title: 'Манга',
+					description: 'Большой ассортимент книг и манги',
+					price: '',
+					link: '/pages html/catalog pages/manga.html',
+					image: '/image/manga.jpg',
+					order: 4,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					title: 'Чай',
+					description: 'Большой ассортимент чая',
+					price: '',
+					link: '/pages html/catalog pages/tea.html',
+					image: '/image/tea.jpg',
+					order: 5,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					title: 'Посуда',
+					description: 'Большой ассортимент посуды',
+					price: '',
+					link: '/pages html/catalog pages/dishes.html',
+					image: '/image/sakura.jpg',
+					order: 6,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				},
+				{
+					title: 'Сладости',
+					description: 'Большой ассортимент азиатской еды и сладостей',
+					price: 'начиная от 15 ₽!',
+					link: '/pages html/catalog pages/sweets.html',
+					image: '/image/swits.jpg',
+					order: 7,
+					status: 'active',
+					createdAt: new Date().toISOString()
+				}
+			];
+
+			// Добавляем слайды (без id, они сгенерируются автоматически в addPromoSlide)
+			demoSlides.forEach( slide => {
+				this.addPromoSlide( slide );
+			} );
+
+			// Сохраняем версию демо-слайдов в localStorage
+			localStorage.setItem( 'komori_slides_version', CURRENT_SLIDES_VERSION );
+
+			console.log( `📦 Добавлено ${demoSlides.length} демонстрационных слайдов (версия ${CURRENT_SLIDES_VERSION})` );
 		}
+	}
 
-		if ( this.promoSlides.length > 0 ) {
-			console.log( `🔄 Обновление демо-слайдов: версия ${savedVersion} → ${CURRENT_SLIDES_VERSION}` );
-		}
+	/**
+	 * Добавляет демонстрационные товары, если их нет или если версия устарела
+	 * 
+	 * КАК РАБОТАЕТ ВЕРСИОНИРОВАНИЕ:
+	 * 
+	 * 1. При первом запуске сайта у пользователя нет товаров (products.length === 0)
+	 *    → Добавляются демо-товары и сохраняется версия 1
+	 * 
+	 * 2. Когда вы добавляете новые товары в массив demos, вы увеличиваете CURRENT_DEMO_VERSION
+	 *    (например, с 1 на 2)
+	 * 
+	 * 3. При следующем запуске у пользователя будет savedVersion = 1,
+	 *    а CURRENT_DEMO_VERSION = 2. Условие savedVersion < CURRENT_DEMO_VERSION
+	 *    сработает → товары обновятся!
+	 * 
+	 * 4. Версия сохраняется в localStorage под ключом 'komori_demo_version'
+	 * 
+	 * ВАЖНО: При каждом добавлении новых товаров УВЕЛИЧИВАЙТЕ CURRENT_DEMO_VERSION!
+	 */
+	addDemoProductsIfNeeded() {
+		// ============================================================
+		// ВЕРСИЯ ДЕМО-ТОВАРОВ
+		// УВЕЛИЧЬТЕ ЭТУ ЦИФРУ при каждом добавлении новых товаров!
+		// ============================================================
+		const CURRENT_DEMO_VERSION = 2;  // ← Увеличивайте при добавлении новых товаров!
 
-		this.promoSlides = [];
+		const savedVersion = localStorage.getItem( 'komori_demo_version' );
 
-		const demoSlides = [
-			{
-				title: 'Канцелярия',
-				description: 'Широкий ассортимент канцелярии',
-				price: '',
-				link: '/pages html/catalog pages/office.html',
-				image: '/image/kawai.jpg',
-				order: 0,
-				status: 'active',
-				createdAt: new Date().toISOString()
-			},
-			{
-				title: 'Фигурки',
-				description: 'Широкий ассортимент фигурок',
-				price: '',
-				link: '/pages html/catalog pages/figurines.html',
-				image: '/image/figures.jpg',
-				order: 1,
-				status: 'active',
-				createdAt: new Date().toISOString()
-			},
-			{
-				title: 'Одежда',
-				description: 'Футболки / Худи / Свитшоты',
-				price: '',
-				link: '/pages html/catalog pages/clothes.html',
-				image: '/image/T-shirt.jpg',
-				order: 2,
-				status: 'active',
-				createdAt: new Date().toISOString()
-			},
-			{
-				title: 'Музыка',
-				description: 'Азиатская популярная музыка',
-				price: '',
-				link: '/pages html/catalog pages/music.html',
-				image: '/image/music.jpg',
-				order: 3,
-				status: 'active',
-				createdAt: new Date().toISOString()
-			},
-			{
-				title: 'Манга',
-				description: 'Большой ассортимент книг и манги',
-				price: '',
-				link: '/pages html/catalog pages/manga.html',
-				image: '/image/manga.jpg',
-				order: 4,
-				status: 'active',
-				createdAt: new Date().toISOString()
-			},
-			{
-				title: 'Чай',
-				description: 'Большой ассортимент чая',
-				price: '',
-				link: '/pages html/catalog pages/tea.html',
-				image: '/image/tea.jpg',
-				order: 5,
-				status: 'active',
-				createdAt: new Date().toISOString()
-			},
-			{
-				title: 'Посуда',
-				description: 'Большой ассортимент посуды',
-				price: '',
-				link: '/pages html/catalog pages/dishes.html',
-				image: '/image/sakura.jpg',
-				order: 6,
-				status: 'active',
-				createdAt: new Date().toISOString()
-			},
-			{
-				title: 'Сладости',
-				description: 'Большой ассортимент азиатской еды и сладостей',
-				price: 'начиная от 15 ₽!',
-				link: '/pages html/catalog pages/sweets.html',
-				image: '/image/swits.jpg',
-				order: 7,
-				status: 'active',
-				createdAt: new Date().toISOString()
+		// Обновляем если: нет товаров ИЛИ версия устарела
+		if ( this.products.length === 0 || ( savedVersion && parseInt( savedVersion ) < CURRENT_DEMO_VERSION ) ) {
+
+			console.log( `🔄 Обновление демо-товаров: версия ${savedVersion || '0'} → ${CURRENT_DEMO_VERSION}` );
+
+			// Очищаем старые товары (если были)
+			if ( this.products.length > 0 ) {
+				this.products = [];
 			}
-		];
 
-		demoSlides.forEach( slide => {
-			this.addPromoSlide( slide );
-		} );
+			// ========== ДЕМО-ТОВАРЫ (39 товаров) ==========
+			const demos = [
+				// ========== АНИМЕ ФИГУРКИ (figures) ==========
+				{
+					name: 'Фигурка Наруто Узумаки',
+					category: 'figures',
+					sku: 'FIG-NAR-001',
+					col: 'NARUTO',
+					price: 1890,
+					oldPrice: 2390,
+					description: 'Детализированная фигурка главного героя из аниме "Наруто"',
+					status: 'in-stock',
+					quantity: 15,
+					isNew: true,
+					isHit: true,
+					image: '/image/Фигурка Наруто Узумаки.jpg'
+				},
+				{
+					name: 'Фигурка Саске Учиха',
+					category: 'figures',
+					sku: 'FIG-SAS-002',
+					col: 'NARUTO',
+					price: 1890,
+					oldPrice: 2390,
+					description: 'Фигурка главного антагониста и друга Наруто',
+					status: 'in-stock',
+					quantity: 12,
+					isNew: false,
+					isHit: true,
+					image: '/image/Фигурка Саске Учиха.jpg'
+				},
+				{
+					name: 'Фигурка Гоку Супер Сайян',
+					category: 'figures',
+					sku: 'FIG-GOK-003',
+					col: 'DRAGON BALL',
+					price: 2490,
+					oldPrice: 2990,
+					description: 'Легендарный воин из аниме "Жемчуг Дракона" в форме Супер Сайяна',
+					status: 'in-stock',
+					quantity: 8,
+					isNew: true,
+					isHit: false,
+					image: '/image/Фигурка Гоку Супер Сайян.jpg'
+				},
 
-		localStorage.setItem( 'komori_slides_version', CURRENT_SLIDES_VERSION );
-		console.log( `📦 Добавлено ${demoSlides.length} демонстрационных слайдов (версия ${CURRENT_SLIDES_VERSION})` );
+				// ========== ЯПОНСКИЙ ЧАЙ (tea) ==========
+				{
+					name: 'Чай маття премиум',
+					category: 'tea',
+					sku: 'TEA-MAT-001',
+					col: 'TEA COLLECTION',
+					price: 890,
+					oldPrice: 1190,
+					description: 'Настоящий японский зелёный чай высшего сорта',
+					status: 'in-stock',
+					quantity: 45,
+					isNew: true,
+					isHit: false,
+					image: '/image/Чай маття премиум.jpg'
+				},
+				{
+					name: 'Сенча органический',
+					category: 'tea',
+					sku: 'TEA-SEN-002',
+					col: 'TEA COLLECTION',
+					price: 590,
+					oldPrice: 790,
+					description: 'Традиционный японский зеленый чай из первого урожая',
+					status: 'in-stock',
+					quantity: 30,
+					isNew: false,
+					isHit: true,
+					image: '/image/Сенча органический.jpg'
+				},
+				{
+					name: 'Ходзитя обжаренный',
+					category: 'tea',
+					sku: 'TEA-HOJ-003',
+					col: 'TEA COLLECTION',
+					price: 490,
+					oldPrice: 690,
+					description: 'Обжаренный зеленый чай с ореховым ароматом',
+					status: 'in-stock',
+					quantity: 25,
+					isNew: true,
+					isHit: false,
+					image: '/image/Ходзитя обжаренный.jpg'
+				},
+
+				// ========== АЗИАТСКИЕ СЛАДОСТИ (sweets) ==========
+				{
+					name: 'Набор японских сладостей',
+					category: 'sweets',
+					sku: 'SWT-SET-001',
+					col: 'SWEETS',
+					price: 1490,
+					oldPrice: 1990,
+					description: 'Ассорти из моти, рамена и традиционных десертов',
+					status: 'in-stock',
+					quantity: 23,
+					isNew: false,
+					isHit: true,
+					image: '/image/Набор японских сладостей.jpg'
+				},
+				{
+					name: 'Моти клубничные',
+					category: 'sweets',
+					sku: 'SWT-MOC-002',
+					col: 'SWEETS',
+					price: 550,
+					oldPrice: 690,
+					description: 'Нежные рисовые пирожные с клубничной начинкой',
+					status: 'in-stock',
+					quantity: 35,
+					isNew: true,
+					isHit: false,
+					image: '/image/Моти клубничные.jpg'
+				},
+				{
+					name: 'Дораяки с красной фасолью',
+					category: 'sweets',
+					sku: 'SWT-DOR-003',
+					col: 'SWEETS',
+					price: 320,
+					oldPrice: 450,
+					description: 'Традиционные японские блинчики со сладкой начинкой',
+					status: 'in-stock',
+					quantity: 28,
+					isNew: false,
+					isHit: false,
+					image: '/image/Дораяки с красной фасолью.jpg'
+				},
+
+				// ========== МАНГА И КНИГИ (manga) ==========
+				{
+					name: 'Манга "Наруто" том 1',
+					category: 'manga',
+					sku: 'MANGA-NAR-001',
+					col: 'MANGA',
+					price: 690,
+					oldPrice: 890,
+					description: 'Первый том легендарной манги на русском языке',
+					status: 'out-of-stock',
+					quantity: 0,
+					isNew: false,
+					isHit: false,
+					image: '/image/Манга Наруто том 1.jpg'
+				},
+				{
+					name: 'Манга "Атака Титанов" том 1',
+					category: 'manga',
+					sku: 'MANGA-ATK-002',
+					col: 'MANGA',
+					price: 750,
+					oldPrice: 950,
+					description: 'Популярная манга о борьбе человечества с гигантскими титанами',
+					status: 'in-stock',
+					quantity: 18,
+					isNew: true,
+					isHit: true,
+					image: '/image/Манга Атака Титанов том 1.jpg'
+				},
+				{
+					name: 'Манга "Клинок, рассекающий демонов" том 1',
+					category: 'manga',
+					sku: 'MANGA-DEM-003',
+					col: 'MANGA',
+					price: 720,
+					oldPrice: 920,
+					description: 'История о молодом охотнике на демонов',
+					status: 'in-stock',
+					quantity: 22,
+					isNew: true,
+					isHit: false,
+					image: '/image/Манга Клинок, рассекающий демонов том 1.jpg'
+				},
+
+				// ========== АНИМЕ ОДЕЖДА (clothing) ==========
+				{
+					name: 'Футболка "Наруто"',
+					category: 'clothing',
+					sku: 'CLO-NAR-001',
+					col: 'NARUTO',
+					price: 1290,
+					oldPrice: 1590,
+					description: 'Хлопковая футболка с принтом Наруто',
+					status: 'in-stock',
+					quantity: 25,
+					isNew: false,
+					isHit: true,
+					image: '/image/Футболка Наруто.jpg'
+				},
+				{
+					name: 'Худи "Атака Титанов"',
+					category: 'clothing',
+					sku: 'CLO-ATK-002',
+					col: 'CLOTHING',
+					price: 2990,
+					oldPrice: 3990,
+					description: 'Теплое худи с символикой Разведкорпуса',
+					status: 'in-stock',
+					quantity: 12,
+					isNew: true,
+					isHit: false,
+					image: '/image/Худи Атака Титанов.jpg'
+				},
+				{
+					name: 'Футболка Демон-убийца',
+					category: 'clothing',
+					sku: 'CLO-DEM-003',
+					col: 'CLOTHING',
+					price: 1390,
+					oldPrice: 1690,
+					description: 'Футболка с персонажами из "Клинка, рассекающего демонов"',
+					status: 'in-stock',
+					quantity: 20,
+					isNew: true,
+					isHit: false,
+					image: '/image/Футболка Демон-убийца.jpeg'
+				},
+
+				// ========== ЯПОНСКАЯ ПОСУДА (tableware) ==========
+				{
+					name: 'Чайный набор "Сакура"',
+					category: 'tableware',
+					sku: 'TBL-SAK-001',
+					col: 'TABLEWARE',
+					price: 3490,
+					oldPrice: 4490,
+					description: 'Керамический набор для чайной церемонии с росписью сакуры',
+					status: 'in-stock',
+					quantity: 10,
+					isNew: true,
+					isHit: true,
+					image: '/image/Чайный набор Сакура.jpg'
+				},
+				{
+					name: 'Пиала для чая "Сакура"',
+					category: 'tableware',
+					sku: 'TBL-CUP-002',
+					col: 'TABLEWARE',
+					price: 890,
+					oldPrice: 1190,
+					description: 'Традиционная японская пиала для чая с узором сакуры',
+					status: 'in-stock',
+					quantity: 35,
+					isNew: false,
+					isHit: false,
+					image: '/image/Пиала для чая Сакура.jpg'
+				},
+				{
+					name: 'Набор палочек для еды',
+					category: 'tableware',
+					sku: 'TBL-CHP-003',
+					col: 'TABLEWARE',
+					price: 590,
+					oldPrice: 790,
+					description: 'Лакированные деревянные палочки в подарочной упаковке',
+					status: 'in-stock',
+					quantity: 40,
+					isNew: false,
+					isHit: false,
+					image: '/image/Набор палочек для еды.jpeg'
+				},
+
+				// ========== ЯПОНСКИЕ ИГРЫ (games) ==========
+				{
+					name: 'Го классическое',
+					category: 'games',
+					sku: 'GAM-GO-001',
+					col: 'GAMES',
+					price: 2490,
+					oldPrice: 2990,
+					description: 'Традиционная японская стратегическая игра для двоих',
+					status: 'in-stock',
+					quantity: 8,
+					isNew: false,
+					isHit: false,
+					image: '/image/Го классическое.jpg'
+				},
+				{
+					name: 'Нинтендо Свитч Про контроллер',
+					category: 'games',
+					sku: 'GAM-NSW-002',
+					col: 'GAMES',
+					price: 3490,
+					oldPrice: 4490,
+					description: 'Официальный беспроводной контроллер для Nintendo Switch',
+					status: 'in-stock',
+					quantity: 15,
+					isNew: true,
+					isHit: true,
+					image: '/image/Нинтендо Свитч Про контроллер.jpg'
+				},
+				{
+					name: 'Коллекционная карточная игра "Pokémon"',
+					category: 'games',
+					sku: 'GAM-POK-003',
+					col: 'GAMES',
+					price: 1290,
+					oldPrice: 1590,
+					description: 'Бустер с коллекционными карточками покемонов',
+					status: 'in-stock',
+					quantity: 30,
+					isNew: true,
+					isHit: false,
+					image: '/image/Коллекционная карточная игра Pokémon.jpg'
+				},
+
+				// ========== КАНЦЕЛЯРИЯ КАВАЙ (stationery) ==========
+				{
+					name: 'Тетрадь в стиле кавай',
+					category: 'stationery',
+					sku: 'STA-NOT-001',
+					col: 'STATIONERY',
+					price: 290,
+					oldPrice: 390,
+					description: 'Тетрадь с милыми азиатскими персонажами',
+					status: 'in-stock',
+					quantity: 50,
+					isNew: false,
+					isHit: false,
+					image: '/image/Тетрадь в стиле кавай.jpg'
+				},
+				{
+					name: 'Набор ручек "Кавай"',
+					category: 'stationery',
+					sku: 'STA-PEN-002',
+					col: 'STATIONERY',
+					price: 490,
+					oldPrice: 690,
+					description: 'Набор из 6 гелевых ручек с милым дизайном',
+					status: 'in-stock',
+					quantity: 45,
+					isNew: true,
+					isHit: false,
+					image: '/image/Набор ручек Кавай.jpg'
+				},
+				{
+					name: 'Наклейки "Аниме" набор 50шт',
+					category: 'stationery',
+					sku: 'STA-STK-003',
+					col: 'STATIONERY',
+					price: 190,
+					oldPrice: 290,
+					description: 'Коллекция наклеек с популярными аниме персонажами',
+					status: 'in-stock',
+					quantity: 100,
+					isNew: true,
+					isHit: true,
+					image: '/image/Наклейки Аниме набор 50шт.jpg'
+				},
+
+				// ========== КОСМЕТИКА ИЗ АЗИИ (cosmetics) ==========
+				{
+					name: 'Корейская маска для лица',
+					category: 'cosmetics',
+					sku: 'COS-MSK-001',
+					col: 'COSMETICS',
+					price: 150,
+					oldPrice: 250,
+					description: 'Увлажняющая тканевая маска с экстрактом алоэ',
+					status: 'in-stock',
+					quantity: 80,
+					isNew: true,
+					isHit: false,
+					image: '/image/Корейская маска для лица.jpg'
+				},
+				{
+					name: 'Тональный крем BB',
+					category: 'cosmetics',
+					sku: 'COS-BB-002',
+					col: 'COSMETICS',
+					price: 1290,
+					oldPrice: 1690,
+					description: 'Корейский BB-крем с SPF 50',
+					status: 'in-stock',
+					quantity: 25,
+					isNew: false,
+					isHit: true,
+					image: '/image/Тональный крем BB.jpg'
+				},
+				{
+					name: 'Патчи для глаз с коллагеном',
+					category: 'cosmetics',
+					sku: 'COS-PAT-003',
+					col: 'COSMETICS',
+					price: 890,
+					oldPrice: 1190,
+					description: 'Гель-патчи для ухода за кожей вокруг глаз',
+					status: 'in-stock',
+					quantity: 35,
+					isNew: true,
+					isHit: false,
+					image: '/image/Патчи для глаз с коллагеном.jpg'
+				},
+
+				// ========== АЗИАТСКИЙ ДЕКОР (decor) ==========
+				{
+					name: 'Китайский фонарик "Красный дракон"',
+					category: 'decor',
+					sku: 'DEC-LAN-001',
+					col: 'DECOR',
+					price: 890,
+					oldPrice: 1190,
+					description: 'Традиционный китайский бумажный фонарик',
+					status: 'in-stock',
+					quantity: 20,
+					isNew: true,
+					isHit: false,
+					image: '/image/Китайский фонарик Красный дракон.jpg'
+				},
+				{
+					name: 'Фигурка "Дракон" из нефрита',
+					category: 'decor',
+					sku: 'DEC-DRA-002',
+					col: 'DECOR',
+					price: 3490,
+					oldPrice: 4490,
+					description: 'Декоративная фигурка дракона из искусственного нефрита',
+					status: 'in-stock',
+					quantity: 5,
+					isNew: false,
+					isHit: true,
+					image: '/image/Фигурка Дракон из нефрита.jpg'
+				},
+				{
+					name: 'Веер японский "Весна"',
+					category: 'decor',
+					sku: 'DEC-FAN-003',
+					col: 'DECOR',
+					price: 590,
+					oldPrice: 790,
+					description: 'Традиционный японский веер с росписью',
+					status: 'in-stock',
+					quantity: 30,
+					isNew: false,
+					isHit: false,
+					image: '/image/Веер японский Весна.jpeg'
+				},
+
+				// ========== АНИМЕ НА ДИСКАХ (anime) ==========
+				{
+					name: 'Наруто: Коллекция фильмов DVD',
+					category: 'anime',
+					sku: 'ANM-NAR-001',
+					col: 'ANIME',
+					price: 2490,
+					oldPrice: 2990,
+					description: 'Сборник полнометражных фильмов о Наруто',
+					status: 'in-stock',
+					quantity: 12,
+					isNew: false,
+					isHit: false,
+					image: '/image/Наруто Коллекция фильмов DVD.jpg'
+				},
+				{
+					name: 'Унесённые призраками Blu-ray',
+					category: 'anime',
+					sku: 'ANM-SPI-002',
+					col: 'ANIME',
+					price: 1890,
+					oldPrice: 2390,
+					description: 'Знаменитое аниме Хаяо Миядзаки в HD качестве',
+					status: 'in-stock',
+					quantity: 18,
+					isNew: true,
+					isHit: true,
+					image: '/image/Унесённые призраками Blu-ray.jpg'
+				},
+				{
+					name: 'Атака Титанов Сезон 1 DVD',
+					category: 'anime',
+					sku: 'ANM-ATK-003',
+					col: 'ANIME',
+					price: 1490,
+					oldPrice: 1990,
+					description: 'Первый сезон культового аниме',
+					status: 'in-stock',
+					quantity: 15,
+					isNew: false,
+					isHit: false,
+					image: '/image/Атака Титанов Сезон 1 DVD.jpg'
+				},
+
+				// ========== АЗИАТСКАЯ МУЗЫКА (music) ==========
+				{
+					name: 'K-POP альбом BTS "BE"',
+					category: 'music',
+					sku: 'MUS-BTS-001',
+					col: 'MUSIC',
+					price: 2490,
+					oldPrice: 2990,
+					description: 'Альбом популярной корейской группы BTS',
+					status: 'in-stock',
+					quantity: 20,
+					isNew: true,
+					isHit: true,
+					image: '/image/K-POP альбом BTS BE.jpg'
+				},
+				{
+					name: 'J-POP альбом LiSA "Best"',
+					category: 'music',
+					sku: 'MUS-LIS-002',
+					col: 'MUSIC',
+					price: 1890,
+					oldPrice: 2390,
+					description: 'Сборник лучших песен исполнительницы из "Клинка, рассекающего демонов"',
+					status: 'in-stock',
+					quantity: 15,
+					isNew: true,
+					isHit: false,
+					image: '/image/J-POP альбом LiSA Best.jpg'
+				},
+				{
+					name: 'OST аниме "Наруто" на виниле',
+					category: 'music',
+					sku: 'MUS-NAR-003',
+					col: 'MUSIC',
+					price: 3490,
+					oldPrice: 4490,
+					description: 'Коллекционное издание саундтрека на виниле',
+					status: 'in-stock',
+					quantity: 5,
+					isNew: false,
+					isHit: true,
+					image: '/image/OST аниме Наруто на виниле.jpg'
+				},
+
+				// ========== ДРУГОЕ (other) ==========
+				{
+					name: 'Подарочный набор "Комори"',
+					category: 'other',
+					sku: 'OTH-GFT-001',
+					col: 'OTHER',
+					price: 1990,
+					oldPrice: 2990,
+					description: 'Набор из чая, сладостей и сувенира',
+					status: 'in-stock',
+					quantity: 10,
+					isNew: true,
+					isHit: false,
+					image: '/image/Подарочный набор Комори.jpg'
+				},
+				{
+					name: 'Сертификат на 1000 ₽',
+					category: 'other',
+					sku: 'OTH-CRT-002',
+					col: 'OTHER',
+					price: 1000,
+					oldPrice: 1000,
+					description: 'Подарочный сертификат на покупки в магазине',
+					status: 'in-stock',
+					quantity: 50,
+					isNew: false,
+					isHit: false,
+					image: '/image/Сертификат на 1000 ₽.jpg'
+				},
+				{
+					name: 'Сумка-шоппер "Аниме"',
+					category: 'other',
+					sku: 'OTH-BAG-003',
+					col: 'OTHER',
+					price: 690,
+					oldPrice: 990,
+					description: 'Экосумка с аниме принтом из плотной ткани',
+					status: 'in-stock',
+					quantity: 25,
+					isNew: true,
+					isHit: false,
+					image: '/image/Сумка-шоппер Аниме.jpg'
+				}
+			];
+
+			// Добавляем товары
+			demos.forEach( demo => {
+				this.addProduct( demo );
+			} );
+
+			// Сохраняем версию демо-товаров в localStorage
+			localStorage.setItem( 'komori_demo_version', CURRENT_DEMO_VERSION );
+
+			console.log( `📦 Добавлено ${demos.length} демонстрационных товаров (версия ${CURRENT_DEMO_VERSION})` );
+		}
 	}
 
 	// =========================================================================
@@ -829,609 +1411,6 @@ class Store {
 			'other': '/pages html/catalog.html'
 		};
 		return urls[categoryKey] || '/pages html/catalog.html';
-	}
-
-	/**
-	 * Добавляет демонстрационные товары, если их нет или если версия устарела
-	 */
-	addDemoProductsIfNeeded() {
-		const CURRENT_DEMO_VERSION = 2;
-
-		const savedVersion = localStorage.getItem( 'komori_demo_version' );
-		const needsUpdate = this.products.length === 0 ||
-			( savedVersion && parseInt( savedVersion ) < CURRENT_DEMO_VERSION );
-
-		if ( !needsUpdate ) {
-			console.log( `✅ Демо-товары актуальны (версия ${savedVersion})` );
-			return;
-		}
-
-		if ( this.products.length > 0 ) {
-			console.log( `🔄 Обновление демо-товаров: версия ${savedVersion} → ${CURRENT_DEMO_VERSION}` );
-		}
-
-		this.products = [];
-
-		const demos = [
-			// ========== АНИМЕ ФИГУРКИ (figures) ==========
-			{
-				name: 'Фигурка Наруто Узумаки',
-				category: 'figures',
-				sku: 'FIG-NAR-001',
-				col: 'NARUTO',
-				price: 1890,
-				oldPrice: 2390,
-				description: 'Детализированная фигурка главного героя из аниме "Наруто"',
-				status: 'in-stock',
-				quantity: 15,
-				isNew: true,
-				isHit: true,
-				image: '/image/Фигурка Наруто Узумаки.jpg'
-			},
-			{
-				name: 'Фигурка Саске Учиха',
-				category: 'figures',
-				sku: 'FIG-SAS-002',
-				col: 'NARUTO',
-				price: 1890,
-				oldPrice: 2390,
-				description: 'Фигурка главного антагониста и друга Наруто',
-				status: 'in-stock',
-				quantity: 12,
-				isNew: false,
-				isHit: true,
-				image: '/image/Фигурка Саске Учиха.jpg'
-			},
-			{
-				name: 'Фигурка Гоку Супер Сайян',
-				category: 'figures',
-				sku: 'FIG-GOK-003',
-				col: 'DRAGON BALL',
-				price: 2490,
-				oldPrice: 2990,
-				description: 'Легендарный воин из аниме "Жемчуг Дракона" в форме Супер Сайяна',
-				status: 'in-stock',
-				quantity: 8,
-				isNew: true,
-				isHit: false,
-				image: '/image/Фигурка Гоку Супер Сайян.jpg'
-			},
-
-			// ========== ЯПОНСКИЙ ЧАЙ (tea) ==========
-			{
-				name: 'Чай маття премиум',
-				category: 'tea',
-				sku: 'TEA-MAT-001',
-				col: 'TEA COLLECTION',
-				price: 890,
-				oldPrice: 1190,
-				description: 'Настоящий японский зелёный чай высшего сорта',
-				status: 'in-stock',
-				quantity: 45,
-				isNew: true,
-				isHit: false,
-				image: '/image/Чай маття премиум.jpg'
-			},
-			{
-				name: 'Сенча органический',
-				category: 'tea',
-				sku: 'TEA-SEN-002',
-				col: 'TEA COLLECTION',
-				price: 590,
-				oldPrice: 790,
-				description: 'Традиционный японский зеленый чай из первого урожая',
-				status: 'in-stock',
-				quantity: 30,
-				isNew: false,
-				isHit: true,
-				image: '/image/Сенча органический.jpg'
-			},
-			{
-				name: 'Ходзитя обжаренный',
-				category: 'tea',
-				sku: 'TEA-HOJ-003',
-				col: 'TEA COLLECTION',
-				price: 490,
-				oldPrice: 690,
-				description: 'Обжаренный зеленый чай с ореховым ароматом',
-				status: 'in-stock',
-				quantity: 25,
-				isNew: true,
-				isHit: false,
-				image: '/image/Ходзитя обжаренный.jpg'
-			},
-
-			// ========== АЗИАТСКИЕ СЛАДОСТИ (sweets) ==========
-			{
-				name: 'Набор японских сладостей',
-				category: 'sweets',
-				sku: 'SWT-SET-001',
-				col: 'SWEETS',
-				price: 1490,
-				oldPrice: 1990,
-				description: 'Ассорти из моти, рамена и традиционных десертов',
-				status: 'in-stock',
-				quantity: 23,
-				isNew: false,
-				isHit: true,
-				image: '/image/Набор японских сладостей.jpg'
-			},
-			{
-				name: 'Моти клубничные',
-				category: 'sweets',
-				sku: 'SWT-MOC-002',
-				col: 'SWEETS',
-				price: 550,
-				oldPrice: 690,
-				description: 'Нежные рисовые пирожные с клубничной начинкой',
-				status: 'in-stock',
-				quantity: 35,
-				isNew: true,
-				isHit: false,
-				image: '/image/Моти клубничные.jpg'
-			},
-			{
-				name: 'Дораяки с красной фасолью',
-				category: 'sweets',
-				sku: 'SWT-DOR-003',
-				col: 'SWEETS',
-				price: 320,
-				oldPrice: 450,
-				description: 'Традиционные японские блинчики со сладкой начинкой',
-				status: 'in-stock',
-				quantity: 28,
-				isNew: false,
-				isHit: false,
-				image: '/image/Дораяки с красной фасолью.jpg'
-			},
-
-			// ========== МАНГА И КНИГИ (manga) ==========
-			{
-				name: 'Манга "Наруто" том 1',
-				category: 'manga',
-				sku: 'MANGA-NAR-001',
-				col: 'MANGA',
-				price: 690,
-				oldPrice: 890,
-				description: 'Первый том легендарной манги на русском языке',
-				status: 'out-of-stock',
-				quantity: 0,
-				isNew: false,
-				isHit: false,
-				image: '/image/Манга Наруто том 1.jpg'
-			},
-			{
-				name: 'Манга "Атака Титанов" том 1',
-				category: 'manga',
-				sku: 'MANGA-ATK-002',
-				col: 'MANGA',
-				price: 750,
-				oldPrice: 950,
-				description: 'Популярная манга о борьбе человечества с гигантскими титанами',
-				status: 'in-stock',
-				quantity: 18,
-				isNew: true,
-				isHit: true,
-				image: '/image/Манга Атака Титанов том 1.jpg'
-			},
-			{
-				name: 'Манга "Клинок, рассекающий демонов" том 1',
-				category: 'manga',
-				sku: 'MANGA-DEM-003',
-				col: 'MANGA',
-				price: 720,
-				oldPrice: 920,
-				description: 'История о молодом охотнике на демонов',
-				status: 'in-stock',
-				quantity: 22,
-				isNew: true,
-				isHit: false,
-				image: '/image/Манга Клинок, рассекающий демонов том 1.jpg'
-			},
-
-			// ========== АНИМЕ ОДЕЖДА (clothing) ==========
-			{
-				name: 'Футболка "Наруто"',
-				category: 'clothing',
-				sku: 'CLO-NAR-001',
-				col: 'NARUTO',
-				price: 1290,
-				oldPrice: 1590,
-				description: 'Хлопковая футболка с принтом Наруто',
-				status: 'in-stock',
-				quantity: 25,
-				isNew: false,
-				isHit: true,
-				image: '/image/Футболка Наруто.jpg'
-			},
-			{
-				name: 'Худи "Атака Титанов"',
-				category: 'clothing',
-				sku: 'CLO-ATK-002',
-				col: 'CLOTHING',
-				price: 2990,
-				oldPrice: 3990,
-				description: 'Теплое худи с символикой Разведкорпуса',
-				status: 'in-stock',
-				quantity: 12,
-				isNew: true,
-				isHit: false,
-				image: '/image/Худи Атака Титанов.jpg'
-			},
-			{
-				name: 'Футболка Демон-убийца',
-				category: 'clothing',
-				sku: 'CLO-DEM-003',
-				col: 'CLOTHING',
-				price: 1390,
-				oldPrice: 1690,
-				description: 'Футболка с персонажами из "Клинка, рассекающего демонов"',
-				status: 'in-stock',
-				quantity: 20,
-				isNew: true,
-				isHit: false,
-				image: '/image/Футболка Демон-убийца.jpeg'
-			},
-
-			// ========== ЯПОНСКАЯ ПОСУДА (tableware) ==========
-			{
-				name: 'Чайный набор "Сакура"',
-				category: 'tableware',
-				sku: 'TBL-SAK-001',
-				col: 'TABLEWARE',
-				price: 3490,
-				oldPrice: 4490,
-				description: 'Керамический набор для чайной церемонии с росписью сакуры',
-				status: 'in-stock',
-				quantity: 10,
-				isNew: true,
-				isHit: true,
-				image: '/image/Чайный набор Сакура.jpg'
-			},
-			{
-				name: 'Пиала для чая "Сакура"',
-				category: 'tableware',
-				sku: 'TBL-CUP-002',
-				col: 'TABLEWARE',
-				price: 890,
-				oldPrice: 1190,
-				description: 'Традиционная японская пиала для чая с узором сакуры',
-				status: 'in-stock',
-				quantity: 35,
-				isNew: false,
-				isHit: false,
-				image: '/image/Пиала для чая Сакура.jpg'
-			},
-			{
-				name: 'Набор палочек для еды',
-				category: 'tableware',
-				sku: 'TBL-CHP-003',
-				col: 'TABLEWARE',
-				price: 590,
-				oldPrice: 790,
-				description: 'Лакированные деревянные палочки в подарочной упаковке',
-				status: 'in-stock',
-				quantity: 40,
-				isNew: false,
-				isHit: false,
-				image: '/image/Набор палочек для еды.jpeg'
-			},
-
-			// ========== ЯПОНСКИЕ ИГРЫ (games) ==========
-			{
-				name: 'Го классическое',
-				category: 'games',
-				sku: 'GAM-GO-001',
-				col: 'GAMES',
-				price: 2490,
-				oldPrice: 2990,
-				description: 'Традиционная японская стратегическая игра для двоих',
-				status: 'in-stock',
-				quantity: 8,
-				isNew: false,
-				isHit: false,
-				image: '/image/Го классическое.jpg'
-			},
-			{
-				name: 'Нинтендо Свитч Про контроллер',
-				category: 'games',
-				sku: 'GAM-NSW-002',
-				col: 'GAMES',
-				price: 3490,
-				oldPrice: 4490,
-				description: 'Официальный беспроводной контроллер для Nintendo Switch',
-				status: 'in-stock',
-				quantity: 15,
-				isNew: true,
-				isHit: true,
-				image: '/image/Нинтендо Свитч Про контроллер.jpg'
-			},
-			{
-				name: 'Коллекционная карточная игра "Pokémon"',
-				category: 'games',
-				sku: 'GAM-POK-003',
-				col: 'GAMES',
-				price: 1290,
-				oldPrice: 1590,
-				description: 'Бустер с коллекционными карточками покемонов',
-				status: 'in-stock',
-				quantity: 30,
-				isNew: true,
-				isHit: false,
-				image: '/image/Коллекционная карточная игра Pokémon.jpg'
-			},
-
-			// ========== КАНЦЕЛЯРИЯ КАВАЙ (stationery) ==========
-			{
-				name: 'Тетрадь в стиле кавай',
-				category: 'stationery',
-				sku: 'STA-NOT-001',
-				col: 'STATIONERY',
-				price: 290,
-				oldPrice: 390,
-				description: 'Тетрадь с милыми азиатскими персонажами',
-				status: 'in-stock',
-				quantity: 50,
-				isNew: false,
-				isHit: false,
-				image: '/image/Тетрадь в стиле кавай.jpg'
-			},
-			{
-				name: 'Набор ручек "Кавай"',
-				category: 'stationery',
-				sku: 'STA-PEN-002',
-				col: 'STATIONERY',
-				price: 490,
-				oldPrice: 690,
-				description: 'Набор из 6 гелевых ручек с милым дизайном',
-				status: 'in-stock',
-				quantity: 45,
-				isNew: true,
-				isHit: false,
-				image: '/image/Набор ручек Кавай.jpg'
-			},
-			{
-				name: 'Наклейки "Аниме" набор 50шт',
-				category: 'stationery',
-				sku: 'STA-STK-003',
-				col: 'STATIONERY',
-				price: 190,
-				oldPrice: 290,
-				description: 'Коллекция наклеек с популярными аниме персонажами',
-				status: 'in-stock',
-				quantity: 100,
-				isNew: true,
-				isHit: true,
-				image: '/image/Наклейки Аниме набор 50шт.jpg'
-			},
-
-			// ========== КОСМЕТИКА ИЗ АЗИИ (cosmetics) ==========
-			{
-				name: 'Корейская маска для лица',
-				category: 'cosmetics',
-				sku: 'COS-MSK-001',
-				col: 'COSMETICS',
-				price: 150,
-				oldPrice: 250,
-				description: 'Увлажняющая тканевая маска с экстрактом алоэ',
-				status: 'in-stock',
-				quantity: 80,
-				isNew: true,
-				isHit: false,
-				image: '/image/Корейская маска для лица.jpg'
-			},
-			{
-				name: 'Тональный крем BB',
-				category: 'cosmetics',
-				sku: 'COS-BB-002',
-				col: 'COSMETICS',
-				price: 1290,
-				oldPrice: 1690,
-				description: 'Корейский BB-крем с SPF 50',
-				status: 'in-stock',
-				quantity: 25,
-				isNew: false,
-				isHit: true,
-				image: '/image/Тональный крем BB.jpg'
-			},
-			{
-				name: 'Патчи для глаз с коллагеном',
-				category: 'cosmetics',
-				sku: 'COS-PAT-003',
-				col: 'COSMETICS',
-				price: 890,
-				oldPrice: 1190,
-				description: 'Гель-патчи для ухода за кожей вокруг глаз',
-				status: 'in-stock',
-				quantity: 35,
-				isNew: true,
-				isHit: false,
-				image: '/image/Патчи для глаз с коллагеном.jpg'
-			},
-
-			// ========== АЗИАТСКИЙ ДЕКОР (decor) ==========
-			{
-				name: 'Китайский фонарик "Красный дракон"',
-				category: 'decor',
-				sku: 'DEC-LAN-001',
-				col: 'DECOR',
-				price: 890,
-				oldPrice: 1190,
-				description: 'Традиционный китайский бумажный фонарик',
-				status: 'in-stock',
-				quantity: 20,
-				isNew: true,
-				isHit: false,
-				image: '/image/Китайский фонарик Красный дракон.jpg'
-			},
-			{
-				name: 'Фигурка "Дракон" из нефрита',
-				category: 'decor',
-				sku: 'DEC-DRA-002',
-				col: 'DECOR',
-				price: 3490,
-				oldPrice: 4490,
-				description: 'Декоративная фигурка дракона из искусственного нефрита',
-				status: 'in-stock',
-				quantity: 5,
-				isNew: false,
-				isHit: true,
-				image: '/image/Фигурка Дракон из нефрита.jpg'
-			},
-			{
-				name: 'Веер японский "Весна"',
-				category: 'decor',
-				sku: 'DEC-FAN-003',
-				col: 'DECOR',
-				price: 590,
-				oldPrice: 790,
-				description: 'Традиционный японский веер с росписью',
-				status: 'in-stock',
-				quantity: 30,
-				isNew: false,
-				isHit: false,
-				image: '/image/Веер японский Весна.jpeg'
-			},
-
-			// ========== АНИМЕ НА ДИСКАХ (anime) ==========
-			{
-				name: 'Наруто: Коллекция фильмов DVD',
-				category: 'anime',
-				sku: 'ANM-NAR-001',
-				col: 'ANIME',
-				price: 2490,
-				oldPrice: 2990,
-				description: 'Сборник полнометражных фильмов о Наруто',
-				status: 'in-stock',
-				quantity: 12,
-				isNew: false,
-				isHit: false,
-				image: '/image/Наруто Коллекция фильмов DVD.jpg'
-			},
-			{
-				name: 'Унесённые призраками Blu-ray',
-				category: 'anime',
-				sku: 'ANM-SPI-002',
-				col: 'ANIME',
-				price: 1890,
-				oldPrice: 2390,
-				description: 'Знаменитое аниме Хаяо Миядзаки в HD качестве',
-				status: 'in-stock',
-				quantity: 18,
-				isNew: true,
-				isHit: true,
-				image: '/image/Унесённые призраками Blu-ray.jpg'
-			},
-			{
-				name: 'Атака Титанов Сезон 1 DVD',
-				category: 'anime',
-				sku: 'ANM-ATK-003',
-				col: 'ANIME',
-				price: 1490,
-				oldPrice: 1990,
-				description: 'Первый сезон культового аниме',
-				status: 'in-stock',
-				quantity: 15,
-				isNew: false,
-				isHit: false,
-				image: '/image/Атака Титанов Сезон 1 DVD.jpg'
-			},
-
-			// ========== АЗИАТСКАЯ МУЗЫКА (music) ==========
-			{
-				name: 'K-POP альбом BTS "BE"',
-				category: 'music',
-				sku: 'MUS-BTS-001',
-				col: 'MUSIC',
-				price: 2490,
-				oldPrice: 2990,
-				description: 'Альбом популярной корейской группы BTS',
-				status: 'in-stock',
-				quantity: 20,
-				isNew: true,
-				isHit: true,
-				image: '/image/K-POP альбом BTS BE.jpg'
-			},
-			{
-				name: 'J-POP альбом LiSA "Best"',
-				category: 'music',
-				sku: 'MUS-LIS-002',
-				col: 'MUSIC',
-				price: 1890,
-				oldPrice: 2390,
-				description: 'Сборник лучших песен исполнительницы из "Клинка, рассекающего демонов"',
-				status: 'in-stock',
-				quantity: 15,
-				isNew: true,
-				isHit: false,
-				image: '/image/J-POP альбом LiSA Best.jpg'
-			},
-			{
-				name: 'OST аниме "Наруто" на виниле',
-				category: 'music',
-				sku: 'MUS-NAR-003',
-				col: 'MUSIC',
-				price: 3490,
-				oldPrice: 4490,
-				description: 'Коллекционное издание саундтрека на виниле',
-				status: 'in-stock',
-				quantity: 5,
-				isNew: false,
-				isHit: true,
-				image: '/image/OST аниме Наруто на виниле.jpg'
-			},
-
-			// ========== ДРУГОЕ (other) ==========
-			{
-				name: 'Подарочный набор "Комори"',
-				category: 'other',
-				sku: 'OTH-GFT-001',
-				col: 'OTHER',
-				price: 1990,
-				oldPrice: 2990,
-				description: 'Набор из чая, сладостей и сувенира',
-				status: 'in-stock',
-				quantity: 10,
-				isNew: true,
-				isHit: false,
-				image: '/image/Подарочный набор Комори.jpg'
-			},
-			{
-				name: 'Сертификат на 1000 ₽',
-				category: 'other',
-				sku: 'OTH-CRT-002',
-				col: 'OTHER',
-				price: 1000,
-				oldPrice: 1000,
-				description: 'Подарочный сертификат на покупки в магазине',
-				status: 'in-stock',
-				quantity: 50,
-				isNew: false,
-				isHit: false,
-				image: '/image/Сертификат на 1000 ₽.jpg'
-			},
-			{
-				name: 'Сумка-шоппер "Аниме"',
-				category: 'other',
-				sku: 'OTH-BAG-003',
-				col: 'OTHER',
-				price: 690,
-				oldPrice: 990,
-				description: 'Экосумка с аниме принтом из плотной ткани',
-				status: 'in-stock',
-				quantity: 25,
-				isNew: true,
-				isHit: false,
-				image: '/image/Сумка-шоппер Аниме.jpg'
-			}
-		];
-
-		demos.forEach( demo => {
-			this.addProduct( demo );
-		} );
-
-		localStorage.setItem( 'komori_demo_version', CURRENT_DEMO_VERSION );
-		console.log( `📦 Добавлено ${demos.length} демонстрационных товаров (версия ${CURRENT_DEMO_VERSION})` );
 	}
 }
 
