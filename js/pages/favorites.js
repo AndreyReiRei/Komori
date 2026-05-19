@@ -3,27 +3,7 @@
  * СТРАНИЦА ИЗБРАННОГО (favorites.html)
  * ============================================================================
  * 
- * Этот класс управляет всем функционалом на странице избранного:
- * 
- * 1. ОТОБРАЖЕНИЕ:
- *    - Список избранных товаров
- *    - Количество товаров в избранном
- *    - Общая сумма избранных товаров
- * 
- * 2. УПРАВЛЕНИЕ:
- *    - Удаление отдельных товаров из избранного
- *    - Очистка всего избранного
- *    - Добавление товаров в корзину прямо из избранного
- * 
- * 3. СОЦИАЛЬНЫЕ ФУНКЦИИ:
- *    - Копирование списка избранного
- *    - Поделиться в ВКонтакте
- *    - Поделиться в Telegram
- *    - Поделиться в WhatsApp
- * 
- * 4. РЕКОМЕНДАЦИИ:
- *    - Отображение похожих товаров
- *    - Добавление рекомендаций в избранное
+ * Этот класс управляет всем функционалом на странице избранного
  * 
  * ============================================================================
  */
@@ -47,7 +27,7 @@ class FavoritesPage {
 	init() {
 		console.log( '❤️ Инициализация страницы избранного...' );
 
-		// Очищаем "битые" ссылки (товары, которые удалены из каталога)
+		// Очищаем "битые" ссылки
 		store.cleanInvalidReferences();
 
 		// Отрисовываем содержимое избранного
@@ -59,7 +39,7 @@ class FavoritesPage {
 		// Рендерим блок рекомендаций
 		setTimeout( () => this.renderRecommendations(), 100 );
 
-		// Слушаем обновление избранного (из других мест сайта)
+		// Слушаем обновление избранного
 		window.addEventListener( 'store:favoritesUpdated', () => {
 			console.log( '🔄 Избранное обновлено, перерисовываем...' );
 			this.render();
@@ -67,12 +47,19 @@ class FavoritesPage {
 			this.updateHeaderCounters();
 		} );
 
-		// Слушаем обновление товаров (добавление/удаление из админки)
+		// Слушаем обновление товаров
 		window.addEventListener( 'store:productsUpdated', () => {
 			console.log( '🔄 Товары обновлены, очищаем битые ссылки...' );
 			store.cleanInvalidReferences();
 			this.render();
 			this.renderRecommendations();
+		} );
+
+		// Слушаем обновление корзины (чтобы обновить состояние кнопок)
+		window.addEventListener( 'store:cartUpdated', () => {
+			console.log( '🔄 Корзина обновлена, обновляем кнопки...' );
+			this.updateCartButtonsState();
+			this.updateHeaderCounters();
 		} );
 
 		// Обновляем счетчик в шапке
@@ -166,7 +153,7 @@ class FavoritesPage {
 			stockIcon = 'fa-exclamation-triangle';
 		}
 
-		// Формируем бейджи (Новинка, Хит, Скидка)
+		// Формируем бейджи
 		let badges = '';
 		if ( product.isNew ) badges += '<span class="badge new">Новинка</span>';
 		if ( product.isHit ) badges += '<span class="badge hit">Хит</span>';
@@ -177,15 +164,12 @@ class FavoritesPage {
 
 		return `
 			<div class="favorite-item" data-id="${product.id}">
-				<!-- Бейджи товара -->
 				${badges ? `<div class="favorite-item-badges">${badges}</div>` : ''}
 				
-				<!-- Кнопка удаления из избранного -->
 				<button class="remove-favorite" data-id="${product.id}" title="Удалить из избранного">
 					<i class="fas fa-times"></i>
 				</button>
 				
-				<!-- Ссылка на изображение ведет на страницу категории -->
 				<a href="${categoryUrl}" class="favorite-item-link">
 					<img src="${API.getSafeImageUrl( product.image )}" 
 						 alt="${product.name}" 
@@ -193,7 +177,6 @@ class FavoritesPage {
 						 onerror="this.src='${API.getFallbackSvg( product.name )}'">
 				</a>
 				
-				<!-- Информация о товаре -->
 				<div class="favorite-item-info">
 					<div class="favorite-item-category">
 						<a href="${categoryUrl}">${store.getCategoryName( product.category )}</a>
@@ -211,7 +194,6 @@ class FavoritesPage {
 					</div>
 				</div>
 				
-				<!-- Кнопка добавления в корзину -->
 				<div class="favorite-item-actions">
 					<button class="add-to-cart-btn" data-id="${product.id}"
 							${product.status !== 'in-stock' || availableQuantity <= 0 ? 'disabled' : ''}>
@@ -232,16 +214,18 @@ class FavoritesPage {
 	bindEvents() {
 		console.log( '🔗 Привязка событий избранного...' );
 
-		// ===== УДАЛЕНИЕ ИЗ ИЗБРАННОГО =====
-		document.querySelectorAll( '.remove-favorite' ).forEach( btn => {
-			btn.removeEventListener( 'click', this.handleRemoveFavorite );
-			this.handleRemoveFavorite = ( e ) => {
+		// Используем делегирование событий для динамических элементов
+		document.removeEventListener( 'click', this.documentClickHandler );
+
+		this.documentClickHandler = ( e ) => {
+			// ===== УДАЛЕНИЕ ИЗ ИЗБРАННОГО =====
+			const removeBtn = e.target.closest( '.remove-favorite' );
+			if ( removeBtn ) {
 				e.preventDefault();
 				e.stopPropagation();
-				const id = e.currentTarget.dataset.id;
-				const card = e.currentTarget.closest( '.favorite-item' );
+				const id = removeBtn.dataset.id;
+				const card = removeBtn.closest( '.favorite-item' );
 
-				// Анимация удаления
 				if ( card ) {
 					card.style.transition = 'all 0.3s ease';
 					card.style.opacity = '0';
@@ -252,38 +236,40 @@ class FavoritesPage {
 				} else {
 					store.toggleFavorite( id );
 				}
-			};
-			btn.addEventListener( 'click', this.handleRemoveFavorite );
-		} );
+				return;
+			}
 
-		// ===== ДОБАВЛЕНИЕ В КОРЗИНУ ИЗ ИЗБРАННОГО =====
-		document.querySelectorAll( '.add-to-cart-btn' ).forEach( btn => {
-			btn.removeEventListener( 'click', this.handleAddToCart );
-			this.handleAddToCart = ( e ) => {
+			// ===== ДОБАВЛЕНИЕ В КОРЗИНУ ИЗ ИЗБРАННОГО =====
+			const addToCartBtn = e.target.closest( '.add-to-cart-btn' );
+			if ( addToCartBtn ) {
 				e.preventDefault();
 				e.stopPropagation();
-				const id = e.currentTarget.dataset.id;
+				const id = addToCartBtn.dataset.id;
 
 				if ( store.addToCart( id ) ) {
 					API.showNotification( '✅ Товар добавлен в корзину' );
 
 					// Визуальный эффект на кнопке
-					const originalText = e.currentTarget.innerHTML;
-					e.currentTarget.innerHTML = '<i class="fas fa-check"></i> Добавлено';
-					e.currentTarget.style.background = '#2ecc71';
+					const originalText = addToCartBtn.innerHTML;
+					addToCartBtn.innerHTML = '<i class="fas fa-check"></i> Добавлено';
+					addToCartBtn.style.background = '#2ecc71';
 
 					setTimeout( () => {
-						e.currentTarget.innerHTML = originalText;
-						e.currentTarget.style.background = '';
+						addToCartBtn.innerHTML = originalText;
+						addToCartBtn.style.background = '';
+						// Обновляем состояние кнопки (могла измениться доступность)
+						this.updateCartButtonsState();
 					}, 2000 );
 
 					this.updateHeaderCounters();
 				} else {
 					API.showNotification( '❌ Не удалось добавить товар', 'error' );
 				}
-			};
-			btn.addEventListener( 'click', this.handleAddToCart );
-		} );
+				return;
+			}
+		};
+
+		document.addEventListener( 'click', this.documentClickHandler );
 
 		// ===== ОЧИСТКА ВСЕГО ИЗБРАННОГО =====
 		const clearBtn = document.getElementById( 'clearFavoritesBtn' );
@@ -292,7 +278,6 @@ class FavoritesPage {
 			this.handleClearFavorites = ( e ) => {
 				e.preventDefault();
 				if ( confirm( '❤️ Вы уверены, что хотите очистить избранное?' ) ) {
-					// Анимация для всех карточек
 					const cards = document.querySelectorAll( '.favorite-item' );
 					cards.forEach( ( card, index ) => {
 						setTimeout( () => {
@@ -327,7 +312,6 @@ class FavoritesPage {
 					return;
 				}
 
-				// Формируем текст для копирования
 				const text = favorites.map( item =>
 					`${item.name} - ${API.formatPrice( item.price )}`
 				).join( '\n' );
@@ -335,7 +319,6 @@ class FavoritesPage {
 				navigator.clipboard.writeText( text ).then( () => {
 					API.showNotification( '📋 Список скопирован в буфер обмена' );
 
-					// Визуальный эффект
 					const originalHtml = copyLinkBtn.innerHTML;
 					copyLinkBtn.innerHTML = '<i class="fas fa-check"></i>';
 					setTimeout( () => {
@@ -372,6 +355,28 @@ class FavoritesPage {
 				this.shareToSocial( 'whatsapp' );
 			} );
 		}
+	}
+
+	/**
+	 * Обновляет состояние кнопок "В корзину"
+	 */
+	updateCartButtonsState() {
+		document.querySelectorAll( '.add-to-cart-btn' ).forEach( btn => {
+			const productId = btn.dataset.id;
+			const product = store.getProduct( productId );
+
+			if ( !product ) return;
+
+			const inCart = store.cart.find( item => item.id == productId );
+			const inCartQuantity = inCart ? inCart.quantity : 0;
+			const availableQuantity = product.quantity - inCartQuantity;
+
+			if ( product.status !== 'in-stock' || product.quantity <= 0 || availableQuantity <= 0 ) {
+				btn.disabled = true;
+			} else {
+				btn.disabled = false;
+			}
+		} );
 	}
 
 	/**
@@ -432,12 +437,9 @@ class FavoritesPage {
 			return;
 		}
 
-		// Получаем все товары
 		const allProducts = store.products;
 		const favorites = store.favorites;
-		const cartIds = store.getCartProductIds();
 
-		// Фильтруем товары для рекомендаций
 		let recommendations = allProducts
 			.filter( p => {
 				if ( p.status !== 'in-stock' || p.quantity <= 0 ) return false;
@@ -447,7 +449,6 @@ class FavoritesPage {
 			.sort( () => 0.5 - Math.random() )
 			.slice( 0, 4 );
 
-		// Если мало рекомендаций - добавляем популярные
 		if ( recommendations.length < 4 ) {
 			const popularProducts = allProducts.filter( p => {
 				if ( p.status !== 'in-stock' || p.quantity <= 0 ) return false;
@@ -538,7 +539,12 @@ class FavoritesPage {
 	 * Обновляет счетчики в шапке сайта
 	 */
 	updateHeaderCounters() {
+		const cartCount = document.getElementById( 'cartCount' );
 		const favoritesCount = document.getElementById( 'favoritesCount' );
+
+		if ( cartCount ) {
+			cartCount.textContent = store.getCartCount();
+		}
 		if ( favoritesCount ) {
 			favoritesCount.textContent = store.favorites.length;
 		}
