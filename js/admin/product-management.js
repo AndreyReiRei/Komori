@@ -50,6 +50,64 @@ class ProductManager {
 		console.log( 'ProductManager готов!' );
 	}
 
+	/**
+	 * Сброс демо-данных (упрощенная версия)
+	 */
+	resetDemoData() {
+		if ( confirm( '⚠️ ВНИМАНИЕ! Это действие удалит ВСЕ текущие товары и восстановит стандартные демо-товары. Вы уверены?' ) ) {
+
+			this.showResetLoader();
+
+			// Удаляем версии
+			localStorage.removeItem( 'komori_demo_version' );
+			localStorage.removeItem( 'komori_slides_version' );
+
+			// Удаляем данные
+			localStorage.removeItem( 'komori_products' );
+			localStorage.removeItem( 'komori_promo_slides' );
+
+			// Очищаем store
+			store.products = [];
+			store.promoSlides = [];
+
+			// Восстанавливаем демо-данные
+			store.addDemoProductsIfNeeded();
+			store.addDemoSlidesIfNeeded();
+
+			setTimeout( () => {
+				this.renderProducts();
+				API.showNotification( '✅ Демо-данные восстановлены! Обновите страницу.', 'success' );
+				this.hideResetLoader();
+
+				setTimeout( () => {
+					location.reload();
+				}, 1500 );
+			}, 500 );
+		}
+	}
+
+	/**
+ * Показывает индикатор загрузки на кнопке сброса
+ */
+	showResetLoader() {
+		const resetBtn = document.getElementById( 'resetDemoDataBtn' );
+		if ( resetBtn ) {
+			resetBtn.disabled = true;
+			resetBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Сброс...';
+		}
+	}
+
+	/**
+	 * Скрывает индикатор загрузки на кнопке сброса
+	 */
+	hideResetLoader() {
+		const resetBtn = document.getElementById( 'resetDemoDataBtn' );
+		if ( resetBtn ) {
+			resetBtn.disabled = false;
+			resetBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Сбросить демо-данные';
+		}
+	}
+
 	// ==================== ОТОБРАЖЕНИЕ ТОВАРОВ С ГРУППИРОВКОЙ ====================
 
 	/**
@@ -163,11 +221,13 @@ class ProductManager {
 		return sortedGrouped;
 	}
 
+
 	/**
 	 * Рендерит сгруппированные товары
 	 */
 	renderGroupedProducts( groupedProducts ) {
 		let html = '';
+		let isFirst = true;  // Флаг для первой группы
 
 		for ( const [categoryKey, products] of Object.entries( groupedProducts ) ) {
 			if ( products.length === 0 ) continue;
@@ -175,28 +235,36 @@ class ProductManager {
 			const categoryName = store.getCategoryName( categoryKey );
 			const categoryIcon = this.getCategoryIcon( categoryKey );
 
+			// Первая группа - без класса collapsed, остальные - с collapsed
+			const collapsedClass = isFirst ? '' : 'collapsed';
+			// Иконка: у первой стрелка вверх, у остальных - вниз
+			const chevronClass = isFirst ? 'fa-chevron-up' : 'fa-chevron-down';
+
 			html += `
-				<div class="category-group" data-category="${categoryKey}">
-					<div class="category-group-header">
-						<div class="category-group-title">
-							<i class="fas ${categoryIcon}"></i>
-							<h2>${categoryName}</h2>
-						</div>
-						<button class="category-group-toggle" data-category="${categoryKey}">
-							<i class="fas fa-chevron-up"></i>
-						</button>
+			<div class="category-group ${collapsedClass}" data-category="${categoryKey}">
+				<div class="category-group-header">
+					<div class="category-group-title">
+						<i class="fas ${categoryIcon}"></i>
+						<h2>${categoryName}</h2>
 					</div>
-					<div class="category-group-products">
-						<div class="products-grid-inner">
-							${products.map( product => this.renderProductCard( product ) ).join( '' )}
-						</div>
+					<button class="category-group-toggle" data-category="${categoryKey}">
+						<i class="fas ${chevronClass}"></i>
+					</button>
+				</div>
+				<div class="category-group-products">
+					<div class="products-grid-inner">
+						${products.map( product => this.renderProductCard( product ) ).join( '' )}
 					</div>
 				</div>
-			`;
+			</div>
+		`;
+
+			isFirst = false;  // После первой группы сбрасываем флаг
 		}
 
 		return html;
 	}
+
 
 	/**
 	 * Возвращает иконку для категории
@@ -342,7 +410,7 @@ class ProductManager {
 	bindEvents() {
 		console.log( 'Привязка событий...' );
 
-		// Кнопка добавления товара
+		// ===== Кнопка добавления товара =====
 		const addBtn = document.getElementById( 'addProductBtn' );
 		if ( addBtn ) {
 			addBtn.removeEventListener( 'click', this.handleAddClick );
@@ -355,7 +423,7 @@ class ProductManager {
 			console.warn( 'Кнопка addProductBtn не найдена' );
 		}
 
-		// Поле поиска (событие input - при каждом вводе символа)
+		// ===== Поле поиска (событие input - при каждом вводе символа) =====
 		const searchInput = document.getElementById( 'searchInput' );
 		if ( searchInput ) {
 			searchInput.removeEventListener( 'input', this.handleSearch );
@@ -363,7 +431,7 @@ class ProductManager {
 			searchInput.addEventListener( 'input', this.handleSearch );
 		}
 
-		// Фильтр по категории
+		// ===== Фильтр по категории =====
 		const categoryFilter = document.getElementById( 'categoryFilter' );
 		if ( categoryFilter ) {
 			categoryFilter.removeEventListener( 'change', this.handleFilterChange );
@@ -371,7 +439,7 @@ class ProductManager {
 			categoryFilter.addEventListener( 'change', this.handleFilterChange );
 		}
 
-		// Фильтр по статусу (наличие)
+		// ===== Фильтр по статусу (наличие) =====
 		const statusFilter = document.getElementById( 'statusFilter' );
 		if ( statusFilter ) {
 			statusFilter.removeEventListener( 'change', this.handleFilterChange );
@@ -379,7 +447,7 @@ class ProductManager {
 			statusFilter.addEventListener( 'change', this.handleFilterChange );
 		}
 
-		// Выбор типа сортировки
+		// ===== Выбор типа сортировки =====
 		const sortBy = document.getElementById( 'sortBy' );
 		if ( sortBy ) {
 			sortBy.removeEventListener( 'change', this.handleSortChange );
@@ -397,7 +465,7 @@ class ProductManager {
 			sortBy.addEventListener( 'change', this.handleSortChange );
 		}
 
-		// Кнопка переключения направления сортировки
+		// ===== Кнопка переключения направления сортировки =====
 		const sortOrderBtn = document.getElementById( 'sortOrderBtn' );
 		if ( sortOrderBtn ) {
 			sortOrderBtn.removeEventListener( 'click', this.handleSortOrder );
@@ -421,7 +489,7 @@ class ProductManager {
 			sortOrderBtn.addEventListener( 'click', this.handleSortOrder );
 		}
 
-		// Закрытие модальных окон
+		// ===== Закрытие модальных окон =====
 		const closeButtons = ['closeModal', 'cancelModalBtn', 'closeDeleteModal', 'cancelDeleteBtn'];
 		closeButtons.forEach( id => {
 			const btn = document.getElementById( id );
@@ -435,7 +503,7 @@ class ProductManager {
 			}
 		} );
 
-		// Подтверждение удаления товара
+		// ===== Подтверждение удаления товара =====
 		const confirmDeleteBtn = document.getElementById( 'confirmDeleteBtn' );
 		if ( confirmDeleteBtn ) {
 			confirmDeleteBtn.removeEventListener( 'click', this.handleConfirmDelete );
@@ -446,7 +514,7 @@ class ProductManager {
 			confirmDeleteBtn.addEventListener( 'click', this.handleConfirmDelete );
 		}
 
-		// Отправка формы товара (добавление/редактирование)
+		// ===== Отправка формы товара (добавление/редактирование) =====
 		const productForm = document.getElementById( 'productForm' );
 		if ( productForm ) {
 			productForm.removeEventListener( 'submit', this.handleFormSubmit );
@@ -457,7 +525,17 @@ class ProductManager {
 			productForm.addEventListener( 'submit', this.handleFormSubmit );
 		}
 
-		// Закрытие модального окна при клике вне его
+		// ===== КНОПКА СБРОСА ДЕМО-ДАННЫХ =====
+		const resetDemoBtn = document.getElementById( 'resetDemoDataBtn' );
+		if ( resetDemoBtn ) {
+			resetDemoBtn.removeEventListener( 'click', this.handleResetDemo );
+			this.handleResetDemo = () => {
+				this.resetDemoData();
+			};
+			resetDemoBtn.addEventListener( 'click', this.handleResetDemo );
+		}
+
+		// ===== Закрытие модального окна при клике вне его =====
 		window.removeEventListener( 'click', this.handleOutsideClick );
 		this.handleOutsideClick = ( e ) => {
 			if ( e.target.classList.contains( 'modal' ) ) {
