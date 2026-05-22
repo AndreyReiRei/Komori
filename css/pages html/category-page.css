@@ -113,6 +113,9 @@ body {
 	line-height: 1.6;
 	max-width: 70%;
 	margin: 0;
+	background: #ff336667;
+	padding: 10px;
+	border-radius: 0 0 12px 12px;
 }
 
 /* ===== ФИЛЬТРЫ ===== */

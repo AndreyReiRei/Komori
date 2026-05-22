@@ -1,46 +1,208 @@
 /**
- * CatalogPage - класс для отображения каталога товаров на главной странице
- * Для сайта "Комори" - азиатский магазинчик
+ * ============================================================================
+ * CATALOG.JS - КЛАСС ДЛЯ ОТОБРАЖЕНИЯ КАТАЛОГА ТОВАРОВ
+ * ============================================================================
+ * 
+ * НАЗНАЧЕНИЕ:
+ * - Отображает товары в каталоге (главная страница, страницы категорий)
+ * - Обеспечивает добавление товаров в корзину и избранное
+ * - Поддерживает разворачивание/сворачивание категорий
+ * 
+ * ОПТИМИЗАЦИЯ:
+ * - НЕ перерисовывает всю сетку при добавлении в корзину/избранное
+ * - Обновляет только состояние кнопок и счетчики
+ * - Перерисовывает только при изменении состава товаров
+ * 
+ * ============================================================================
  */
 
 class CatalogPage {
 	constructor() {
+		/** @type {HTMLElement} Контейнер для товаров */
 		this.productsGrid = document.querySelector( '.products-scroll, .catalog-grid .products-grid' );
+
+		/** @type {string} Хэш состава товаров для отслеживания изменений */
+		this.productsHash = null;
+
+		/** @type {Array} Кэш товаров для оптимизации */
+		this.cachedProducts = null;
+
 		this.init();
 	}
 
+	// =========================================================================
+	// ИНИЦИАЛИЗАЦИЯ
+	// =========================================================================
+
+	/**
+	 * Инициализирует страницу каталога
+	 */
 	init() {
 		if ( !this.productsGrid ) return;
 
+		// Первоначальный рендер товаров
 		this.renderProducts();
+
+		// Настройка разворачивания каталога (если есть)
 		this.setupExpandableCatalog();
 
-		// Слушаем обновления товаров
+		// Слушаем обновление товаров (добавление/удаление в админке)
+		// НО НЕ ПЕРЕРИСОВЫВАЕМ ПРИ КАЖДОМ ОБНОВЛЕНИИ КОРЗИНЫ/ИЗБРАННОГО!
 		window.addEventListener( 'store:productsUpdated', () => {
-			console.log( 'Каталог: товары обновлены' );
-			this.renderProducts();
+			console.log( '📦 Каталог: товары обновлены, проверяем необходимость перерисовки' );
+			this.checkAndRefreshIfNeeded();
 		} );
 
-		console.log( 'CatalogPage инициализирован' );
+		// Слушаем обновление корзины - обновляем ТОЛЬКО состояние кнопок
+		window.addEventListener( 'store:cartUpdated', () => {
+			console.log( '🛒 Каталог: корзина обновлена, обновляем кнопки' );
+			this.updateCartButtonsState();
+			API.updateHeaderCounters();
+		} );
+
+		// Слушаем обновление избранного - обновляем ТОЛЬКО состояние кнопок
+		window.addEventListener( 'store:favoritesUpdated', () => {
+			console.log( '❤️ Каталог: избранное обновлено, обновляем кнопки' );
+			this.updateFavoriteButtonsState();
+			API.updateHeaderCounters();
+		} );
+
+		console.log( '✅ CatalogPage инициализирован' );
 	}
 
+	// =========================================================================
+	// ОПТИМИЗАЦИЯ: ПРОВЕРКА НЕОБХОДИМОСТИ ПЕРЕРИСОВКИ
+	// =========================================================================
+
+	/**
+	 * Вычисляет хэш состава товаров
+	 * @param {Array} products - массив товаров
+	 * @returns {string} хэш-строка для сравнения
+	 */
+	getProductsHash( products ) {
+		const ids = products.map( p => p.id ).join( ',' );
+		return `${products.length}_${ids}`;
+	}
+
+	/**
+	 * Проверяет, нужно ли перерисовывать каталог
+	 * Перерисовываем ТОЛЬКО если изменился состав товаров (добавлены/удалены)
+	 */
+	checkAndRefreshIfNeeded() {
+		const currentProducts = store.getCatalogProducts( { showOnlyInStock: false } );
+		const currentHash = this.getProductsHash( currentProducts );
+
+		if ( this.productsHash !== currentHash ) {
+			console.log( '🔄 Состав товаров изменился, перерисовываем каталог' );
+			this.renderProducts();
+		} else {
+			console.log( '✅ Состав товаров не изменился, перерисовка не требуется' );
+		}
+	}
+
+	// =========================================================================
+	// ОБНОВЛЕНИЕ СОСТОЯНИЯ КНОПОК (БЕЗ ПЕРЕРИСОВКИ КАРТОЧЕК)
+	// =========================================================================
+
+	/**
+	 * Обновляет состояние кнопок "В корзину" без перерисовки всей сетки
+	 */
+	updateCartButtonsState() {
+		document.querySelectorAll( '.add-to-cart' ).forEach( btn => {
+			const productId = btn.dataset.id;
+			const product = store.getProduct( productId );
+
+			if ( !product ) return;
+
+			const inCart = store.cart.find( item => item.id == productId );
+			const inCartQuantity = inCart ? inCart.quantity : 0;
+			const availableQuantity = product.quantity - inCartQuantity;
+
+			btn.disabled = !( product.status === 'in-stock' && availableQuantity > 0 );
+		} );
+	}
+
+	/**
+	 * Обновляет состояние кнопок "Избранное" без перерисовки всей сетки
+	 */
+	updateFavoriteButtonsState() {
+		document.querySelectorAll( '.favorite-btn' ).forEach( btn => {
+			const productId = btn.dataset.id;
+			const isFavorite = store.isFavorite( productId );
+
+			if ( isFavorite ) {
+				btn.classList.add( 'active' );
+			} else {
+				btn.classList.remove( 'active' );
+			}
+		} );
+	}
+
+	/**
+	 * Обновляет состояние конкретной кнопки "В корзину"
+	 * @param {HTMLElement} btn - кнопка
+	 * @param {string} productId - ID товара
+	 */
+	updateSingleCartButton( btn, productId ) {
+		const product = store.getProduct( productId );
+		if ( !product ) return;
+
+		const inCart = store.cart.find( item => item.id == productId );
+		const inCartQuantity = inCart ? inCart.quantity : 0;
+		const availableQuantity = product.quantity - inCartQuantity;
+
+		btn.disabled = !( product.status === 'in-stock' && availableQuantity > 0 );
+	}
+
+	/**
+	 * Обновляет состояние конкретной кнопки "Избранное"
+	 * @param {HTMLElement} btn - кнопка
+	 * @param {string} productId - ID товара
+	 */
+	updateSingleFavoriteButton( btn, productId ) {
+		const isFavorite = store.isFavorite( productId );
+		if ( isFavorite ) {
+			btn.classList.add( 'active' );
+		} else {
+			btn.classList.remove( 'active' );
+		}
+	}
+
+	// =========================================================================
+	// ОТОБРАЖЕНИЕ ТОВАРОВ
+	// =========================================================================
+
+	/**
+	 * Рендерит товары в каталоге
+	 */
 	renderProducts() {
 		const products = store.getCatalogProducts( {
-			showOnlyInStock: false // Можно настроить
+			showOnlyInStock: false
 		} );
 
+		// Сохраняем хэш для отслеживания изменений
+		this.productsHash = this.getProductsHash( products );
+		this.cachedProducts = products;
+
 		if ( products.length === 0 ) {
-			// Если нет товаров, показываем демо
 			this.showDemoProducts();
 			return;
 		}
 
 		// Очищаем и заполняем сетку
 		this.productsGrid.innerHTML = products.map( product => this.renderProductCard( product ) ).join( '' );
+
+		// Прикрепляем обработчики событий (только один раз после рендера)
 		this.attachProductEvents();
 	}
 
+	/**
+	 * Создает HTML карточки товара
+	 * @param {Object} product - объект товара
+	 * @returns {string} HTML-код карточки
+	 */
 	renderProductCard( product ) {
+		// Проверяем наличие в корзине для начального состояния кнопки
 		const inCart = store.cart.find( item => item.id === product.id );
 		const inCartQuantity = inCart ? inCart.quantity : 0;
 		const availableQuantity = product.quantity - inCartQuantity;
@@ -56,88 +218,132 @@ class CatalogPage {
 		}
 
 		return `
-            <div class="product-card" data-id="${product.id}">
-                <div class="product-image">
-                    <img src="${API.getSafeImageUrl( product.image )}" 
-                        alt="${product.name}" 
-                        loading="lazy"
-                        onerror="this.src='${API.getFallbackSvg( product.name )}'">
-                    ${badges ? `<div class="product-badges">${badges}</div>` : ''}
-                </div>
-                <div class="product-content">
-                    <h3 class="product-title">${product.name}</h3>
-                    <p class="product-description">${product.description || ''}</p>
-                    <div class="product-meta">
-                        <span class="product-price">${API.formatPrice( product.price )}</span>
-                        ${product.oldPrice ? `<span class="product-old-price">${API.formatPrice( product.oldPrice )}</span>` : ''}
-                    </div>
-                    <div class="product-actions">
-                        <button class="product-btn add-to-cart" data-id="${product.id}"
-                                ${product.status !== 'in-stock' || availableQuantity <= 0 ? 'disabled' : ''}>
-                            <i class="fas fa-shopping-cart"></i> В корзину
-                        </button>
-                        <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${product.id}">
-                            <i class="fas fa-heart"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
+			<div class="product-card" data-id="${product.id}">
+				<div class="product-image">
+					<img src="${API.getSafeImageUrl( product.image )}" 
+						 alt="${this.escapeHtml( product.name )}" 
+						 loading="lazy"
+						 onerror="this.src='${API.getFallbackSvg( product.name )}'">
+					${badges ? `<div class="product-badges">${badges}</div>` : ''}
+				</div>
+				<div class="product-content">
+					<h3 class="product-title">${this.escapeHtml( product.name )}</h3>
+					<p class="product-description">${this.escapeHtml( product.description || '' )}</p>
+					<div class="product-meta">
+						<span class="product-price">${API.formatPrice( product.price )}</span>
+						${product.oldPrice ? `<span class="product-old-price">${API.formatPrice( product.oldPrice )}</span>` : ''}
+					</div>
+					<div class="product-actions">
+						<button class="product-btn add-to-cart" data-id="${product.id}"
+								${product.status !== 'in-stock' || availableQuantity <= 0 ? 'disabled' : ''}>
+							<i class="fas fa-shopping-cart"></i> В корзину
+						</button>
+						<button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${product.id}">
+							<i class="fas fa-heart"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		`;
 	}
 
+	/**
+	 * Прикрепляет обработчики событий к кнопкам
+	 * Использует делегирование для оптимальной работы
+	 */
 	attachProductEvents() {
-		// Добавление в корзину
-		document.querySelectorAll( '.add-to-cart' ).forEach( btn => {
-			btn.removeEventListener( 'click', this.handleAddToCart );
-			this.handleAddToCart = ( e ) => {
+		// Удаляем старый обработчик, если есть
+		if ( this.productsGrid._delegateHandler ) {
+			this.productsGrid.removeEventListener( 'click', this.productsGrid._delegateHandler );
+		}
+
+		// Создаем новый обработчик через делегирование
+		this.productsGrid._delegateHandler = ( e ) => {
+			// Кнопка "В корзину"
+			const cartBtn = e.target.closest( '.add-to-cart' );
+			if ( cartBtn ) {
 				e.preventDefault();
-				const id = e.currentTarget.dataset.id;
+				e.stopPropagation();
+				this.handleAddToCart( cartBtn );
+				return;
+			}
 
-				if ( store.addToCart( id ) ) {
-					API.showNotification( '✅ Товар добавлен в корзину' );
-
-					// Визуальный эффект
-					const originalText = e.currentTarget.innerHTML;
-					e.currentTarget.innerHTML = '<i class="fas fa-check"></i> Добавлено';
-
-					setTimeout( () => {
-						e.currentTarget.innerHTML = originalText;
-					}, 2000 );
-
-					API.updateHeaderCounters();
-				} else {
-					API.showNotification( '❌ Не удалось добавить товар', 'error' );
-				}
-			};
-			btn.addEventListener( 'click', this.handleAddToCart );
-		} );
-
-		// Добавление в избранное
-		// В catalog.js - исправьте обработчик для избранного
-		document.querySelectorAll( '.favorite-btn' ).forEach( btn => {
-			btn.removeEventListener( 'click', this.handleToggleFavorite );
-			this.handleToggleFavorite = ( e ) => {
+			// Кнопка "Избранное"
+			const favBtn = e.target.closest( '.favorite-btn' );
+			if ( favBtn ) {
 				e.preventDefault();
-				const id = e.currentTarget.dataset.id;
-				const isFavorite = store.toggleFavorite( id );
+				e.stopPropagation();
+				this.handleToggleFavorite( favBtn );
+				return;
+			}
+		};
 
-				e.currentTarget.classList.toggle( 'active', isFavorite );
-
-				// ИСПРАВЛЕНО
-				if ( isFavorite ) {
-					API.showNotification( '❤️ Товар добавлен в избранное' );
-				} else {
-					API.showNotification( '💔 Товар удален из избранного' );
-				}
-
-				API.updateHeaderCounters();
-			};
-			btn.addEventListener( 'click', this.handleToggleFavorite );
-		} );
+		this.productsGrid.addEventListener( 'click', this.productsGrid._delegateHandler );
 	}
 
+	/**
+	 * Обработчик добавления товара в корзину (без перерисовки!)
+	 * @param {HTMLElement} btn - кнопка
+	 */
+	handleAddToCart( btn ) {
+		const productId = btn.dataset.id;
+
+		if ( store.addToCart( productId ) ) {
+			// Показываем уведомление
+			API.showNotification( '✅ Товар добавлен в корзину' );
+
+			// Визуальный эффект на кнопке (без перерисовки!)
+			const originalHTML = btn.innerHTML;
+			btn.innerHTML = '<i class="fas fa-check"></i> Добавлено';
+			btn.style.background = '#2ecc71';
+
+			// Обновляем состояние кнопки (блокируем, если товар закончился)
+			this.updateSingleCartButton( btn, productId );
+
+			// Возвращаем исходный вид через 2 секунды
+			setTimeout( () => {
+				btn.innerHTML = originalHTML;
+				btn.style.background = '';
+				// Еще раз обновляем состояние (на случай, если товар закончился)
+				this.updateSingleCartButton( btn, productId );
+			}, 2000 );
+
+			// Обновляем счетчики в шапке
+			API.updateHeaderCounters();
+		} else {
+			API.showNotification( '❌ Не удалось добавить товар', 'error' );
+		}
+	}
+
+	/**
+	 * Обработчик добавления/удаления товара из избранного (без перерисовки!)
+	 * @param {HTMLElement} btn - кнопка
+	 */
+	handleToggleFavorite( btn ) {
+		const productId = btn.dataset.id;
+		const isFavorite = store.toggleFavorite( productId );
+
+		// Обновляем внешний вид кнопки (без перерисовки!)
+		if ( isFavorite ) {
+			btn.classList.add( 'active' );
+			API.showNotification( '❤️ Товар добавлен в избранное' );
+		} else {
+			btn.classList.remove( 'active' );
+			API.showNotification( '💔 Товар удален из избранного' );
+		}
+
+		// Обновляем счетчики в шапке
+		API.updateHeaderCounters();
+	}
+
+	// =========================================================================
+	// ДЕМО-ТОВАРЫ (ДЛЯ СЛУЧАЯ, КОГДА STORE ПУСТ)
+	// =========================================================================
+
+	/**
+	 * Показывает демо-товары, если в store пусто
+	 */
 	showDemoProducts() {
-		// Демо-товары если в store пусто
 		const demos = [
 			{
 				id: 'demo1',
@@ -185,7 +391,13 @@ class CatalogPage {
 		this.attachProductEvents();
 	}
 
-	// ========== РАЗВОРАЧИВАНИЕ КАТАЛОГА ==========
+	// =========================================================================
+	// РАЗВОРАЧИВАНИЕ КАТАЛОГА
+	// =========================================================================
+
+	/**
+	 * Настраивает разворачивание/сворачивание категорий
+	 */
 	setupExpandableCatalog() {
 		const showAllBtn = document.querySelector( '.show-all-btn' );
 		const catalogGrid = document.querySelector( '.catalog-grid' );
@@ -211,7 +423,6 @@ class CatalogPage {
 				hiddenCategories.forEach( item => {
 					item.style.opacity = '0';
 					item.style.transform = 'translateY(20px)';
-
 					setTimeout( () => {
 						item.style.display = 'none';
 					}, 500 );
@@ -245,18 +456,42 @@ class CatalogPage {
 		} );
 	}
 
+	/**
+	 * Обновляет текст и иконку кнопки
+	 * @param {HTMLElement} btn - кнопка
+	 * @param {string} text - новый текст
+	 * @param {string} iconClass - класс иконки
+	 */
 	updateButtonText( btn, text, iconClass ) {
 		const span = btn.querySelector( 'span' );
 		const icon = btn.querySelector( 'i' );
 		if ( span ) span.textContent = text;
 		if ( icon ) icon.className = iconClass;
 	}
+
+	/**
+	 * Экранирует HTML для безопасности
+	 * @param {string} str - исходная строка
+	 * @returns {string} экранированная строка
+	 */
+	escapeHtml( str ) {
+		if ( !str ) return '';
+		return str
+			.replace( /&/g, '&amp;' )
+			.replace( /</g, '&lt;' )
+			.replace( />/g, '&gt;' )
+			.replace( /"/g, '&quot;' )
+			.replace( /'/g, '&#39;' );
+	}
 }
 
-// Инициализация
+// =========================================================================
+// ИНИЦИАЛИЗАЦИЯ
+// =========================================================================
+
 document.addEventListener( 'DOMContentLoaded', () => {
-	// Инициализируем каталог только если есть нужные элементы на странице
 	if ( document.querySelector( '.products-scroll, .catalog-grid .products-grid' ) ) {
 		window.catalogPage = new CatalogPage();
+		console.log( '✅ CatalogPage инициализирован' );
 	}
 } );
