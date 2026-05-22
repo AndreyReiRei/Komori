@@ -5,13 +5,31 @@
  * 
  * Этот класс управляет всем функционалом на странице избранного
  * 
+ * ОПТИМИЗАЦИЯ:
+ * - НЕ перерисовывает всю страницу без необходимости
+ * - Обновляет только состояние кнопок и счетчики
+ * - Использует интеллектуальную проверку реальных изменений
+ * - Дебаунс перерисовок для предотвращения множественных обновлений
+ * 
  * ============================================================================
  */
 
 class FavoritesPage {
 	constructor() {
-		// Текущая страница (всегда 'favorites')
+		/** @type {string} Текущая страница (всегда 'favorites') */
 		this.currentPage = 'favorites';
+
+		/** @type {string} Хэш избранных товаров для отслеживания изменений */
+		this.favoritesHash = null;
+
+		/** @type {Array} Кэш свойств товаров в избранном */
+		this.cachedProducts = null;
+
+		/** @type {number} Таймер для дебаунса перерисовки */
+		this.renderDebounceTimer = null;
+
+		/** @type {boolean} Флаг, указывающий, что перерисовка уже запланирована */
+		this.isRenderScheduled = false;
 
 		// Инициализация страницы
 		this.init();
@@ -30,34 +48,31 @@ class FavoritesPage {
 		// Очищаем "битые" ссылки
 		store.cleanInvalidReferences();
 
+		// Вычисляем начальный хэш
+		this.updateFavoritesHash();
+
 		// Отрисовываем содержимое избранного
 		this.render();
 
 		// Привязываем обработчики событий
 		this.bindEvents();
 
-		// Рендерим блок рекомендаций
+		// Рендерим блок рекомендаций (если есть)
 		setTimeout( () => this.renderRecommendations(), 100 );
 
-		// Слушаем обновление избранного
+		// Слушаем обновление избранного С УМНОЙ ПРОВЕРКОЙ
 		window.addEventListener( 'store:favoritesUpdated', () => {
-			console.log( '🔄 Избранное обновлено, перерисовываем...' );
-			this.render();
-			this.renderRecommendations();
-			this.updateHeaderCounters();
+			this.handleFavoritesUpdated();
 		} );
 
-		// Слушаем обновление товаров
+		// Слушаем обновление товаров С УМНОЙ ПРОВЕРКОЙ
 		window.addEventListener( 'store:productsUpdated', () => {
-			console.log( '🔄 Товары обновлены, очищаем битые ссылки...' );
-			store.cleanInvalidReferences();
-			this.render();
-			this.renderRecommendations();
+			this.handleProductsUpdated();
 		} );
 
-		// Слушаем обновление корзины (чтобы обновить состояние кнопок)
+		// Слушаем обновление корзины - только обновляем кнопки
 		window.addEventListener( 'store:cartUpdated', () => {
-			console.log( '🔄 Корзина обновлена, обновляем кнопки...' );
+			console.log( '🛒 Избранное: корзина обновлена, обновляем кнопки' );
 			this.updateCartButtonsState();
 			this.updateHeaderCounters();
 		} );
@@ -66,6 +81,183 @@ class FavoritesPage {
 		this.updateHeaderCounters();
 
 		console.log( '✅ Страница избранного инициализирована' );
+	}
+
+	// =========================================================================
+	// ИНТЕЛЛИГЕНТНАЯ ПРОВЕРКА ИЗМЕНЕНИЙ
+	// =========================================================================
+
+	/**
+	 * Вычисляет хэш избранных товаров (учитывает ID, количество, цену)
+	 * @returns {string} хэш-строка для сравнения
+	 */
+	computeFavoritesHash() {
+		const favorites = store.getFavorites();
+		const ids = favorites.map( p => p.id ).join( ',' );
+		const quantities = favorites.map( p => `${p.id}:${p.quantity}` ).join( ',' );
+		const prices = favorites.map( p => `${p.id}:${p.price}` ).join( ',' );
+		const statuses = favorites.map( p => `${p.id}:${p.status}` ).join( ',' );
+		return `${favorites.length}_${ids}_${quantities}_${prices}_${statuses}`;
+	}
+
+	/**
+	 * Обновляет сохраненный хэш
+	 */
+	updateFavoritesHash() {
+		this.favoritesHash = this.computeFavoritesHash();
+	}
+
+	/**
+	 * Проверяет, изменился ли состав избранного
+	 * @returns {boolean} true если изменилось
+	 */
+	hasFavoritesChanged() {
+		const currentHash = this.computeFavoritesHash();
+		const hasChanged = currentHash !== this.favoritesHash;
+
+		if ( hasChanged ) {
+			console.log( `🔍 Избранное: состав ИЗМЕНИЛСЯ (${this.favoritesHash} → ${currentHash.substring( 0, 50 )}...)` );
+			this.favoritesHash = currentHash;
+		}
+
+		return hasChanged;
+	}
+
+	/**
+	 * Проверяет, изменились ли свойства товаров в избранном (цена, наличие, количество)
+	 * @returns {boolean} true если изменились
+	 */
+	hasProductPropertiesChanged() {
+		const favorites = store.getFavorites();
+
+		// Если кэша нет, значит нужно обновить
+		if ( !this.cachedProducts ) {
+			this.cachedProducts = JSON.parse( JSON.stringify( favorites ) );
+			return true;
+		}
+
+		// Проверяем каждый товар
+		for ( const product of favorites ) {
+			const cachedVersion = this.cachedProducts.find( p => p.id === product.id );
+			if ( !cachedVersion ) {
+				// Новый товар в избранном
+				console.log( `🔍 Избранное: добавлен новый товар ${product.id}` );
+				this.cachedProducts = JSON.parse( JSON.stringify( favorites ) );
+				return true;
+			}
+
+			if ( cachedVersion.price !== product.price ||
+				cachedVersion.status !== product.status ||
+				cachedVersion.quantity !== product.quantity ) {
+				console.log( `🔍 Избранное: свойства товара ${product.id} изменились (цена/наличие/количество)` );
+				this.cachedProducts = JSON.parse( JSON.stringify( favorites ) );
+				return true;
+			}
+		}
+
+		// Проверяем, не был ли удален товар
+		if ( this.cachedProducts.length !== favorites.length ) {
+			console.log( `🔍 Избранное: количество товаров изменилось (${this.cachedProducts.length} → ${favorites.length})` );
+			this.cachedProducts = JSON.parse( JSON.stringify( favorites ) );
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Обработчик события обновления избранного
+	 */
+	handleFavoritesUpdated() {
+		if ( this.hasFavoritesChanged() ) {
+			console.log( `📦 Избранное: состав изменился, планируем перерисовку` );
+			this.scheduleRender();
+		} else {
+			console.log( `📦 Избранное: состав НЕ ИЗМЕНИЛСЯ, перерисовка не требуется` );
+			// Но кнопки корзины всё равно нужно обновить
+			this.updateCartButtonsState();
+			this.updateHeaderCounters();
+		}
+	}
+
+	/**
+	 * Обработчик события обновления товаров
+	 */
+	handleProductsUpdated() {
+		// Проверяем, не относятся ли изменения к товарам в избранном
+		const favorites = store.getFavorites();
+		const favoriteIds = favorites.map( p => p.id );
+
+		// Проверяем, есть ли изменения в товарах, которые в избранном
+		let hasRelevantChanges = false;
+
+		for ( const product of favorites ) {
+			const currentProduct = store.getProduct( product.id );
+			if ( currentProduct && currentProduct.updatedAt !== product.updatedAt ) {
+				hasRelevantChanges = true;
+				break;
+			}
+		}
+
+		if ( hasRelevantChanges || this.hasProductPropertiesChanged() ) {
+			console.log( `📦 Избранное: свойства товаров изменились, планируем перерисовку` );
+			this.scheduleRender();
+		} else {
+			console.log( `📦 Избранное: свойства товаров НЕ ИЗМЕНИЛИСЬ, перерисовка не требуется` );
+			this.updateCartButtonsState();
+			this.updateHeaderCounters();
+		}
+	}
+
+	/**
+	 * Планирует перерисовку с дебаунсом (предотвращает множественные перерисовки)
+	 */
+	scheduleRender() {
+		// Очищаем предыдущий таймер
+		if ( this.renderDebounceTimer ) {
+			clearTimeout( this.renderDebounceTimer );
+		}
+
+		// Устанавливаем новый таймер
+		this.renderDebounceTimer = setTimeout( () => {
+			console.log( `🔄 Избранное: выполняем перерисовку` );
+			this.render();
+			this.renderRecommendations();
+			this.isRenderScheduled = false;
+			this.renderDebounceTimer = null;
+		}, 150 );
+
+		if ( !this.isRenderScheduled ) {
+			this.isRenderScheduled = true;
+			console.log( `⏳ Избранное: перерисовка запланирована` );
+		}
+	}
+
+	// =========================================================================
+	// ОБНОВЛЕНИЕ СОСТОЯНИЯ КНОПОК (БЕЗ ПЕРЕРИСОВКИ)
+	// =========================================================================
+
+	/**
+	 * Обновляет состояние кнопок "В корзину"
+	 */
+	updateCartButtonsState() {
+		document.querySelectorAll( '.add-to-cart-btn' ).forEach( btn => {
+			const productId = btn.dataset.id;
+			const product = store.getProduct( productId );
+
+			if ( !product ) return;
+
+			const inCart = store.cart.find( item => item.id == productId );
+			const inCartQuantity = inCart ? inCart.quantity : 0;
+			const availableQuantity = product.quantity - inCartQuantity;
+
+			const wasDisabled = btn.disabled;
+			const shouldBeDisabled = !( product.status === 'in-stock' && availableQuantity > 0 );
+
+			if ( wasDisabled !== shouldBeDisabled ) {
+				btn.disabled = shouldBeDisabled;
+			}
+		} );
 	}
 
 	// =========================================================================
@@ -78,18 +270,15 @@ class FavoritesPage {
 	render() {
 		console.log( '❤️ Рендерим избранное...' );
 
-		// Получаем DOM-элементы
 		const container = document.getElementById( 'favoritesItems' );
 		const emptyState = document.getElementById( 'favoritesEmpty' );
 		const countElement = document.getElementById( 'favoritesItemsCount' );
 		const totalElement = document.getElementById( 'favoritesTotal' );
 
-		// Получаем избранные товары из store
 		const favorites = store.getFavorites();
 
 		console.log( '📦 Товаров в избранном:', favorites.length );
 
-		// Если избранное пусто
 		if ( favorites.length === 0 ) {
 			if ( container ) {
 				container.style.display = 'none';
@@ -98,21 +287,20 @@ class FavoritesPage {
 			if ( emptyState ) emptyState.style.display = 'block';
 			if ( countElement ) countElement.textContent = '0 товаров';
 			if ( totalElement ) totalElement.textContent = 'на сумму 0 ₽';
+
+			this.updateFavoritesHash();
 			return;
 		}
 
-		// Показываем товары
 		if ( container ) {
 			container.style.display = 'grid';
 			container.innerHTML = favorites.map( product => this.renderFavoriteCard( product ) ).join( '' );
 		}
 		if ( emptyState ) emptyState.style.display = 'none';
 
-		// Рассчитываем общую сумму
 		const total = favorites.reduce( ( sum, item ) => sum + item.price, 0 );
 		const count = favorites.length;
 
-		// Обновляем информацию
 		if ( countElement ) {
 			countElement.textContent = this.getDeclension( count, ['товар', 'товара', 'товаров'] );
 		}
@@ -120,8 +308,11 @@ class FavoritesPage {
 			totalElement.textContent = `на сумму ${API.formatPrice( total )}`;
 		}
 
-		// Обновляем счетчик в шапке
 		this.updateHeaderCounters();
+		this.updateFavoritesHash();
+
+		// Сохраняем кэш свойств товаров для будущих сравнений
+		this.cachedProducts = JSON.parse( JSON.stringify( favorites ) );
 	}
 
 	/**
@@ -130,15 +321,12 @@ class FavoritesPage {
 	 * @returns {string} HTML-код карточки
 	 */
 	renderFavoriteCard( product ) {
-		// Проверяем, есть ли товар в корзине
 		const inCart = store.cart.find( item => item.id == product.id );
 		const inCartQuantity = inCart ? inCart.quantity : 0;
 		const availableQuantity = product.quantity - inCartQuantity;
 
-		// Получаем ссылку на страницу категории
 		const categoryUrl = store.getCategoryUrl( product.category );
 
-		// Определяем статус наличия товара
 		let stockClass = 'in-stock';
 		let stockText = 'В наличии';
 		let stockIcon = 'fa-check-circle';
@@ -153,7 +341,6 @@ class FavoritesPage {
 			stockIcon = 'fa-exclamation-triangle';
 		}
 
-		// Формируем бейджи
 		let badges = '';
 		if ( product.isNew ) badges += '<span class="badge new">Новинка</span>';
 		if ( product.isHit ) badges += '<span class="badge hit">Хит</span>';
@@ -214,11 +401,13 @@ class FavoritesPage {
 	bindEvents() {
 		console.log( '🔗 Привязка событий избранного...' );
 
-		// Используем делегирование событий для динамических элементов
-		document.removeEventListener( 'click', this.documentClickHandler );
+		// Используем делегирование событий (один обработчик на document)
+		if ( this.documentClickHandler ) {
+			document.removeEventListener( 'click', this.documentClickHandler );
+		}
 
 		this.documentClickHandler = ( e ) => {
-			// ===== УДАЛЕНИЕ ИЗ ИЗБРАННОГО =====
+			// УДАЛЕНИЕ ИЗ ИЗБРАННОГО
 			const removeBtn = e.target.closest( '.remove-favorite' );
 			if ( removeBtn ) {
 				e.preventDefault();
@@ -239,7 +428,7 @@ class FavoritesPage {
 				return;
 			}
 
-			// ===== ДОБАВЛЕНИЕ В КОРЗИНУ ИЗ ИЗБРАННОГО =====
+			// ДОБАВЛЕНИЕ В КОРЗИНУ
 			const addToCartBtn = e.target.closest( '.add-to-cart-btn' );
 			if ( addToCartBtn ) {
 				e.preventDefault();
@@ -249,7 +438,7 @@ class FavoritesPage {
 				if ( store.addToCart( id ) ) {
 					API.showNotification( '✅ Товар добавлен в корзину' );
 
-					// Визуальный эффект на кнопке
+					// Визуальный эффект (без перерисовки!)
 					const originalText = addToCartBtn.innerHTML;
 					addToCartBtn.innerHTML = '<i class="fas fa-check"></i> Добавлено';
 					addToCartBtn.style.background = '#2ecc71';
@@ -257,7 +446,6 @@ class FavoritesPage {
 					setTimeout( () => {
 						addToCartBtn.innerHTML = originalText;
 						addToCartBtn.style.background = '';
-						// Обновляем состояние кнопки (могла измениться доступность)
 						this.updateCartButtonsState();
 					}, 2000 );
 
@@ -271,13 +459,14 @@ class FavoritesPage {
 
 		document.addEventListener( 'click', this.documentClickHandler );
 
-		// ===== ОЧИСТКА ВСЕГО ИЗБРАННОГО =====
+		// ОЧИСТКА ИЗБРАННОГО
 		const clearBtn = document.getElementById( 'clearFavoritesBtn' );
 		if ( clearBtn ) {
 			clearBtn.removeEventListener( 'click', this.handleClearFavorites );
 			this.handleClearFavorites = ( e ) => {
 				e.preventDefault();
 				if ( confirm( '❤️ Вы уверены, что хотите очистить избранное?' ) ) {
+					// Анимация удаления всех карточек
 					const cards = document.querySelectorAll( '.favorite-item' );
 					cards.forEach( ( card, index ) => {
 						setTimeout( () => {
@@ -299,7 +488,7 @@ class FavoritesPage {
 			clearBtn.addEventListener( 'click', this.handleClearFavorites );
 		}
 
-		// ===== КОПИРОВАНИЕ СПИСКА ИЗБРАННОГО =====
+		// КОПИРОВАНИЕ СПИСКА
 		const copyLinkBtn = document.getElementById( 'copyFavoritesLink' );
 		if ( copyLinkBtn ) {
 			copyLinkBtn.removeEventListener( 'click', this.handleCopyLink );
@@ -317,8 +506,7 @@ class FavoritesPage {
 				).join( '\n' );
 
 				navigator.clipboard.writeText( text ).then( () => {
-					API.showNotification( '📋 Список скопирован в буфер обмена' );
-
+					API.showNotification( '📋 Список скопирован' );
 					const originalHtml = copyLinkBtn.innerHTML;
 					copyLinkBtn.innerHTML = '<i class="fas fa-check"></i>';
 					setTimeout( () => {
@@ -331,7 +519,7 @@ class FavoritesPage {
 			copyLinkBtn.addEventListener( 'click', this.handleCopyLink );
 		}
 
-		// ===== ПОДЕЛИТЬСЯ В СОЦСЕТЯХ =====
+		// ПОДЕЛИТЬСЯ В СОЦСЕТЯХ
 		const shareVk = document.getElementById( 'shareVk' );
 		if ( shareVk ) {
 			shareVk.addEventListener( 'click', ( e ) => {
@@ -355,28 +543,6 @@ class FavoritesPage {
 				this.shareToSocial( 'whatsapp' );
 			} );
 		}
-	}
-
-	/**
-	 * Обновляет состояние кнопок "В корзину"
-	 */
-	updateCartButtonsState() {
-		document.querySelectorAll( '.add-to-cart-btn' ).forEach( btn => {
-			const productId = btn.dataset.id;
-			const product = store.getProduct( productId );
-
-			if ( !product ) return;
-
-			const inCart = store.cart.find( item => item.id == productId );
-			const inCartQuantity = inCart ? inCart.quantity : 0;
-			const availableQuantity = product.quantity - inCartQuantity;
-
-			if ( product.status !== 'in-stock' || product.quantity <= 0 || availableQuantity <= 0 ) {
-				btn.disabled = true;
-			} else {
-				btn.disabled = false;
-			}
-		} );
 	}
 
 	/**
@@ -473,6 +639,8 @@ class FavoritesPage {
 
 	/**
 	 * Отрисовка карточки рекомендации
+	 * @param {Object} product - товар
+	 * @returns {string} HTML-код карточки
 	 */
 	renderRecommendationCard( product ) {
 		const categoryUrl = store.getCategoryUrl( product.category );
@@ -551,7 +719,10 @@ class FavoritesPage {
 	}
 
 	/**
-	 * Склонение слов
+	 * Склонение слов (1 товар, 2 товара, 5 товаров)
+	 * @param {number} number - число
+	 * @param {Array} words - варианты слов ['товар', 'товара', 'товаров']
+	 * @returns {string} правильная форма
 	 */
 	getDeclension( number, words ) {
 		const cases = [2, 0, 1, 1, 1, 2];
@@ -560,7 +731,10 @@ class FavoritesPage {
 	}
 }
 
-// Инициализация страницы
+// =========================================================================
+// ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+// =========================================================================
+
 document.addEventListener( 'DOMContentLoaded', () => {
 	if ( document.querySelector( '.favorites-page-content' ) ) {
 		window.favoritesPage = new FavoritesPage();
