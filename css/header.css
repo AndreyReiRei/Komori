@@ -721,7 +721,7 @@ header::before {
 @media (width >=1921px) {
 	.container__header {
 		padding: 0 10px;
-		max-width: 2200px;
+		max-width: 100%;
 		margin: 0 auto;
 	}
 

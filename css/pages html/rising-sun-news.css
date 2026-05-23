@@ -7,7 +7,8 @@
 }
 
 .container__main {
-	max-width: 100%;
+	/* max-width: 100%; */
+	max-width: 1440px;
 	margin: 0 auto;
 	padding: 0 20px;
 }
@@ -779,7 +780,7 @@
 /* Ультраширокие (1921px+) */
 @media (width >=1921px) {
 	.container__main {
-		max-width: 100%;
+		max-width: 1800px;
 		padding: 0 40px;
 	}
 
@@ -1115,7 +1116,7 @@
 	}
 
 	.breadcrumbs {
-		font-size: 12px;
+		font-size: 14px;
 		padding: 15px 0;
 	}
 
@@ -1295,13 +1296,13 @@
 	}
 
 	.breadcrumbs {
-		font-size: 11px;
+		font-size: 12px;
 		padding: 12px 0;
 		gap: 5px;
 	}
 
 	.breadcrumbs i {
-		font-size: 8px;
+		font-size: 12px;
 	}
 
 	.news-hero {
