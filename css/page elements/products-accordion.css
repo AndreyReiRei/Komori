@@ -204,7 +204,7 @@
 	height: 100%;
 	/* ✅ Занимает всю высоту родителя */
 	min-height: 550px;
-	/* ✅ Минимальная высота */
+	/* ✅ Минимальная высота для десктопа */
 }
 
 /* Эффект при наведении на карточку */
@@ -446,7 +446,9 @@
 	letter-spacing: -0.3px;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
-	/* ✅ Ограничиваем 2 строками */
+	/* Для Webkit браузеров (Chrome, Safari, Edge) */
+	line-clamp: 2;
+	/* ✅ Стандартное свойство для будущих версий */
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	padding-right: 50px;
@@ -455,6 +457,8 @@
 	/* ✅ Не сжимаем */
 	min-height: calc(1.4em * 2);
 	/* ✅ Фиксированная высота для 2 строк */
+	word-break: break-word;
+	/* Для переноса длинных слов */
 }
 
 /* Описание товара */
@@ -465,13 +469,16 @@
 	margin-bottom: 20px;
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
-	/* ✅ Ограничиваем 3 строками */
+	/* Для Webkit браузеров */
+	line-clamp: 3;
+	/* ✅ Стандартное свойство */
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	flex: 1;
 	/* ✅ Отталкивает цены и кнопку вниз */
 	min-height: calc(1.6em * 3);
 	/* ✅ Фиксированная высота для 3 строк */
+	word-break: break-word;
 }
 
 /* ===== БЛОК С ЦЕНАМИ ===== */
@@ -663,7 +670,6 @@
 
 /* АДАПТИВНОСТЬ (Responsive Design) */
 
-
 /* ===== БАЗОВЫЕ НАСТРОЙКИ ДЛЯ МОБИЛЬНЫХ (320px - 480px) ===== */
 @media (width < 481px) {
 	:root {
@@ -725,6 +731,7 @@
 		font-size: 15px;
 		margin-bottom: 8px;
 		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		min-height: 42px;
 		/* ✅ Фиксированная высота (15px * 1.4 * 2) */
 		padding-right: 35px;
@@ -882,6 +889,8 @@
 	.product-title {
 		font-size: 16px;
 		margin-bottom: 8px;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		min-height: 45px;
 		/* 16px * 1.4 * 2 = 45px */
 		padding-right: 40px;
@@ -893,6 +902,7 @@
 		font-size: 12px;
 		margin-bottom: 12px;
 		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		min-height: 36px;
 		/* 12px * 1.5 * 2 = 36px */
 		flex: 0;
@@ -972,6 +982,8 @@
 
 	.product-title {
 		font-size: 17px;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		min-height: 48px;
 		/* 17px * 1.4 * 2 = 48px */
 		padding-right: 45px;
@@ -981,6 +993,7 @@
 		font-size: 13px;
 		margin-bottom: 14px;
 		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		min-height: 39px;
 		/* 13px * 1.5 * 2 = 39px */
 		flex: 0;
@@ -1043,6 +1056,8 @@
 
 	.product-title {
 		font-size: 18px;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		min-height: 50px;
 		/* 18px * 1.4 * 2 = 50px */
 	}
@@ -1051,6 +1066,7 @@
 		font-size: 13px;
 		margin-bottom: 16px;
 		-webkit-line-clamp: 3;
+		line-clamp: 3;
 		min-height: 58px;
 		/* 13px * 1.5 * 3 = 58px */
 		flex: 1;
@@ -1111,11 +1127,15 @@
 
 	.product-title {
 		font-size: 19px;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		min-height: 53px;
 	}
 
 	.product-description {
 		font-size: 14px;
+		-webkit-line-clamp: 3;
+		line-clamp: 3;
 		min-height: 63px;
 		/* 14px * 1.5 * 3 = 63px */
 	}
@@ -1152,11 +1172,15 @@
 
 	.product-title {
 		font-size: 20px;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		min-height: 56px;
 	}
 
 	.product-description {
 		font-size: 14px;
+		-webkit-line-clamp: 3;
+		line-clamp: 3;
 		min-height: 63px;
 	}
 }
@@ -1180,11 +1204,15 @@
 
 	.product-title {
 		font-size: 21px;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		min-height: 59px;
 	}
 
 	.product-description {
 		font-size: 15px;
+		-webkit-line-clamp: 3;
+		line-clamp: 3;
 		min-height: 68px;
 		/* 15px * 1.5 * 3 = 68px */
 	}
@@ -1209,11 +1237,15 @@
 
 	.product-title {
 		font-size: 22px;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		min-height: 62px;
 	}
 
 	.product-description {
 		font-size: 16px;
+		-webkit-line-clamp: 3;
+		line-clamp: 3;
 		min-height: 72px;
 	}
 
@@ -1242,34 +1274,6 @@
 
 	.navbar-segment.active {
 		height: 9px;
-	}
-}
-
-/* ============================================================================
- * ТАЧ-УСТРОЙСТВА (специальные настройки)
- * ============================================================================ */
-
-/* Отключаем эффекты наведения на тач-устройствах */
-@media (hover: none) and (pointer: coarse) {
-	.scroll-btn {
-		display: none !important;
-	}
-
-	.product-card:hover {
-		transform: none;
-		box-shadow: var(--shadow-md);
-	}
-
-	.product-card:hover .product-image img {
-		transform: none;
-	}
-
-	.favorite-btn:hover {
-		transform: none;
-	}
-
-	.product-btn:hover {
-		transform: none;
 	}
 }
 
@@ -1305,5 +1309,33 @@
 
 	.product-actions {
 		margin-top: 0 !important;
+	}
+}
+
+/* ============================================================================
+ * ТАЧ-УСТРОЙСТВА (специальные настройки)
+ * ============================================================================ */
+
+/* Отключаем эффекты наведения на тач-устройствах */
+@media (hover: none) and (pointer: coarse) {
+	.scroll-btn {
+		display: none !important;
+	}
+
+	.product-card:hover {
+		transform: none;
+		box-shadow: var(--shadow-md);
+	}
+
+	.product-card:hover .product-image img {
+		transform: none;
+	}
+
+	.favorite-btn:hover {
+		transform: none;
+	}
+
+	.product-btn:hover {
+		transform: none;
 	}
 }
