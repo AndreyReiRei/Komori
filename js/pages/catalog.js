@@ -1,31 +1,33 @@
 /**
  * ============================================================================
- * CATALOG.JS - КЛАСС ДЛЯ ОТОБРАЖЕНИЯ КАТАЛОГА ТОВАРОВ
+ * CATALOG.JS - КЛАСС ДЛЯ УПРАВЛЕНИЯ КАТАЛОГОМ ТОВАРОВ
  * ============================================================================
  * 
  * НАЗНАЧЕНИЕ:
- * - Отображает товары в каталоге (главная страница, страницы категорий)
- * - Обеспечивает добавление товаров в корзину и избранное
- * - Поддерживает разворачивание/сворачивание категорий
- * 
- * ОПТИМИЗАЦИЯ:
- * - НЕ перерисовывает всю сетку при добавлении в корзину/избранное
- * - Обновляет только состояние кнопок и счетчики
- * - Перерисовывает только при изменении состава товаров
+ * - Управляет кнопками "В корзину" и "Избранное" для всех карточек
+ * - Обеспечивает разворачивание/сворачивание категорий каталога
+ * - Отображает демо-товары при отсутствии данных в store
+ * - Обеспечивает переход на страницу товара при клике на карточку
+ * - НЕ ПЕРЕРИСОВЫВАЕТ аккордеон (products-scroll) - только управляет кнопками
  * 
  * ============================================================================
  */
 
 class CatalogPage {
 	constructor() {
-		/** @type {HTMLElement} Контейнер для товаров */
-		this.productsGrid = document.querySelector( '.products-scroll, .catalog-grid .products-grid' );
+		/** @type {HTMLElement} Контейнер для товаров (может быть несколько) */
+		this.productsContainers = document.querySelectorAll( '.products-scroll, .products-grid, .catalog-grid .products-grid, .category-products .products-grid' );
 
-		/** @type {string} Хэш состава товаров для отслеживания изменений */
-		this.productsHash = null;
+		/** @type {boolean} Флаг, указывающий, что это главная страница с аккордеоном */
+		this.isAccordionPage = !!document.getElementById( 'productsScroll' );
 
-		/** @type {Array} Кэш товаров для оптимизации */
-		this.cachedProducts = null;
+		/** @type {boolean} Флаг, указывающий, что это страница каталога с сеткой */
+		this.isCatalogGridPage = !!document.querySelector( '.catalog-grid .products-grid, .category-products .products-grid' );
+
+		if ( this.productsContainers.length === 0 && !this.isCatalogGridPage ) {
+			console.log( '📚 CatalogPage: контейнеры с товарами не найдены, пропускаем инициализацию' );
+			return;
+		}
 
 		this.init();
 	}
@@ -38,162 +40,125 @@ class CatalogPage {
 	 * Инициализирует страницу каталога
 	 */
 	init() {
-		if ( !this.productsGrid ) return;
+		// Для страницы каталога с сеткой - рендерим товары
+		if ( this.isCatalogGridPage && !this.isAccordionPage ) {
+			console.log( '📚 CatalogPage: инициализация сетки каталога' );
+			this.renderCatalogGrid();
+		} else {
+			console.log( '📚 CatalogPage: инициализация режима управления кнопками (аккордеон)' );
+		}
 
-		// Первоначальный рендер товаров
-		this.renderProducts();
+		// Прикрепляем обработчики событий к существующим карточкам
+		this.attachEventsToCards();
 
 		// Настройка разворачивания каталога (если есть)
 		this.setupExpandableCatalog();
 
-		// Слушаем обновление товаров (добавление/удаление в админке)
-		// НО НЕ ПЕРЕРИСОВЫВАЕМ ПРИ КАЖДОМ ОБНОВЛЕНИИ КОРЗИНЫ/ИЗБРАННОГО!
-		window.addEventListener( 'store:productsUpdated', () => {
-			console.log( '📦 Каталог: товары обновлены, проверяем необходимость перерисовки' );
-			this.checkAndRefreshIfNeeded();
-		} );
-
-		// Слушаем обновление корзины - обновляем ТОЛЬКО состояние кнопок
+		// Слушаем обновление корзины - обновляем состояние кнопок
 		window.addEventListener( 'store:cartUpdated', () => {
-			console.log( '🛒 Каталог: корзина обновлена, обновляем кнопки' );
-			this.updateCartButtonsState();
+			this.updateAllCartButtons();
 			API.updateHeaderCounters();
 		} );
 
-		// Слушаем обновление избранного - обновляем ТОЛЬКО состояние кнопок
+		// Слушаем обновление избранного - обновляем состояние кнопок
 		window.addEventListener( 'store:favoritesUpdated', () => {
-			console.log( '❤️ Каталог: избранное обновлено, обновляем кнопки' );
-			this.updateFavoriteButtonsState();
+			this.updateAllFavoriteButtons();
 			API.updateHeaderCounters();
 		} );
+
+		// Слушаем обновление товаров - обновляем обработчики для новых карточек
+		window.addEventListener( 'store:productsUpdated', () => {
+			console.log( '📚 CatalogPage: товары обновлены' );
+			// Если это страница каталога с сеткой - перерисовываем
+			if ( this.isCatalogGridPage && !this.isAccordionPage ) {
+				this.renderCatalogGrid();
+			}
+			// Всегда обновляем обработчики для новых карточек
+			this.attachEventsToCards();
+		} );
+
+		// Наблюдатель за появлением новых карточек (для аккордеона)
+		this.observeNewCards();
 
 		console.log( '✅ CatalogPage инициализирован' );
 	}
 
 	// =========================================================================
-	// ОПТИМИЗАЦИЯ: ПРОВЕРКА НЕОБХОДИМОСТИ ПЕРЕРИСОВКИ
+	// ОТОБРАЖЕНИЕ СЕТКИ КАТАЛОГА (ТОЛЬКО ДЛЯ СТРАНИЦЫ КАТАЛОГА!)
 	// =========================================================================
 
 	/**
-	 * Вычисляет хэш состава товаров
-	 * @param {Array} products - массив товаров
-	 * @returns {string} хэш-строка для сравнения
+	 * Рендерит сетку каталога (для страницы catalog.html)
 	 */
-	getProductsHash( products ) {
-		const ids = products.map( p => p.id ).join( ',' );
-		return `${products.length}_${ids}`;
-	}
+	renderCatalogGrid() {
+		const gridContainer = document.querySelector( '.catalog-grid .products-grid, .category-products .products-grid' );
+		if ( !gridContainer ) return;
 
-	/**
-	 * Проверяет, нужно ли перерисовывать каталог
-	 * Перерисовываем ТОЛЬКО если изменился состав товаров (добавлены/удалены)
-	 */
-	checkAndRefreshIfNeeded() {
-		const currentProducts = store.getCatalogProducts( { showOnlyInStock: false } );
-		const currentHash = this.getProductsHash( currentProducts );
-
-		if ( this.productsHash !== currentHash ) {
-			console.log( '🔄 Состав товаров изменился, перерисовываем каталог' );
-			this.renderProducts();
-		} else {
-			console.log( '✅ Состав товаров не изменился, перерисовка не требуется' );
-		}
-	}
-
-	// =========================================================================
-	// ОБНОВЛЕНИЕ СОСТОЯНИЯ КНОПОК (БЕЗ ПЕРЕРИСОВКИ КАРТОЧЕК)
-	// =========================================================================
-
-	/**
-	 * Обновляет состояние кнопок "В корзину" без перерисовки всей сетки
-	 */
-	updateCartButtonsState() {
-		document.querySelectorAll( '.add-to-cart' ).forEach( btn => {
-			const productId = btn.dataset.id;
-			const product = store.getProduct( productId );
-
-			if ( !product ) return;
-
-			const inCart = store.cart.find( item => item.id == productId );
-			const inCartQuantity = inCart ? inCart.quantity : 0;
-			const availableQuantity = product.quantity - inCartQuantity;
-
-			btn.disabled = !( product.status === 'in-stock' && availableQuantity > 0 );
-		} );
-	}
-
-	/**
-	 * Обновляет состояние кнопок "Избранное" без перерисовки всей сетки
-	 */
-	updateFavoriteButtonsState() {
-		document.querySelectorAll( '.favorite-btn' ).forEach( btn => {
-			const productId = btn.dataset.id;
-			const isFavorite = store.isFavorite( productId );
-
-			if ( isFavorite ) {
-				btn.classList.add( 'active' );
-			} else {
-				btn.classList.remove( 'active' );
-			}
-		} );
-	}
-
-	/**
-	 * Обновляет состояние конкретной кнопки "В корзину"
-	 * @param {HTMLElement} btn - кнопка
-	 * @param {string} productId - ID товара
-	 */
-	updateSingleCartButton( btn, productId ) {
-		const product = store.getProduct( productId );
-		if ( !product ) return;
-
-		const inCart = store.cart.find( item => item.id == productId );
-		const inCartQuantity = inCart ? inCart.quantity : 0;
-		const availableQuantity = product.quantity - inCartQuantity;
-
-		btn.disabled = !( product.status === 'in-stock' && availableQuantity > 0 );
-	}
-
-	/**
-	 * Обновляет состояние конкретной кнопки "Избранное"
-	 * @param {HTMLElement} btn - кнопка
-	 * @param {string} productId - ID товара
-	 */
-	updateSingleFavoriteButton( btn, productId ) {
-		const isFavorite = store.isFavorite( productId );
-		if ( isFavorite ) {
-			btn.classList.add( 'active' );
-		} else {
-			btn.classList.remove( 'active' );
-		}
-	}
-
-	// =========================================================================
-	// ОТОБРАЖЕНИЕ ТОВАРОВ
-	// =========================================================================
-
-	/**
-	 * Рендерит товары в каталоге
-	 */
-	renderProducts() {
-		const products = store.getCatalogProducts( {
-			showOnlyInStock: false
-		} );
-
-		// Сохраняем хэш для отслеживания изменений
-		this.productsHash = this.getProductsHash( products );
-		this.cachedProducts = products;
+		const products = store.getCatalogProducts( { showOnlyInStock: false } );
 
 		if ( products.length === 0 ) {
-			this.showDemoProducts();
+			this.showDemoProducts( gridContainer );
 			return;
 		}
 
-		// Очищаем и заполняем сетку
-		this.productsGrid.innerHTML = products.map( product => this.renderProductCard( product ) ).join( '' );
+		gridContainer.innerHTML = products.map( product => this.renderProductCard( product ) ).join( '' );
+		this.attachEventsToCards();
+	}
 
-		// Прикрепляем обработчики событий (только один раз после рендера)
-		this.attachProductEvents();
+	/**
+	 * Показывает демо-товары, если в store пусто
+	 * @param {HTMLElement} container - контейнер для товаров
+	 */
+	showDemoProducts( container ) {
+		const demos = [
+			{
+				id: 'demo1',
+				name: 'Аниме фигурка Наруто',
+				price: 2499,
+				oldPrice: 2999,
+				description: 'Детализированная фигурка главного героя',
+				image: 'https://via.placeholder.com/300x200',
+				category: 'figures',
+				isHit: true,
+				status: 'in-stock',
+				quantity: 10
+			},
+			{
+				id: 'demo2',
+				name: 'Чай маття премиум',
+				price: 890,
+				description: 'Настоящий японский зелёный чай',
+				image: 'https://via.placeholder.com/300x200',
+				category: 'tea',
+				isNew: true,
+				status: 'in-stock',
+				quantity: 45
+			},
+			{
+				id: 'demo3',
+				name: 'Моти клубничные',
+				price: 550,
+				description: 'Нежные японские сладости',
+				image: 'https://via.placeholder.com/300x200',
+				category: 'sweets',
+				status: 'in-stock',
+				quantity: 23
+			},
+			{
+				id: 'demo4',
+				name: 'Пиала для чая "Сакура"',
+				price: 890,
+				oldPrice: 1190,
+				description: 'Традиционная японская керамика',
+				image: 'https://via.placeholder.com/300x200',
+				category: 'tableware',
+				status: 'in-stock',
+				quantity: 15
+			}
+		];
+
+		container.innerHTML = demos.map( product => this.renderProductCard( product ) ).join( '' );
+		this.attachEventsToCards();
 	}
 
 	/**
@@ -201,6 +166,11 @@ class CatalogPage {
 	 * @param {Object} product - объект товара
 	 * @returns {string} HTML-код карточки
 	 */
+	/**
+ * Создает HTML карточки товара
+ * @param {Object} product - объект товара
+ * @returns {string} HTML-код карточки
+ */
 	renderProductCard( product ) {
 		// Проверяем наличие в корзине для начального состояния кнопки
 		const inCart = store.cart.find( item => item.id === product.id );
@@ -208,17 +178,22 @@ class CatalogPage {
 		const availableQuantity = product.quantity - inCartQuantity;
 		const isFavorite = store.isFavorite( product.id );
 
+		// Получаем URL страницы категории (для перехода по клику)
+		const categoryUrl = store.getCategoryUrl( product.category );
+
 		// Определяем бейджи
 		let badges = '';
 		if ( product.isHit ) badges += '<span class="product-badge hit">Хит продаж</span>';
 		if ( product.isNew ) badges += '<span class="product-badge new">Новинка</span>';
-		if ( product.oldPrice ) {
+		if ( product.oldPrice && product.oldPrice > product.price ) {
 			const discount = Math.round( ( 1 - product.price / product.oldPrice ) * 100 );
 			if ( discount > 0 ) badges += `<span class="product-badge sale">-${discount}%</span>`;
 		}
 
 		return `
-			<div class="product-card" data-id="${product.id}">
+		<div class="product-card" data-id="${product.id}" data-category="${product.category}">
+			<!-- Вся карточка является ссылкой на страницу категории -->
+			<a href="${categoryUrl}" class="product-card-link">
 				<div class="product-image">
 					<img src="${API.getSafeImageUrl( product.image )}" 
 						 alt="${this.escapeHtml( product.name )}" 
@@ -233,34 +208,91 @@ class CatalogPage {
 						<span class="product-price">${API.formatPrice( product.price )}</span>
 						${product.oldPrice ? `<span class="product-old-price">${API.formatPrice( product.oldPrice )}</span>` : ''}
 					</div>
-					<div class="product-actions">
-						<button class="product-btn add-to-cart" data-id="${product.id}"
-								${product.status !== 'in-stock' || availableQuantity <= 0 ? 'disabled' : ''}>
-							<i class="fas fa-shopping-cart"></i> В корзину
-						</button>
-						<button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${product.id}">
-							<i class="fas fa-heart"></i>
-						</button>
-					</div>
 				</div>
+			</a>
+			<div class="product-actions">
+				<button class="product-btn add-to-cart" data-id="${product.id}"
+						${product.status !== 'in-stock' || availableQuantity <= 0 ? 'disabled' : ''}>
+					<i class="fas fa-shopping-cart"></i> В корзину
+				</button>
+				<button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${product.id}">
+					<i class="fas fa-heart"></i>
+				</button>
 			</div>
-		`;
+		</div>
+	`;
+	}
+
+	// =========================================================================
+	// НАВИГАЦИЯ ПО ТОВАРАМ (НОВАЯ ФУНКЦИОНАЛЬНОСТЬ)
+	// =========================================================================
+
+	/**
+	 * Получает URL страницы товара
+	 * @param {Object} product - объект товара
+	 * @returns {string} URL страницы товара
+	 */
+	getProductUrl( product ) {
+		// Приоритет 1: если у товара есть поле url - используем его
+		if ( product.url ) {
+			return product.url;
+		}
+
+		// Приоритет 2: страница категории с якорем на товар
+		const categoryUrl = store.getCategoryUrl( product.category );
+
+		// Добавляем якорь с ID товара для прокрутки к нужной карточке
+		return `${categoryUrl}?product=${product.id}#product-${product.id}`;
 	}
 
 	/**
-	 * Прикрепляет обработчики событий к кнопкам
-	 * Использует делегирование для оптимальной работы
+	 * Обработчик клика по карточке товара
+	 * @param {HTMLElement} card - карточка товара
+	 * @param {Object} product - объект товара
 	 */
-	attachProductEvents() {
-		// Удаляем старый обработчик, если есть
-		if ( this.productsGrid._delegateHandler ) {
-			this.productsGrid.removeEventListener( 'click', this.productsGrid._delegateHandler );
+	handleProductClick( card, product ) {
+		const productUrl = this.getProductUrl( product );
+		window.location.href = productUrl;
+	}
+
+	/**
+	 * Прокручивает страницу к товару (если перешли с якорем)
+	 */
+	static scrollToProductOnLoad() {
+		const urlParams = new URLSearchParams( window.location.search );
+		const productId = urlParams.get( 'product' );
+
+		if ( productId ) {
+			setTimeout( () => {
+				const productElement = document.querySelector( `.product-card[data-id="${productId}"]` );
+				if ( productElement ) {
+					productElement.scrollIntoView( { behavior: 'smooth', block: 'center' } );
+					productElement.style.transition = 'all 0.3s ease';
+					productElement.style.boxShadow = '0 0 0 3px #ff3366';
+					setTimeout( () => {
+						productElement.style.boxShadow = '';
+					}, 2000 );
+				}
+			}, 500 );
+		}
+	}
+
+	// =========================================================================
+	// УПРАВЛЕНИЕ КНОПКАМИ (ДЛЯ ВСЕХ КАРТОЧЕК)
+	// =========================================================================
+
+	/**
+	 * Прикрепляет обработчики ко всем существующим карточкам
+	 */
+	attachEventsToCards() {
+		// Используем делегирование через document
+		if ( this._delegateHandler ) {
+			document.removeEventListener( 'click', this._delegateHandler );
 		}
 
-		// Создаем новый обработчик через делегирование
-		this.productsGrid._delegateHandler = ( e ) => {
+		this._delegateHandler = ( e ) => {
 			// Кнопка "В корзину"
-			const cartBtn = e.target.closest( '.add-to-cart' );
+			const cartBtn = e.target.closest( '.add-to-cart, .product-btn.add-to-cart' );
 			if ( cartBtn ) {
 				e.preventDefault();
 				e.stopPropagation();
@@ -276,39 +308,133 @@ class CatalogPage {
 				this.handleToggleFavorite( favBtn );
 				return;
 			}
+
+			// Ссылка на карточку (если клик не по кнопке)
+			const cardLink = e.target.closest( '.product-card-link' );
+			if ( cardLink && !e.target.closest( '.product-actions' ) ) {
+				// Не предотвращаем переход, ссылка сработает сама
+				// Просто логируем для отладки
+				console.log( '📚 CatalogPage: переход по ссылке товара' );
+			}
 		};
 
-		this.productsGrid.addEventListener( 'click', this.productsGrid._delegateHandler );
+		document.addEventListener( 'click', this._delegateHandler );
+
+		const totalCards = document.querySelectorAll( '.product-card' ).length;
+		console.log( `📚 CatalogPage: обработчики прикреплены к ${totalCards} карточкам` );
 	}
 
 	/**
-	 * Обработчик добавления товара в корзину (без перерисовки!)
+	 * Наблюдает за появлением новых карточек (например, после обновления аккордеона)
+	 */
+	observeNewCards() {
+		const observer = new MutationObserver( ( mutations ) => {
+			let hasNewCards = false;
+			mutations.forEach( mutation => {
+				if ( mutation.type === 'childList' && mutation.addedNodes.length > 0 ) {
+					mutation.addedNodes.forEach( node => {
+						if ( node.nodeType === 1 && ( node.classList?.contains( 'product-card' ) || node.querySelector?.( '.product-card' ) ) ) {
+							hasNewCards = true;
+						}
+					} );
+				}
+			} );
+			if ( hasNewCards ) {
+				console.log( '📚 CatalogPage: обнаружены новые карточки' );
+				setTimeout( () => {
+					this.updateAllCartButtons();
+					this.updateAllFavoriteButtons();
+				}, 50 );
+			}
+		} );
+
+		observer.observe( document.body, { childList: true, subtree: true } );
+	}
+
+	/**
+	 * Обновляет ВСЕ кнопки "В корзину" на странице
+	 */
+	updateAllCartButtons() {
+		document.querySelectorAll( '.add-to-cart, .product-btn.add-to-cart' ).forEach( btn => {
+			const productId = btn.dataset.id;
+			const product = store.getProduct( productId );
+			if ( !product ) return;
+
+			const inCart = store.cart.find( item => item.id == productId );
+			const inCartQuantity = inCart ? inCart.quantity : 0;
+			const availableQuantity = product.quantity - inCartQuantity;
+
+			btn.disabled = !( product.status === 'in-stock' && availableQuantity > 0 );
+		} );
+	}
+
+	/**
+	 * Обновляет ВСЕ кнопки "Избранное" на странице
+	 */
+	updateAllFavoriteButtons() {
+		document.querySelectorAll( '.favorite-btn' ).forEach( btn => {
+			const productId = btn.dataset.id;
+			const isFavorite = store.isFavorite( productId );
+			if ( isFavorite ) {
+				btn.classList.add( 'active' );
+			} else {
+				btn.classList.remove( 'active' );
+			}
+		} );
+	}
+
+	/**
+	 * Обновляет состояние одной кнопки "В корзину"
+	 * @param {HTMLElement} btn - кнопка
+	 * @param {string} productId - ID товара
+	 */
+	updateSingleCartButton( btn, productId ) {
+		const product = store.getProduct( productId );
+		if ( !product ) return;
+
+		const inCart = store.cart.find( item => item.id == productId );
+		const inCartQuantity = inCart ? inCart.quantity : 0;
+		const availableQuantity = product.quantity - inCartQuantity;
+
+		btn.disabled = !( product.status === 'in-stock' && availableQuantity > 0 );
+	}
+
+	/**
+	 * Обновляет состояние одной кнопки "Избранное"
+	 * @param {HTMLElement} btn - кнопка
+	 * @param {string} productId - ID товара
+	 */
+	updateSingleFavoriteButton( btn, productId ) {
+		const isFavorite = store.isFavorite( productId );
+		if ( isFavorite ) {
+			btn.classList.add( 'active' );
+		} else {
+			btn.classList.remove( 'active' );
+		}
+	}
+
+	/**
+	 * Обработчик добавления товара в корзину
 	 * @param {HTMLElement} btn - кнопка
 	 */
 	handleAddToCart( btn ) {
 		const productId = btn.dataset.id;
 
 		if ( store.addToCart( productId ) ) {
-			// Показываем уведомление
 			API.showNotification( '✅ Товар добавлен в корзину' );
 
-			// Визуальный эффект на кнопке (без перерисовки!)
 			const originalHTML = btn.innerHTML;
 			btn.innerHTML = '<i class="fas fa-check"></i> Добавлено';
 			btn.style.background = '#2ecc71';
 
-			// Обновляем состояние кнопки (блокируем, если товар закончился)
 			this.updateSingleCartButton( btn, productId );
 
-			// Возвращаем исходный вид через 2 секунды
 			setTimeout( () => {
 				btn.innerHTML = originalHTML;
 				btn.style.background = '';
-				// Еще раз обновляем состояние (на случай, если товар закончился)
 				this.updateSingleCartButton( btn, productId );
 			}, 2000 );
 
-			// Обновляем счетчики в шапке
 			API.updateHeaderCounters();
 		} else {
 			API.showNotification( '❌ Не удалось добавить товар', 'error' );
@@ -316,14 +442,13 @@ class CatalogPage {
 	}
 
 	/**
-	 * Обработчик добавления/удаления товара из избранного (без перерисовки!)
+	 * Обработчик добавления/удаления из избранного
 	 * @param {HTMLElement} btn - кнопка
 	 */
 	handleToggleFavorite( btn ) {
 		const productId = btn.dataset.id;
 		const isFavorite = store.toggleFavorite( productId );
 
-		// Обновляем внешний вид кнопки (без перерисовки!)
 		if ( isFavorite ) {
 			btn.classList.add( 'active' );
 			API.showNotification( '❤️ Товар добавлен в избранное' );
@@ -332,63 +457,7 @@ class CatalogPage {
 			API.showNotification( '💔 Товар удален из избранного' );
 		}
 
-		// Обновляем счетчики в шапке
 		API.updateHeaderCounters();
-	}
-
-	// =========================================================================
-	// ДЕМО-ТОВАРЫ (ДЛЯ СЛУЧАЯ, КОГДА STORE ПУСТ)
-	// =========================================================================
-
-	/**
-	 * Показывает демо-товары, если в store пусто
-	 */
-	showDemoProducts() {
-		const demos = [
-			{
-				id: 'demo1',
-				name: 'Аниме фигурка Наруто',
-				price: 2499,
-				oldPrice: 2999,
-				description: 'Детализированная фигурка главного героя',
-				image: 'https://via.placeholder.com/300x200',
-				isHit: true,
-				status: 'in-stock',
-				quantity: 10
-			},
-			{
-				id: 'demo2',
-				name: 'Чай маття премиум',
-				price: 890,
-				description: 'Настоящий японский зелёный чай',
-				image: 'https://via.placeholder.com/300x200',
-				isNew: true,
-				status: 'in-stock',
-				quantity: 45
-			},
-			{
-				id: 'demo3',
-				name: 'Моти клубничные',
-				price: 550,
-				description: 'Нежные японские сладости',
-				image: 'https://via.placeholder.com/300x200',
-				status: 'in-stock',
-				quantity: 23
-			},
-			{
-				id: 'demo4',
-				name: 'Пиала для чая "Сакура"',
-				price: 890,
-				oldPrice: 1190,
-				description: 'Традиционная японская керамика',
-				image: 'https://via.placeholder.com/300x200',
-				status: 'in-stock',
-				quantity: 15
-			}
-		];
-
-		this.productsGrid.innerHTML = demos.map( product => this.renderProductCard( product ) ).join( '' );
-		this.attachProductEvents();
 	}
 
 	// =========================================================================
@@ -469,6 +538,10 @@ class CatalogPage {
 		if ( icon ) icon.className = iconClass;
 	}
 
+	// =========================================================================
+	// ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ
+	// =========================================================================
+
 	/**
 	 * Экранирует HTML для безопасности
 	 * @param {string} str - исходная строка
@@ -490,8 +563,11 @@ class CatalogPage {
 // =========================================================================
 
 document.addEventListener( 'DOMContentLoaded', () => {
-	if ( document.querySelector( '.products-scroll, .catalog-grid .products-grid' ) ) {
-		window.catalogPage = new CatalogPage();
-		console.log( '✅ CatalogPage инициализирован' );
-	}
+	// Всегда инициализируем catalog.js (он нужен для работы кнопок)
+	window.catalogPage = new CatalogPage();
+
+	// Добавляем функцию прокрутки к товару после загрузки страницы
+	CatalogPage.scrollToProductOnLoad();
+
+	console.log( '✅ CatalogPage инициализирован' );
 } );

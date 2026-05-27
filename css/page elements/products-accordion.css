@@ -422,6 +422,25 @@
 	font-size: 18px;
 }
 
+
+/* Стили для ссылки на всю карточку */
+.product-card-link {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+	cursor: pointer;
+}
+
+/* Эффект при наведении на карточку (через родителя) */
+.product-card:hover .product-image img {
+	transform: scale(1.05);
+}
+
+.product-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
 /* ===== НАВИГАЦИОННАЯ ПОЛОСКА ===== */
 .scroll-navbar {
 	display: flex;
