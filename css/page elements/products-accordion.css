@@ -1,84 +1,135 @@
-/* ===== ПЕРЕМЕННЫЕ ===== */
+/* ============================================================================
+ * ПЕРЕМЕННЫЕ (CSS Custom Properties)
+ * ============================================================================
+ * :root - глобальные переменные, доступные во всем документе
+ * Используются для единообразия дизайна и легкого изменения темы
+ * ============================================================================ */
+
 :root {
-	/* Основные цвета - в стиле страницы избранного */
+	/* ===== ЦВЕТОВАЯ СХЕМА ===== */
 	--primary: #ff3366;
+	/* Основной цвет (розовый) */
 	--primary-dark: #e62e5c;
+	/* Темный оттенок основного */
 	--primary-gradient: linear-gradient(135deg, #ff3366 0%, #ff6b6b 100%);
+	/* Градиент */
 	--secondary: #ffb7c5;
+	/* Вторичный цвет (светло-розовый) */
 	--secondary-gradient: linear-gradient(135deg, #ffb7c5 0%, #ff6b6b 100%);
 	--accent: #ffb7c5;
+	/* Акцентный цвет */
 	--success: #2ecc71;
+	/* Зеленый для успеха */
 	--danger: #ff4757;
+	/* Красный для ошибок */
 	--warning: #ff9800;
+	/* Оранжевый для предупреждений */
 
-	/* Нейтральные цвета */
+	/* ===== ЦВЕТА ТЕКСТА ===== */
 	--text-primary: #1a1a1a;
+	/* Основной текст (черный) */
 	--text-secondary: #4a4a4a;
+	/* Второстепенный текст */
 	--text-muted: #666666;
+	/* Приглушенный текст */
 	--text-light: #999999;
+	/* Светлый текст */
 	--text-white: #ffffff;
+	/* Белый текст */
 
-	/* Фоны */
+	/* ===== ЦВЕТА ФОНА ===== */
 	--bg-primary: #ffffff;
+	/* Основной фон (белый) */
 	--bg-secondary: #f8f9fa;
+	/* Вторичный фон (светло-серый) */
 	--bg-tertiary: #f5f5f5;
+	/* Третичный фон */
 	--bg-gradient: linear-gradient(180deg, rgba(255, 183, 197, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
 
-	/* Границы */
+	/* ===== ЦВЕТА ГРАНИЦ ===== */
 	--border-light: rgba(255, 51, 102, 0.15);
+	/* Светлая граница */
 	--border-hover: rgba(255, 51, 102, 0.4);
+	/* Граница при наведении */
 
-	/* Тени */
+	/* ===== ТЕНИ ===== */
 	--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+	/* Маленькая тень */
 	--shadow-md: 0 12px 32px -8px rgba(0, 0, 0, 0.08);
+	/* Средняя тень */
 	--shadow-lg: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+	/* Большая тень */
 	--shadow-hover: 0 30px 50px -15px rgba(255, 51, 102, 0.25);
+	/* Тень при наведении */
 	--shadow-glow: 0 8px 16px -4px rgba(255, 51, 102, 0.3);
+	/* Свечение */
 
-	/* Анимации */
+	/* ===== АНИМАЦИИ ===== */
 	--transition-fast: 0.2s ease;
+	/* Быстрая анимация */
 	--transition-base: 0.3s ease;
+	/* Базовая анимация */
 	--transition-slow: 0.4s cubic-bezier(0.2, 0, 0, 1);
+	/* Медленная анимация */
 	--transition-bounce: 0.4s cubic-bezier(0.2, 0.8, 0.4, 1.2);
+	/* Пружинящая */
 
-	/* Скругления */
+	/* ===== СКРУГЛЕНИЯ ===== */
 	--radius-sm: 8px;
+	/* Маленькое скругление */
 	--radius-md: 12px;
+	/* Среднее скругление */
 	--radius-lg: 16px;
+	/* Большое скругление */
 	--radius-xl: 24px;
+	/* Очень большое скругление */
 	--radius-full: 40px;
+	/* Полное скругление (круг) */
 
-	/* Размеры карточек */
+	/* ===== РАЗМЕРЫ КАРТОЧЕК ===== */
 	--card-width: 380px;
+	/* Ширина карточки */
 	--card-image-height: 280px;
+	/* Высота изображения */
 	--card-padding: 24px;
+	/* Внутренние отступы карточки */
 }
 
-/* ===== ОСНОВНЫЕ СТИЛИ ===== */
+
+/* ============================================================================
+ * ОСНОВНЫЕ СТИЛИ АККОРДЕОНА
+ * ============================================================================ */
+
+/* Контейнер всей секции аккордеона */
 .products-accordion {
 	padding: clamp(10px, 2vw, 20px) 0;
+	/* Адаптивные отступы */
 	position: relative;
 	background: var(--bg-gradient);
+	/* Градиентный фон */
 	overflow: hidden;
 	border-radius: var(--radius-lg);
+	/* Скругление углов */
 }
 
-/* Заголовок секции - в стиле страницы избранного */
+/* Заголовок секции (Новинки / Хиты / Скидки) */
 .promo-section h2 {
 	margin-top: clamp(5px, 4vw, 15px);
 	font-size: clamp(28px, 5vw, 38px);
+	/* Адаптивный размер шрифта */
 	text-align: center;
 	position: relative;
 	padding-bottom: 5px;
 	font-weight: 700;
 	letter-spacing: -0.02em;
 	color: rgb(254, 254, 254);
+	/* Многослойная тень для текста (3D эффект) */
 	text-shadow: 1px 1px 2px #ff3366,
 		2px 2px 4px rgba(0, 0, 0, 0.5),
 		3px 3px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* Контейнер для скролла */
+/* Контейнер для горизонтального скролла */
 .accordion-container {
 	position: relative;
 	overflow: hidden;
@@ -86,54 +137,106 @@
 	margin: 0 auto;
 }
 
-/* Контейнер прокрутки */
+/* ============================================================================
+ * КОНТЕЙНЕР ПРОКРУТКИ (ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ)
+ * ============================================================================ */
+
 .products-scroll {
 	display: flex;
+	/* Горизонтальное расположение */
 	gap: clamp(16px, 2.5vw, 30px);
+	/* Расстояние между карточками */
 	overflow-x: auto;
+	/* Горизонтальная прокрутка */
 	scroll-behavior: smooth;
+	/* Плавная прокрутка */
 	scroll-snap-type: x mandatory;
+	/* Принудительная привязка при скролле */
 	padding: 20px clamp(16px, 3vw, 40px) 40px;
+	/* Отступы внутри контейнера */
 	margin: 0;
+	align-items: stretch;
+	/* ✅ Все карточки одинаковой высоты */
+	/* Скрываем полосу прокрутки (Chrome, Safari) */
 	scrollbar-width: none;
+	/* Firefox */
 	-ms-overflow-style: none;
+	/* IE/Edge */
 }
 
+/* Скрываем полосу прокрутки для Webkit браузеров */
 .products-scroll::-webkit-scrollbar {
 	display: none;
 }
 
-/* ===== КАРТОЧКИ ТОВАРОВ ===== */
+
+/* ============================================================================
+ * КАРТОЧКА ТОВАРА
+ * ============================================================================ */
+
+/* Основной контейнер карточки */
 .product-card {
 	flex: 0 0 auto;
+	/* Запрещаем растягивание */
 	scroll-snap-align: start;
+	/* Привязка к началу при скролле */
 	width: var(--card-width);
+	/* Фиксированная ширина */
 	background: var(--bg-primary);
+	/* Белый фон */
 	border-radius: var(--radius-xl);
+	/* Скругление углов */
 	overflow: hidden;
+	/* Скрываем выступающее содержимое */
 	box-shadow: var(--shadow-md);
+	/* Тень */
 	border: 1px solid var(--border-light);
+	/* Граница */
 	transition: all var(--transition-slow);
+	/* Плавный переход */
 	position: relative;
 	display: flex;
+	/* Flexbox для вертикального расположения */
 	flex-direction: column;
+	/* Вертикальная ось */
 	backdrop-filter: blur(10px);
+	/* Размытие фона */
+	height: 100%;
+	/* ✅ Занимает всю высоту родителя */
+	min-height: 550px;
+	/* ✅ Минимальная высота */
 }
 
+/* Эффект при наведении на карточку */
 .product-card:hover {
 	transform: translateY(-8px) scale(1.02);
+	/* Поднимаем и увеличиваем */
 	box-shadow: var(--shadow-hover);
+	/* Усиленная тень */
 	border-color: var(--border-hover);
+	/* Меняем цвет границы */
 }
 
-/* Изображение товара */
+/* ===== ИЗОБРАЖЕНИЕ ТОВАРА ===== */
+
+/* Контейнер изображения */
 .product-image {
 	position: relative;
 	height: var(--card-image-height);
+	/* Фиксированная высота */
 	overflow: hidden;
+	/* Скрываем超出部分 */
 	background: linear-gradient(135deg, #fff5f7 0%, #ffe6ea 100%);
+	/* Градиентный фон */
+	flex-shrink: 0;
+	/* ✅ Запрещаем сжатие */
+	min-height: var(--card-image-height);
+	/* ✅ Гарантия высоты */
+	max-height: var(--card-image-height);
+	/* ✅ Гарантия высоты */
 }
 
+/* Полупрозрачный слой поверх изображения */
 .product-image::after {
 	content: '';
 	position: absolute;
@@ -143,30 +246,40 @@
 	bottom: 0;
 	background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.02) 100%);
 	pointer-events: none;
+	/* Чтобы слой не мешал кликам */
 }
 
+/* Само изображение */
 .product-image img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	/* Сохраняем пропорции, обрезаем лишнее */
 	transition: transform var(--transition-slow);
+	/* Плавное увеличение */
 }
 
+/* Увеличение изображения при наведении на карточку */
 .product-card:hover .product-image img {
 	transform: scale(1.1);
+	/* Увеличиваем на 10% */
 }
 
-/* ===== БЕЙДЖИ ТОВАРА ===== */
+/* ===== БЕЙДЖИ ТОВАРА (метки: Новинка, Хит, Скидка) ===== */
+
+/* Контейнер для всех бейджей */
 .product-badges {
 	position: absolute;
 	top: 16px;
 	left: 16px;
 	z-index: 2;
+	/* Поверх изображения */
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
 }
 
+/* Стиль одного бейджа */
 .product-badge {
 	background: var(--primary-gradient);
 	color: var(--text-white);
@@ -179,24 +292,31 @@
 	box-shadow: var(--shadow-glow);
 	backdrop-filter: blur(4px);
 	width: fit-content;
+	/* Ширина по содержимому */
 	white-space: nowrap;
+	/* Запрещаем перенос текста */
 }
 
+/* Специальный стиль для бейджа "Новинка" */
 .product-badge.new {
 	background: linear-gradient(135deg, #ff6b6b 0%, #ff3366 100%);
 	box-shadow: 0 8px 16px -4px rgba(255, 51, 102, 0.3);
 }
 
+/* Специальный стиль для бейджа "Хит" */
 .product-badge.hit {
 	background: linear-gradient(135deg, #ffb7c5 0%, #ff6b6b 100%);
 	color: var(--text-primary);
 }
 
+/* Специальный стиль для бейджа "Скидка" */
 .product-badge.sale {
 	background: var(--primary-gradient);
 }
 
 /* ===== КНОПКА ИЗБРАННОГО (СЕРДЕЧКО) ===== */
+
+/* Кнопка добавления в избранное */
 .favorite-btn {
 	position: absolute;
 	top: 16px;
@@ -213,31 +333,38 @@
 	justify-content: center;
 	transition: all var(--transition-bounce);
 	z-index: 3;
+	/* Поверх изображения */
 	box-shadow: var(--shadow-sm);
 	padding: 0;
 	font-size: 20px;
 }
 
+/* Иконка внутри кнопки */
 .favorite-btn i,
 .favorite-btn svg {
 	transition: all var(--transition-base);
 	font-size: 22px;
 }
 
+/* Эффект при наведении */
 .favorite-btn:hover {
 	transform: scale(1.1);
+	/* Увеличиваем */
 	border-color: var(--primary);
+	/* Меняем цвет границы */
 	background: var(--bg-primary);
 	box-shadow: var(--shadow-glow);
 	color: var(--primary);
+	/* Меняем цвет иконки */
 }
 
+/* Эффект при наведении на иконку */
 .favorite-btn:hover i,
 .favorite-btn:hover svg {
 	transform: scale(1.1);
 }
 
-/* АКТИВНОЕ СОСТОЯНИЕ (товар в избранном) - сердечко КРАСНОЕ */
+/* Активное состояние (товар в избранном) - красное сердечко */
 .favorite-btn.active {
 	background: var(--bg-primary);
 	border-color: var(--primary);
@@ -250,7 +377,7 @@
 	color: var(--primary);
 }
 
-/* НЕАКТИВНОЕ СОСТОЯНИЕ (товар НЕ в избранном) - сердечко СЕРОЕ */
+/* Неактивное состояние (товар НЕ в избранном) - серое сердечко */
 .favorite-btn:not(.active) {
 	color: var(--text-muted);
 }
@@ -260,16 +387,18 @@
 	color: var(--text-muted);
 }
 
+/* Эффект нажатия */
 .favorite-btn:active {
 	transform: scale(0.95);
 }
 
+/* Фокус для доступности (клавиатура) */
 .favorite-btn:focus-visible {
 	outline: 2px solid var(--primary);
 	outline-offset: 2px;
 }
 
-/* Анимация сердечка при нажатии */
+/* Анимация сердечка при добавлении в избранное */
 @keyframes heartBeat {
 
 	0%,
@@ -290,19 +419,24 @@
 	}
 }
 
+/* Запуск анимации при активации */
 .favorite-btn.active i {
 	animation: heartBeat 0.4s ease;
 }
 
 /* ===== КОНТЕНТ КАРТОЧКИ ===== */
+
+/* Контейнер для текстового содержимого */
 .product-content {
 	padding: var(--card-padding);
-	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
+	flex: 1;
+	/* ✅ Занимает всё свободное пространство */
 	background: var(--bg-primary);
 }
 
+/* Заголовок товара */
 .product-title {
 	color: var(--text-primary);
 	font-size: clamp(18px, 2vw, 20px);
@@ -312,32 +446,49 @@
 	letter-spacing: -0.3px;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
+	/* ✅ Ограничиваем 2 строками */
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	padding-right: 50px;
+	/* Место для сердечка */
+	flex-shrink: 0;
+	/* ✅ Не сжимаем */
+	min-height: calc(1.4em * 2);
+	/* ✅ Фиксированная высота для 2 строк */
 }
 
+/* Описание товара */
 .product-description {
 	color: var(--text-muted);
 	font-size: 14px;
 	line-height: 1.6;
 	margin-bottom: 20px;
-	flex-grow: 1;
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
+	/* ✅ Ограничиваем 3 строками */
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+	flex: 1;
+	/* ✅ Отталкивает цены и кнопку вниз */
+	min-height: calc(1.6em * 3);
+	/* ✅ Фиксированная высота для 3 строк */
 }
 
-/* Мета-информация */
+/* ===== БЛОК С ЦЕНАМИ ===== */
+
 .product-meta {
 	display: flex;
 	align-items: center;
 	gap: 12px;
 	margin-bottom: 24px;
 	flex-wrap: wrap;
+	flex-shrink: 0;
+	/* ✅ Не сжимаем */
+	min-height: 50px;
+	/* ✅ Фиксированная минимальная высота */
 }
 
+/* Актуальная цена */
 .product-price {
 	color: var(--primary-dark);
 	font-size: 28px;
@@ -346,6 +497,7 @@
 	line-height: 1;
 }
 
+/* Старая цена (перечеркнутая) */
 .product-old-price {
 	color: var(--text-light);
 	font-size: 18px;
@@ -353,6 +505,7 @@
 	font-weight: 400;
 }
 
+/* Бейдж со скидкой в процентах */
 .product-discount {
 	background: var(--accent);
 	color: var(--text-primary);
@@ -363,7 +516,19 @@
 	letter-spacing: 0.3px;
 }
 
-/* Кнопка добавления в корзину */
+/* ===== КОНТЕЙНЕР ДЛЯ КНОПКИ ===== */
+
+.product-actions {
+	flex-shrink: 0;
+	/* ✅ Не сжимаем */
+	width: 100%;
+	margin-top: 0;
+	min-height: 60px;
+	/* ✅ Фиксированная высота для кнопки */
+}
+
+/* ===== КНОПКА ДОБАВЛЕНИЯ В КОРЗИНУ ===== */
+
 .product-btn {
 	background: #1a1a1a;
 	color: var(--text-white);
@@ -376,7 +541,6 @@
 	transition: all var(--transition-base);
 	text-transform: uppercase;
 	letter-spacing: 0.8px;
-	margin-top: auto;
 	position: relative;
 	overflow: hidden;
 	display: flex;
@@ -384,8 +548,10 @@
 	justify-content: center;
 	gap: 8px;
 	width: 100%;
+	/* ✅ margin-top: auto удален - кнопку прижимает flex-родитель */
 }
 
+/* Эффект "волны" при наведении (псевдоэлемент) */
 .product-btn::before {
 	content: '';
 	position: absolute;
@@ -397,6 +563,7 @@
 	transition: left 0.5s ease;
 }
 
+/* Эффект при наведении на кнопку */
 .product-btn:hover {
 	background: #ff3366;
 	border-color: #ff3366;
@@ -404,44 +571,47 @@
 	box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
 }
 
+/* Анимация волны при наведении */
 .product-btn:hover::before {
 	left: 100%;
 }
 
+/* Эффект нажатия */
 .product-btn:active {
 	transform: translateY(0);
 }
 
+/* Отключенное состояние (товара нет в наличии) */
 .product-btn:disabled {
 	opacity: 0.5;
 	cursor: not-allowed;
 	transform: none;
 }
 
+/* Иконка внутри кнопки */
 .product-btn i {
 	font-size: 18px;
 }
 
+/* ===== ССЫЛКА НА ВСЮ КАРТОЧКУ ===== */
 
-/* Стили для ссылки на всю карточку */
+/* Оборачиваем карточку в ссылку для перехода на страницу товара */
 .product-card-link {
 	text-decoration: none;
 	color: inherit;
-	display: block;
+	display: flex;
+	/* Flex для вертикального растяжения */
+	flex-direction: column;
+	height: 100%;
+	/* ✅ 100% высоты карточки */
 	cursor: pointer;
 }
 
-/* Эффект при наведении на карточку (через родителя) */
-.product-card:hover .product-image img {
-	transform: scale(1.05);
-}
+/* ============================================================================
+ * НАВИГАЦИОННАЯ ПОЛОСКА (индикатор текущего слайда)
+ * ============================================================================ */
 
-.product-card:hover {
-	transform: translateY(-5px);
-	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-/* ===== НАВИГАЦИОННАЯ ПОЛОСКА ===== */
+/* Контейнер для навигации */
 .scroll-navbar {
 	display: flex;
 	justify-content: center;
@@ -450,6 +620,7 @@
 	margin-top: 20px;
 }
 
+/* Трек (дорожка) для сегментов */
 .navbar-track {
 	display: flex;
 	gap: 4px;
@@ -459,6 +630,7 @@
 	justify-content: center;
 }
 
+/* Один сегмент навигации */
 .navbar-segment {
 	flex: 1 1 auto;
 	height: 6px;
@@ -472,267 +644,496 @@
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+/* Активный сегмент (текущий слайд) */
 .navbar-segment.active {
 	background: linear-gradient(135deg, #1a1a1a 0%, var(--primary) 50%, #1a1a1a 100%);
 	border-color: var(--text-primary);
 	box-shadow: var(--shadow-glow);
 	height: 8px;
+	/* Увеличиваем высоту активного сегмента */
 }
 
+/* Эффект при наведении на сегмент */
 .navbar-segment:hover {
 	background: var(--accent);
 	border-color: var(--text-primary);
 	transform: scaleY(1.2);
 }
 
-/* Кнопки прокрутки */
-.scroll-btn {
-	width: 48px;
-	height: 48px;
-	border-radius: 50%;
-	background: #1a1a1a;
-	border: 1px solid #333;
-	color: #ff3366;
-	font-size: 18px;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: all var(--transition-slow);
-	box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.15);
-	z-index: 10;
-}
 
-.scroll-btn:hover {
-	background: #ff3366;
-	color: white;
-	border-color: #ff3366;
-	transform: translateY(-2px) scale(1.05);
-	box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
-}
+/* АДАПТИВНОСТЬ (Responsive Design) */
 
-.scroll-btn:active {
-	transform: translateY(0) scale(0.95);
-}
 
-.scroll-btn:disabled {
-	opacity: 0.4;
-	cursor: not-allowed;
-	background: #f5f5f5;
-	color: var(--text-light);
-	border-color: #eee;
-	transform: none;
-	box-shadow: none;
-}
-
-/* Позиционирование кнопок */
-.accordion-container .scroll-btn {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	opacity: 0;
-	pointer-events: none;
-	transition: all var(--transition-base);
-}
-
-.accordion-container:hover .scroll-btn {
-	opacity: 1;
-	pointer-events: auto;
-}
-
-.accordion-container .prev-btn {
-	left: 20px;
-}
-
-.accordion-container .next-btn {
-	right: 20px;
-}
-
-/* ===== ПУСТОЕ СОСТОЯНИЕ ===== */
-.empty-catalog {
-	text-align: center;
-	padding: 60px 20px;
-	background: var(--bg-secondary);
-	border-radius: var(--radius-xl);
-	border: 2px dashed var(--border-light);
-}
-
-.empty-catalog i {
-	font-size: 60px;
-	color: var(--primary);
-	margin-bottom: 20px;
-}
-
-.empty-catalog p {
-	color: var(--text-muted);
-	font-size: 18px;
-}
-
-/* ===== АНИМАЦИИ ===== */
-@keyframes slideIn {
-	from {
-		opacity: 0;
-		transform: translateX(20px);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
-}
-
-.product-card {
-	animation: slideIn 0.5s ease forwards;
-}
-
-/* ===== ОБЛАСТЬ ЗАГРУЗКИ ИЗОБРАЖЕНИЯ ДЛЯ СЛАЙДОВ (АКТУАЛЬНЫЕ СТИЛИ) ===== */
-.image-folder-upload {
-	border: 2px dashed #333;
-	border-radius: 12px;
-	cursor: pointer;
-	transition: all 0.3s ease;
-	background: #0d0d0d;
-	padding: 20px;
-	text-align: center;
-}
-
-.image-folder-upload:hover {
-	border-color: #ff3366;
-	background: rgba(255, 51, 102, 0.05);
-}
-
-#slideImagePreview {
-	min-height: 120px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-#slideImagePreview i {
-	font-size: 48px;
-	color: #ff3366;
-}
-
-#slideImagePreview span {
-	color: #ccc;
-	font-size: 14px;
-}
-
-#slideImagePreview img {
-	max-width: 100%;
-	max-height: 200px;
-	border-radius: 8px;
-	object-fit: cover;
-}
-
-#slideImagePreview div {
-	width: 100%;
-}
-
-/* Кнопка очистки внутри превью */
-.clear-preview-btn {
-	transition: all 0.3s ease;
-	z-index: 10;
-}
-
-.clear-preview-btn:hover {
-	transform: scale(1.1);
-	background: #ff3838 !important;
-}
-
-/* Спиннер загрузки */
-.fa-spinner {
-	animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-	from {
-		transform: rotate(0deg);
-	}
-
-	to {
-		transform: rotate(360deg);
-	}
-}
-
-/* Кнопка повторной попытки выбора файла */
-.retry-select-btn {
-	margin-top: 10px;
-	padding: 5px 10px;
-	background: #ff3366;
-	border: none;
-	border-radius: 4px;
-	color: white;
-	cursor: pointer;
-	transition: all 0.3s ease;
-}
-
-.retry-select-btn:hover {
-	background: #ff6b6b;
-	transform: translateY(-1px);
-}
-
-/* ===== АДАПТИВНОСТЬ ===== */
-
-/* Ультраширокие экраны (1921px и выше) */
-@media (width >=1921px) {
+/* ===== БАЗОВЫЕ НАСТРОЙКИ ДЛЯ МОБИЛЬНЫХ (320px - 480px) ===== */
+@media (width < 481px) {
 	:root {
-		--card-width: 420px;
-		--card-image-height: 320px;
-		--card-padding: 28px;
+		--card-width: 260px;
+		/* Увеличиваем для лучшей читаемости */
+		--card-image-height: 180px;
+		/* Уменьшаем высоту изображения */
+		--card-padding: 12px;
+		/* Уменьшаем отступы */
 	}
 
-	.accordion-container {
-		margin: 0 auto;
+	/* Контейнер аккордеона */
+	.products-accordion {
+		padding: 15px 0 25px;
 	}
 
+	/* Заголовок */
+	.promo-section h2 {
+		font-size: 24px;
+		margin-bottom: 10px;
+		margin-top: 5px;
+	}
+
+	/* Контейнер прокрутки */
 	.products-scroll {
-		gap: 35px;
-		padding: 20px 60px 50px;
+		gap: 12px;
+		padding: 10px 10px 20px;
+		align-items: stretch;
+		/* Растягиваем карточки */
+	}
+
+	/* КАРТОЧКА ТОВАРА - специально для мобильных */
+	.product-card {
+		width: var(--card-width);
+		min-height: 380px;
+		/* ✅ Фиксируем минимальную высоту (было 550px) */
+		height: auto;
+		/* Автоматическая высота */
+	}
+
+	/* Изображение */
+	.product-image {
+		height: var(--card-image-height);
+		min-height: var(--card-image-height);
+		max-height: var(--card-image-height);
+	}
+
+	/* Контент карточки */
+	.product-content {
+		padding: var(--card-padding);
+		flex: 1;
+		/* Растягивается */
+		display: flex;
+		flex-direction: column;
+	}
+
+	/* Заголовок - фиксируем высоту на 2 строки */
+	.product-title {
+		font-size: 15px;
+		margin-bottom: 8px;
+		-webkit-line-clamp: 2;
+		min-height: 42px;
+		/* ✅ Фиксированная высота (15px * 1.4 * 2) */
+		padding-right: 35px;
+	}
+
+	/* Описание - СКРЫВАЕМ на маленьких экранах */
+	.product-description {
+		display: none;
+		margin-bottom: 0;
+		flex: 0;
+		/* Убираем flex: 1 */
+		min-height: 0;
+	}
+
+	/* Блок с ценами */
+	.product-meta {
+		gap: 8px;
+		margin-bottom: 16px;
+		min-height: 40px;
+		/* ✅ Фиксированная высота */
+	}
+
+	/* Актуальная цена */
+	.product-price {
+		font-size: 20px;
+	}
+
+	/* Старая цена */
+	.product-old-price {
+		font-size: 14px;
+	}
+
+	/* Бейдж скидки */
+	.product-discount {
+		padding: 3px 8px;
+		font-size: 10px;
+	}
+
+	/* Контейнер кнопки */
+	.product-actions {
+		min-height: 44px;
+		/* ✅ Фиксированная высота под кнопку */
+		margin-top: auto;
+		/* ✅ Прижимаем к низу */
+	}
+
+	/* Кнопка добавления в корзину */
+	.product-btn {
+		padding: 10px 12px;
+		font-size: 12px;
+		border-radius: var(--radius-sm);
+	}
+
+	/* Бейджи */
+	.product-badge {
+		padding: 5px 12px;
+		font-size: 10px;
+		top: 10px;
+		left: 10px;
+	}
+
+	/* Кнопка избранного */
+	.favorite-btn {
+		width: 32px;
+		height: 32px;
+		top: 10px;
+		right: 10px;
+	}
+
+	.favorite-btn i {
+		font-size: 16px;
+	}
+
+	/* Навигационная полоска */
+	.scroll-navbar {
+		padding: 0 10px;
+		margin-top: 10px;
+	}
+
+	.navbar-track {
+		height: 8px;
+		gap: 3px;
+	}
+
+	.navbar-segment {
+		min-width: 16px;
+		height: 4px;
+	}
+
+	.navbar-segment.active {
+		height: 6px;
+	}
+}
+
+/* ===== ОЧЕНЬ МАЛЕНЬКИЕ ТЕЛЕФОНЫ (до 360px) ===== */
+@media (width < 361px) {
+	:root {
+		--card-width: 240px;
+		--card-image-height: 160px;
+		--card-padding: 10px;
+	}
+
+	.product-card {
+		min-height: 360px;
+		/* Еще меньше минимальная высота */
 	}
 
 	.product-title {
-		font-size: 22px;
+		font-size: 14px;
+		min-height: 39px;
+		/* 14px * 1.4 * 2 = 39px */
 	}
 
 	.product-price {
-		font-size: 30px;
+		font-size: 18px;
 	}
 
-	.navbar-track {
-		height: 14px;
-		gap: 5px;
+	.product-old-price {
+		font-size: 13px;
 	}
 
-	.navbar-segment {
-		height: 7px;
-		max-width: 120px;
+	.product-btn {
+		padding: 8px 10px;
+		font-size: 11px;
+	}
+
+	.favorite-btn {
+		width: 28px;
+		height: 28px;
+	}
+
+	.favorite-btn i {
+		font-size: 14px;
 	}
 }
 
-/* Очень большие десктопы (1441px - 1920px) */
-@media (1441px <=width < 1921px) {
+/* ===== ТЕЛЕФОНЫ L (481px - 576px) ===== */
+@media (481px <=width < 577px) {
 	:root {
-		--card-width: 400px;
-		--card-image-height: 300px;
+		--card-width: 280px;
+		--card-image-height: 190px;
+		--card-padding: 14px;
 	}
 
 	.products-scroll {
-		gap: 30px;
-		padding: 20px 50px 40px;
+		gap: 14px;
+		padding: 10px 12px 25px;
 	}
 
-	.navbar-track {
-		height: 13px;
-		gap: 5px;
+	.product-card {
+		min-height: 420px;
+		/* ✅ Умеренная высота */
+	}
+
+	.product-title {
+		font-size: 16px;
+		margin-bottom: 8px;
+		min-height: 45px;
+		/* 16px * 1.4 * 2 = 45px */
+		padding-right: 40px;
+	}
+
+	/* Показываем описание, но только 2 строки */
+	.product-description {
+		display: -webkit-box;
+		font-size: 12px;
+		margin-bottom: 12px;
+		-webkit-line-clamp: 2;
+		min-height: 36px;
+		/* 12px * 1.5 * 2 = 36px */
+		flex: 0;
+		/* Не растягиваем */
+	}
+
+	.product-meta {
+		gap: 10px;
+		margin-bottom: 16px;
+		min-height: 44px;
+	}
+
+	.product-price {
+		font-size: 22px;
+	}
+
+	.product-old-price {
+		font-size: 15px;
+	}
+
+	.product-discount {
+		padding: 4px 10px;
+		font-size: 11px;
+	}
+
+	.product-actions {
+		min-height: 48px;
+		margin-top: auto;
+	}
+
+	.product-btn {
+		padding: 10px 14px;
+		font-size: 13px;
+	}
+
+	.product-badge {
+		padding: 6px 14px;
+		font-size: 11px;
+	}
+
+	.favorite-btn {
+		width: 34px;
+		height: 34px;
+		top: 12px;
+		right: 12px;
+	}
+
+	.favorite-btn i {
+		font-size: 18px;
+	}
+
+	.scroll-navbar {
+		padding: 0 12px;
 	}
 
 	.navbar-segment {
-		height: 7px;
+		min-width: 18px;
 	}
 }
 
-/* Большие десктопы (1201px - 1440px) */
+/* ===== БОЛЬШИЕ МОБИЛЬНЫЕ / МАЛЕНЬКИЕ ПЛАНШЕТЫ (577px - 768px) ===== */
+@media (577px <=width < 769px) {
+	:root {
+		--card-width: 300px;
+		--card-image-height: 210px;
+		--card-padding: 16px;
+	}
+
+	.products-scroll {
+		gap: 16px;
+		padding: 15px 20px 30px;
+	}
+
+	.product-card {
+		min-height: 460px;
+	}
+
+	.product-title {
+		font-size: 17px;
+		min-height: 48px;
+		/* 17px * 1.4 * 2 = 48px */
+		padding-right: 45px;
+	}
+
+	.product-description {
+		font-size: 13px;
+		margin-bottom: 14px;
+		-webkit-line-clamp: 2;
+		min-height: 39px;
+		/* 13px * 1.5 * 2 = 39px */
+		flex: 0;
+	}
+
+	.product-meta {
+		gap: 10px;
+		margin-bottom: 18px;
+		min-height: 46px;
+	}
+
+	.product-price {
+		font-size: 24px;
+	}
+
+	.product-old-price {
+		font-size: 16px;
+	}
+
+	.product-btn {
+		padding: 12px 16px;
+		font-size: 14px;
+	}
+
+	.product-actions {
+		min-height: 52px;
+		margin-top: auto;
+	}
+
+	.favorite-btn {
+		width: 38px;
+		height: 38px;
+	}
+
+	.favorite-btn i {
+		font-size: 20px;
+	}
+
+	.navbar-segment {
+		min-width: 20px;
+	}
+}
+
+/* ===== ПЛАНШЕТЫ (769px - 992px) ===== */
+@media (769px <=width < 993px) {
+	:root {
+		--card-width: 320px;
+		--card-image-height: 230px;
+		--card-padding: 18px;
+	}
+
+	.products-scroll {
+		gap: 20px;
+		padding: 15px 25px 35px;
+	}
+
+	.product-card {
+		min-height: 500px;
+	}
+
+	.product-title {
+		font-size: 18px;
+		min-height: 50px;
+		/* 18px * 1.4 * 2 = 50px */
+	}
+
+	.product-description {
+		font-size: 13px;
+		margin-bottom: 16px;
+		-webkit-line-clamp: 3;
+		min-height: 58px;
+		/* 13px * 1.5 * 3 = 58px */
+		flex: 1;
+		/* На планшетах уже можно растягивать */
+	}
+
+	.product-meta {
+		gap: 12px;
+		margin-bottom: 20px;
+		min-height: 48px;
+	}
+
+	.product-price {
+		font-size: 26px;
+	}
+
+	.product-old-price {
+		font-size: 17px;
+	}
+
+	.product-actions {
+		min-height: 54px;
+		margin-top: 0;
+		/* Убираем, так как description уже тянет */
+	}
+
+	.product-btn {
+		padding: 14px 18px;
+		font-size: 15px;
+	}
+
+	.favorite-btn {
+		width: 42px;
+		height: 42px;
+	}
+
+	.scroll-navbar {
+		padding: 0 20px;
+	}
+}
+
+/* ===== НЕБОЛЬШИЕ ДЕСКТОПЫ (993px - 1200px) ===== */
+@media (993px <=width < 1201px) {
+	:root {
+		--card-width: 340px;
+		--card-image-height: 250px;
+		--card-padding: 20px;
+	}
+
+	.products-scroll {
+		gap: 24px;
+		padding: 20px 30px 40px;
+	}
+
+	.product-card {
+		min-height: 530px;
+	}
+
+	.product-title {
+		font-size: 19px;
+		min-height: 53px;
+	}
+
+	.product-description {
+		font-size: 14px;
+		min-height: 63px;
+		/* 14px * 1.5 * 3 = 63px */
+	}
+
+	.product-meta {
+		min-height: 50px;
+	}
+
+	.product-price {
+		font-size: 28px;
+	}
+
+	.product-btn {
+		padding: 16px 20px;
+	}
+}
+
+/* ===== СТАНДАРТНЫЕ ДЕСКТОПЫ (1201px - 1440px) ===== */
 @media (1201px <=width < 1441px) {
 	:root {
 		--card-width: 360px;
@@ -745,410 +1146,110 @@
 		padding: 20px 40px 40px;
 	}
 
-	.navbar-track {
-		height: 12px;
-		gap: 4px;
-	}
-}
-
-/* Десктоп (993px - 1200px) */
-@media (993px <=width < 1201px) {
-	:root {
-		--card-width: 320px;
-		--card-image-height: 240px;
-		--card-padding: 20px;
-	}
-
-	.products-scroll {
-		gap: 24px;
-		padding: 20px 30px 40px;
+	.product-card {
+		min-height: 560px;
 	}
 
 	.product-title {
-		font-size: 18px;
-	}
-
-	.product-price {
-		font-size: 24px;
-	}
-
-	.navbar-track {
-		height: 12px;
-		gap: 4px;
-	}
-}
-
-/* Планшеты (769px - 992px) */
-@media (769px <=width < 993px) {
-	:root {
-		--card-width: 300px;
-		--card-image-height: 220px;
-		--card-padding: 18px;
-	}
-
-	.products-scroll {
-		gap: 20px;
-		padding: 15px 20px 35px;
-		scroll-snap-type: x proximity;
-	}
-
-	.product-title {
-		font-size: 17px;
-		margin-bottom: 8px;
+		font-size: 20px;
+		min-height: 56px;
 	}
 
 	.product-description {
-		font-size: 13px;
-		margin-bottom: 16px;
-		-webkit-line-clamp: 2;
+		font-size: 14px;
+		min-height: 63px;
+	}
+}
+
+/* ===== БОЛЬШИЕ ДЕСКТОПЫ (1441px - 1920px) ===== */
+@media (1441px <=width < 1921px) {
+	:root {
+		--card-width: 400px;
+		--card-image-height: 300px;
+		--card-padding: 24px;
 	}
 
-	.product-price {
+	.products-scroll {
+		gap: 30px;
+		padding: 20px 50px 45px;
+	}
+
+	.product-card {
+		min-height: 600px;
+	}
+
+	.product-title {
+		font-size: 21px;
+		min-height: 59px;
+	}
+
+	.product-description {
+		font-size: 15px;
+		min-height: 68px;
+		/* 15px * 1.5 * 3 = 68px */
+	}
+}
+
+/* ===== УЛЬТРАШИРОКИЕ ЭКРАНЫ (1921px и выше) ===== */
+@media (width >=1921px) {
+	:root {
+		--card-width: 450px;
+		--card-image-height: 340px;
+		--card-padding: 28px;
+	}
+
+	.products-scroll {
+		gap: 35px;
+		padding: 25px 60px 50px;
+	}
+
+	.product-card {
+		min-height: 650px;
+	}
+
+	.product-title {
 		font-size: 22px;
+		min-height: 62px;
+	}
+
+	.product-description {
+		font-size: 16px;
+		min-height: 72px;
+	}
+
+	.product-price {
+		font-size: 32px;
 	}
 
 	.product-old-price {
-		font-size: 16px;
-	}
-
-	.product-btn {
-		padding: 14px;
-		font-size: 14px;
-	}
-
-	.favorite-btn {
-		width: 40px;
-		height: 40px;
-		font-size: 18px;
-	}
-
-	.favorite-btn i {
 		font-size: 20px;
 	}
 
-	.scroll-btn {
-		width: 42px;
-		height: 42px;
-		font-size: 16px;
-	}
-
-	.navbar-track {
-		height: 12px;
-		gap: 3px;
-	}
-
-	.navbar-segment {
-		min-width: 18px;
-	}
-}
-
-/* Большие мобильные (577px - 768px) */
-@media (577px <=width < 769px) {
-	:root {
-		--card-width: 280px;
-		--card-image-height: 200px;
-		--card-padding: 16px;
-	}
-
-	.products-scroll {
-		gap: 16px;
-		padding: 15px 16px 30px;
-		scroll-snap-type: x proximity;
-	}
-
-	.product-title {
-		font-size: 16px;
-		margin-bottom: 6px;
-		-webkit-line-clamp: 2;
-		padding-right: 40px;
-	}
-
-	.product-description {
-		font-size: 12px;
-		margin-bottom: 14px;
-		-webkit-line-clamp: 2;
-	}
-
-	.product-meta {
-		gap: 10px;
-		margin-bottom: 16px;
-	}
-
-	.product-price {
-		font-size: 20px;
-	}
-
-	.product-old-price {
-		font-size: 15px;
-	}
-
-	.product-discount {
-		padding: 4px 10px;
-		font-size: 12px;
-	}
-
 	.product-btn {
-		padding: 12px 16px;
-		font-size: 13px;
-		border-radius: var(--radius-md);
-	}
-
-	.favorite-btn {
-		width: 36px;
-		height: 36px;
-		top: 12px;
-		right: 12px;
-	}
-
-	.favorite-btn i {
+		padding: 18px 24px;
 		font-size: 18px;
 	}
 
-	.scroll-navbar {
-		padding: 0 15px;
-		margin-top: 10px;
-	}
-
 	.navbar-track {
-		height: 12px;
-		gap: 3px;
+		height: 14px;
+		gap: 5px;
 	}
 
 	.navbar-segment {
-		min-width: 16px;
+		height: 7px;
+		max-width: 120px;
+	}
+
+	.navbar-segment.active {
+		height: 9px;
 	}
 }
 
-/* Мобильные L (481px - 576px) */
-@media (481px <=width < 577px) {
-	:root {
-		--card-width: 260px;
-		--card-image-height: 180px;
-		--card-padding: 14px;
-	}
+/* ============================================================================
+ * ТАЧ-УСТРОЙСТВА (специальные настройки)
+ * ============================================================================ */
 
-	.products-accordion {
-		padding: 30px 0 40px;
-	}
-
-	.products-scroll {
-		gap: 14px;
-		padding: 10px 12px 25px;
-	}
-
-	.product-title {
-		font-size: 15px;
-		margin-bottom: 5px;
-		padding-right: 35px;
-	}
-
-	.product-description {
-		font-size: 11px;
-		margin-bottom: 12px;
-		line-height: 1.5;
-		-webkit-line-clamp: 2;
-	}
-
-	.product-meta {
-		gap: 8px;
-		margin-bottom: 14px;
-	}
-
-	.product-price {
-		font-size: 18px;
-	}
-
-	.product-old-price {
-		font-size: 13px;
-	}
-
-	.product-discount {
-		padding: 3px 8px;
-		font-size: 10px;
-	}
-
-	.product-btn {
-		padding: 10px 14px;
-		font-size: 12px;
-		border-radius: var(--radius-sm);
-	}
-
-	.product-badge {
-		padding: 6px 14px;
-		font-size: 11px;
-		top: 12px;
-		left: 12px;
-	}
-
-	.favorite-btn {
-		width: 32px;
-		height: 32px;
-		top: 10px;
-		right: 10px;
-	}
-
-	.favorite-btn i {
-		font-size: 16px;
-	}
-
-	.scroll-navbar {
-		padding: 0 10px;
-		margin-top: 5px;
-	}
-
-	.navbar-track {
-		height: 10px;
-		gap: 2px;
-	}
-
-	.navbar-segment {
-		min-width: 15px;
-	}
-}
-
-/* Мобильные (до 481px) */
-@media (width < 481px) {
-	:root {
-		--card-width: 240px;
-		--card-image-height: 160px;
-		--card-padding: 12px;
-	}
-
-	.products-accordion {
-		padding: 25px 0 35px;
-	}
-
-	.promo-section h2 {
-		font-size: 24px;
-		margin-bottom: 5px;
-	}
-
-	.products-scroll {
-		gap: 12px;
-		padding: 10px 10px 20px;
-	}
-
-	.product-title {
-		font-size: 14px;
-		margin-bottom: 4px;
-		-webkit-line-clamp: 2;
-		padding-right: 30px;
-	}
-
-	.product-description {
-		display: none;
-	}
-
-	.product-meta {
-		gap: 6px;
-		margin-bottom: 12px;
-	}
-
-	.product-price {
-		font-size: 17px;
-	}
-
-	.product-old-price {
-		font-size: 12px;
-	}
-
-	.product-discount {
-		padding: 2px 6px;
-		font-size: 9px;
-	}
-
-	.product-btn {
-		padding: 8px 12px;
-		font-size: 11px;
-		border-radius: var(--radius-sm);
-	}
-
-	.product-badge {
-		padding: 5px 12px;
-		font-size: 10px;
-		top: 10px;
-		left: 10px;
-	}
-
-	.favorite-btn {
-		width: 28px;
-		height: 28px;
-		top: 8px;
-		right: 8px;
-	}
-
-	.favorite-btn i {
-		font-size: 14px;
-	}
-
-	.scroll-navbar {
-		padding: 0 8px;
-		margin-top: 5px;
-	}
-
-	.navbar-track {
-		height: 8px;
-		gap: 2px;
-	}
-
-	.navbar-segment {
-		min-width: 14px;
-		height: 5px;
-	}
-}
-
-/* Очень маленькие экраны (до 360px) */
-@media (width < 360px) {
-	:root {
-		--card-width: 200px;
-		--card-image-height: 130px;
-		--card-padding: 10px;
-	}
-
-	.products-scroll {
-		gap: 10px;
-		padding: 8px 8px 15px;
-	}
-
-	.product-title {
-		font-size: 13px;
-	}
-
-	.product-price {
-		font-size: 16px;
-	}
-
-	.product-btn {
-		padding: 6px 10px;
-		font-size: 10px;
-	}
-
-	.product-badge {
-		padding: 4px 10px;
-		font-size: 9px;
-	}
-
-	.favorite-btn {
-		width: 24px;
-		height: 24px;
-	}
-
-	.favorite-btn i {
-		font-size: 12px;
-	}
-
-	.navbar-track {
-		height: 8px;
-		gap: 2px;
-	}
-
-	.navbar-segment {
-		min-width: 12px;
-		height: 5px;
-	}
-}
-
-/* Скрыть кнопки на всех тач-устройствах */
+/* Отключаем эффекты наведения на тач-устройствах */
 @media (hover: none) and (pointer: coarse) {
 	.scroll-btn {
 		display: none !important;
@@ -1156,9 +1257,53 @@
 
 	.product-card:hover {
 		transform: none;
+		box-shadow: var(--shadow-md);
+	}
+
+	.product-card:hover .product-image img {
+		transform: none;
 	}
 
 	.favorite-btn:hover {
 		transform: none;
+	}
+
+	.product-btn:hover {
+		transform: none;
+	}
+}
+
+/* ============================================================================
+ * ОБЩИЕ ПРАВИЛА ДЛЯ ВСЕХ КАРТОЧЕК (ПЕРЕОПРЕДЕЛЕНИЕ)
+ * ============================================================================ */
+
+/* Эти правила применяются после всех медиа-запросов */
+@media (width < 769px) {
+
+	/* На мобильных устройствах description НЕ должен растягиваться */
+	.product-description {
+		flex: 0 !important;
+		flex-grow: 0 !important;
+	}
+
+	/* Кнопка должна прижиматься через margin-top: auto */
+	.product-actions {
+		margin-top: auto !important;
+	}
+
+	/* Контент должен занимать всё пространство */
+	.product-content {
+		flex: 1 !important;
+	}
+}
+
+/* Для планшетов и выше - возвращаем стандартное поведение */
+@media (min-width: 769px) {
+	.product-description {
+		flex: 1 !important;
+	}
+
+	.product-actions {
+		margin-top: 0 !important;
 	}
 }
