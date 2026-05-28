@@ -1,19 +1,52 @@
-/* ===== СТРАНИЦА "RISING SUN NEWS" — АНИМЕ СЕЗОНА ===== */
-/* Файл: rising-sun-news.css */
+/* ============================================================================
+ * RISING SUN NEWS v3.0 — СТИЛИ АНИМЕ-СЕКЦИИ
+ * ============================================================================
+ * 
+ * НАЗНАЧЕНИЕ:
+ * - Полные стили для модуля RisingSunNews
+ * - Тёмная тема в японском стиле
+ * - Прогрессивная загрузка изображений с blur-up эффектом
+ * - Полная адаптивность от 320px до 4K
+ * - Анимации и микро-взаимодействия
+ * - Доступность (focus-visible, reduced-motion)
+ * 
+ * ЦВЕТОВАЯ СХЕМА:
+ * - Основной фон: #0d0d0d → #1a1a1a
+ * - Акцентный (золотой): #ff8c00 (darkorange)
+ * - Ховер акцента: #ffa500 (orange)
+ * - Текст: #fff / #ccc / #999 / #666
+ * - Границы: #333 / #444
+ * - Рейтинг: #ffd700 (gold)
+ * - Ошибка: #ff4757
+ * - Успех: #2ecc71
+ * - Инфо: #3498db
+ * 
+ * ============================================================================
+ */
+
+/* ============================================================================
+ * 1. БАЗОВЫЕ ПЕРЕМЕННЫЕ И СТИЛИ СТРАНИЦЫ
+ * ============================================================================
+ */
 
 .news-page {
-	background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%);
+	/* Основной тёмный градиент */
+	background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 50%, #141414 100%);
 	min-height: 100vh;
+	color: #fff;
 }
 
 .container__main {
-	/* max-width: 100%; */
 	max-width: 1440px;
 	margin: 0 auto;
 	padding: 0 20px;
 }
 
-/* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+/* ============================================================================
+ * 2. ХЛЕБНЫЕ КРОШКИ
+ * ============================================================================
+ */
+
 .breadcrumbs {
 	padding: 20px 0;
 	font-size: 14px;
@@ -25,19 +58,35 @@
 }
 
 .breadcrumbs a {
-	color: #ff3366;
+	color: #ff8c00;
 	text-decoration: none;
-	transition: color 0.3s ease;
+	transition: color 0.3s ease, text-shadow 0.3s ease;
+	position: relative;
 }
 
 .breadcrumbs a:hover {
-	color: #ff6b6b;
-	text-decoration: underline;
+	color: #ffa500;
+	text-shadow: 0 0 8px rgba(255, 140, 0, 0.4);
+}
+
+.breadcrumbs a::after {
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	width: 0;
+	height: 1px;
+	background: #ff8c00;
+	transition: width 0.3s ease;
+}
+
+.breadcrumbs a:hover::after {
+	width: 100%;
 }
 
 .breadcrumbs i {
 	font-size: 10px;
-	color: #666;
+	color: #555;
 }
 
 .breadcrumbs span {
@@ -45,16 +94,26 @@
 	font-weight: 500;
 }
 
-/* ===== ГЕРОЙ-СЕКЦИЯ ===== */
+/* ============================================================================
+ * 3. ГЕРОЙ-СЕКЦИЯ
+ * ============================================================================
+ */
+
 .news-hero {
 	position: relative;
 	padding: 60px 40px;
 	margin-bottom: 40px;
-	background: linear-gradient(135deg, rgba(255, 140, 0, 0.1) 0%, rgba(26, 26, 26, 0.95) 100%);
+	/* Градиент с золотым оттенком */
+	background: linear-gradient(135deg,
+			rgba(255, 140, 0, 0.08) 0%,
+			rgba(26, 26, 26, 0.95) 50%,
+			rgba(20, 20, 20, 0.98) 100%);
 	border-radius: 24px;
 	border: 1px solid #333;
 	overflow: hidden;
 	text-align: center;
+	/* Лёгкое свечение изнутри */
+	box-shadow: inset 0 0 60px rgba(255, 140, 0, 0.03);
 }
 
 .hero-content {
@@ -68,7 +127,20 @@
 	font-size: 64px;
 	color: #ff8c00;
 	margin-bottom: 20px;
-	animation: float 3s ease-in-out infinite;
+	animation: heroFloat 3s ease-in-out infinite;
+	filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.3));
+}
+
+@keyframes heroFloat {
+
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-10px);
+	}
 }
 
 .hero-title {
@@ -79,8 +151,12 @@
 	display: block;
 	font-size: 48px;
 	font-weight: 400;
-	color: #ff8c00;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	/* Золотой текст с градиентом */
+	background: linear-gradient(135deg, #ff8c00 0%, #ffa500 50%, #ff8c00 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-shadow: none;
 	letter-spacing: 8px;
 	margin-bottom: 5px;
 }
@@ -90,7 +166,10 @@
 	font-size: 42px;
 	font-weight: 700;
 	color: #fff;
-	text-shadow: 1px 1px 2px #ff8c00, 2px 2px 4px rgba(0, 0, 0, 0.5);
+	/* Двойная тень для объёма */
+	text-shadow:
+		0 0 20px rgba(255, 140, 0, 0.3),
+		1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .hero-subtitle {
@@ -98,6 +177,7 @@
 	color: #ff8c00;
 	margin-bottom: 20px;
 	font-weight: 500;
+	letter-spacing: 0.5px;
 }
 
 .hero-description {
@@ -108,7 +188,8 @@
 	margin: 0 auto;
 }
 
-/* Декоративные лепестки */
+/* ===== ДЕКОРАТИВНЫЕ ЛЕПЕСТКИ САКУРЫ ===== */
+
 .hero-decoration {
 	position: absolute;
 	top: 0;
@@ -123,12 +204,15 @@
 	position: absolute;
 	width: 20px;
 	height: 20px;
+	/* Градиент от розового к золотому */
 	background: linear-gradient(135deg, #ffb7c5 0%, #ff8c00 100%);
 	border-radius: 80% 0 80% 0;
-	opacity: 0.3;
-	animation: fall 8s linear infinite;
+	opacity: 0;
+	animation: sakuraFall 8s linear infinite;
+	filter: blur(0.5px);
 }
 
+/* Позиции и задержки для каждого лепестка */
 .sakura-petal:nth-child(1) {
 	left: 10%;
 	top: -20px;
@@ -164,58 +248,81 @@
 	animation-delay: 3s;
 }
 
-@keyframes fall {
+@keyframes sakuraFall {
 	0% {
-		transform: translateY(-20px) rotate(0deg);
+		transform: translateY(-20px) rotate(0deg) scale(1);
+		opacity: 0;
+	}
+
+	10% {
 		opacity: 0.3;
 	}
 
+	90% {
+		opacity: 0.2;
+	}
+
 	100% {
-		transform: translateY(400px) rotate(360deg);
+		transform: translateY(400px) rotate(360deg) scale(0.5);
 		opacity: 0;
 	}
 }
 
-@keyframes float {
+/* ============================================================================
+ * 4. ЛОАДЕР
+ * ============================================================================
+ */
 
-	0%,
-	100% {
-		transform: translateY(0);
-	}
-
-	50% {
-		transform: translateY(-10px);
-	}
-}
-
-/* ===== ЛОАДЕР ===== */
 .news-loader {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 80px 20px;
 	text-align: center;
-	padding: 60px 20px;
 }
 
 .loader-spinner {
 	width: 50px;
 	height: 50px;
 	margin: 0 auto 20px;
-	border: 3px solid #333;
+	/* Двойная граница для эффекта */
+	border: 3px solid rgba(255, 140, 0, 0.1);
 	border-top-color: #ff8c00;
+	border-right-color: #ffa500;
 	border-radius: 50%;
-	animation: spin 1s linear infinite;
+	animation: loaderSpin 1s linear infinite;
 }
 
-@keyframes spin {
+@keyframes loaderSpin {
 	to {
 		transform: rotate(360deg);
 	}
 }
 
 .news-loader p {
-	color: #ccc;
+	color: #999;
 	font-size: 16px;
+	animation: loaderPulse 2s ease-in-out infinite;
 }
 
-/* ===== СЕТКА АНИМЕ ===== */
+@keyframes loaderPulse {
+
+	0%,
+	100% {
+		opacity: 0.6;
+	}
+
+	50% {
+		opacity: 1;
+	}
+}
+
+/* ============================================================================
+ * 5. СЕТКА АНИМЕ
+ * ============================================================================
+ */
+
 .news-grid-section {
 	padding: 20px 0 40px;
 }
@@ -226,20 +333,26 @@
 	gap: 25px;
 }
 
-/* ===== КАРТОЧКА АНИМЕ ===== */
+/* ============================================================================
+ * 6. КАРТОЧКА АНИМЕ
+ * ============================================================================
+ */
+
 .news-card {
 	background: #1a1a1a;
 	border-radius: 16px;
 	border: 1px solid #333;
 	overflow: hidden;
-	transition: all 0.3s ease;
+	transition: all 0.4s cubic-bezier(0.2, 0.8, 0.4, 1);
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	animation: fadeInUp 0.5s ease forwards;
+	/* Анимация появления */
+	animation: cardFadeInUp 0.5s ease forwards;
 	opacity: 0;
 }
 
+/* Каскадная задержка для карточек */
 .news-card:nth-child(1) {
 	animation-delay: 0.05s;
 }
@@ -276,7 +389,7 @@
 	animation-delay: 0.45s;
 }
 
-@keyframes fadeInUp {
+@keyframes cardFadeInUp {
 	from {
 		opacity: 0;
 		transform: translateY(20px);
@@ -288,32 +401,145 @@
 	}
 }
 
+/* ===== ХОВЕР КАРТОЧКИ ===== */
+
 .news-card:hover {
 	border-color: #ff8c00;
 	transform: translateY(-5px);
-	box-shadow: 0 8px 25px rgba(255, 140, 0, 0.2);
+	box-shadow:
+		0 8px 25px rgba(255, 140, 0, 0.15),
+		0 0 40px rgba(255, 140, 0, 0.05);
 }
 
-/* Изображение */
+/* ===== ФОКУС ДЛЯ ДОСТУПНОСТИ ===== */
+
+.news-card:focus-visible {
+	outline: 3px solid #ff8c00;
+	outline-offset: 3px;
+	border-radius: 16px;
+}
+
+/* ============================================================================
+ * 7. ИЗОБРАЖЕНИЕ КАРТОЧКИ (ПРОГРЕССИВНАЯ ЗАГРУЗКА)
+ * ============================================================================
+ */
+
 .news-image {
 	position: relative;
 	width: 100%;
 	aspect-ratio: 16/9;
 	overflow: hidden;
+	background: #0d0d0d;
 }
+
+/* Заглушка (иконка) когда изображение не загрузилось */
+.news-image::before {
+	content: '\f03e';
+	font-family: 'Font Awesome 6 Free';
+	font-weight: 900;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 48px;
+	color: #333;
+	z-index: 0;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+/* ===== ПРОГРЕССИВНАЯ ЗАГРУЗКА С BLUR-UP ===== */
+
+.anime-progressive-image {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: #0d0d0d;
+}
+
+/* Размытый плейсхолдер (загружается мгновенно) */
+.anime-image-placeholder {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	filter: blur(20px);
+	transform: scale(1.1);
+	transition: opacity 0.3s ease;
+	z-index: 0;
+}
+
+/* Основное изображение (загружается лениво) */
+.anime-image-main {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0;
+	transition: opacity 0.5s ease;
+}
+
+/* Изображение загружено - показываем */
+.anime-image-main.anime-image-loaded {
+	opacity: 1;
+}
+
+/* Скрываем плейсхолдер когда основное загрузилось */
+.anime-image-main.anime-image-loaded~.anime-image-placeholder {
+	opacity: 0;
+}
+
+/* Ошибка загрузки */
+.anime-image-main.anime-image-error {
+	opacity: 1;
+	object-fit: contain;
+	background: #1a1a1a;
+	padding: 20px;
+}
+
+/* ===== СТАНДАРТНОЕ ИЗОБРАЖЕНИЕ (для обратной совместимости) ===== */
 
 .news-image img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 	transition: transform 0.5s ease;
+	position: relative;
+	z-index: 1;
 }
 
 .news-card:hover .news-image img {
 	transform: scale(1.05);
 }
 
-/* Бейджи */
+/* Показываем иконку-заглушку если изображение не загрузилось */
+.news-image img[src=""],
+.news-image img:not([src]),
+.news-image img[src="#"],
+.news-image img.anime-image-error {
+	display: none;
+}
+
+.news-image:has(img[src=""]),
+.news-image:has(img:not([src])),
+.news-image:has(img.anime-image-error) {
+	/* Показываем иконку */
+}
+
+.news-image:has(img[src=""])::before,
+.news-image:has(img:not([src]))::before,
+.news-image:has(img.anime-image-error)::before {
+	opacity: 1;
+}
+
+/* ============================================================================
+ * 8. БЕЙДЖИ НА ИЗОБРАЖЕНИИ
+ * ============================================================================
+ */
+
 .news-badges {
 	position: absolute;
 	top: 10px;
@@ -322,6 +548,7 @@
 	gap: 8px;
 	flex-wrap: wrap;
 	max-width: calc(100% - 80px);
+	z-index: 2;
 }
 
 .news-country {
@@ -332,6 +559,7 @@
 	color: #fff;
 	backdrop-filter: blur(4px);
 	background: rgba(0, 0, 0, 0.6);
+	border: 1px solid rgba(255, 255, 255, 0.1);
 	white-space: nowrap;
 }
 
@@ -343,10 +571,15 @@
 	background: rgba(255, 140, 0, 0.85);
 	color: #fff;
 	backdrop-filter: blur(4px);
+	border: 1px solid rgba(255, 140, 0, 0.3);
 	white-space: nowrap;
 }
 
-/* Рейтинг */
+/* ============================================================================
+ * 9. РЕЙТИНГ
+ * ============================================================================
+ */
+
 .anime-score {
 	position: absolute;
 	bottom: 10px;
@@ -357,17 +590,43 @@
 	border-radius: 8px;
 	font-size: 15px;
 	font-weight: 700;
-	backdrop-filter: blur(4px);
+	backdrop-filter: blur(8px);
+	border: 1px solid rgba(255, 215, 0, 0.3);
 	z-index: 2;
+	letter-spacing: 0.5px;
+	transition: all 0.3s ease;
 }
 
-/* Контент */
+/* Высокий рейтинг (≥8.0) */
+.anime-score.score-high {
+	color: #ffd700;
+	border-color: rgba(255, 215, 0, 0.5);
+	box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+/* Средний рейтинг (≥7.0) */
+.anime-score.score-medium {
+	color: #ffaa00;
+	border-color: rgba(255, 170, 0, 0.3);
+}
+
+.news-card:hover .anime-score {
+	transform: scale(1.05);
+}
+
+/* ============================================================================
+ * 10. КОНТЕНТ КАРТОЧКИ
+ * ============================================================================
+ */
+
 .news-content {
 	padding: 20px;
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 }
+
+/* ===== МЕТА-ИНФОРМАЦИЯ ===== */
 
 .news-meta {
 	display: flex;
@@ -385,6 +644,30 @@
 	gap: 5px;
 }
 
+.news-date i,
+.news-views i {
+	color: #ff8c00;
+	font-size: 11px;
+}
+
+/* ===== ЗВЁЗДЫ РЕЙТИНГА ===== */
+
+.star.full {
+	color: #ffd700;
+	text-shadow: 0 0 3px rgba(255, 215, 0, 0.5);
+}
+
+.star.half {
+	color: #ffd700;
+	opacity: 0.7;
+}
+
+.star.empty {
+	color: #555;
+}
+
+/* ===== ЗАГОЛОВОК ===== */
+
 .news-title {
 	font-size: 16px;
 	font-weight: 600;
@@ -395,11 +678,14 @@
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+	transition: color 0.3s ease;
 }
 
 .news-card:hover .news-title {
 	color: #ff8c00;
 }
+
+/* ===== ОПИСАНИЕ ===== */
 
 .news-excerpt {
 	font-size: 13px;
@@ -412,12 +698,52 @@
 	overflow: hidden;
 }
 
+/* ===== ЖАНРЫ ===== */
+
 .anime-genres {
 	font-size: 12px;
 	color: #999;
 	margin-bottom: 15px;
 	line-height: 1.5;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
 }
+
+/* Теги жанров */
+.anime-genre-tag {
+	background: rgba(255, 140, 0, 0.1);
+	color: #ffa500;
+	padding: 3px 10px;
+	border-radius: 12px;
+	font-size: 11px;
+	font-weight: 500;
+	border: 1px solid rgba(255, 140, 0, 0.2);
+	transition: all 0.3s ease;
+}
+
+.anime-genre-tag:hover {
+	background: rgba(255, 140, 0, 0.2);
+	color: #ff8c00;
+}
+
+/* ===== СТУДИИ ===== */
+
+.anime-studios {
+	font-size: 12px;
+	color: #777;
+	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.anime-studios i {
+	color: #ff8c00;
+	font-size: 11px;
+}
+
+/* ===== ФУТЕР КАРТОЧКИ ===== */
 
 .news-footer {
 	margin-top: auto;
@@ -425,7 +751,7 @@
 	align-items: center;
 	justify-content: space-between;
 	padding-top: 10px;
-	border-top: 1px solid #333;
+	border-top: 1px solid #2a2a2a;
 }
 
 .news-source {
@@ -436,6 +762,11 @@
 	gap: 5px;
 }
 
+.news-source i {
+	color: #ff8c00;
+	font-size: 10px;
+}
+
 .news-link {
 	color: #ff8c00;
 	text-decoration: none;
@@ -444,7 +775,8 @@
 	display: flex;
 	align-items: center;
 	gap: 5px;
-	transition: color 0.3s ease;
+	transition: all 0.3s ease;
+	padding: 4px 0;
 }
 
 .news-link:hover {
@@ -457,14 +789,18 @@
 }
 
 .news-link:hover i {
-	transform: translateX(3px);
+	transform: translateX(4px);
 }
 
-/* ===== ПУСТОЕ СОСТОЯНИЕ ===== */
+/* ============================================================================
+ * 11. ПУСТОЕ СОСТОЯНИЕ
+ * ============================================================================
+ */
+
 .empty-state {
 	text-align: center;
 	padding: 60px 20px;
-	background: #1a1a1a;
+	background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
 	border-radius: 16px;
 	border: 1px solid #333;
 	margin: 20px 0;
@@ -475,6 +811,7 @@
 	color: #ff8c00;
 	margin-bottom: 20px;
 	opacity: 0.6;
+	animation: heroFloat 3s ease-in-out infinite;
 }
 
 .empty-state p {
@@ -489,8 +826,13 @@
 	color: #fff;
 }
 
+/* ============================================================================
+ * 12. КНОПКИ
+ * ============================================================================
+ */
+
 .btn-primary {
-	background: #ff8c00;
+	background: linear-gradient(135deg, #ff8c00 0%, #ffa500 100%);
 	color: #fff;
 	border: none;
 	padding: 12px 25px;
@@ -504,25 +846,55 @@
 	text-decoration: none;
 	transition: all 0.3s ease;
 	margin-top: 20px;
+	box-shadow: 0 4px 15px rgba(255, 140, 0, 0.2);
 }
 
 .btn-primary:hover {
-	background: #ffa500;
+	background: linear-gradient(135deg, #ffa500 0%, #ffb700 100%);
 	transform: translateY(-2px);
-	box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+	box-shadow: 0 6px 20px rgba(255, 140, 0, 0.3);
 }
 
-/* ===== ПОДПИСКА ===== */
+.btn-primary:active {
+	transform: translateY(0);
+}
+
+.btn-primary:focus-visible {
+	outline: 3px solid #ff8c00;
+	outline-offset: 3px;
+}
+
+/* ============================================================================
+ * 13. ПОДПИСКА
+ * ============================================================================
+ */
+
 .news-subscribe {
 	padding: 40px 0 60px;
 }
 
 .subscribe-content {
-	background: linear-gradient(135deg, #1a1a1a 0%, #2a1a10 100%);
+	background: linear-gradient(135deg, #1a1a1a 0%, #2a1a10 50%, #1a1a1a 100%);
 	padding: 50px 40px;
 	border-radius: 24px;
 	border: 1px solid #333;
 	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Декоративное свечение */
+.subscribe-content::before {
+	content: '';
+	position: absolute;
+	top: -30%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 500px;
+	height: 500px;
+	background: radial-gradient(circle, rgba(255, 140, 0, 0.05) 0%, transparent 70%);
+	border-radius: 50%;
+	pointer-events: none;
 }
 
 .subscribe-icon {
@@ -535,6 +907,14 @@
 	align-items: center;
 	justify-content: center;
 	border: 1px solid rgba(255, 140, 0, 0.3);
+	position: relative;
+	z-index: 1;
+	transition: all 0.3s ease;
+}
+
+.subscribe-icon:hover {
+	background: rgba(255, 140, 0, 0.15);
+	transform: scale(1.05);
 }
 
 .subscribe-icon i {
@@ -546,6 +926,8 @@
 	font-size: 28px;
 	color: #fff;
 	margin-bottom: 15px;
+	position: relative;
+	z-index: 1;
 }
 
 .subscribe-content p {
@@ -554,11 +936,15 @@
 	max-width: 600px;
 	margin: 0 auto 30px;
 	line-height: 1.6;
+	position: relative;
+	z-index: 1;
 }
 
 .subscribe-form {
 	max-width: 500px;
 	margin: 0 auto;
+	position: relative;
+	z-index: 1;
 }
 
 .subscribe-input-group {
@@ -575,16 +961,22 @@
 	border-radius: 50px;
 	font-size: 14px;
 	color: #fff;
+	transition: all 0.3s ease;
+}
+
+.subscribe-input-group input::placeholder {
+	color: #666;
 }
 
 .subscribe-input-group input:focus {
 	outline: none;
 	border-color: #ff8c00;
+	box-shadow: 0 0 20px rgba(255, 140, 0, 0.1);
 }
 
 .subscribe-input-group button {
 	padding: 15px 30px;
-	background: #ff8c00;
+	background: linear-gradient(135deg, #ff8c00 0%, #ffa500 100%);
 	border: none;
 	border-radius: 50px;
 	font-size: 14px;
@@ -596,11 +988,17 @@
 	gap: 8px;
 	transition: all 0.3s ease;
 	white-space: nowrap;
+	box-shadow: 0 4px 15px rgba(255, 140, 0, 0.2);
 }
 
 .subscribe-input-group button:hover {
-	background: #ffa500;
+	background: linear-gradient(135deg, #ffa500 0%, #ffb700 100%);
 	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(255, 140, 0, 0.3);
+}
+
+.subscribe-input-group button:active {
+	transform: translateY(0);
 }
 
 .subscribe-checkbox {
@@ -613,17 +1011,24 @@
 	cursor: pointer;
 }
 
-.subscribe-checkbox input {
+.subscribe-checkbox input[type="checkbox"] {
+	width: 16px;
+	height: 16px;
 	accent-color: #ff8c00;
+	cursor: pointer;
 }
 
-/* ===== CTA ===== */
+/* ============================================================================
+ * 14. CTA (ПРИЗЫВ К ДЕЙСТВИЮ)
+ * ============================================================================
+ */
+
 .news-cta {
 	padding: 20px 0 80px;
 }
 
 .cta-content {
-	background: linear-gradient(135deg, #1a1a1a 0%, #2a1a10 100%);
+	background: linear-gradient(135deg, #1a1a1a 0%, #2a1a10 50%, #1a1a1a 100%);
 	padding: 60px 40px;
 	border-radius: 24px;
 	border: 1px solid #333;
@@ -632,6 +1037,7 @@
 	overflow: hidden;
 }
 
+/* Декоративный свет */
 .cta-content::before {
 	content: '';
 	position: absolute;
@@ -641,6 +1047,7 @@
 	height: 400px;
 	background: radial-gradient(circle, rgba(255, 140, 0, 0.1) 0%, transparent 70%);
 	border-radius: 50%;
+	pointer-events: none;
 }
 
 .cta-icon {
@@ -649,13 +1056,14 @@
 	margin-bottom: 20px;
 	position: relative;
 	z-index: 2;
+	animation: heroFloat 3s ease-in-out infinite;
 }
 
 .cta-title {
 	font-size: 36px;
 	color: #fff;
 	margin-bottom: 20px;
-	text-shadow: 1px 1px 2px #ff8c00;
+	text-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
 	position: relative;
 	z-index: 2;
 }
@@ -692,15 +1100,15 @@
 }
 
 .cta-btn.primary {
-	background: #ff8c00;
+	background: linear-gradient(135deg, #ff8c00 0%, #ffa500 100%);
 	color: #fff;
 	box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
 }
 
 .cta-btn.primary:hover {
-	background: #ffa500;
+	background: linear-gradient(135deg, #ffa500 0%, #ffb700 100%);
 	transform: translateY(-3px);
-	box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+	box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
 }
 
 .cta-btn.secondary {
@@ -712,9 +1120,19 @@
 .cta-btn.secondary:hover {
 	background: rgba(255, 140, 0, 0.1);
 	transform: translateY(-3px);
+	border-color: #ffa500;
 }
 
-/* ===== УВЕДОМЛЕНИЯ ===== */
+.cta-btn:focus-visible {
+	outline: 3px solid #ff8c00;
+	outline-offset: 3px;
+}
+
+/* ============================================================================
+ * 15. УВЕДОМЛЕНИЯ
+ * ============================================================================
+ */
+
 .api-notification {
 	position: fixed;
 	bottom: 20px;
@@ -726,37 +1144,64 @@
 	display: flex;
 	align-items: center;
 	gap: 12px;
-	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-	transform: translateX(400px);
-	transition: transform 0.3s ease;
+	box-shadow:
+		0 10px 30px rgba(0, 0, 0, 0.5),
+		0 0 0 1px rgba(255, 255, 255, 0.05);
+	transform: translateX(calc(100% + 20px));
+	transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.4, 1);
 	z-index: 10000;
 	max-width: 400px;
+	backdrop-filter: blur(10px);
 }
 
 .api-notification.show {
 	transform: translateX(0);
 }
 
-.api-notification i {
-	font-size: 20px;
+/* Типы уведомлений */
+.api-notification-success {
+	border-left: 4px solid #2ecc71;
+}
+
+.api-notification-error {
+	border-left: 4px solid #ff4757;
+}
+
+.api-notification-warning {
+	border-left: 4px solid #ff9800;
+}
+
+.api-notification-info {
+	border-left: 4px solid #3498db;
+}
+
+/* Иконки */
+.api-notification-success i {
+	color: #2ecc71;
+}
+
+.api-notification-error i {
+	color: #ff4757;
 }
 
 .api-notification-warning i {
-	color: #f39c12;
-}
-
-.api-notification-success i {
-	color: #2ecc71;
+	color: #ff9800;
 }
 
 .api-notification-info i {
 	color: #3498db;
 }
 
+.api-notification i {
+	font-size: 20px;
+	flex-shrink: 0;
+}
+
 .api-notification span {
 	flex: 1;
 	color: #fff;
 	font-size: 14px;
+	line-height: 1.4;
 }
 
 .notification-close {
@@ -767,28 +1212,70 @@
 	cursor: pointer;
 	padding: 0 5px;
 	transition: color 0.3s ease;
+	flex-shrink: 0;
+	line-height: 1;
 }
 
 .notification-close:hover {
 	color: #fff;
 }
 
-/* ====================================================================
- * МЕДИАЗАПРОСЫ
- * ==================================================================== */
+/* ============================================================================
+ * 16. СОСТОЯНИЕ ОШИБКИ
+ * ============================================================================
+ */
 
-/* Ультраширокие (1921px+) */
+.error-state {
+	text-align: center;
+	padding: 40px 20px;
+	color: #fff;
+}
+
+.error-state i {
+	font-size: 48px;
+	color: #ff4757;
+	margin-bottom: 15px;
+}
+
+.error-state p {
+	font-size: 16px;
+	margin-bottom: 15px;
+	color: #ccc;
+}
+
+.retry-btn {
+	background: #ff8c00;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 14px;
+	transition: all 0.3s ease;
+}
+
+.retry-btn:hover {
+	background: #ffa500;
+}
+
+/* ============================================================================
+ * 17. АДАПТИВНОСТЬ
+ * ============================================================================
+ */
+
+/* ===== УЛЬТРАШИРОКИЕ (1921px+) ===== */
 @media (width >=1921px) {
 	.container__main {
 		max-width: 1800px;
 		padding: 0 40px;
 	}
 
-	.hero-title .title-jp {
+	.title-jp {
 		font-size: 64px;
+		letter-spacing: 12px;
 	}
 
-	.hero-title .title-ru {
+	.title-ru {
 		font-size: 56px;
 	}
 
@@ -806,11 +1293,11 @@
 	}
 
 	.news-content {
-		padding: 25px;
+		padding: 30px;
 	}
 
 	.news-title {
-		font-size: 20px;
+		font-size: 22px;
 	}
 
 	.news-excerpt {
@@ -820,7 +1307,7 @@
 
 	.anime-score {
 		font-size: 18px;
-		padding: 8px 15px;
+		padding: 8px 16px;
 	}
 
 	.subscribe-content {
@@ -834,9 +1321,13 @@
 	.cta-title {
 		font-size: 44px;
 	}
+
+	.cta-content {
+		padding: 80px 60px;
+	}
 }
 
-/* Очень большой десктоп (1441px - 1920px) */
+/* ===== БОЛЬШОЙ ДЕСКТОП (1441px - 1920px) ===== */
 @media (1441px <=width < 1921px) {
 	.container__main {
 		max-width: 100%;
@@ -855,16 +1346,16 @@
 		font-size: 14px;
 	}
 
-	.hero-title .title-jp {
+	.title-jp {
 		font-size: 52px;
 	}
 
-	.hero-title .title-ru {
+	.title-ru {
 		font-size: 46px;
 	}
 }
 
-/* Большой десктоп (1201px - 1440px) */
+/* ===== ДЕСКТОП (1201px - 1440px) ===== */
 @media (1201px <=width < 1441px) {
 	.news-grid {
 		grid-template-columns: repeat(3, 1fr);
@@ -880,7 +1371,7 @@
 	}
 }
 
-/* Десктоп (993px - 1200px) */
+/* ===== МАЛЫЙ ДЕСКТОП (993px - 1200px) ===== */
 @media (993px <=width < 1201px) {
 	.news-grid {
 		grid-template-columns: repeat(3, 1fr);
@@ -911,11 +1402,12 @@
 		padding: 4px 8px;
 	}
 
-	.hero-title .title-jp {
+	.title-jp {
 		font-size: 38px;
+		letter-spacing: 5px;
 	}
 
-	.hero-title .title-ru {
+	.title-ru {
 		font-size: 34px;
 	}
 
@@ -924,7 +1416,7 @@
 	}
 }
 
-/* Планшеты (769px - 992px) */
+/* ===== ПЛАНШЕТЫ (769px - 992px) ===== */
 @media (769px <=width < 993px) {
 	.container__main {
 		padding: 0 15px;
@@ -938,12 +1430,12 @@
 		font-size: 52px;
 	}
 
-	.hero-title .title-jp {
+	.title-jp {
 		font-size: 34px;
 		letter-spacing: 5px;
 	}
 
-	.hero-title .title-ru {
+	.title-ru {
 		font-size: 30px;
 	}
 
@@ -989,7 +1481,7 @@
 	}
 }
 
-/* Большие мобильные (577px - 768px) */
+/* ===== БОЛЬШИЕ ТЕЛЕФОНЫ (577px - 768px) ===== */
 @media (577px <=width < 769px) {
 	.container__main {
 		padding: 0 12px;
@@ -998,18 +1490,19 @@
 	.news-hero {
 		padding: 35px 20px;
 		margin-bottom: 25px;
+		border-radius: 20px;
 	}
 
 	.hero-icon {
 		font-size: 44px;
 	}
 
-	.hero-title .title-jp {
+	.title-jp {
 		font-size: 30px;
 		letter-spacing: 4px;
 	}
 
-	.hero-title .title-ru {
+	.title-ru {
 		font-size: 26px;
 	}
 
@@ -1049,6 +1542,8 @@
 	.anime-score {
 		font-size: 12px;
 		padding: 4px 8px;
+		bottom: 8px;
+		right: 8px;
 	}
 
 	.news-country,
@@ -1064,6 +1559,7 @@
 
 	.subscribe-content {
 		padding: 30px 20px;
+		border-radius: 20px;
 	}
 
 	.subscribe-icon {
@@ -1093,6 +1589,7 @@
 
 	.cta-content {
 		padding: 35px 25px;
+		border-radius: 20px;
 	}
 
 	.cta-title {
@@ -1109,7 +1606,7 @@
 	}
 }
 
-/* Мобильные L (481px - 576px) */
+/* ===== ТЕЛЕФОНЫ (481px - 576px) ===== */
 @media (481px <=width < 577px) {
 	.container__main {
 		padding: 0 10px;
@@ -1123,6 +1620,7 @@
 	.news-hero {
 		padding: 30px 15px;
 		margin-bottom: 20px;
+		border-radius: 16px;
 	}
 
 	.hero-icon {
@@ -1130,12 +1628,12 @@
 		margin-bottom: 15px;
 	}
 
-	.hero-title .title-jp {
+	.title-jp {
 		font-size: 26px;
 		letter-spacing: 3px;
 	}
 
-	.hero-title .title-ru {
+	.title-ru {
 		font-size: 22px;
 	}
 
@@ -1148,6 +1646,7 @@
 		font-size: 13px;
 	}
 
+	/* Горизонтальные карточки */
 	.news-grid {
 		grid-template-columns: 1fr;
 		gap: 15px;
@@ -1220,6 +1719,7 @@
 
 	.subscribe-content {
 		padding: 30px 20px;
+		border-radius: 16px;
 	}
 
 	.subscribe-icon {
@@ -1258,6 +1758,7 @@
 
 	.cta-content {
 		padding: 30px 20px;
+		border-radius: 16px;
 	}
 
 	.cta-icon {
@@ -1289,7 +1790,7 @@
 	}
 }
 
-/* Мобильные (до 481px) */
+/* ===== МАЛЕНЬКИЕ ТЕЛЕФОНЫ (до 480px) ===== */
 @media (width < 481px) {
 	.container__main {
 		padding: 0 8px;
@@ -1299,10 +1800,6 @@
 		font-size: 12px;
 		padding: 12px 0;
 		gap: 5px;
-	}
-
-	.breadcrumbs i {
-		font-size: 12px;
 	}
 
 	.news-hero {
@@ -1316,12 +1813,12 @@
 		margin-bottom: 12px;
 	}
 
-	.hero-title .title-jp {
+	.title-jp {
 		font-size: 22px;
 		letter-spacing: 2px;
 	}
 
-	.hero-title .title-ru {
+	.title-ru {
 		font-size: 18px;
 	}
 
@@ -1340,6 +1837,7 @@
 		height: 12px;
 	}
 
+	/* Вертикальные карточки */
 	.news-grid {
 		grid-template-columns: 1fr;
 		gap: 12px;
@@ -1373,6 +1871,11 @@
 	.anime-genres {
 		font-size: 11px;
 		margin-bottom: 10px;
+	}
+
+	.anime-genre-tag {
+		font-size: 10px;
+		padding: 2px 8px;
 	}
 
 	.anime-score {
@@ -1521,6 +2024,8 @@
 	.api-notification {
 		max-width: calc(100% - 30px);
 		padding: 12px 15px;
+		bottom: 10px;
+		right: 10px;
 	}
 
 	.api-notification span {
@@ -1528,56 +2033,92 @@
 	}
 }
 
+/* ============================================================================
+ * 18. ДОСТУПНОСТЬ: УМЕНЬШЕНИЕ ДВИЖЕНИЯ
+ * ============================================================================
+ */
 
+@media (prefers-reduced-motion: reduce) {
+	.news-card {
+		animation: none;
+		opacity: 1;
+	}
 
-/* ===== ЗАГЛУШКА ИЗОБРАЖЕНИЯ ===== */
-.news-image {
-	position: relative;
-	width: 100%;
-	aspect-ratio: 16/9;
-	overflow: hidden;
-	background: #0d0d0d;
+	.hero-icon,
+	.empty-state i,
+	.cta-icon {
+		animation: none;
+	}
+
+	.sakura-petal {
+		animation: none;
+		opacity: 0;
+	}
+
+	.news-card:hover {
+		transform: none;
+	}
+
+	.news-card:hover .news-image img {
+		transform: none;
+	}
+
+	.news-link:hover i {
+		transform: none;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
+	}
 }
 
-.news-image::before {
-	content: '\f03e';
-	/* Иконка изображения Font Awesome */
-	font-family: 'Font Awesome 6 Free';
-	font-weight: 900;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: 48px;
-	color: #333;
-	z-index: 0;
-	opacity: 0;
-	transition: opacity 0.3s ease;
+/* ============================================================================
+ * 19. ТЁМНАЯ ТЕМА (ПРИНУДИТЕЛЬНО)
+ * ============================================================================
+ */
+
+@media (prefers-color-scheme: dark) {
+
+	/* Все стили уже тёмные, но можно добавить специфичные */
+	.news-card {
+		background: #1a1a1a;
+	}
 }
 
-.news-image img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	transition: transform 0.5s ease;
-	position: relative;
-	z-index: 1;
-}
+/* ============================================================================
+ * 20. ПЕЧАТЬ
+ * ============================================================================
+ */
 
-/* Показываем иконку, если изображение не загрузилось */
-.news-image img[src=""],
-.news-image img:not([src]),
-.news-image img[src="#"] {
-	display: none;
-}
+@media print {
+	.news-page {
+		background: #fff;
+		color: #000;
+	}
 
-.news-image img[src=""]+.news-badges,
-.news-image img:not([src])+.news-badges {
-	z-index: 2;
-}
+	.news-card {
+		break-inside: avoid;
+		border: 1px solid #ccc;
+		background: #fff;
+		color: #000;
+	}
 
-/* Когда изображения нет — показываем иконку */
-.news-image:has(img[src=""])::before,
-.news-image:has(img:not([src]))::before {
-	opacity: 1;
+	.news-title {
+		color: #000;
+	}
+
+	.news-excerpt {
+		color: #333;
+	}
+
+	.news-hero,
+	.news-subscribe,
+	.news-cta,
+	.api-notification,
+	.sakura-petal {
+		display: none;
+	}
 }
