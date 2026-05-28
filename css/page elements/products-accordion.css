@@ -209,7 +209,7 @@
 
 /* Эффект при наведении на карточку */
 .product-card:hover {
-	transform: translateY(-8px) scale(1.02);
+	transform: translateY(-3px) scale(1.01);
 	/* Поднимаем и увеличиваем */
 	box-shadow: var(--shadow-hover);
 	/* Усиленная тень */
@@ -299,14 +299,13 @@
 
 /* Специальный стиль для бейджа "Новинка" */
 .product-badge.new {
-	background: linear-gradient(135deg, #ff6b6b 0%, #ff3366 100%);
+	background: linear-gradient(135deg, #ff6b6b 0%, #3341ff 100%);
 	box-shadow: 0 8px 16px -4px rgba(255, 51, 102, 0.3);
 }
 
 /* Специальный стиль для бейджа "Хит" */
 .product-badge.hit {
-	background: linear-gradient(135deg, #ffb7c5 0%, #ff6b6b 100%);
-	color: var(--text-primary);
+	background: linear-gradient(135deg, #f71404 0%, #ff6b6b 100%);
 }
 
 /* Специальный стиль для бейджа "Скидка" */
