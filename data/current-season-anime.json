@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-05-29T05:07:35.431Z",
+    "lastUpdated": "2026-05-29T09:38:17.385Z",
     "season": "spring",
     "seasonName": "🌸 Весна",
     "year": 2026,
@@ -59,7 +59,7 @@
       "duration": 24,
       "score": 8.7,
       "scoreRaw": 87,
-      "popularity": 97969,
+      "popularity": 98587,
       "genres": [
         "Экшен",
         "Приключения",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 7.8,
       "scoreRaw": 78,
-      "popularity": 94408,
+      "popularity": 94844,
       "genres": [
         "Экшен",
         "Приключения",
@@ -127,7 +127,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 92553,
+      "popularity": 92954,
       "genres": [
         "Экшен",
         "Приключения",
@@ -161,7 +161,7 @@
       "duration": 24,
       "score": 7.9,
       "scoreRaw": 79,
-      "popularity": 90645,
+      "popularity": 91106,
       "genres": [
         "Драма",
         "Психология"
@@ -193,7 +193,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 82718,
+      "popularity": 83162,
       "genres": [
         "Экшен",
         "Приключения",
@@ -291,7 +291,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 59730,
+      "popularity": 60207,
       "genres": [
         "Экшен",
         "Комедия",
@@ -311,8 +311,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 356,
-    "timestamp": 1780031255432,
-    "nextUpdate": "2026-05-30T05:07:35.432Z"
+    "fetchDuration": 324,
+    "timestamp": 1780047497385,
+    "nextUpdate": "2026-05-30T09:38:17.385Z"
   }
 }
