@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "lastUpdated": "2025-05-29T06:00:00.000Z",
+    "season": "spring",
+    "seasonName": "🌸 Весна",
+    "year": 2025,
+    "totalAnime": 9,
+    "source": "AniList API",
+    "generator": "GitHub Actions (update-anime-news.yml)",
+    "version": "2.0"
+  },
+  "anime": [
+    {
+      "id": "anilist-123456",
+      "title": "Demon Slayer: Infinity Castle",
+      "nativeTitle": "鬼滅の刃 無限城編",
+      "excerpt": "The final battle against Muzan Kibutsuji begins...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx123456-abc.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx123456-abc.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "12 эп.",
+      "score": 8.9,
+      "popularity": 456789,
+      "genres": ["Экшен", "Фэнтези", "История"],
+      "studios": ["ufotable"],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/123456",
+      "trailerUrl": "https://www.youtube.com/watch?v=abc123",
+      "order": 1
+    }
+  ],
+  "debug": {
+    "fetchDuration": 1234,
+    "timestamp": 1747000800000,
+    "nextUpdate": "2025-05-30T06:00:00.000Z"
+  }
+}

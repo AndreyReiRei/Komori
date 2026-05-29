@@ -1,95 +1,95 @@
-name: 🔄 Обновление аниме
+# ============================================================================
+# GitHub Actions: Ежедневное обновление новостей аниме
+# ============================================================================
+# Запускается каждый день в 06:00 UTC (09:00 МСК)
+# Получает актуальные данные из AniList API
+# Сохраняет в /data/current-season-anime.json
+# Автоматически создает коммит если данные изменились
+# ============================================================================
+
+name: 🔄 Обновление аниме-новостей
 
 on:
+  # Автоматический запуск каждый день в 06:00 UTC
   schedule:
     - cron: "0 6 * * *"
-  workflow_dispatch:
 
+  # Возможность ручного запуска из интерфейса GitHub
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Сезон (оставьте пустым для автоопределения)"
+        required: false
+        default: "auto"
+        type: choice
+        options:
+          - auto
+          - winter
+          - spring
+          - summer
+          - fall
+
+# Права для создания коммитов
 permissions:
   contents: write
 
 jobs:
-  update:
+  update-anime:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      # Шаг 1: Клонируем репозиторий
+      - name: 📥 Клонирование репозитория
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
-      - name: 🔄 Обновление JSON с аниме
+      # Шаг 2: Установка Node.js
+      - name: 🔧 Настройка Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Шаг 3: Запуск скрипта обновления
+      - name: 🎯 Обновление данных аниме
+        run: node .github/scripts/update-anime-json.js
+        env:
+          SEASON_OVERRIDE: ${{ github.event.inputs.season || 'auto' }}
+
+      # Шаг 4: Проверка изменений и создание коммита
+      - name: 💾 Сохранение изменений
         run: |
-          # Определяем сезон
-          MONTH=$(date +%-m)
-          if [ $MONTH -le 3 ]; then SEASON="WINTER"; SEASON_RU="❄️ Зима"; fi
-          if [ $MONTH -ge 4 ] && [ $MONTH -le 6 ]; then SEASON="SPRING"; SEASON_RU="🌸 Весна"; fi
-          if [ $MONTH -ge 7 ] && [ $MONTH -le 9 ]; then SEASON="SUMMER"; SEASON_RU="☀️ Лето"; fi
-          if [ $MONTH -ge 10 ]; then SEASON="FALL"; SEASON_RU="🍂 Осень"; fi
-
-          YEAR=$(date +%Y)
-          echo "📅 Сезон: $SEASON_RU $YEAR"
-
-          # Запрос к AniList API
-          RESPONSE=$(curl -s -X POST https://graphql.anilist.co \
-            -H "Content-Type: application/json" \
-            -d "{
-              \"query\": \"query { Page(perPage: 9) { media(season: $SEASON, seasonYear: $YEAR, status: RELEASING, sort: POPULARITY_DESC, type: ANIME, countryOfOrigin: JP) { id idMal title { romaji english native } description coverImage { extraLarge large } format episodes averageScore genres studios { nodes { name } } siteUrl } } }\"
-            }")
-
-          # Парсим JSON и создаем наш формат
-          echo "$RESPONSE" | python3 -c "
-          import json, sys
-          data = json.load(sys.stdin)
-          media = data['data']['Page']['media']
-
-          result = []
-          for a in media:
-              desc = (a.get('description') or '')[:200]
-              desc = desc.replace('<', ' ').replace('>', ' ').strip()
-              
-              result.append({
-                  'id': f'al-{a[\"id\"]}',
-                  'malId': a.get('idMal'),
-                  'title': a['title'].get('english') or a['title'].get('romaji') or 'Без названия',
-                  'titleJapanese': a['title'].get('native'),
-                  'description': desc,
-                  'image': (a.get('coverImage') or {}).get('extraLarge') or (a.get('coverImage') or {}).get('large'),
-                  'type': a.get('format', 'TV'),
-                  'episodes': a.get('episodes'),
-                  'score': round((a.get('averageScore') or 0) / 10, 1),
-                  'genres': a.get('genres', []),
-                  'studios': [s['name'] for s in (a.get('studios') or {}).get('nodes', [])],
-                  'source': 'AniList',
-                  'url': a.get('siteUrl', '#')
-              })
-
-          output = {
-              'lastUpdated': '$(date -u +%Y-%m-%dT%H:%M:%SZ)',
-              'season': '$SEASON_RU',
-              'year': $YEAR,
-              'totalCount': len(result),
-              'source': 'AniList API (автообновление)',
-              'anime': result
-          }
-
-          with open('data/current-season-anime.json', 'w', encoding='utf-8') as f:
-              json.dump(output, f, ensure_ascii=False, indent=2)
-
-          print(f'✅ Сохранено {len(result)} аниме')
-          for i, a in enumerate(result):
-              print(f'  {i+1}. {a[\"title\"]} (★ {a[\"score\"]})')
-          "
-
-          # Создаем папку data если её нет
-          mkdir -p data
-
-      - name: 💾 Коммит изменений
-        run: |
+          # Проверяем, изменился ли файл
           if git diff --quiet data/current-season-anime.json; then
-            echo "Изменений нет"
-          else
-            git config user.name "🤖 Anime Bot"
-            git config user.email "bot@komori.ru"
-            git add data/current-season-anime.json
-            git commit -m "🔄 Обновление аниме: $(date +%Y-%m-%d)"
-            git push
+            echo "📭 Нет изменений - данные актуальны"
+            exit 0
           fi
+
+          echo "📝 Обнаружены изменения, создаю коммит..."
+
+          # Настраиваем git
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          # Получаем текущий сезон для сообщения коммита
+          SEASON=$(node -e "const m=new Date().getMonth();console.log(m<3?'winter':m<6?'spring':m<9?'summer':'fall')")
+
+          # Коммитим и пушим
+          git add data/current-season-anime.json
+          git commit -m "🔄 Обновление аниме-новостей [${SEASON}] $(date +%Y-%m-%d)"
+          git push
+
+      # Шаг 5: Уведомление об ошибке (опционально)
+      - name: 🚨 Уведомление при ошибке
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '❌ Ошибка обновления аниме-новостей',
+              body: `Автоматическое обновление не удалось.\n\nДата: ${new Date().toISOString()}\nСсылка на запуск: ${process.env.GITHUB_SERVER_URL}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              labels: ['bug', 'automated']
+            });
+            console.log(`Создано issue #${issue.data.number}`);
