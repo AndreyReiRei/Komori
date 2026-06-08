@@ -1,9 +1,8 @@
 /* ============================================================================
  * PRODUCT-MANAGEMENT.CSS — УПРАВЛЕНИЕ ТОВАРАМИ (АДМИНКА)
  * ============================================================================
- * Оптимизированная версия: удалены дубликаты, сгруппированы повторяющиеся стили,
- * использованы CSS-переменные и clamp() для адаптивности.
- * Медиа-запросы сохранены полностью.
+ * Полная версия: товары, слайды, промокоды.
+ * Все стили для корректного отображения элементов управления.
  * ============================================================================
  */
 
@@ -48,34 +47,9 @@
 }
 
 /* ============================================================================
- * ОБЩИЕ КЛАССЫ (ИСПОЛЬЗУЮТСЯ ВЕЗДЕ)
- * ============================================================================
- */
-
-/* Тёмный блок (карточка, группа, панель) */
-.dark-block {
-	background: var(--pm-bg-dark);
-	border: 1px solid var(--pm-border);
-	border-radius: var(--pm-radius-lg);
-}
-
-/* Тёмный фон (поля ввода, селекты, футеры карточек) */
-.dark-bg {
-	background: var(--pm-bg-darkest);
-}
-
-/* Фокус для полей ввода */
-.form-control-focus:focus {
-	outline: none;
-	border-color: var(--pm-primary);
-	box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.1);
-}
-
-/* ============================================================================
  * 1. ОСНОВНОЙ МОДУЛЬ
  * ============================================================================
  */
-
 .products-module {
 	padding: 20px 0;
 }
@@ -84,7 +58,6 @@
  * 2. ШАПКА МОДУЛЯ
  * ============================================================================
  */
-
 .module-header {
 	display: flex;
 	justify-content: space-between;
@@ -116,8 +89,6 @@
  * 3. КНОПКИ
  * ============================================================================
  */
-
-/* Основная кнопка */
 .btn-primary {
 	background: #ff3366;
 	color: white;
@@ -145,7 +116,6 @@
 	transform: translateY(0);
 }
 
-/* Вторичная кнопка */
 .btn-secondary {
 	background: #252525;
 	color: #cccccc;
@@ -164,7 +134,6 @@
 	border-color: #ff3366;
 }
 
-/* Опасная кнопка */
 .btn-danger {
 	background: #ff4757;
 	color: white;
@@ -191,7 +160,6 @@
  * 4. ФИЛЬТРЫ
  * ============================================================================
  */
-
 .filters-section {
 	display: flex;
 	gap: 15px;
@@ -203,7 +171,6 @@
 	border: 1px solid var(--pm-border);
 }
 
-/* Поиск */
 .search-box {
 	flex: 2;
 	min-width: 250px;
@@ -241,7 +208,6 @@
 	color: var(--pm-text-dim);
 }
 
-/* Группы фильтров и сортировки */
 .filter-group,
 .sort-group {
 	flex: 1;
@@ -294,7 +260,6 @@
  * 5. СЕТКА ТОВАРОВ С ГРУППИРОВКОЙ
  * ============================================================================
  */
-
 .products-grid {
 	display: flex;
 	flex-direction: column;
@@ -302,7 +267,6 @@
 	margin-top: 20px;
 }
 
-/* Группа категории */
 .category-group {
 	background: var(--pm-bg-dark);
 	border-radius: var(--pm-radius-lg);
@@ -389,7 +353,6 @@
  * 6. КАРТОЧКА ТОВАРА
  * ============================================================================
  */
-
 .product-card {
 	background: var(--pm-bg-dark);
 	border-radius: var(--pm-radius-lg);
@@ -408,7 +371,6 @@
 	border-color: var(--pm-primary);
 }
 
-/* Бейджи */
 .product-badges {
 	position: absolute;
 	top: 10px;
@@ -442,7 +404,6 @@
 	background: var(--pm-danger);
 }
 
-/* Изображение товара */
 .product-image {
 	width: 100%;
 	height: var(--pm-product-image-height);
@@ -462,7 +423,6 @@
 	transform: scale(1.05);
 }
 
-/* Информация о товаре */
 .product-info {
 	padding: clamp(12px, 2vw, 20px);
 	flex: 1;
@@ -502,7 +462,6 @@
 	overflow: hidden;
 }
 
-/* Цена */
 .product-price {
 	display: flex;
 	align-items: center;
@@ -523,7 +482,6 @@
 	text-decoration: line-through;
 }
 
-/* Наличие */
 .product-stock {
 	display: flex;
 	align-items: center;
@@ -553,7 +511,6 @@
 	color: var(--pm-text-secondary);
 }
 
-/* Кнопки действий */
 .product-actions {
 	display: flex;
 	gap: 8px;
@@ -602,7 +559,6 @@
  * 7. ПУСТОЕ СОСТОЯНИЕ
  * ============================================================================
  */
-
 .empty-state {
 	grid-column: 1 / -1;
 	text-align: center;
@@ -629,7 +585,6 @@
  * 8. МОДАЛЬНЫЕ ОКНА
  * ============================================================================
  */
-
 .modal {
 	display: none;
 	position: fixed;
@@ -673,7 +628,6 @@
 	max-width: 400px;
 }
 
-/* Шапка модального окна */
 .modal-header {
 	padding: 20px 25px;
 	border-bottom: 2px solid var(--pm-border);
@@ -718,7 +672,6 @@
 	background: var(--pm-bg-medium);
 }
 
-/* Тело и футер модального окна */
 .modal-body {
 	padding: clamp(12px, 2vw, 25px);
 }
@@ -740,7 +693,6 @@
  * 9. ВКЛАДКИ ФОРМЫ
  * ============================================================================
  */
-
 .form-tabs {
 	display: flex;
 	gap: 5px;
@@ -804,7 +756,6 @@
  * 10. ФОРМЫ
  * ============================================================================
  */
-
 form {
 	width: 100%;
 }
@@ -828,7 +779,7 @@ form {
 	font-size: clamp(12px, 1.5vw, 14px);
 }
 
-/* Единые стили для всех полей ввода */
+/* Все поля ввода */
 .form-group input,
 .form-group select,
 .form-group textarea,
@@ -837,7 +788,8 @@ form {
 .promocode-textarea,
 .slide-input,
 .slide-select,
-#productImageUrl {
+#productImageUrl,
+#slideImageUrl {
 	width: 100%;
 	padding: clamp(8px, 1.5vw, 12px) clamp(10px, 2vw, 15px);
 	border: 2px solid var(--pm-border);
@@ -849,7 +801,7 @@ form {
 	transition: all 0.2s ease;
 }
 
-/* Единый фокус для всех полей */
+/* Фокус для всех полей */
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus,
@@ -858,7 +810,8 @@ form {
 .promocode-textarea:focus,
 .slide-input:focus,
 .slide-select:focus,
-#productImageUrl:focus {
+#productImageUrl:focus,
+#slideImageUrl:focus {
 	outline: none;
 	border-color: var(--pm-primary);
 	box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.1);
@@ -875,7 +828,8 @@ form {
 	font-family: inherit;
 }
 
-#productImageUrl {
+#productImageUrl,
+#slideImageUrl {
 	font-family: monospace;
 }
 
@@ -886,18 +840,38 @@ form {
 	display: block;
 }
 
+.form-hint code {
+	background: var(--pm-bg-dark);
+	padding: 2px 6px;
+	border-radius: 4px;
+	font-size: 11px;
+	color: #ff6b6b;
+	border: 1px solid var(--pm-border);
+}
+
+.form-hint ul {
+	margin: 5px 0 0 15px;
+	padding: 0;
+}
+
+.form-hint ul li {
+	color: var(--pm-text-dim);
+	font-size: 12px;
+}
+
 /* ============================================================================
- * 11. ВКЛАДКИ ВЫБОРА ИСТОЧНИКА ИЗОБРАЖЕНИЯ
+ * 11. ВКЛАДКИ ВЫБОРА ИСТОЧНИКА ИЗОБРАЖЕНИЯ (для товаров и слайдов)
  * ============================================================================
  */
-
-.image-source-tabs {
+.image-source-tabs,
+#slideImageSourceTabs {
 	display: flex;
 	gap: 10px;
 	margin-bottom: 15px;
 }
 
-.source-tab {
+.source-tab,
+#slideImageSourceTabs .source-tab {
 	flex: 1;
 	padding: 10px 15px;
 	border: 2px solid var(--pm-border);
@@ -914,26 +888,31 @@ form {
 	transition: all 0.3s ease;
 }
 
-.source-tab:hover {
+.source-tab:hover,
+#slideImageSourceTabs .source-tab:hover {
 	border-color: var(--pm-primary);
 	color: var(--pm-primary);
 }
 
-.source-tab.active {
+.source-tab.active,
+#slideImageSourceTabs .source-tab.active {
 	background: rgba(255, 51, 102, 0.1);
 	border-color: var(--pm-primary);
 	color: var(--pm-primary);
 }
 
-.source-tab i {
+.source-tab i,
+#slideImageSourceTabs .source-tab i {
 	font-size: 16px;
 }
 
-.image-source-content {
+.image-source-content,
+#promoSlideForm .image-source-content {
 	display: none;
 }
 
-.image-source-content.active {
+.image-source-content.active,
+#promoSlideForm .image-source-content.active {
 	display: block;
 	animation: fadeIn 0.3s ease;
 }
@@ -953,13 +932,12 @@ form {
 }
 
 /* ============================================================================
- * 12. ЗАГРУЗКА ИЗОБРАЖЕНИЙ
+ * 12. ЗАГРУЗКА ИЗОБРАЖЕНИЙ (общие стили для товаров и слайдов)
  * ============================================================================
  */
-
-/* Область загрузки файла (drag & drop) */
 .image-folder-upload,
-.slide-image-upload {
+.slide-image-upload,
+#slideImageFolderUpload {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -976,12 +954,12 @@ form {
 }
 
 .image-folder-upload:hover,
-.slide-image-upload:hover {
+.slide-image-upload:hover,
+#slideImageFolderUpload:hover {
 	border-color: var(--pm-primary);
 	background: rgba(255, 51, 102, 0.05);
 }
 
-/* Плейсхолдер */
 .upload-placeholder {
 	display: flex;
 	flex-direction: column;
@@ -1001,7 +979,6 @@ form {
 	color: var(--pm-text-muted);
 }
 
-/* Индикатор загрузки */
 .loading-placeholder {
 	display: flex;
 	flex-direction: column;
@@ -1031,16 +1008,15 @@ form {
 	color: var(--pm-text-secondary);
 }
 
-/* Превью изображения */
-.preview-container,
-#imagePreviewContainer {
+/* Превью изображения (общие стили) */
+#imagePreviewContainer,
+#slidePreviewContainer {
 	margin-top: 15px;
 	display: flex;
 	justify-content: flex-start;
 }
 
-.image-preview-wrapper,
-.preview-container {
+.image-preview-wrapper {
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -1054,47 +1030,132 @@ form {
 	padding: 15px;
 }
 
-.image-preview-wrapper img,
-.preview-container img {
+.image-preview-wrapper img {
 	max-width: 100%;
 	max-height: clamp(70px, 15vw, 200px);
 	object-fit: contain;
 	border-radius: var(--pm-radius-md);
 }
 
-/* Кнопка очистки превью */
-.btn-clear-preview,
-.clear-preview-btn {
+/* Ошибка превью */
+.preview-error {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 150px;
+	color: var(--pm-text-muted);
+	text-align: center;
+	padding: 10px;
+}
+
+.preview-error i {
+	font-size: 32px;
+	margin-bottom: 10px;
+}
+
+.preview-error span {
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.preview-error small {
+	font-size: 12px;
+	color: var(--pm-text-dim);
+	margin-top: 5px;
+}
+
+/* Кнопка очистки превью товара */
+#clearPreviewBtn {
 	position: absolute;
 	top: 4px;
 	right: 4px;
-	width: clamp(22px, 3vw, 28px);
-	height: clamp(22px, 3vw, 28px);
-	border-radius: var(--pm-radius-full);
-	background: rgba(0, 0, 0, 0.7);
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.6);
 	border: 1px solid rgba(255, 255, 255, 0.3);
-	color: var(--pm-text-primary);
+	color: white;
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	font-size: 14px;
-	transition: all 0.3s ease;
+	transition: all 0.2s ease;
 	z-index: 10;
 }
 
-.btn-clear-preview:hover,
-.clear-preview-btn:hover {
-	background: var(--pm-danger);
-	border-color: var(--pm-danger);
-	transform: scale(1.1);
+#clearPreviewBtn:hover {
+	background: #ff4757;
+	border-color: #ff4757;
+}
+
+/* Кнопка очистки превью слайда */
+#slideClearPreviewBtn {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.6);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	color: white;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	transition: all 0.2s ease;
+	z-index: 10;
+}
+
+#slideClearPreviewBtn:hover {
+	background: #ff4757;
+	border-color: #ff4757;
+}
+
+/* Подсказка и кнопка скачивания */
+#uploadHint,
+#slideUploadHint {
+	font-size: 12px;
+	color: var(--pm-text-dim);
+	margin-top: 8px;
+	display: block;
+	line-height: 1.5;
+}
+
+#uploadHint code,
+#slideUploadHint code {
+	background: var(--pm-bg-dark);
+	padding: 2px 6px;
+	border-radius: 4px;
+	font-size: 11px;
+	color: #ff6b6b;
+	border: 1px solid var(--pm-border);
+}
+
+#downloadUploadedBtn,
+#slideDownloadBtn {
+	background: none;
+	border: none;
+	color: #ff6b6b;
+	cursor: pointer;
+	text-decoration: underline;
+	padding: 0;
+	font-size: 12px;
+	margin-left: 8px;
+}
+
+#downloadUploadedBtn:hover,
+#slideDownloadBtn:hover {
+	color: var(--pm-primary);
 }
 
 /* ============================================================================
  * 13. ЧЕКБОКСЫ ДЛЯ БЕЙДЖЕЙ
  * ============================================================================
  */
-
 .badges-group {
 	display: flex;
 	gap: 15px;
@@ -1129,7 +1190,6 @@ form {
  * 14. УВЕДОМЛЕНИЯ
  * ============================================================================
  */
-
 .notification-container {
 	position: fixed;
 	top: 20px;
@@ -1173,14 +1233,12 @@ form {
  * 15. УПРАВЛЕНИЕ ПРОМОКОДАМИ
  * ============================================================================
  */
-
 .promocodes-module {
 	margin-top: 50px;
 	padding-top: 30px;
 	border-top: 2px solid var(--pm-border);
 }
 
-/* Общие стили для заголовков модулей */
 .promocodes-module .module-header,
 .promo-slides-module .module-header {
 	display: flex;
@@ -1208,7 +1266,6 @@ form {
 	color: var(--pm-primary);
 }
 
-/* Фильтры промокодов */
 .promocodes-filters {
 	display: flex;
 	gap: 15px;
@@ -1254,7 +1311,6 @@ form {
 	cursor: pointer;
 }
 
-/* Таблица промокодов */
 .promocodes-table-container {
 	overflow-x: auto;
 	margin-bottom: 20px;
@@ -1298,7 +1354,6 @@ form {
 	padding: 40px;
 }
 
-/* Бейджи статусов и типов */
 .status-badge,
 .type-badge {
 	display: inline-block;
@@ -1333,7 +1388,6 @@ form {
 	color: var(--pm-info);
 }
 
-/* Кнопки действий */
 .action-buttons {
 	display: flex;
 	gap: 8px;
@@ -1364,7 +1418,6 @@ form {
 	color: var(--pm-danger);
 }
 
-/* Пагинация */
 .promocodes-pagination {
 	display: flex;
 	justify-content: center;
@@ -1406,7 +1459,6 @@ form {
  * 16. УПРАВЛЕНИЕ ПРОМО-СЛАЙДАМИ
  * ============================================================================
  */
-
 .promo-slides-module {
 	margin-top: 50px;
 	padding-top: 30px;
@@ -1440,7 +1492,6 @@ form {
 	color: var(--pm-text-muted);
 }
 
-/* Карточка слайда */
 .slide-item {
 	display: flex;
 	align-items: center;
@@ -1555,7 +1606,6 @@ form {
 	color: var(--pm-danger);
 }
 
-/* Статус бейджи для слайдов */
 .slide-status-badge {
 	display: inline-block;
 	padding: 4px 10px;
@@ -1578,7 +1628,6 @@ form {
  * 17. МОДАЛЬНЫЕ ОКНА ДЛЯ ПРОМОКОДОВ И СЛАЙДОВ
  * ============================================================================
  */
-
 .promocode-modal-content,
 .promoslide-modal-content {
 	max-width: 700px;
@@ -1618,16 +1667,19 @@ form {
 		font-size: 17px;
 	}
 
-	.source-tab {
+	.source-tab,
+	#slideImageSourceTabs .source-tab {
 		padding: 14px 20px;
 		font-size: 16px;
 	}
 
-	.source-tab i {
+	.source-tab i,
+	#slideImageSourceTabs .source-tab i {
 		font-size: 18px;
 	}
 
-	.image-source-tabs {
+	.image-source-tabs,
+	#slideImageSourceTabs {
 		gap: 15px;
 	}
 }
@@ -1639,7 +1691,8 @@ form {
 		gap: 25px;
 	}
 
-	.source-tab {
+	.source-tab,
+	#slideImageSourceTabs .source-tab {
 		padding: 12px 18px;
 		font-size: 15px;
 	}
@@ -1672,24 +1725,25 @@ form {
 		font-size: 20px;
 	}
 
-	.source-tab {
+	.source-tab,
+	#slideImageSourceTabs .source-tab {
 		padding: 10px 14px;
 		font-size: 13px;
 	}
 
-	.source-tab i {
+	.source-tab i,
+	#slideImageSourceTabs .source-tab i {
 		font-size: 15px;
 	}
 
-	.image-source-tabs {
+	.image-source-tabs,
+	#slideImageSourceTabs {
 		gap: 8px;
 	}
 }
 
 /* Планшеты (769px - 992px) */
 @media (min-width: 769px) and (max-width: 992px) {
-
-	/* Шапка */
 	.module-header {
 		flex-direction: column;
 		gap: 15px;
@@ -1701,7 +1755,6 @@ form {
 		justify-content: center;
 	}
 
-	/* Фильтры */
 	.filters-section {
 		flex-direction: column;
 		gap: 12px;
@@ -1721,7 +1774,6 @@ form {
 		width: 100%;
 	}
 
-	/* Сетка товаров */
 	.products-grid-inner {
 		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 		gap: 18px;
@@ -1747,7 +1799,6 @@ form {
 		font-size: 20px;
 	}
 
-	/* Вкладки формы */
 	.form-tabs {
 		flex-wrap: wrap;
 		padding: 0 15px;
@@ -1767,7 +1818,6 @@ form {
 		font-size: 16px;
 	}
 
-	/* Промокоды */
 	.promocodes-filters {
 		flex-direction: column;
 		gap: 10px;
@@ -1782,7 +1832,6 @@ form {
 		width: 100%;
 	}
 
-	/* Превью изображений */
 	.image-preview-wrapper {
 		width: 100%;
 		max-width: 300px;
@@ -1793,20 +1842,24 @@ form {
 		max-height: 110px;
 	}
 
-	.source-tab {
+	.source-tab,
+	#slideImageSourceTabs .source-tab {
 		padding: 10px 12px;
 		font-size: 13px;
 	}
 
-	.source-tab i {
+	.source-tab i,
+	#slideImageSourceTabs .source-tab i {
 		font-size: 15px;
 	}
 
-	.image-source-tabs {
+	.image-source-tabs,
+	#slideImageSourceTabs {
 		gap: 8px;
 	}
 
-	.image-folder-upload {
+	.image-folder-upload,
+	#slideImageFolderUpload {
 		min-height: 130px;
 		padding: 15px;
 	}
@@ -1822,8 +1875,6 @@ form {
 
 /* Большие мобильные (577px - 768px) */
 @media (min-width: 577px) and (max-width: 768px) {
-
-	/* Шапка */
 	.module-header {
 		flex-direction: column;
 		gap: 15px;
@@ -1835,13 +1886,11 @@ form {
 		justify-content: center;
 	}
 
-	/* Фильтры */
 	.filters-section {
 		flex-direction: column;
 		gap: 12px;
 	}
 
-	/* Сетка товаров */
 	.products-grid-inner {
 		grid-template-columns: 1fr;
 		gap: 15px;
@@ -1877,7 +1926,6 @@ form {
 		font-size: 18px;
 	}
 
-	/* Вкладки формы */
 	.form-tabs {
 		flex-wrap: wrap;
 		padding: 0 15px;
@@ -1897,7 +1945,6 @@ form {
 		font-size: 14px;
 	}
 
-	/* Модальные окна */
 	.modal-content.product-modal-content {
 		width: 95%;
 		margin: 10px;
@@ -1920,7 +1967,6 @@ form {
 		width: 100%;
 	}
 
-	/* Промокоды */
 	.promocodes-module .module-header,
 	.promo-slides-module .module-header {
 		flex-direction: column;
@@ -1942,7 +1988,6 @@ form {
 		min-width: 600px;
 	}
 
-	/* Слайды */
 	.slide-item {
 		flex-wrap: wrap;
 		padding: 12px;
@@ -1976,26 +2021,26 @@ form {
 		margin-top: 10px;
 	}
 
-	/* Вкладки источника */
-	.source-tab {
+	.source-tab,
+	#slideImageSourceTabs .source-tab {
 		padding: 10px 12px;
 		font-size: 12px;
 		gap: 6px;
 	}
 
-	.source-tab i {
+	.source-tab i,
+	#slideImageSourceTabs .source-tab i {
 		font-size: 14px;
 	}
 
-	.image-source-tabs {
+	.image-source-tabs,
+	#slideImageSourceTabs {
 		gap: 8px;
 	}
 }
 
 /* Мобильные L (481px - 576px) */
 @media (min-width: 481px) and (max-width: 576px) {
-
-	/* Шапка */
 	.module-header {
 		flex-direction: column;
 		gap: 15px;
@@ -2013,7 +2058,6 @@ form {
 		font-size: 15px;
 	}
 
-	/* Фильтры */
 	.filters-section {
 		flex-direction: column;
 		gap: 10px;
@@ -2035,7 +2079,6 @@ form {
 		height: 40px;
 	}
 
-	/* Сетка товаров */
 	.products-grid-inner {
 		grid-template-columns: 1fr;
 		gap: 15px;
@@ -2091,7 +2134,6 @@ form {
 		font-size: 18px;
 	}
 
-	/* Пустое состояние */
 	.empty-state i {
 		font-size: 50px;
 	}
@@ -2100,7 +2142,6 @@ form {
 		font-size: 16px;
 	}
 
-	/* Модальные окна */
 	.modal-content {
 		width: 95%;
 		margin: 10px;
@@ -2133,7 +2174,6 @@ form {
 		width: 100%;
 	}
 
-	/* Формы */
 	.form-group {
 		margin-bottom: 15px;
 	}
@@ -2172,7 +2212,6 @@ form {
 		width: 100%;
 	}
 
-	/* Промокоды */
 	.promocodes-module .module-header,
 	.promo-slides-module .module-header {
 		flex-direction: column;
@@ -2210,7 +2249,6 @@ form {
 		height: 28px;
 	}
 
-	/* Слайды */
 	.promo-slides-info {
 		font-size: 12px;
 		padding: 10px 15px;
@@ -2257,26 +2295,27 @@ form {
 		height: 28px;
 	}
 
-	/* Вкладки источника */
-	.image-source-tabs {
+	.image-source-tabs,
+	#slideImageSourceTabs {
 		flex-direction: column;
 		gap: 8px;
 	}
 
-	.source-tab {
+	.source-tab,
+	#slideImageSourceTabs .source-tab {
 		width: 100%;
 		padding: 10px 15px;
 		font-size: 13px;
 		justify-content: flex-start;
 	}
 
-	.source-tab i {
+	.source-tab i,
+	#slideImageSourceTabs .source-tab i {
 		font-size: 16px;
 		width: 20px;
 		text-align: center;
 	}
 
-	/* Превью */
 	.image-preview-wrapper {
 		width: 100%;
 		max-width: 100%;
@@ -2287,7 +2326,8 @@ form {
 		max-height: 90px;
 	}
 
-	.btn-clear-preview {
+	.btn-clear-preview,
+	#slideClearPreviewBtn {
 		width: 24px;
 		height: 24px;
 		top: 3px;
@@ -2295,7 +2335,8 @@ form {
 		font-size: 12px;
 	}
 
-	.image-folder-upload {
+	.image-folder-upload,
+	#slideImageFolderUpload {
 		min-height: 110px;
 		padding: 12px;
 		border-radius: var(--pm-radius-md);
@@ -2312,8 +2353,6 @@ form {
 
 /* Мобильные (до 480px) */
 @media (max-width: 480px) {
-
-	/* Шапка */
 	.module-header {
 		flex-direction: column;
 		gap: 12px;
@@ -2331,7 +2370,6 @@ form {
 		font-size: 14px;
 	}
 
-	/* Фильтры */
 	.filters-section {
 		padding: 12px;
 	}
@@ -2340,7 +2378,6 @@ form {
 		font-size: 13px;
 	}
 
-	/* Сетка товаров */
 	.products-grid-inner {
 		grid-template-columns: 1fr;
 		gap: 12px;
@@ -2377,7 +2414,6 @@ form {
 		height: 28px;
 	}
 
-	/* Модальные окна */
 	.modal-content {
 		width: 95%;
 		margin: 10px;
@@ -2416,7 +2452,6 @@ form {
 		font-size: 12px;
 	}
 
-	/* Уведомления */
 	.notification-container {
 		top: 10px;
 		right: 10px;
@@ -2429,7 +2464,6 @@ form {
 		font-size: 13px;
 	}
 
-	/* Промокоды */
 	.promocodes-module .module-header h2,
 	.promo-slides-module .module-header h2 {
 		font-size: 18px;
@@ -2447,13 +2481,14 @@ form {
 		font-size: 10px;
 	}
 
-	/* Вкладки источника */
-	.image-source-tabs {
+	.image-source-tabs,
+	#slideImageSourceTabs {
 		flex-direction: column;
 		gap: 6px;
 	}
 
-	.source-tab {
+	.source-tab,
+	#slideImageSourceTabs .source-tab {
 		width: 100%;
 		padding: 9px 14px;
 		font-size: 12px;
@@ -2462,13 +2497,15 @@ form {
 		border-radius: var(--pm-radius-sm);
 	}
 
-	.source-tab i {
+	.source-tab i,
+	#slideImageSourceTabs .source-tab i {
 		font-size: 15px;
 		width: 20px;
 		text-align: center;
 	}
 
-	.image-folder-upload {
+	.image-folder-upload,
+	#slideImageFolderUpload {
 		min-height: 110px;
 		padding: 12px;
 		border-radius: var(--pm-radius-md);
@@ -2536,12 +2573,14 @@ form {
 		font-size: 10px;
 	}
 
-	.image-source-tabs {
+	.image-source-tabs,
+	#slideImageSourceTabs {
 		flex-direction: column;
 		gap: 5px;
 	}
 
-	.source-tab {
+	.source-tab,
+	#slideImageSourceTabs .source-tab {
 		width: 100%;
 		padding: 8px 12px;
 		font-size: 11px;
@@ -2550,7 +2589,8 @@ form {
 		border-radius: var(--pm-radius-sm);
 	}
 
-	.source-tab i {
+	.source-tab i,
+	#slideImageSourceTabs .source-tab i {
 		font-size: 14px;
 		width: 18px;
 		text-align: center;
@@ -2568,13 +2608,15 @@ form {
 		max-height: 70px;
 	}
 
-	.btn-clear-preview {
+	.btn-clear-preview,
+	#slideClearPreviewBtn {
 		width: 22px;
 		height: 22px;
 		font-size: 11px;
 	}
 
-	.image-folder-upload {
+	.image-folder-upload,
+	#slideImageFolderUpload {
 		min-height: 100px;
 		padding: 10px;
 	}
@@ -2592,37 +2634,42 @@ form {
  * 19. СПЕЦИАЛЬНЫЕ АДАПТИВНЫЕ ПРАВИЛА
  * ============================================================================
  */
-
-/* Тач-устройства */
 @media (hover: none) and (pointer: coarse) {
-	.source-tab:hover {
+
+	.source-tab:hover,
+	#slideImageSourceTabs .source-tab:hover {
 		border-color: var(--pm-border);
 		color: var(--pm-text-muted);
 	}
 
-	.source-tab.active:hover {
+	.source-tab.active:hover,
+	#slideImageSourceTabs .source-tab.active:hover {
 		border-color: var(--pm-primary);
 		color: var(--pm-primary);
 	}
 
-	.source-tab {
+	.source-tab,
+	#slideImageSourceTabs .source-tab {
 		min-height: 44px;
 	}
 }
 
-/* Уважение к настройкам пользователя */
 @media (prefers-reduced-motion: reduce) {
 
 	.image-source-content.active,
+	#promoSlideForm .image-source-content.active,
 	.form-tab-content.active {
 		animation: none;
 	}
 
 	.source-tab,
+	#slideImageSourceTabs .source-tab,
 	.btn-clear-preview,
 	.clear-preview-btn,
+	#slideClearPreviewBtn,
 	.image-folder-upload,
 	.slide-image-upload,
+	#slideImageFolderUpload,
 	.product-card,
 	.modal.show {
 		transition: none;

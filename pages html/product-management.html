@@ -688,60 +688,98 @@
 						</div>
 						<div class="modal-body">
 							<form id="promoSlideForm">
+								<!-- Заголовок -->
 								<div class="form-group">
 									<label for="slideTitle">Заголовок *</label>
 									<input type="text" id="slideTitle" class="slide-input"
 										placeholder="Например: Канцелярия" required>
 								</div>
 
+								<!-- Описание -->
 								<div class="form-group">
 									<label for="slideDescription">Описание *</label>
 									<input type="text" id="slideDescription" class="slide-input"
 										placeholder="Например: Широкий ассортимент канцелярии" required>
 								</div>
 
+								<!-- Цена/акция -->
 								<div class="form-group">
 									<label for="slidePrice">Цена/акция (необязательно)</label>
 									<input type="text" id="slidePrice" class="slide-input"
 										placeholder="Например: начиная от 15 ₽! или Скидка 20%">
 								</div>
 
+								<!-- Ссылка -->
 								<div class="form-group">
 									<label for="slideLink">Ссылка (необязательно)</label>
 									<input type="text" id="slideLink" class="slide-input"
 										placeholder="/pages html/catalog pages/office.html">
 								</div>
 
-								<!-- Область загрузки изображения -->
+								<!-- ===== ВЫБОР ИСТОЧНИКА ИЗОБРАЖЕНИЯ ===== -->
 								<div class="form-group">
-									<label> Изображение *</label>
-									<div class="image-folder-upload" id="slideImageUpload">
-										<!-- Плейсхолдер для загрузки -->
-										<div class="upload-placeholder">
-											<span class="upload-text">Нажмите для выбора файла</span>
-											<span class="upload-hint">Поддерживаются JPG, PNG, WebP</span>
-											<span class="upload-hint">Файлы должны находится в папке проекта
-												/image</span>
-										</div>
-
-										<!-- Индикатор загрузки (ДОБАВИТЬ) -->
-										<div class="loading-placeholder" style="display: none;">
-											<div class="loading-spinner"></div>
-											<span class="loading-text">Загрузка изображения...</span>
-										</div>
-
-										<!-- Контейнер для превью -->
-										<div class="preview-container" id="slidePreviewContainer"
-											style="display: none;">
-											<img id="slidePreviewImage" src="" alt="Превью" style="display: none;">
-											<button type="button" class="clear-preview-btn" id="clearPreviewBtn"
-												style="display: none;">✕</button>
-										</div>
+									<label>Источник изображения</label>
+									<div class="image-source-tabs" id="slideImageSourceTabs">
+										<button type="button" class="source-tab active" data-source="url">
+											URL / Путь
+										</button>
+										<button type="button" class="source-tab" data-source="upload">
+											Загрузить с ПК
+										</button>
 									</div>
-									<input type="file" id="slideImageFile" accept="image/*" style="display: none;">
-									<input type="hidden" id="slideImageUrl">
 								</div>
 
+								<!-- Вариант 1: URL или путь -->
+								<div class="image-source-content active" data-source="url">
+									<div class="form-group">
+										<label for="slideImageUrl">URL изображения или путь к файлу *</label>
+										<input type="text" id="slideImageUrl" class="slide-input"
+											placeholder="https://example.com/slide.jpg или /image/slide.jpg">
+										<small class="form-hint">
+											Можно указать:
+											<ul style="margin: 5px 0 0 15px; padding: 0;">
+												<li>Путь к файлу: <code>/image/slide.jpg</code></li>
+												<li>Прямую ссылку: <code>https://i.imgur.com/abc.jpg</code></li>
+											</ul>
+										</small>
+									</div>
+								</div>
+
+								<!-- Вариант 2: Загрузка с ПК -->
+								<div class="image-source-content" data-source="upload">
+									<div class="form-group">
+										<label>Загрузите изображение с компьютера</label>
+										<div class="image-folder-upload" id="slideImageFolderUpload">
+											<div class="upload-placeholder">
+												<i class="fas fa-cloud-upload-alt"
+													style="font-size: 32px; color: #ff3366;"></i>
+												<span class="upload-text">Нажмите для выбора файла</span>
+												<span class="upload-hint">Поддерживаются JPG, PNG, WebP, GIF</span>
+											</div>
+										</div>
+										<input type="file" id="slideImageFileInput" accept="image/*"
+											style="display: none;">
+										<small class="form-hint" id="slideUploadHint" style="display: none;">
+											⚠️ Файл нужно сохранить в папку <code>/image/</code> проекта.
+											<button type="button" class="btn-link" id="slideDownloadBtn"
+												style="display: none;">
+												📥 Скачать файл
+											</button>
+										</small>
+									</div>
+								</div>
+
+								<!-- Превью изображения -->
+								<div class="form-group" id="slidePreviewContainer" style="display: none;">
+									<label>Превью</label>
+									<div class="image-preview-wrapper">
+										<img id="slidePreviewImage" src="" alt="Превью слайда">
+										<button type="button" class="btn-clear-preview" id="slideClearPreviewBtn"
+											title="Очистить">✕</button>
+									</div>
+								</div>
+
+								<!-- Порядок и статус -->
 								<div class="form-row">
 									<div class="form-group">
 										<label for="slideOrder">Порядок сортировки</label>

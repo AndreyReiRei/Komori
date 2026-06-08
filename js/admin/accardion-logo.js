@@ -2,7 +2,6 @@
  * Скрипт для аккордеон-скролла с навигационными индикаторами
  * Использует store.js для хранения слайдов
  */
-
 class PromoSlidesManager {
 	constructor() {
 		this.currentEditId = null;
@@ -58,34 +57,34 @@ class PromoSlidesManager {
 		const statusClass = slide.status;
 
 		return `
-			<div class="slide-item" data-id="${slide.id}" data-order="${slide.order}">
-				<div class="drag-handle">
-					<i class="fas fa-grip-vertical"></i>
-				</div>
-				<div class="slide-preview">
-					${slide.image ?
+            <div class="slide-item" data-id="${slide.id}" data-order="${slide.order}">
+                <div class="drag-handle">
+                    <i class="fas fa-grip-vertical"></i>
+                </div>
+                <div class="slide-preview">
+                    ${slide.image ?
 				`<img src="${slide.image}" alt="${slide.title}" onerror="this.src='/image/no-image.jpg'">` :
 				'<div class="slide-preview-placeholder"><i class="fas fa-image"></i></div>'
 			}
-				</div>
-				<div class="slide-info">
-					<div class="slide-title">${this.escapeHtml( slide.title )}</div>
-					<div class="slide-description">${this.escapeHtml( slide.description )}</div>
-					${slide.price ? `<div class="slide-price">${this.escapeHtml( slide.price )}</div>` : ''}
-				</div>
-				<div class="slide-order">
-					<span class="slide-status-badge ${statusClass}">${statusText}</span>
-				</div>
-				<div class="slide-actions">
-					<button class="slide-action-btn edit-slide" data-id="${slide.id}" title="Редактировать">
-						<i class="fas fa-edit"></i>
-					</button>
-					<button class="slide-action-btn delete-slide" data-id="${slide.id}" title="Удалить">
-						<i class="fas fa-trash"></i>
-					</button>
-				</div>
-			</div>
-		`;
+                </div>
+                <div class="slide-info">
+                    <div class="slide-title">${this.escapeHtml( slide.title )}</div>
+                    <div class="slide-description">${this.escapeHtml( slide.description )}</div>
+                    ${slide.price ? `<div class="slide-price">${this.escapeHtml( slide.price )}</div>` : ''}
+                </div>
+                <div class="slide-order">
+                    <span class="slide-status-badge ${statusClass}">${statusText}</span>
+                </div>
+                <div class="slide-actions">
+                    <button class="slide-action-btn edit-slide" data-id="${slide.id}" title="Редактировать">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="slide-action-btn delete-slide" data-id="${slide.id}" title="Удалить">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
 	}
 
 	initDragAndDrop() {
@@ -149,6 +148,11 @@ class PromoSlidesManager {
 		} );
 	}
 
+	/**
+	 * Открывает модальное окно для добавления или редактирования слайда
+	 * Синхронизирует currentSlideId с ProductManager
+	 * @param {string|null} slideId - ID слайда или null для нового
+	 */
 	openModal( slideId = null ) {
 		const modal = document.getElementById( 'promoSlideModal' );
 		if ( !modal ) return;
@@ -157,6 +161,12 @@ class PromoSlidesManager {
 		if ( form ) form.reset();
 		this.clearImagePreview();
 		this.currentEditId = slideId;
+
+		// ===== СИНХРОНИЗАЦИЯ С ProductManager =====
+		if ( window.productManager ) {
+			window.productManager.currentSlideId = slideId;
+			console.log( '🔗 Синхронизация: ProductManager.currentSlideId =', slideId );
+		}
 
 		if ( slideId ) {
 			const slides = store.getPromoSlides();
@@ -307,7 +317,16 @@ class PromoSlidesManager {
 		API.showNotification( `Изображение выбрано: ${fileName}`, 'success' );
 	}
 
+	/**
+ * Сохраняет слайд (создаёт новый или обновляет существующий)
+ */
 	saveSlide() {
+		// Проверка что store доступен
+		if ( !store || !store.addPromoSlide || !store.updatePromoSlide ) {
+			console.error( '❌ store не доступен! Слайд не сохранён.' );
+			return;
+		}
+
 		console.log( '💾 Сохранение слайда...' );
 
 		const title = document.getElementById( 'slideTitle' )?.value.trim();
@@ -318,6 +337,7 @@ class PromoSlidesManager {
 		const status = document.getElementById( 'slideStatus' )?.value;
 		const image = document.getElementById( 'slideImageUrl' )?.value;
 
+		// Валидация
 		if ( !title || !description ) {
 			API.showNotification( 'Заполните заголовок и описание слайда', 'error' );
 			return;
@@ -328,30 +348,34 @@ class PromoSlidesManager {
 			return;
 		}
 
-		// Если изображение в base64, это ошибка пользователя
 		if ( image.startsWith( 'data:image' ) ) {
 			API.showNotification( '❌ Ошибка: обнаружены данные base64. Пожалуйста, выберите файл заново.', 'error' );
 			return;
 		}
 
+		// Сохраняем
 		if ( this.currentEditId ) {
 			store.updatePromoSlide( this.currentEditId, {
 				title, description, price: price || '', link: link || '',
 				order, status, image
 			} );
-			API.showNotification( 'Слайд обновлен', 'success' );
+			API.showNotification( '✅ Слайд обновлён!', 'success' );
 		} else {
 			store.addPromoSlide( {
 				title, description, price: price || '', link: link || '',
 				order, status, image
 			} );
-			API.showNotification( 'Слайд добавлен', 'success' );
+			API.showNotification( '✅ Слайд добавлен!', 'success' );
 		}
 
 		this.closeModal();
 		this.renderSlidesList();
 	}
 
+	/**
+	 * Открывает модальное окно подтверждения удаления слайда
+	 * @param {string} id - ID слайда
+	 */
 	deleteSlide( id ) {
 		const slides = store.getPromoSlides();
 		const slide = slides.find( s => s.id == id );
@@ -367,15 +391,22 @@ class PromoSlidesManager {
 		}
 	}
 
+	/**
+	 * Подтверждает удаление слайда
+	 */
 	confirmDelete() {
 		if ( this.currentEditId ) {
 			store.deletePromoSlide( this.currentEditId );
-			API.showNotification( 'Слайд удален', 'success' );
+			API.showNotification( '✅ Слайд удалён!', 'success' );
 			this.closeDeleteModal();
 			this.renderSlidesList();
 		}
 	}
 
+	/**
+	 * Закрывает модальное окно слайда
+	 * Сбрасывает currentSlideId в ProductManager
+	 */
 	closeModal() {
 		const modal = document.getElementById( 'promoSlideModal' );
 		if ( modal ) {
@@ -383,10 +414,18 @@ class PromoSlidesManager {
 			modal.classList.remove( 'show' );
 		}
 		this.currentEditId = null;
-		// Сбрасываем форму и превью
+
+		// ===== СИНХРОНИЗАЦИЯ: сбрасываем ID в ProductManager =====
+		if ( window.productManager ) {
+			window.productManager.currentSlideId = null;
+		}
+
 		this.clearImagePreview();
 	}
 
+	/**
+	 * Закрывает модальное окно подтверждения удаления
+	 */
 	closeDeleteModal() {
 		const modal = document.getElementById( 'deletePromoSlideModal' );
 		if ( modal ) {
@@ -505,15 +544,15 @@ class PromoSlidesManager {
 			container.innerHTML = '';
 			slides.forEach( ( slide, index ) => {
 				const slideHtml = `
-					<div class="accordion-item" style="background-image: url('${slide.image}');" data-slide-index="${index}">
-						<div class="item-content">
-							<h2>${this.escapeHtml( slide.title )}</h2>
-							<p>${this.escapeHtml( slide.description )}</p>
-							${slide.price ? `<span class="price">${this.escapeHtml( slide.price )}</span>` : ''}
-							${slide.link ? `<a href="${slide.link}" class="slide-link"></a>` : ''}
-						</div>
-					</div>
-				`;
+                    <div class="accordion-item" style="background-image: url('${slide.image}');" data-slide-index="${index}">
+                        <div class="item-content">
+                            <h2>${this.escapeHtml( slide.title )}</h2>
+                            <p>${this.escapeHtml( slide.description )}</p>
+                            ${slide.price ? `<span class="price">${this.escapeHtml( slide.price )}</span>` : ''}
+                            ${slide.link ? `<a href="${slide.link}" class="slide-link"></a>` : ''}
+                        </div>
+                    </div>
+                `;
 				container.insertAdjacentHTML( 'beforeend', slideHtml );
 			} );
 			this.updateNavigationDots( slides.length );

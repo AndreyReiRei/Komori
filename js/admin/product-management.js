@@ -1,16 +1,17 @@
 /**
  * ============================================================================
- * PRODUCT-MANAGEMENT.JS — УПРАВЛЕНИЕ ТОВАРАМИ (АДМИНКА)
+ * PRODUCT-MANAGEMENT.JS — УПРАВЛЕНИЕ ТОВАРАМИ И СЛАЙДАМИ (АДМИНКА)
  * ============================================================================
  * 
  * НАЗНАЧЕНИЕ:
  * - Отображение списка товаров с фильтрацией и сортировкой
  * - Добавление / редактирование / удаление товаров
+ * - Добавление / редактирование / удаление промо-слайдов
  * - Управление изображениями (URL, путь к файлу, загрузка с ПК)
  * - Группировка товаров по категориям
  * - Интеграция с глобальным store (localStorage)
  * 
- * ИСТОЧНИКИ ИЗОБРАЖЕНИЙ:
+ * ИСТОЧНИКИ ИЗОБРАЖЕНИЙ (для товаров и слайдов):
  * - Локальный путь: /image/товар.jpg
  * - Внешний URL: https://example.com/image.jpg
  * - Загрузка с ПК: выбор файла → скачивание → ручное копирование в /image/
@@ -38,11 +39,26 @@ class ProductManager {
 		this.currentProductId = null;
 
 		/**
-		 * Текущий выбранный файл (для возможности скачивания)
+		 * ID текущего редактируемого слайда
+		 * null = создание нового слайда
+		 * string = редактирование существующего
+		 * @type {string|null}
+		 */
+		this.currentSlideId = null;
+
+		/**
+		 * Текущий выбранный файл для товара (для возможности скачивания)
 		 * Сохраняется чтобы пользователь мог скачать файл после выбора
 		 * @type {File|null}
 		 */
 		this.selectedFile = null;
+
+		/**
+		 * Текущий выбранный файл для слайда (для возможности скачивания)
+		 * Сохраняется чтобы пользователь мог скачать файл после выбора
+		 * @type {File|null}
+		 */
+		this.selectedSlideFile = null;
 
 		/**
 		 * Объект для хранения текущих настроек сортировки
@@ -66,13 +82,15 @@ class ProductManager {
 	// ========================================================================
 
 	/**
-	 * Главный метод инициализации менеджера товаров
+	 * Главный метод инициализации менеджера товаров и слайдов
 	 * Выполняет:
 	 * 1. Рендеринг списка товаров
-	 * 2. Привязку обработчиков событий (кнопки, фильтры, формы)
-	 * 3. Инициализацию вкладок формы (Основное / Цена / Изображение)
-	 * 4. Инициализацию системы выбора изображений
-	 * 5. Подписку на глобальные события обновления товаров
+	 * 2. Рендеринг списка слайдов
+	 * 3. Привязку обработчиков событий (кнопки, фильтры, формы)
+	 * 4. Инициализацию вкладок формы товара (Основное / Цена / Изображение)
+	 * 5. Инициализацию системы выбора изображений для товаров
+	 * 6. Инициализацию системы выбора изображений для слайдов
+	 * 7. Подписку на глобальные события обновления товаров
 	 */
 	init() {
 		console.log( '📦 ProductManager: начало инициализации...' );
@@ -80,16 +98,22 @@ class ProductManager {
 		// Шаг 1: Отображаем список товаров
 		this.renderProducts();
 
-		// Шаг 2: Привязываем обработчики событий
+		// Шаг 2: Отображаем список слайдов
+		this.renderSlidesList();
+
+		// Шаг 3: Привязываем обработчики событий
 		this.bindEvents();
 
-		// Шаг 3: Инициализируем вкладки формы
+		// Шаг 4: Инициализируем вкладки формы товара
 		this.initFormTabs();
 
-		// Шаг 4: Инициализируем выбор изображений
+		// Шаг 5: Инициализируем выбор изображений для товаров
 		this.initImageUpload();
 
-		// Шаг 5: Подписываемся на глобальное событие обновления товаров
+		// Шаг 6: Инициализируем выбор изображений для слайдов
+		this.initSlideImageUpload();
+
+		// Шаг 7: Подписываемся на глобальное событие обновления товаров
 		window.addEventListener( 'store:productsUpdated', () => {
 			console.log( '🔄 ProductManager: товары обновлены, перерисовываем список...' );
 			this.renderProducts();
@@ -103,17 +127,15 @@ class ProductManager {
 	// ========================================================================
 
 	/**
-	 * Сбрасывает все товары до демо-набора
+	 * Сбрасывает все товары и слайды до демо-набора
 	 * Запрашивает подтверждение перед удалением
 	 * Показывает индикатор загрузки во время процесса
 	 */
 	resetDemoData() {
-		// Запрашиваем подтверждение у пользователя
-		if ( !confirm( '⚠️ ВНИМАНИЕ! Это действие удалит ВСЕ текущие товары и восстановит стандартные демо-товары. Вы уверены?' ) ) {
+		if ( !confirm( '⚠️ ВНИМАНИЕ! Это действие удалит ВСЕ текущие товары и слайды и восстановит стандартные демо-данные. Вы уверены?' ) ) {
 			return;
 		}
 
-		// Показываем индикатор загрузки на кнопке
 		this.showResetLoader();
 
 		// Удаляем все версии и данные из localStorage
@@ -133,6 +155,7 @@ class ProductManager {
 		// Даём время на применение изменений
 		setTimeout( () => {
 			this.renderProducts();
+			this.renderSlidesList();
 			API.showNotification( '✅ Демо-данные восстановлены! Обновите страницу.', 'success' );
 			this.hideResetLoader();
 
@@ -145,7 +168,6 @@ class ProductManager {
 
 	/**
 	 * Показывает индикатор загрузки на кнопке сброса
-	 * Меняет текст и иконку, блокирует кнопку
 	 */
 	showResetLoader() {
 		const resetBtn = document.getElementById( 'resetDemoDataBtn' );
@@ -157,7 +179,6 @@ class ProductManager {
 
 	/**
 	 * Скрывает индикатор загрузки на кнопке сброса
-	 * Возвращает исходный текст и иконку
 	 */
 	hideResetLoader() {
 		const resetBtn = document.getElementById( 'resetDemoDataBtn' );
@@ -173,14 +194,6 @@ class ProductManager {
 
 	/**
 	 * Главный метод рендеринга списка товаров
-	 * 
-	 * Алгоритм:
-	 * 1. Получает текущие значения фильтров (поиск, категория, статус)
-	 * 2. Получает товары из store с применением фильтров
-	 * 3. Сортирует товары согласно текущим настройкам
-	 * 4. Группирует по категориям
-	 * 5. Рендерит HTML и вставляет в DOM
-	 * 6. Привязывает обработчики к кнопкам в карточках
 	 */
 	renderProducts() {
 		const grid = document.getElementById( 'productsGrid' );
@@ -189,28 +202,17 @@ class ProductManager {
 			return;
 		}
 
-		// Получаем текущие значения фильтров
 		const filters = this.getFilters();
-
-		// Получаем товары из хранилища с применением фильтров
 		let products = store.getProducts( filters );
-
-		// Применяем сортировку
 		products = this.sortProducts( products );
 
-		// Если товаров нет — показываем пустое состояние
 		if ( products.length === 0 ) {
 			grid.innerHTML = this.getEmptyStateHTML();
 			return;
 		}
 
-		// Группируем товары по категориям
 		const groupedProducts = this.groupProductsByCategory( products );
-
-		// Рендерим сгруппированные товары
 		grid.innerHTML = this.renderGroupedProducts( groupedProducts );
-
-		// Привязываем обработчики к кнопкам в карточках
 		this.attachProductEvents();
 
 		console.log( `📦 ProductManager: отрендерено ${products.length} товаров в ${Object.keys( groupedProducts ).length} категориях` );
@@ -236,54 +238,45 @@ class ProductManager {
 	 * @returns {Array} Отсортированный массив
 	 */
 	sortProducts( products ) {
-		// Если сортировка по умолчанию — возвращаем как есть
 		if ( this.currentSort.by === 'default' ) {
 			return products;
 		}
 
-		// Создаём копию массива чтобы не мутировать оригинал
 		return [...products].sort( ( a, b ) => {
 			let comparison = 0;
 
 			switch ( this.currentSort.by ) {
 				case 'name':
-					// Сортировка по названию (с учётом русской локали)
 					comparison = a.name.localeCompare( b.name, 'ru' );
 					break;
 				case 'price':
-					// Сортировка по цене
 					comparison = a.price - b.price;
 					break;
 				case 'quantity':
-					// Сортировка по количеству
 					comparison = a.quantity - b.quantity;
 					break;
 				default:
 					return 0;
 			}
 
-			// Учитываем направление сортировки
 			return this.currentSort.order === 'asc' ? comparison : -comparison;
 		} );
 	}
 
 	/**
 	 * Группирует товары по категориям
-	 * Категории выводятся в заданном порядке, остальные — в конец
 	 * @param {Array} products - Массив товаров
 	 * @returns {Object} Объект {категория: [товары]}
 	 */
 	groupProductsByCategory( products ) {
 		const grouped = {};
 
-		// Задаём порядок категорий (основные категории первыми)
 		const categoryOrder = [
 			'figures', 'tea', 'sweets', 'manga', 'clothing',
 			'tableware', 'games', 'stationery', 'cosmetics',
 			'decor', 'anime', 'music', 'other'
 		];
 
-		// Группируем товары по категориям
 		products.forEach( product => {
 			const category = product.category || 'other';
 			if ( !grouped[category] ) {
@@ -292,7 +285,6 @@ class ProductManager {
 			grouped[category].push( product );
 		} );
 
-		// Сортируем группы согласно заданному порядку
 		const sortedGrouped = {};
 		categoryOrder.forEach( cat => {
 			if ( grouped[cat] && grouped[cat].length > 0 ) {
@@ -300,7 +292,6 @@ class ProductManager {
 			}
 		} );
 
-		// Добавляем оставшиеся категории (которых нет в categoryOrder)
 		Object.keys( grouped ).forEach( cat => {
 			if ( !sortedGrouped[cat] ) {
 				sortedGrouped[cat] = grouped[cat];
@@ -312,7 +303,6 @@ class ProductManager {
 
 	/**
 	 * Рендерит HTML для сгруппированных товаров
-	 * Первая группа развёрнута, остальные свёрнуты
 	 * @param {Object} groupedProducts - Сгруппированные товары
 	 * @returns {string} HTML-строка
 	 */
@@ -326,9 +316,6 @@ class ProductManager {
 			const categoryName = store.getCategoryName( categoryKey );
 			const categoryIcon = this.getCategoryIcon( categoryKey );
 			const productCount = products.length;
-
-			// Первая группа развёрнута (без класса collapsed)
-			// Остальные — свёрнуты (с классом collapsed)
 			const collapsedClass = isFirst ? '' : 'collapsed';
 			const chevronIcon = isFirst ? 'fa-chevron-up' : 'fa-chevron-down';
 
@@ -404,43 +391,33 @@ class ProductManager {
 	 * @returns {string} HTML-строка карточки
 	 */
 	renderProductCard( product ) {
-		// Проверяем количество в корзине
 		const cartItem = store.cart.find( item => item.id === product.id );
 		const inCartQuantity = cartItem ? cartItem.quantity : 0;
 		const availableQuantity = product.quantity - inCartQuantity;
 
 		return `
             <div class="product-card" data-id="${product.id}">
-                <!-- Бейджи (Новинка, Хит, Скидка) -->
                 <div class="product-badges">
                     ${product.isNew ? '<span class="badge new">Новинка</span>' : ''}
                     ${product.isHit ? '<span class="badge hit">Хит</span>' : ''}
                     ${product.oldPrice ? '<span class="badge sale">Скидка</span>' : ''}
                 </div>
-
-                <!-- Изображение товара -->
                 <div class="product-image">
                     <img src="${API.getSafeImageUrl( product.image )}" 
-                        alt="${this.escapeHtml( product.name )}"
-                        loading="lazy"
-                        onerror="this.onerror=null; this.src='${API.getFallbackSvg( product.name )}'">
+                         alt="${this.escapeHtml( product.name )}"
+                         loading="lazy"
+                         onerror="this.onerror=null; this.src='${API.getFallbackSvg( product.name )}'">
                 </div>
-
-                <!-- Информация о товаре -->
                 <div class="product-info">
                     <div class="product-category">${store.getCategoryName( product.category )}</div>
                     <div class="product-name">${this.escapeHtml( product.name )}</div>
                     <div class="product-sku">Артикул: ${product.sku || 'Нет'}</div>
                     ${product.col ? `<div class="product-col">Коллекция: ${this.escapeHtml( product.col )}</div>` : ''}
                     <div class="product-description">${this.escapeHtml( product.description || 'Нет описания' )}</div>
-
-                    <!-- Цена -->
                     <div class="product-price">
                         <span class="current-price">${API.formatPrice( product.price )}</span>
                         ${product.oldPrice ? `<span class="old-price">${API.formatPrice( product.oldPrice )}</span>` : ''}
                     </div>
-
-                    <!-- Наличие -->
                     <div class="product-stock">
                         <i class="fas ${product.status === 'in-stock' ? 'fa-check-circle in-stock' : 'fa-times-circle out-of-stock'}"></i>
                         <span class="${product.status === 'in-stock' ? 'in-stock' : 'out-of-stock'}">
@@ -449,8 +426,6 @@ class ProductManager {
                         ${product.quantity > 0 ? `<span class="product-quantity">${availableQuantity} шт.</span>` : ''}
                     </div>
                 </div>
-
-                <!-- Кнопки действий -->
                 <div class="product-actions">
                     <button class="edit-btn" data-id="${product.id}">
                         <i class="fas fa-edit"></i> Редактировать
@@ -465,44 +440,32 @@ class ProductManager {
 
 	/**
 	 * Привязывает обработчики событий к кнопкам в карточках товаров
-	 * Использует делегирование через document для лучшей производительности
 	 */
 	attachProductEvents() {
-		// Кнопки "Редактировать"
 		document.querySelectorAll( '.edit-btn' ).forEach( btn => {
-			btn.removeEventListener( 'click', this._handleEditClick );
-			this._handleEditClick = ( e ) => {
+			btn.onclick = ( e ) => {
 				e.preventDefault();
 				e.stopPropagation();
-				const id = e.currentTarget.dataset.id;
-				this.openModal( id );
+				this.openModal( e.currentTarget.dataset.id );
 			};
-			btn.addEventListener( 'click', this._handleEditClick );
 		} );
 
-		// Кнопки "Удалить"
 		document.querySelectorAll( '.delete-btn' ).forEach( btn => {
-			btn.removeEventListener( 'click', this._handleDeleteClick );
-			this._handleDeleteClick = ( e ) => {
+			btn.onclick = ( e ) => {
 				e.preventDefault();
 				e.stopPropagation();
-				const id = e.currentTarget.dataset.id;
-				this.openDeleteModal( id );
+				this.openDeleteModal( e.currentTarget.dataset.id );
 			};
-			btn.addEventListener( 'click', this._handleDeleteClick );
 		} );
 
-		// Кнопки сворачивания/разворачивания групп категорий
 		document.querySelectorAll( '.category-group-toggle' ).forEach( btn => {
-			btn.removeEventListener( 'click', this._handleGroupToggle );
-			this._handleGroupToggle = ( e ) => {
+			btn.onclick = ( e ) => {
 				e.preventDefault();
 				e.stopPropagation();
-				const toggleBtn = e.currentTarget;
-				const group = toggleBtn.closest( '.category-group' );
+				const group = e.currentTarget.closest( '.category-group' );
 				if ( group ) {
 					group.classList.toggle( 'collapsed' );
-					const icon = toggleBtn.querySelector( 'i' );
+					const icon = e.currentTarget.querySelector( 'i' );
 					if ( icon ) {
 						icon.className = group.classList.contains( 'collapsed' )
 							? 'fas fa-chevron-down'
@@ -510,7 +473,6 @@ class ProductManager {
 					}
 				}
 			};
-			btn.addEventListener( 'click', this._handleGroupToggle );
 		} );
 	}
 
@@ -520,88 +482,69 @@ class ProductManager {
 
 	/**
 	 * Привязывает обработчики событий ко всем элементам управления
-	 * Кнопки, поля ввода, селекты фильтров и сортировки
 	 */
 	bindEvents() {
 		console.log( '🔗 ProductManager: привязка событий...' );
 
-		// ===== Кнопка добавления товара =====
+		// Кнопка добавления товара
 		const addBtn = document.getElementById( 'addProductBtn' );
 		if ( addBtn ) {
 			addBtn.addEventListener( 'click', ( e ) => {
 				e.preventDefault();
-				this.openModal(); // Открываем модальное окно без ID (новый товар)
+				this.openModal();
 			} );
 		}
 
-		// ===== Поле поиска (фильтрация при каждом вводе символа) =====
+		// Поле поиска
 		const searchInput = document.getElementById( 'searchInput' );
 		if ( searchInput ) {
-			searchInput.addEventListener( 'input', () => {
-				this.renderProducts();
-			} );
+			searchInput.addEventListener( 'input', () => this.renderProducts() );
 		}
 
-		// ===== Фильтр по категории =====
+		// Фильтр по категории
 		const categoryFilter = document.getElementById( 'categoryFilter' );
 		if ( categoryFilter ) {
-			categoryFilter.addEventListener( 'change', () => {
-				this.renderProducts();
-			} );
+			categoryFilter.addEventListener( 'change', () => this.renderProducts() );
 		}
 
-		// ===== Фильтр по статусу (наличие) =====
+		// Фильтр по статусу
 		const statusFilter = document.getElementById( 'statusFilter' );
 		if ( statusFilter ) {
-			statusFilter.addEventListener( 'change', () => {
-				this.renderProducts();
-			} );
+			statusFilter.addEventListener( 'change', () => this.renderProducts() );
 		}
 
-		// ===== Выбор типа сортировки =====
+		// Сортировка
 		const sortBy = document.getElementById( 'sortBy' );
 		if ( sortBy ) {
 			sortBy.addEventListener( 'change', ( e ) => {
-				const value = e.target.value;
-				const parts = value.split( '-' );
-				const sortByField = parts[0];
-				const sortOrder = parts[1] || 'asc';
-
-				this.currentSort.by = sortByField;
-				this.currentSort.order = sortOrder;
+				const parts = e.target.value.split( '-' );
+				this.currentSort.by = parts[0];
+				this.currentSort.order = parts[1] || 'asc';
 				this.updateSortOrderIcon();
 				this.renderProducts();
 			} );
 		}
 
-		// ===== Кнопка переключения направления сортировки =====
+		// Кнопка направления сортировки
 		const sortOrderBtn = document.getElementById( 'sortOrderBtn' );
 		if ( sortOrderBtn ) {
 			sortOrderBtn.addEventListener( 'click', () => {
+				this.currentSort.order = this.currentSort.order === 'asc' ? 'desc' : 'asc';
 				const sortBySelect = document.getElementById( 'sortBy' );
-				const currentValue = sortBySelect ? sortBySelect.value : 'default';
-
-				if ( currentValue === 'default' ) {
-					// Если сортировка по умолчанию — включаем сортировку по имени
-					this.currentSort.by = 'name';
-					this.currentSort.order = 'asc';
-					if ( sortBySelect ) sortBySelect.value = 'name-asc';
-				} else {
-					// Переключаем направление
-					this.currentSort.order = this.currentSort.order === 'asc' ? 'desc' : 'asc';
-					if ( sortBySelect && this.currentSort.by !== 'default' ) {
-						sortBySelect.value = `${this.currentSort.by}-${this.currentSort.order}`;
-					}
+				if ( sortBySelect && this.currentSort.by !== 'default' ) {
+					sortBySelect.value = `${this.currentSort.by}-${this.currentSort.order}`;
 				}
 				this.updateSortOrderIcon();
 				this.renderProducts();
 			} );
 		}
 
-		// ===== Закрытие модальных окон =====
+		// Закрытие модальных окон
 		const closeButtons = [
 			'closeModal', 'cancelModalBtn',
-			'closeDeleteModal', 'cancelDeleteBtn'
+			'closeDeleteModal', 'cancelDeleteBtn',
+			'closePromoSlideModal', 'cancelPromoSlideBtn',
+			'closeDeletePromoSlideModal', 'cancelDeletePromoSlideBtn'
 		];
 		closeButtons.forEach( id => {
 			const btn = document.getElementById( id );
@@ -613,7 +556,7 @@ class ProductManager {
 			}
 		} );
 
-		// ===== Подтверждение удаления товара =====
+		// Подтверждение удаления товара
 		const confirmDeleteBtn = document.getElementById( 'confirmDeleteBtn' );
 		if ( confirmDeleteBtn ) {
 			confirmDeleteBtn.addEventListener( 'click', ( e ) => {
@@ -622,7 +565,16 @@ class ProductManager {
 			} );
 		}
 
-		// ===== Отправка формы товара =====
+		// Подтверждение удаления слайда
+		// const confirmDeleteSlideBtn = document.getElementById( 'confirmDeletePromoSlideBtn' );
+		// if ( confirmDeleteSlideBtn ) {
+		// 	confirmDeleteSlideBtn.addEventListener( 'click', ( e ) => {
+		// 		e.preventDefault();
+		// 		this.confirmDeleteSlide();
+		// 	} );
+		// }
+
+		// Отправка формы товара
 		const productForm = document.getElementById( 'productForm' );
 		if ( productForm ) {
 			productForm.addEventListener( 'submit', ( e ) => {
@@ -631,15 +583,31 @@ class ProductManager {
 			} );
 		}
 
-		// ===== Кнопка сброса демо-данных =====
+		// // Кнопка сохранения слайда
+		// const saveSlideBtn = document.getElementById( 'savePromoSlideBtn' );
+		// if ( saveSlideBtn ) {
+		// 	saveSlideBtn.addEventListener( 'click', ( e ) => {
+		// 		e.preventDefault();
+		// 		this.saveSlide();
+		// 	} );
+		// }
+
+		// // Кнопка добавления слайда
+		// const addSlideBtn = document.getElementById( 'addPromoSlideBtn' );
+		// if ( addSlideBtn ) {
+		// 	addSlideBtn.addEventListener( 'click', ( e ) => {
+		// 		e.preventDefault();
+		// 		this.openSlideModal();
+		// 	} );
+		// }
+
+		// Кнопка сброса демо-данных
 		const resetDemoBtn = document.getElementById( 'resetDemoDataBtn' );
 		if ( resetDemoBtn ) {
-			resetDemoBtn.addEventListener( 'click', () => {
-				this.resetDemoData();
-			} );
+			resetDemoBtn.addEventListener( 'click', () => this.resetDemoData() );
 		}
 
-		// ===== Закрытие модального окна при клике вне его =====
+		// Закрытие модального окна при клике вне его
 		window.addEventListener( 'click', ( e ) => {
 			if ( e.target.classList.contains( 'modal' ) ) {
 				this.closeAllModals();
@@ -665,22 +633,19 @@ class ProductManager {
 	}
 
 	// ========================================================================
-	// 5. РАБОТА С МОДАЛЬНЫМИ ОКНАМИ
+	// 5. РАБОТА С МОДАЛЬНЫМИ ОКНАМИ ТОВАРОВ
 	// ========================================================================
 
 	/**
 	 * Открывает модальное окно для добавления или редактирования товара
-	 * 
-	 * @param {string|null} productId - ID товара для редактирования,
-	 *                                   null для создания нового
+	 * @param {string|null} productId - ID товара для редактирования, null для создания нового
 	 */
 	openModal( productId = null ) {
-		console.log( '📦 ProductManager: открытие модального окна, productId:', productId );
+		console.log( '📦 ProductManager: открытие модального окна товара, productId:', productId );
 
 		const modal = document.getElementById( 'productModal' );
 		if ( !modal ) {
 			console.error( '❌ Модальное окно productModal не найдено в DOM' );
-			API.showNotification( 'Ошибка: модальное окно не найдено', 'error' );
 			return;
 		}
 
@@ -692,15 +657,13 @@ class ProductManager {
 			form.reset();
 			this.clearImagePreview();
 			this.selectedFile = null;
-
-			// Сбрасываем все чекбоксы
 			form.querySelectorAll( 'input[type="checkbox"]' ).forEach( checkbox => {
 				checkbox.checked = false;
 			} );
 		}
 
 		// Сбрасываем вкладки источника на URL
-		const urlTab = document.querySelector( '.source-tab[data-source="url"]' );
+		const urlTab = document.querySelector( '#productForm .source-tab[data-source="url"]' );
 		if ( urlTab ) urlTab.click();
 
 		// Скрываем подсказку загрузки
@@ -709,21 +672,25 @@ class ProductManager {
 		if ( uploadHint ) uploadHint.style.display = 'none';
 		if ( downloadBtn ) downloadBtn.style.display = 'none';
 
+		// Устанавливаем ID текущего товара
 		this.currentProductId = productId;
 
-		// Если редактируем существующий товар — заполняем форму
+		// Заполняем форму если редактируем
 		if ( productId ) {
 			const product = store.getProduct( productId );
 			if ( product ) {
 				if ( title ) title.innerHTML = '<i class="fas fa-edit"></i> Редактировать товар';
 				this.fillForm( product );
+			} else {
+				console.error( '❌ Товар с ID', productId, 'не найден' );
+				return;
 			}
 		} else {
 			if ( title ) title.innerHTML = '<i class="fas fa-plus"></i> Добавить товар';
 		}
 
 		// Активируем первую вкладку (Основное)
-		const firstTab = document.querySelector( '.form-tab' );
+		const firstTab = document.querySelector( '#productForm .form-tab' );
 		if ( firstTab ) firstTab.click();
 
 		// Показываем модальное окно
@@ -731,22 +698,28 @@ class ProductManager {
 	}
 
 	/**
-	 * Закрывает все открытые модальные окна
-	 * Сбрасывает состояние редактирования
+	 * Закрывает все открытые модальные окна и сбрасывает состояние
 	 */
 	closeAllModals() {
 		document.querySelectorAll( '.modal' ).forEach( modal => {
 			modal.classList.remove( 'show' );
 		} );
 
-		// Освобождаем blob URL если был
+		// Освобождаем blob URL
 		const previewImg = document.getElementById( 'imagePreviewImg' );
 		if ( previewImg && previewImg.src.startsWith( 'blob:' ) ) {
 			URL.revokeObjectURL( previewImg.src );
 		}
+		const slidePreviewImg = document.getElementById( 'slidePreviewImage' );
+		if ( slidePreviewImg && slidePreviewImg.src.startsWith( 'blob:' ) ) {
+			URL.revokeObjectURL( slidePreviewImg.src );
+		}
 
+		// Сбрасываем все ID и временные данные
 		this.currentProductId = null;
+		this.currentSlideId = null;
 		this.selectedFile = null;
+		this.selectedSlideFile = null;
 	}
 
 	/**
@@ -756,7 +729,6 @@ class ProductManager {
 	fillForm( product ) {
 		console.log( '📝 ProductManager: заполнение формы для товара:', product.name );
 
-		// Карта соответствия ID полей и свойств товара
 		const fields = {
 			'productName': product.name,
 			'productCategory': product.category,
@@ -770,29 +742,21 @@ class ProductManager {
 			'productImageUrl': product.image
 		};
 
-		// Заполняем текстовые поля
 		Object.entries( fields ).forEach( ( [id, value] ) => {
 			const element = document.getElementById( id );
-			if ( element ) {
-				element.value = value || '';
-			}
+			if ( element ) element.value = value || '';
 		} );
 
-		// Заполняем чекбоксы
-		const isNewCheck = document.getElementById( 'productIsNew' );
-		if ( isNewCheck ) isNewCheck.checked = product.isNew || false;
+		document.getElementById( 'productIsNew' ).checked = product.isNew || false;
+		document.getElementById( 'productIsHit' ).checked = product.isHit || false;
 
-		const isHitCheck = document.getElementById( 'productIsHit' );
-		if ( isHitCheck ) isHitCheck.checked = product.isHit || false;
-
-		// Обновляем превью изображения
 		if ( product.image ) {
 			this.updateImagePreview( product.image );
 		}
 
-		// Если изображение начинается с http — переключаем на вкладку URL
+		// Если изображение внешнее — переключаем на вкладку URL
 		if ( product.image && ( product.image.startsWith( 'http://' ) || product.image.startsWith( 'https://' ) ) ) {
-			const urlTab = document.querySelector( '.source-tab[data-source="url"]' );
+			const urlTab = document.querySelector( '#productForm .source-tab[data-source="url"]' );
 			if ( urlTab ) urlTab.click();
 		}
 	}
@@ -808,34 +772,24 @@ class ProductManager {
 			return;
 		}
 
-		// Показываем название удаляемого товара
-		const nameSpan = document.getElementById( 'deleteProductName' );
-		if ( nameSpan ) {
-			nameSpan.textContent = product.name;
-		}
-
+		document.getElementById( 'deleteProductName' ).textContent = product.name;
 		this.currentProductId = productId;
-
-		// Открываем модальное окно подтверждения
-		const deleteModal = document.getElementById( 'deleteModal' );
-		if ( deleteModal ) {
-			deleteModal.classList.add( 'show' );
-		}
+		document.getElementById( 'deleteModal' ).classList.add( 'show' );
 	}
 
 	/**
 	 * Подтверждает и выполняет удаление товара
 	 */
 	confirmDelete() {
-		if ( this.currentProductId ) {
-			const product = store.getProduct( this.currentProductId );
-			const productName = product ? product.name : 'Неизвестный товар';
+		if ( !this.currentProductId ) return;
 
-			store.deleteProduct( this.currentProductId );
-			console.log( '🗑️ Удалён товар:', productName );
-			API.showNotification( `Товар "${productName}" удалён`, 'success' );
-			this.closeAllModals();
-		}
+		const product = store.getProduct( this.currentProductId );
+		const productName = product ? product.name : 'Неизвестный товар';
+
+		store.deleteProduct( this.currentProductId );
+		console.log( '🗑️ Удалён товар:', productName );
+		API.showNotification( `Товар "${productName}" удалён`, 'success' );
+		this.closeAllModals();
 	}
 
 	// ========================================================================
@@ -844,30 +798,20 @@ class ProductManager {
 
 	/**
 	 * Сохраняет товар (создаёт новый или обновляет существующий)
-	 * 
-	 * Алгоритм:
-	 * 1. Проверяет обязательные поля (название, цена)
-	 * 2. Получает изображение из активного источника (URL или загрузка)
-	 * 3. Валидирует и корректирует путь к изображению
-	 * 4. Собирает объект с данными товара
-	 * 5. Сохраняет через store (addProduct или updateProduct)
 	 */
 	saveProduct() {
 		console.log( '💾 ProductManager: сохранение товара...' );
 
-		// ===== Шаг 1: Получаем элементы формы =====
 		const nameInput = document.getElementById( 'productName' );
 		const priceInput = document.getElementById( 'productPrice' );
 		const imageUrlInput = document.getElementById( 'productImageUrl' );
 
-		// Проверяем существование обязательных полей
 		if ( !nameInput || !priceInput ) {
 			console.error( '❌ Не найдены обязательные поля формы' );
-			API.showNotification( 'Ошибка: не найдены обязательные поля', 'error' );
 			return;
 		}
 
-		// ===== Шаг 2: Валидация названия =====
+		// Валидация названия
 		const productName = nameInput.value.trim();
 		if ( !productName ) {
 			API.showNotification( 'Введите название товара', 'error' );
@@ -875,7 +819,7 @@ class ProductManager {
 			return;
 		}
 
-		// ===== Шаг 3: Валидация цены =====
+		// Валидация цены
 		const productPrice = parseFloat( priceInput.value );
 		if ( !priceInput.value || isNaN( productPrice ) || productPrice <= 0 ) {
 			API.showNotification( 'Введите корректную цену (больше 0)', 'error' );
@@ -883,94 +827,52 @@ class ProductManager {
 			return;
 		}
 
-		// ===== Шаг 4: Получаем изображение =====
-		let imageUrl = '';
-		const activeSource = document.querySelector( '.source-tab.active' )?.dataset.source;
+		// Получаем изображение
+		let imageUrl = imageUrlInput?.value.trim() || '';
 
-		if ( imageUrlInput && imageUrlInput.value.trim() ) {
-			// Изображение указано в поле ввода
-			imageUrl = imageUrlInput.value.trim();
-			console.log( '🖼️ Изображение из поля ввода:', imageUrl );
-		}
-
-		// Если изображение не указано
 		if ( !imageUrl ) {
-			API.showNotification( 'Укажите изображение (URL или загрузите файл)', 'warning' );
-			// Не блокируем сохранение, используем заглушку
 			imageUrl = '/image/placeholder.jpg';
 			console.warn( '⚠️ Изображение не указано, используется заглушка' );
 		}
 
-		// ===== Шаг 5: Обработка разных типов источников =====
-		if ( imageUrl.startsWith( 'http://' ) || imageUrl.startsWith( 'https://' ) ) {
-			// Внешний URL — используем как есть
-			console.log( '🖼️ Тип: внешний URL' );
-		} else if ( imageUrl.startsWith( 'data:image' ) ) {
-			// Base64 — предупреждаем, но разрешаем
-			console.warn( '⚠️ Тип: base64 (не рекомендуется для больших изображений)' );
-			API.showNotification( '⚠️ Base64 изображения занимают много места. Рекомендуется использовать файлы из /image/', 'warning' );
-		} else if ( imageUrl.startsWith( '/image/' ) ) {
-			// Локальный путь — всё правильно
-			console.log( '🖼️ Тип: локальный путь /image/' );
-		} else if ( imageUrl.startsWith( '/' ) ) {
-			// Абсолютный путь от корня — оставляем как есть
-			console.log( '🖼️ Тип: абсолютный путь' );
-		} else {
-			// Всё остальное — добавляем /image/
+		// Корректируем путь если нужно
+		if ( !imageUrl.startsWith( 'http://' ) && !imageUrl.startsWith( 'https://' ) &&
+			!imageUrl.startsWith( '/image/' ) && !imageUrl.startsWith( 'data:' ) && !imageUrl.startsWith( '/' ) ) {
 			imageUrl = '/image/' + imageUrl.replace( /^\/+/, '' );
-			console.log( '🖼️ Путь скорректирован до:', imageUrl );
 		}
 
-		// Если использовалась загрузка с ПК — напоминаем сохранить файл
-		if ( activeSource === 'upload' && this.selectedFile ) {
-			console.warn( '⚠️ Файл был выбран с ПК. Убедитесь что он сохранён в папку /image/' );
-		}
-
-		// ===== Шаг 6: Собираем данные товара =====
+		// Собираем данные
 		const productData = {
-			// Основное
 			name: productName,
 			category: document.getElementById( 'productCategory' )?.value || 'other',
 			sku: document.getElementById( 'productSKU' )?.value.trim() || '',
 			col: document.getElementById( 'productCOL' )?.value.trim() || '',
 			description: document.getElementById( 'productDescription' )?.value.trim() || '',
-
-			// Цена и наличие
 			price: productPrice,
 			oldPrice: parseFloat( document.getElementById( 'productOldPrice' )?.value ) || 0,
 			status: document.getElementById( 'productStatus' )?.value || 'in-stock',
 			quantity: parseInt( document.getElementById( 'productQuantity' )?.value ) || 0,
-
-			// Бейджи
 			isNew: document.getElementById( 'productIsNew' )?.checked || false,
 			isHit: document.getElementById( 'productIsHit' )?.checked || false,
-
-			// Изображение
 			image: imageUrl
 		};
 
 		console.log( '📦 Данные для сохранения:', JSON.stringify( productData, null, 2 ) );
 
-		// ===== Шаг 7: Сохраняем через store =====
+		// Сохраняем через store
 		try {
 			if ( this.currentProductId ) {
-				// Редактирование существующего товара
 				console.log( '✏️ Обновление товара с ID:', this.currentProductId );
 				store.updateProduct( this.currentProductId, productData );
 				API.showNotification( '✅ Товар обновлён!', 'success' );
 			} else {
-				// Создание нового товара
 				console.log( '➕ Создание нового товара' );
 				store.addProduct( productData );
 				API.showNotification( '✅ Товар добавлен!', 'success' );
 			}
 
-			// Закрываем модальное окно
 			this.closeAllModals();
-
-			// Обновляем список товаров
 			this.renderProducts();
-
 		} catch ( error ) {
 			console.error( '❌ Ошибка при сохранении товара:', error );
 			API.showNotification( '❌ Ошибка при сохранении: ' + error.message, 'error' );
@@ -983,7 +885,6 @@ class ProductManager {
 
 	/**
 	 * Инициализирует переключение вкладок в форме товара
-	 * Вкладки: Основное, Цена и наличие, Изображение
 	 */
 	initFormTabs() {
 		const tabs = document.querySelectorAll( '.form-tab' );
@@ -991,14 +892,9 @@ class ProductManager {
 		tabs.forEach( tab => {
 			tab.addEventListener( 'click', ( e ) => {
 				e.preventDefault();
-
-				// Убираем активный класс со всех вкладок
 				tabs.forEach( t => t.classList.remove( 'active' ) );
-
-				// Активируем текущую вкладку
 				tab.classList.add( 'active' );
 
-				// Показываем соответствующий контент
 				const tabName = tab.dataset.tab;
 				document.querySelectorAll( '.form-tab-content' ).forEach( content => {
 					content.classList.toggle( 'active', content.dataset.tab === tabName );
@@ -1010,26 +906,15 @@ class ProductManager {
 	}
 
 	// ========================================================================
-	// 8. ВЫБОР ИЗОБРАЖЕНИЙ (УНИВЕРСАЛЬНАЯ СИСТЕМА)
+	// 8. ВЫБОР ИЗОБРАЖЕНИЙ ДЛЯ ТОВАРОВ
 	// ========================================================================
 
 	/**
-	 * Инициализирует систему выбора изображений
-	 * 
-	 * Поддерживаемые источники:
-	 * 1. URL / Путь к файлу — прямая ссылка или локальный путь
-	 * 2. Загрузка с ПК — выбор файла, предпросмотр, скачивание
-	 * 
-	 * Особенности:
-	 * - Drag & Drop для загрузки
-	 * - Предпросмотр выбранного изображения
-	 * - Проверка существования локальных файлов
-	 * - Возможность скачать выбранный файл для ручного копирования
+	 * Инициализирует систему выбора изображений для товаров
 	 */
 	initImageUpload() {
-		console.log( '🖼️ ProductManager: инициализация выбора изображений...' );
+		console.log( '🖼️ ProductManager: инициализация выбора изображений для товаров...' );
 
-		// Получаем все необходимые DOM-элементы
 		const folderUpload = document.getElementById( 'imageFolderUpload' );
 		const folderFile = document.getElementById( 'imageFolderFile' );
 		const imageUrlInput = document.getElementById( 'productImageUrl' );
@@ -1037,88 +922,58 @@ class ProductManager {
 		const downloadBtn = document.getElementById( 'downloadUploadedBtn' );
 		const uploadHint = document.getElementById( 'uploadHint' );
 
-		// ===== Переключение вкладок источника изображения =====
-		document.querySelectorAll( '.source-tab' ).forEach( tab => {
+		// Переключение вкладок источника
+		document.querySelectorAll( '#productForm .source-tab' ).forEach( tab => {
 			tab.addEventListener( 'click', () => {
-				// Снимаем активный класс со всех вкладок
-				document.querySelectorAll( '.source-tab' ).forEach( t => t.classList.remove( 'active' ) );
-				document.querySelectorAll( '.image-source-content' ).forEach( c => c.classList.remove( 'active' ) );
+				document.querySelectorAll( '#productForm .source-tab' ).forEach( t => t.classList.remove( 'active' ) );
+				document.querySelectorAll( '#productForm .image-source-content' ).forEach( c => c.classList.remove( 'active' ) );
 
-				// Активируем выбранную вкладку
 				tab.classList.add( 'active' );
-				const targetContent = document.querySelector( `.image-source-content[data-source="${tab.dataset.source}"]` );
-				if ( targetContent ) {
-					targetContent.classList.add( 'active' );
-				}
+				const targetContent = document.querySelector( `#productForm .image-source-content[data-source="${tab.dataset.source}"]` );
+				if ( targetContent ) targetContent.classList.add( 'active' );
 
-				// Если переключились на URL — сбрасываем состояние загрузки
 				if ( tab.dataset.source === 'url' ) {
 					this.selectedFile = null;
 					if ( downloadBtn ) downloadBtn.style.display = 'none';
 					if ( uploadHint ) uploadHint.style.display = 'none';
 				}
-
-				console.log( '🖼️ Выбран источник:', tab.dataset.source );
 			} );
 		} );
 
-		// ===== ВАРИАНТ 1: URL / Путь к файлу =====
+		// URL / Путь
 		if ( imageUrlInput ) {
-			// Обновление превью при вводе URL
-			imageUrlInput.addEventListener( 'input', ( e ) => {
-				const url = e.target.value.trim();
-				this.updateImagePreview( url );
-			} );
-
-			// Обновление превью при вставке из буфера обмена
+			imageUrlInput.addEventListener( 'input', ( e ) => this.updateImagePreview( e.target.value.trim() ) );
 			imageUrlInput.addEventListener( 'paste', () => {
-				setTimeout( () => {
-					const url = imageUrlInput.value.trim();
-					this.updateImagePreview( url );
-				}, 100 );
+				setTimeout( () => this.updateImagePreview( imageUrlInput.value.trim() ), 100 );
 			} );
 		}
 
-		// ===== ВАРИАНТ 2: Загрузка с ПК =====
+		// Загрузка с ПК
 		if ( folderUpload && folderFile ) {
-			// Клик по области загрузки открывает выбор файла
-			folderUpload.addEventListener( 'click', () => {
-				folderFile.click();
-			} );
+			folderUpload.addEventListener( 'click', () => folderFile.click() );
 
-			// Drag & Drop — перетаскивание файла в область загрузки
 			folderUpload.addEventListener( 'dragover', ( e ) => {
 				e.preventDefault();
 				folderUpload.style.borderColor = '#ff3366';
 				folderUpload.style.background = 'rgba(255, 51, 102, 0.1)';
 			} );
-
 			folderUpload.addEventListener( 'dragleave', () => {
 				folderUpload.style.borderColor = '#333';
 				folderUpload.style.background = '#0d0d0d';
 			} );
-
 			folderUpload.addEventListener( 'drop', ( e ) => {
 				e.preventDefault();
 				folderUpload.style.borderColor = '#333';
 				folderUpload.style.background = '#0d0d0d';
-
-				const file = e.dataTransfer.files[0];
-				if ( file ) {
-					this.handleFileSelect( file );
-				}
+				if ( e.dataTransfer.files[0] ) this.handleFileSelect( e.dataTransfer.files[0] );
 			} );
 
-			// Выбор файла через стандартный диалог
 			folderFile.addEventListener( 'change', ( e ) => {
-				const file = e.target.files[0];
-				if ( file ) {
-					this.handleFileSelect( file );
-				}
+				if ( e.target.files[0] ) this.handleFileSelect( e.target.files[0] );
 			} );
 		}
 
-		// ===== Кнопка очистки превью =====
+		// Кнопка очистки
 		if ( clearBtn ) {
 			clearBtn.addEventListener( 'click', () => {
 				if ( imageUrlInput ) imageUrlInput.value = '';
@@ -1126,108 +981,70 @@ class ProductManager {
 				this.clearImagePreview();
 				if ( downloadBtn ) downloadBtn.style.display = 'none';
 				if ( uploadHint ) uploadHint.style.display = 'none';
-				API.showNotification( 'Изображение очищено', 'info' );
 			} );
 		}
 
-		// ===== Кнопка скачивания выбранного файла =====
+		// Кнопка скачивания
 		if ( downloadBtn ) {
 			downloadBtn.addEventListener( 'click', () => {
-				if ( this.selectedFile ) {
-					this.downloadFile( this.selectedFile );
-				}
+				if ( this.selectedFile ) this.downloadFile( this.selectedFile );
 			} );
 		}
 
-		console.log( '✅ ProductManager: система выбора изображений готова' );
+		console.log( '✅ ProductManager: система выбора изображений для товаров готова' );
 	}
 
 	/**
-	 * Обрабатывает выбор файла с компьютера
-	 * 
-	 * Выполняет:
-	 * 1. Проверку типа файла (только изображения)
-	 * 2. Проверку размера (максимум 10 МБ)
-	 * 3. Формирование пути /image/имя_файла
-	 * 4. Запись пути в поле ввода
-	 * 5. Отображение превью
-	 * 6. Показ инструкции по сохранению файла
-	 * 
+	 * Обрабатывает выбор файла с компьютера для товара
 	 * @param {File} file - Выбранный файл
 	 */
 	handleFileSelect( file ) {
-		// Проверяем что это изображение
 		if ( !file.type.startsWith( 'image/' ) ) {
-			API.showNotification( 'Пожалуйста, выберите изображение из папки проекта /image (JPG, PNG, WebP, GIF)', 'error' );
+			API.showNotification( 'Пожалуйста, выберите изображение (JPG, PNG, WebP, GIF)', 'error' );
 			return;
 		}
 
-		// Проверяем размер файла (максимум 10 МБ)
 		const maxSize = 10 * 1024 * 1024;
 		if ( file.size > maxSize ) {
-			const sizeMB = ( file.size / 1024 / 1024 ).toFixed( 1 );
-			API.showNotification( `Файл слишком большой (${sizeMB} МБ). Максимальный размер: 10 МБ`, 'error' );
+			API.showNotification( `Файл слишком большой (${( file.size / 1024 / 1024 ).toFixed( 1 )} МБ). Максимальный размер: 10 МБ`, 'error' );
 			return;
 		}
 
-		console.log( '📁 Выбран файл:', {
-			name: file.name,
-			type: file.type,
-			size: ( file.size / 1024 ).toFixed( 1 ) + ' KB'
-		} );
+		console.log( '📁 Выбран файл для товара:', file.name );
 
-		// Сохраняем файл для возможности последующего скачивания
 		this.selectedFile = file;
 
-		// Формируем путь к файлу
 		const imagePath = `/image/${file.name}`;
 		const imageUrlInput = document.getElementById( 'productImageUrl' );
+		if ( imageUrlInput ) imageUrlInput.value = imagePath;
 
-		// Записываем путь в поле ввода
-		if ( imageUrlInput ) {
-			imageUrlInput.value = imagePath;
-		}
-
-		// Показываем превью через Object URL
 		const objectUrl = URL.createObjectURL( file );
 		this.updateImagePreview( objectUrl );
 
-		// Показываем подсказку и кнопку скачивания
 		const uploadHint = document.getElementById( 'uploadHint' );
 		const downloadBtn = document.getElementById( 'downloadUploadedBtn' );
-
 		if ( uploadHint ) uploadHint.style.display = 'block';
 		if ( downloadBtn ) downloadBtn.style.display = 'inline-block';
 
-		// Информируем пользователя
 		API.showNotification(
 			`📁 Файл "${file.name}" выбран. Нажмите "📥 Скачать файл" и переместите его в папку /image/ проекта.`,
 			'warning'
 		);
 
-		// Очищаем input для возможности повторного выбора того же файла
-		const folderFile = document.getElementById( 'imageFolderFile' );
-		if ( folderFile ) folderFile.value = '';
+		document.getElementById( 'imageFolderFile' ).value = '';
 	}
 
 	/**
 	 * Скачивает выбранный файл на компьютер пользователя
-	 * Используется когда файл нужно вручную скопировать в папку /image/
-	 * 
 	 * @param {File} file - Файл для скачивания
 	 */
 	downloadFile( file ) {
-		// Создаём временный URL для файла
 		const url = URL.createObjectURL( file );
-
-		// Создаём невидимую ссылку для скачивания
 		const a = document.createElement( 'a' );
 		a.href = url;
 		a.download = file.name;
 		document.body.appendChild( a );
 		a.click();
-
-		// Очищаем
 		document.body.removeChild( a );
 		URL.revokeObjectURL( url );
 
@@ -1238,19 +1055,220 @@ class ProductManager {
 	}
 
 	/**
-	 * Обновляет превью изображения
-	 * 
-	 * Поддерживаемые форматы:
-	 * - blob: URL (предпросмотр выбранного файла)
-	 * - data: URI (base64)
-	 * - http/https URL (внешние изображения)
-	 * - /image/ путь (локальные файлы — проверяет существование)
-	 * 
+	 * Обновляет превью изображения товара
 	 * @param {string} src - Источник изображения
 	 */
 	updateImagePreview( src ) {
 		const previewContainer = document.getElementById( 'imagePreviewContainer' );
 		const previewImg = document.getElementById( 'imagePreviewImg' );
+		const previewError = previewContainer?.querySelector( '.preview-error' );
+
+		if ( previewError ) previewError.style.display = 'none';
+
+		if ( !src || !src.trim() ) {
+			if ( previewContainer ) previewContainer.style.display = 'none';
+			if ( previewImg ) {
+				if ( previewImg.src.startsWith( 'blob:' ) ) URL.revokeObjectURL( previewImg.src );
+				previewImg.src = '';
+				previewImg.style.display = 'block';
+			}
+			return;
+		}
+
+		if ( previewContainer ) previewContainer.style.display = 'block';
+
+		if ( previewImg ) {
+			previewImg.style.display = 'block';
+
+			if ( src.startsWith( 'blob:' ) || src.startsWith( 'data:' ) || src.startsWith( 'http://' ) || src.startsWith( 'https://' ) ) {
+				previewImg.src = src;
+				return;
+			}
+
+			const testImg = new Image();
+			testImg.onload = () => {
+				previewImg.src = src;
+				if ( previewError ) previewError.style.display = 'none';
+				previewImg.style.display = 'block';
+			};
+			testImg.onerror = () => {
+				console.warn( '⚠️ Изображение не найдено по пути:', src );
+				previewImg.style.display = 'none';
+				if ( previewError ) previewError.style.display = 'flex';
+			};
+			testImg.src = src;
+		}
+	}
+
+	/**
+	 * Очищает превью изображения товара
+	 */
+	clearImagePreview() {
+		const previewContainer = document.getElementById( 'imagePreviewContainer' );
+		const previewImg = document.getElementById( 'imagePreviewImg' );
+		const previewError = previewContainer?.querySelector( '.preview-error' );
+
+		if ( previewContainer ) previewContainer.style.display = 'none';
+
+		if ( previewImg ) {
+			if ( previewImg.src.startsWith( 'blob:' ) ) URL.revokeObjectURL( previewImg.src );
+			previewImg.src = '';
+			previewImg.style.display = 'block';
+		}
+
+		if ( previewError ) previewError.style.display = 'none';
+	}
+
+	// ========================================================================
+	// 9. ВЫБОР ИЗОБРАЖЕНИЙ ДЛЯ СЛАЙДОВ
+	// ========================================================================
+
+	/**
+	 * Инициализирует систему выбора изображений для слайдов
+	 */
+	initSlideImageUpload() {
+		console.log( '🖼️ Слайды: инициализация выбора изображений...' );
+
+		const uploadArea = document.getElementById( 'slideImageFolderUpload' );
+		const fileInput = document.getElementById( 'slideImageFileInput' );
+		const imageUrlInput = document.getElementById( 'slideImageUrl' );
+		const clearBtn = document.getElementById( 'slideClearPreviewBtn' );
+		const downloadBtn = document.getElementById( 'slideDownloadBtn' );
+		const uploadHint = document.getElementById( 'slideUploadHint' );
+		const sourceTabs = document.querySelectorAll( '#slideImageSourceTabs .source-tab' );
+
+		if ( !uploadArea && !imageUrlInput ) {
+			console.log( '🖼️ Слайды: элементы не найдены (модалка не открыта), инициализация отложена' );
+			return;
+		}
+
+		// Переключение вкладок источника
+		sourceTabs.forEach( tab => {
+			tab.addEventListener( 'click', () => {
+				sourceTabs.forEach( t => t.classList.remove( 'active' ) );
+				document.querySelectorAll( '#promoSlideForm .image-source-content' ).forEach( c => c.classList.remove( 'active' ) );
+
+				tab.classList.add( 'active' );
+				const target = document.querySelector( `#promoSlideForm .image-source-content[data-source="${tab.dataset.source}"]` );
+				if ( target ) target.classList.add( 'active' );
+
+				if ( tab.dataset.source === 'url' ) {
+					this.selectedSlideFile = null;
+					if ( downloadBtn ) downloadBtn.style.display = 'none';
+					if ( uploadHint ) uploadHint.style.display = 'none';
+				}
+			} );
+		} );
+
+		// URL / Путь
+		if ( imageUrlInput ) {
+			imageUrlInput.addEventListener( 'input', () => this.updateSlidePreview( imageUrlInput.value.trim() ) );
+			imageUrlInput.addEventListener( 'paste', () => setTimeout( () => this.updateSlidePreview( imageUrlInput.value.trim() ), 100 ) );
+		}
+
+		// Загрузка с ПК
+		if ( uploadArea && fileInput ) {
+			uploadArea.addEventListener( 'click', () => fileInput.click() );
+
+			uploadArea.addEventListener( 'dragover', ( e ) => {
+				e.preventDefault();
+				uploadArea.style.borderColor = '#ff3366';
+				uploadArea.style.background = 'rgba(255, 51, 102, 0.1)';
+			} );
+			uploadArea.addEventListener( 'dragleave', () => {
+				uploadArea.style.borderColor = '#333';
+				uploadArea.style.background = '#0d0d0d';
+			} );
+			uploadArea.addEventListener( 'drop', ( e ) => {
+				e.preventDefault();
+				uploadArea.style.borderColor = '#333';
+				uploadArea.style.background = '#0d0d0d';
+				if ( e.dataTransfer.files[0] ) this.handleSlideFileSelect( e.dataTransfer.files[0] );
+			} );
+
+			fileInput.addEventListener( 'change', ( e ) => {
+				if ( e.target.files[0] ) this.handleSlideFileSelect( e.target.files[0] );
+			} );
+		}
+
+		// Очистка
+		if ( clearBtn ) {
+			clearBtn.addEventListener( 'click', () => {
+				if ( imageUrlInput ) imageUrlInput.value = '';
+				this.selectedSlideFile = null;
+				this.clearSlidePreview();
+				if ( downloadBtn ) downloadBtn.style.display = 'none';
+				if ( uploadHint ) uploadHint.style.display = 'none';
+			} );
+		}
+
+		// Скачивание
+		if ( downloadBtn ) {
+			downloadBtn.addEventListener( 'click', () => {
+				if ( this.selectedSlideFile ) this.downloadSlideFile( this.selectedSlideFile );
+			} );
+		}
+
+		console.log( '✅ Слайды: система выбора изображений готова' );
+	}
+
+	/**
+	 * Обрабатывает выбор файла для слайда
+	 * @param {File} file - Выбранный файл
+	 */
+	handleSlideFileSelect( file ) {
+		if ( !file.type.startsWith( 'image/' ) ) {
+			API.showNotification( 'Выберите изображение (JPG, PNG, WebP, GIF)', 'error' );
+			return;
+		}
+
+		if ( file.size > 10 * 1024 * 1024 ) {
+			API.showNotification( `Файл слишком большой (${( file.size / 1024 / 1024 ).toFixed( 1 )} МБ)`, 'error' );
+			return;
+		}
+
+		console.log( '📁 Слайд: выбран файл:', file.name );
+		this.selectedSlideFile = file;
+
+		const imagePath = `/image/${file.name}`;
+		const imageUrlInput = document.getElementById( 'slideImageUrl' );
+		if ( imageUrlInput ) imageUrlInput.value = imagePath;
+
+		this.updateSlidePreview( URL.createObjectURL( file ) );
+
+		const uploadHint = document.getElementById( 'slideUploadHint' );
+		const downloadBtn = document.getElementById( 'slideDownloadBtn' );
+		if ( uploadHint ) uploadHint.style.display = 'block';
+		if ( downloadBtn ) downloadBtn.style.display = 'inline-block';
+
+		API.showNotification( `📁 Файл "${file.name}" выбран. Нажмите "📥 Скачать файл"`, 'warning' );
+
+		document.getElementById( 'slideImageFileInput' ).value = '';
+	}
+
+	/**
+	 * Скачивает файл слайда
+	 * @param {File} file - Файл для скачивания
+	 */
+	downloadSlideFile( file ) {
+		const url = URL.createObjectURL( file );
+		const a = document.createElement( 'a' );
+		a.href = url;
+		a.download = file.name;
+		document.body.appendChild( a );
+		a.click();
+		document.body.removeChild( a );
+		URL.revokeObjectURL( url );
+		API.showNotification( `📥 Файл "${file.name}" скачан. Переместите в /image/`, 'success' );
+	}
+
+	/**
+	 * Обновляет превью слайда (АНАЛОГИЧНО ТОВАРАМ)
+	 * @param {string} src - Источник изображения
+	 */
+	updateSlidePreview( src ) {
+		const previewContainer = document.getElementById( 'slidePreviewContainer' );
+		const previewImg = document.getElementById( 'slidePreviewImage' );
 		const previewError = previewContainer?.querySelector( '.preview-error' );
 
 		// Скрываем предыдущую ошибку
@@ -1307,36 +1325,337 @@ class ProductManager {
 	}
 
 	/**
-	 * Очищает превью изображения
-	 * Освобождает blob URL если был создан
+	 * Очищает превью слайда
 	 */
-	clearImagePreview() {
-		const previewContainer = document.getElementById( 'imagePreviewContainer' );
-		const previewImg = document.getElementById( 'imagePreviewImg' );
-		const previewError = previewContainer?.querySelector( '.preview-error' );
-
-		if ( previewContainer ) previewContainer.style.display = 'none';
-
-		if ( previewImg ) {
-			// Освобождаем память от blob: URL
-			if ( previewImg.src.startsWith( 'blob:' ) ) {
-				URL.revokeObjectURL( previewImg.src );
-			}
-			previewImg.src = '';
-			previewImg.style.display = 'block';
+	clearSlidePreview() {
+		const container = document.getElementById( 'slidePreviewContainer' );
+		const img = document.getElementById( 'slidePreviewImage' );
+		if ( container ) container.style.display = 'none';
+		if ( img ) {
+			if ( img.src.startsWith( 'blob:' ) ) URL.revokeObjectURL( img.src );
+			img.src = '';
+			img.style.display = 'block';
 		}
-
-		if ( previewError ) previewError.style.display = 'none';
 	}
 
 	// ========================================================================
-	// 9. ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ
+	// 10. РАБОТА С МОДАЛЬНЫМИ ОКНАМИ СЛАЙДОВ
+	// ========================================================================
+
+	/**
+	 * Открывает модальное окно для добавления или редактирования слайда
+	 * @param {string|null} slideId - ID слайда или null для нового
+	 */
+	openSlideModal( slideId = null ) {
+		console.log( '🎠 openSlideModal: вход, slideId =', slideId );
+		console.log( '🎠 openSlideModal: тип slideId =', typeof slideId );
+
+		const modal = document.getElementById( 'promoSlideModal' );
+		if ( !modal ) {
+			console.error( '❌ Модальное окно promoSlideModal не найдено' );
+			return;
+		}
+
+		const title = document.getElementById( 'promoSlideModalTitle' );
+		const form = document.getElementById( 'promoSlideForm' );
+
+		// Сбрасываем форму
+		if ( form ) {
+			form.reset();
+			this.clearSlidePreview();
+			this.selectedSlideFile = null;
+		}
+
+		// Сбрасываем вкладки источника на URL
+		const urlTab = document.querySelector( '#slideImageSourceTabs .source-tab[data-source="url"]' );
+		if ( urlTab ) urlTab.click();
+
+		// Скрываем подсказку загрузки
+		const uploadHint = document.getElementById( 'slideUploadHint' );
+		const downloadBtn = document.getElementById( 'slideDownloadBtn' );
+		if ( uploadHint ) uploadHint.style.display = 'none';
+		if ( downloadBtn ) downloadBtn.style.display = 'none';
+
+		// ===== ВАЖНО: Устанавливаем ID слайда =====
+		this.currentSlideId = slideId;
+		console.log( '🎠 openSlideModal: this.currentSlideId установлен в =', this.currentSlideId );
+		console.log( '🎠 openSlideModal: тип this.currentSlideId =', typeof this.currentSlideId );
+
+		// Заполняем форму если редактируем
+		if ( slideId ) {
+			const slide = store.getPromoSlide( slideId );
+			console.log( '🎠 openSlideModal: слайд из store =', slide );
+			if ( slide ) {
+				if ( title ) title.innerHTML = '<i class="fas fa-edit"></i> Редактировать слайд';
+				this.fillSlideForm( slide );
+			} else {
+				console.error( '❌ Слайд с ID', slideId, 'не найден в store' );
+				return;
+			}
+		} else {
+			if ( title ) title.innerHTML = '<i class="fas fa-plus"></i> Добавить слайд';
+		}
+
+		modal.classList.add( 'show' );
+		console.log( '🎠 openSlideModal: выход, this.currentSlideId =', this.currentSlideId );
+	}
+
+	/**
+	 * Сохраняет слайд (создаёт новый или обновляет существующий)
+	 */
+	saveSlide() {
+		console.log( '🎠 saveSlide: вход' );
+		console.log( '🎠 saveSlide: this.currentSlideId =', this.currentSlideId );
+		console.log( '🎠 saveSlide: тип this.currentSlideId =', typeof this.currentSlideId );
+		console.log( '🎠 saveSlide: this.currentSlideId truthy?', !!this.currentSlideId );
+
+		const title = document.getElementById( 'slideTitle' )?.value.trim();
+		const description = document.getElementById( 'slideDescription' )?.value.trim();
+		const imageUrlInput = document.getElementById( 'slideImageUrl' );
+
+		// Валидация
+		if ( !title ) {
+			API.showNotification( 'Введите заголовок слайда', 'error' );
+			return;
+		}
+		if ( !description ) {
+			API.showNotification( 'Введите описание слайда', 'error' );
+			return;
+		}
+
+		// Получаем изображение
+		let imageUrl = imageUrlInput?.value.trim() || '';
+
+		if ( !imageUrl ) {
+			API.showNotification( 'Укажите изображение для слайда (URL или загрузите файл)', 'error' );
+			return;
+		}
+
+		// Корректируем путь если нужно
+		if ( !imageUrl.startsWith( 'http://' ) && !imageUrl.startsWith( 'https://' ) &&
+			!imageUrl.startsWith( '/image/' ) && !imageUrl.startsWith( 'data:' ) && !imageUrl.startsWith( 'blob:' ) ) {
+			imageUrl = '/image/' + imageUrl.replace( /^\/+/, '' );
+		}
+
+		// Собираем данные
+		const slideData = {
+			title: title,
+			description: description,
+			price: document.getElementById( 'slidePrice' )?.value.trim() || '',
+			link: document.getElementById( 'slideLink' )?.value.trim() || '',
+			image: imageUrl,
+			order: parseInt( document.getElementById( 'slideOrder' )?.value ) || 0,
+			status: document.getElementById( 'slideStatus' )?.value || 'active'
+		};
+
+		console.log( '🎠 saveSlide: slideData =', JSON.stringify( slideData, null, 2 ) );
+
+		// ===== ПРОВЕРЯЕМ currentSlideId =====
+		if ( this.currentSlideId ) {
+			// Редактирование существующего слайда
+			console.log( '✏️ saveSlide: ОБНОВЛЕНИЕ слайда с ID:', this.currentSlideId );
+			store.updatePromoSlide( this.currentSlideId, slideData );
+			API.showNotification( '✅ Слайд обновлён!', 'success' );
+		} else {
+			// Создание нового слайда
+			console.log( '➕ saveSlide: СОЗДАНИЕ нового слайда (currentSlideId пуст!)' );
+			store.addPromoSlide( slideData );
+			API.showNotification( '✅ Слайд добавлен!', 'success' );
+		}
+
+		console.log( '🎠 saveSlide: перед закрытием, this.currentSlideId =', this.currentSlideId );
+		this.closeAllModals();
+		console.log( '🎠 saveSlide: после закрытия, this.currentSlideId =', this.currentSlideId );
+		this.renderSlidesList();
+	}
+
+	/**
+	 * Закрывает все открытые модальные окна и сбрасывает состояние
+	 */
+	closeAllModals() {
+		console.log( '🔒 closeAllModals: вход, this.currentSlideId =', this.currentSlideId );
+
+		document.querySelectorAll( '.modal' ).forEach( modal => {
+			modal.classList.remove( 'show' );
+		} );
+
+		// Освобождаем blob URL
+		const previewImg = document.getElementById( 'imagePreviewImg' );
+		if ( previewImg && previewImg.src.startsWith( 'blob:' ) ) {
+			URL.revokeObjectURL( previewImg.src );
+		}
+		const slidePreviewImg = document.getElementById( 'slidePreviewImage' );
+		if ( slidePreviewImg && slidePreviewImg.src.startsWith( 'blob:' ) ) {
+			URL.revokeObjectURL( slidePreviewImg.src );
+		}
+
+		// Сбрасываем все ID и временные данные
+		console.log( '🔒 closeAllModals: сброс currentSlideId (было =', this.currentSlideId, ')' );
+		this.currentProductId = null;
+		this.currentSlideId = null;
+		this.selectedFile = null;
+		this.selectedSlideFile = null;
+		console.log( '🔒 closeAllModals: currentSlideId сброшен в null' );
+	}
+
+	// ========================================================================
+	// 11. СОХРАНЕНИЕ СЛАЙДА
+	// ========================================================================
+
+	/**
+	 * Сохраняет слайд (создаёт новый или обновляет существующий)
+	 * 
+	 * ИСПРАВЛЕНО: Теперь проверяет this.currentSlideId и вызывает
+	 * store.updatePromoSlide() для редактирования вместо создания нового.
+	 */
+	saveSlide() {
+		console.log( '🎠 ProductManager: сохранение слайда...' );
+		console.log( '🎠 ProductManager: currentSlideId =', this.currentSlideId );
+
+		const title = document.getElementById( 'slideTitle' )?.value.trim();
+		const description = document.getElementById( 'slideDescription' )?.value.trim();
+		const imageUrlInput = document.getElementById( 'slideImageUrl' );
+
+		// Валидация
+		if ( !title ) {
+			API.showNotification( 'Введите заголовок слайда', 'error' );
+			return;
+		}
+		if ( !description ) {
+			API.showNotification( 'Введите описание слайда', 'error' );
+			return;
+		}
+
+		// Получаем изображение
+		let imageUrl = imageUrlInput?.value.trim() || '';
+
+		if ( !imageUrl ) {
+			API.showNotification( 'Укажите изображение для слайда (URL или загрузите файл)', 'error' );
+			return;
+		}
+
+		// Корректируем путь если нужно
+		if ( !imageUrl.startsWith( 'http://' ) && !imageUrl.startsWith( 'https://' ) &&
+			!imageUrl.startsWith( '/image/' ) && !imageUrl.startsWith( 'data:' ) && !imageUrl.startsWith( 'blob:' ) ) {
+			imageUrl = '/image/' + imageUrl.replace( /^\/+/, '' );
+		}
+
+		// Собираем данные
+		const slideData = {
+			title: title,
+			description: description,
+			price: document.getElementById( 'slidePrice' )?.value.trim() || '',
+			link: document.getElementById( 'slideLink' )?.value.trim() || '',
+			image: imageUrl,
+			order: parseInt( document.getElementById( 'slideOrder' )?.value ) || 0,
+			status: document.getElementById( 'slideStatus' )?.value || 'active'
+		};
+
+		console.log( '🎠 Данные слайда:', JSON.stringify( slideData, null, 2 ) );
+
+		// ===== ИСПРАВЛЕНО: Проверяем currentSlideId =====
+		if ( this.currentSlideId ) {
+			// Редактирование существующего слайда
+			console.log( '✏️ Обновление слайда с ID:', this.currentSlideId );
+			store.updatePromoSlide( this.currentSlideId, slideData );
+			API.showNotification( '✅ Слайд обновлён!', 'success' );
+		} else {
+			// Создание нового слайда
+			console.log( '➕ Создание нового слайда' );
+			store.addPromoSlide( slideData );
+			API.showNotification( '✅ Слайд добавлен!', 'success' );
+		}
+
+		this.closeAllModals();
+		this.renderSlidesList();
+	}
+
+	// ========================================================================
+	// 12. ОТОБРАЖЕНИЕ СЛАЙДОВ
+	// ========================================================================
+
+	/**
+	 * Рендерит список промо-слайдов в админке
+	 */
+	renderSlidesList() {
+		const container = document.getElementById( 'promoSlidesList' );
+		if ( !container ) return;
+
+		const slides = store.getPromoSlides();
+
+		if ( slides.length === 0 ) {
+			container.innerHTML = '<div class="loading-slides">Нет слайдов. Добавьте первый слайд!</div>';
+			return;
+		}
+
+		container.innerHTML = slides.map( slide => this.renderSlideItem( slide ) ).join( '' );
+		this.attachSlideEvents();
+	}
+
+	/**
+	 * Создаёт HTML одного элемента слайда
+	 * @param {Object} slide - Объект слайда
+	 * @returns {string} HTML-строка
+	 */
+	renderSlideItem( slide ) {
+		const statusBadge = slide.status === 'active'
+			? '<span class="slide-status-badge active">Активен</span>'
+			: '<span class="slide-status-badge inactive">Неактивен</span>';
+
+		return `
+            <div class="slide-item" data-id="${slide.id}">
+                <div class="drag-handle">
+                    <i class="fas fa-grip-vertical"></i>
+                </div>
+                <div class="slide-preview">
+                    <img src="${API.getSafeImageUrl( slide.image )}" 
+                         alt="${this.escapeHtml( slide.title )}"
+                         onerror="this.src='/image/placeholder.jpg'">
+                </div>
+                <div class="slide-info">
+                    <div class="slide-title">${this.escapeHtml( slide.title )}</div>
+                    <div class="slide-description">${this.escapeHtml( slide.description )}</div>
+                    ${slide.price ? `<div class="slide-price">${this.escapeHtml( slide.price )}</div>` : ''}
+                </div>
+                <div class="slide-order">#${slide.order || 0}</div>
+                <div class="slide-status">${statusBadge}</div>
+                <div class="slide-actions">
+                    <button class="slide-action-btn edit-slide" data-id="${slide.id}" title="Редактировать">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="slide-action-btn delete-slide" data-id="${slide.id}" title="Удалить">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+	}
+
+	/**
+	 * Привязывает обработчики к кнопкам в списке слайдов
+	 */
+	attachSlideEvents() {
+		document.querySelectorAll( '.edit-slide' ).forEach( btn => {
+			btn.onclick = ( e ) => {
+				e.preventDefault();
+				this.openSlideModal( e.currentTarget.dataset.id );
+			};
+		} );
+
+		document.querySelectorAll( '.delete-slide' ).forEach( btn => {
+			btn.onclick = ( e ) => {
+				e.preventDefault();
+				this.openDeleteSlideModal( e.currentTarget.dataset.id );
+			};
+		} );
+	}
+
+	// ========================================================================
+	// 13. ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ
 	// ========================================================================
 
 	/**
 	 * Безопасное экранирование HTML-спецсимволов
-	 * Защита от XSS при вставке пользовательских данных
-	 * 
 	 * @param {string} text - Исходный текст
 	 * @returns {string} Экранированный текст
 	 */
@@ -1356,13 +1675,9 @@ class ProductManager {
 }
 
 // ========================================================================
-// 10. ЗАПУСК МОДУЛЯ
+// 14. ЗАПУСК МОДУЛЯ
 // ========================================================================
 
-/**
- * Создаём глобальный экземпляр ProductManager
- * Доступен из любого скрипта как window.productManager
- */
 window.productManager = new ProductManager();
 
 console.log( '✅ ProductManager: модуль загружен и готов к работе' );
