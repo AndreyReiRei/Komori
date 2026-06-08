@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-05-29T05:07:35.431Z",
+    "lastUpdated": "2026-06-08T10:19:57.837Z",
     "season": "spring",
     "seasonName": "🌸 Весна",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 159971,
+      "popularity": 171185,
       "genres": [
         "Приключения",
         "Драма",
@@ -57,9 +57,9 @@
       "episodes": "19 эп.",
       "episodesCount": 19,
       "duration": 24,
-      "score": 8.7,
-      "scoreRaw": 87,
-      "popularity": 97969,
+      "score": 8.8,
+      "scoreRaw": 88,
+      "popularity": 104507,
       "genres": [
         "Экшен",
         "Приключения",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 7.8,
       "scoreRaw": 78,
-      "popularity": 94408,
+      "popularity": 100533,
       "genres": [
         "Экшен",
         "Приключения",
@@ -127,7 +127,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 92553,
+      "popularity": 98168,
       "genres": [
         "Экшен",
         "Приключения",
@@ -161,7 +161,7 @@
       "duration": 24,
       "score": 7.9,
       "scoreRaw": 79,
-      "popularity": 90645,
+      "popularity": 95227,
       "genres": [
         "Драма",
         "Психология"
@@ -193,7 +193,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 82718,
+      "popularity": 88626,
       "genres": [
         "Экшен",
         "Приключения",
@@ -212,38 +212,6 @@
       "order": 6
     },
     {
-      "id": "anilist-170019",
-      "title": "The Angel Next Door Spoils Me Rotten2",
-      "nativeTitle": "お隣の天使様にいつの間にか駄目人間にされていた件 第2期",
-      "excerpt": "The second season of Otonari no Tenshi-sama ni Itsunomanika Dame Ningen ni Sareteita Ken. Now a couple, Amane and Mahiru navigate school life and overcome their pasts in this sweet love story. (Source...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx170019-djbN0b934MhE.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx170019-djbN0b934MhE.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/170019-r07RiVV5d8rT.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "12 эп.",
-      "episodesCount": 12,
-      "duration": 24,
-      "score": 7.7,
-      "scoreRaw": 77,
-      "popularity": 63011,
-      "genres": [
-        "Романтика",
-        "Повседневность"
-      ],
-      "studios": [
-        "Toho",
-        "project No.9"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/170019",
-      "trailerUrl": "https://www.youtube.com/watch?v=8Gtb1uhjPKs",
-      "season": "SPRING",
-      "seasonYear": 2026,
-      "order": 7
-    },
-    {
       "id": "anilist-169580",
       "title": "I Made Friends with the Second Prettiest Girl in My Class",
       "nativeTitle": "クラスで２番目に可愛い女の子と友だちになった",
@@ -257,9 +225,9 @@
       "episodes": "12 эп.",
       "episodesCount": 12,
       "duration": 24,
-      "score": 7.9,
-      "scoreRaw": 79,
-      "popularity": 62180,
+      "score": 8,
+      "scoreRaw": 80,
+      "popularity": 68538,
       "genres": [
         "Комедия",
         "Романтика"
@@ -271,6 +239,38 @@
       "source": "AniList",
       "sourceUrl": "https://anilist.co/anime/169580",
       "trailerUrl": "https://www.youtube.com/watch?v=3mTUxCIyJhA",
+      "season": "SPRING",
+      "seasonYear": 2026,
+      "order": 7
+    },
+    {
+      "id": "anilist-170019",
+      "title": "The Angel Next Door Spoils Me Rotten2",
+      "nativeTitle": "お隣の天使様にいつの間にか駄目人間にされていた件 第2期",
+      "excerpt": "The second season of Otonari no Tenshi-sama ni Itsunomanika Dame Ningen ni Sareteita Ken. Now a couple, Amane and Mahiru navigate school life and overcome their pasts in this sweet love story. (Source...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx170019-djbN0b934MhE.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx170019-djbN0b934MhE.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/170019-r07RiVV5d8rT.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "12 эп.",
+      "episodesCount": 12,
+      "duration": 24,
+      "score": 7.6,
+      "scoreRaw": 76,
+      "popularity": 65653,
+      "genres": [
+        "Романтика",
+        "Повседневность"
+      ],
+      "studios": [
+        "Toho",
+        "project No.9"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/170019",
+      "trailerUrl": "https://www.youtube.com/watch?v=8Gtb1uhjPKs",
       "season": "SPRING",
       "seasonYear": 2026,
       "order": 8
@@ -291,7 +291,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 59730,
+      "popularity": 64604,
       "genres": [
         "Экшен",
         "Комедия",
@@ -311,8 +311,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 356,
-    "timestamp": 1780031255432,
-    "nextUpdate": "2026-05-30T05:07:35.432Z"
+    "fetchDuration": 215,
+    "timestamp": 1780913997837,
+    "nextUpdate": "2026-06-09T10:19:57.837Z"
   }
 }
