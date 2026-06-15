@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-06-14T09:20:08.258Z",
+    "lastUpdated": "2026-06-15T11:48:22.422Z",
     "season": "spring",
     "seasonName": "🌸 Весна",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 175614,
+      "popularity": 177111,
       "genres": [
         "Приключения",
         "Драма",
@@ -59,7 +59,7 @@
       "duration": 24,
       "score": 8.8,
       "scoreRaw": 88,
-      "popularity": 107066,
+      "popularity": 107897,
       "genres": [
         "Экшен",
         "Приключения",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 7.8,
       "scoreRaw": 78,
-      "popularity": 103151,
+      "popularity": 103705,
       "genres": [
         "Экшен",
         "Приключения",
@@ -127,7 +127,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 100172,
+      "popularity": 101114,
       "genres": [
         "Экшен",
         "Приключения",
@@ -161,7 +161,7 @@
       "duration": 24,
       "score": 7.8,
       "scoreRaw": 78,
-      "popularity": 97000,
+      "popularity": 97605,
       "genres": [
         "Драма",
         "Психология"
@@ -193,7 +193,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 90709,
+      "popularity": 91942,
       "genres": [
         "Экшен",
         "Приключения",
@@ -227,7 +227,7 @@
       "duration": 24,
       "score": 8,
       "scoreRaw": 80,
-      "popularity": 71556,
+      "popularity": 72315,
       "genres": [
         "Комедия",
         "Романтика"
@@ -259,7 +259,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 66970,
+      "popularity": 67257,
       "genres": [
         "Экшен",
         "Комедия",
@@ -291,9 +291,9 @@
       "episodes": "12 эп.",
       "episodesCount": 12,
       "duration": 24,
-      "score": 7.6,
-      "scoreRaw": 76,
-      "popularity": 66523,
+      "score": 7.5,
+      "scoreRaw": 75,
+      "popularity": 66888,
       "genres": [
         "Романтика",
         "Повседневность"
@@ -311,8 +311,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 223,
-    "timestamp": 1781428808258,
-    "nextUpdate": "2026-06-15T09:20:08.258Z"
+    "fetchDuration": 242,
+    "timestamp": 1781524102422,
+    "nextUpdate": "2026-06-16T11:48:22.422Z"
   }
 }
