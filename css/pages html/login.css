@@ -697,6 +697,68 @@
 	color: #ff3366;
 }
 
+/* ============================================================
+   СТИЛИ ДЛЯ НОВОЙ СИСТЕМЫ ВАЛИДАЦИИ
+   ============================================================ */
+
+/* Поле с ошибкой */
+.auth-input.validation-error,
+input.validation-error {
+	border-color: #ff4444 !important;
+	box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.25) !important;
+	animation: shake 0.4s ease;
+}
+
+/* Текст сообщения об ошибке */
+.validation-message {
+	display: block;
+	color: #ff4444;
+	font-size: 13px;
+	margin-top: 6px;
+	padding-left: 4px;
+	font-weight: 400;
+	line-height: 1.3;
+	animation: fadeInDown 0.3s ease;
+}
+
+/* Анимация тряски для формы с ошибками */
+@keyframes shake {
+
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+
+	25% {
+		transform: translateX(-5px);
+	}
+
+	75% {
+		transform: translateX(5px);
+	}
+}
+
+/* Анимация появления сообщения */
+@keyframes fadeInDown {
+	from {
+		opacity: 0;
+		transform: translateY(-6px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Кнопка отправки в заблокированном состоянии */
+.auth-form button[type="submit"]:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	pointer-events: none;
+	filter: grayscale(20%);
+}
+
 /* ====== МЕДИАЗАПРОСЫ ====== */
 
 /* Ультраширокие (1921px и выше) */

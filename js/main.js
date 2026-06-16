@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * MAIN.JS - ГЛАВНЫЙ ФАЙЛ САЙТА "КОМОРИ" (ПОЛНОСТЬЮ ИСПРАВЛЕННАЯ ВЕРСИЯ)
+ * MAIN.JS - ГЛАВНЫЙ ФАЙЛ САЙТА "КОМОРИ" (ФИНАЛЬНАЯ ВЕРСИЯ)
  * ============================================================================
  * 
  * НАЗНАЧЕНИЕ:
@@ -18,6 +18,17 @@
  * - Использует textContent вместо innerHTML где возможно
  * - Проверяет существование API перед вызовом
  * - Обрабатывает ошибки парсинга JSON
+ * 
+ * СТРУКТУРА:
+ * 1. Определение корня сайта
+ * 2. Вспомогательные функции (без зависимостей)
+ * 3. Обновление UI (аватар, футер)
+ * 4. Утилиты (меню, копирайт, модальные окна)
+ * 5. Инициализаторы (скролл, формы, анимации, доступность, отступы)
+ * 6. Глобальные слушатели событий
+ * 7. Очистка ресурсов
+ * 8. Запуск при загрузке страницы
+ * 9. Экспорт для отладки
  * 
  * ============================================================================
  */
@@ -51,7 +62,7 @@ function getSiteRoot() {
 	// Глубина = количество папок (не считая сам файл)
 	const depth = segments.length - 1;
 
-	console.log( `📁 MAIN: Сегменты пути: [${segments.join( ', ' )}], глубина: ${depth}` );
+	console.log( '📁 MAIN: Сегменты пути: [' + segments.join( ', ' ) + '], глубина: ' + depth );
 
 	// Если файл в корне сайта
 	if ( depth <= 0 ) {
@@ -60,8 +71,11 @@ function getSiteRoot() {
 	}
 
 	// Генерируем нужное количество "../"
-	const root = '../'.repeat( depth );
-	console.log( `📁 MAIN: Корень сайта = "${root}"` );
+	let root = '';
+	for ( let i = 0; i < depth; i++ ) {
+		root += '../';
+	}
+	console.log( '📁 MAIN: Корень сайта = "' + root + '"' );
 
 	return root;
 }
@@ -72,7 +86,66 @@ window.siteRoot = getSiteRoot();
 console.log( '✅ MAIN: Корень сайта установлен:', window.siteRoot );
 
 // ============================================================================
-// 2. ОБНОВЛЕНИЕ АВАТАРА ПОЛЬЗОВАТЕЛЯ В ШАПКЕ
+// 2. ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (БЕЗ ЗАВИСИМОСТЕЙ)
+// ============================================================================
+
+/**
+ * Сбрасывает элементы шапки к состоянию "не авторизован"
+ * Выделено в отдельную функцию чтобы избежать дублирования кода
+ * 
+ * @param {HTMLElement} authBtn - ссылка кнопки авторизации
+ * @param {HTMLElement} authText - элемент с текстом
+ * @param {HTMLElement} headerAvatar - элемент с аватаром
+ * @param {HTMLElement} headerAvatarIcon - элемент с иконкой
+ * @private
+ */
+function resetToDefaultAuth( authBtn, authText, headerAvatar, headerAvatarIcon ) {
+	// Скрываем аватар, показываем иконку
+	if ( headerAvatar ) {
+		headerAvatar.style.display = 'none';
+	}
+	if ( headerAvatarIcon ) {
+		headerAvatarIcon.style.display = 'block';
+	}
+
+	// Устанавливаем текст и ссылку для неавторизованного пользователя
+	if ( authText ) {
+		authText.textContent = 'Войти';
+	}
+	if ( authBtn ) {
+		authBtn.href = '/pages html/login.html';
+		authBtn.title = 'Войти в аккаунт';
+	}
+
+	console.log( '👤 MAIN: Отображается состояние "Войти"' );
+}
+
+/**
+ * Безопасно перестраивает содержимое ссылки, сохраняя иконку
+ * Использует только DOM-методы, без innerHTML
+ * 
+ * @param {HTMLElement} link - элемент ссылки
+ * @param {HTMLElement|null} icon - элемент иконки (может быть null)
+ * @param {string} text - новый текст ссылки
+ * @private
+ */
+function rebuildLinkContent( link, icon, text ) {
+	// Полностью очищаем ссылку
+	while ( link.firstChild ) {
+		link.removeChild( link.firstChild );
+	}
+
+	// Восстанавливаем иконку через клонирование
+	if ( icon ) {
+		link.appendChild( icon.cloneNode( true ) );
+	}
+
+	// Добавляем пробел и текст
+	link.appendChild( document.createTextNode( ' ' + text ) );
+}
+
+// ============================================================================
+// 3. ОБНОВЛЕНИЕ UI (АВАТАР В ШАПКЕ, ССЫЛКА В ФУТЕРЕ)
 // ============================================================================
 
 /**
@@ -134,7 +207,7 @@ function updateHeaderAvatar() {
 						headerAvatar.src = user.avatar;
 						headerAvatar.style.display = 'block';
 						headerAvatarIcon.style.display = 'none';
-						headerAvatar.onerror = () => {
+						headerAvatar.onerror = function () {
 							// Если изображение не загрузилось - показываем иконку
 							console.warn( '⚠️ MAIN: Ошибка загрузки аватара, показываем иконку' );
 							headerAvatar.style.display = 'none';
@@ -151,11 +224,11 @@ function updateHeaderAvatar() {
 			} catch ( parseError ) {
 				// Ошибка парсинга JSON - данные повреждены
 				console.error( '❌ MAIN: Ошибка парсинга данных пользователя:', parseError );
-				this._resetToDefaultAuth( authBtn, authText, headerAvatar, headerAvatarIcon );
+				resetToDefaultAuth( authBtn, authText, headerAvatar, headerAvatarIcon );
 			}
 		} else {
 			// ===== ПОЛЬЗОВАТЕЛЬ НЕ АВТОРИЗОВАН =====
-			this._resetToDefaultAuth( authBtn, authText, headerAvatar, headerAvatarIcon );
+			resetToDefaultAuth( authBtn, authText, headerAvatar, headerAvatarIcon );
 		}
 	} catch ( error ) {
 		console.error( '❌ MAIN: Критическая ошибка при обновлении аватара:', error );
@@ -163,224 +236,102 @@ function updateHeaderAvatar() {
 }
 
 /**
- * Сбрасывает элементы шапки к состоянию "не авторизован"
- * Выделено в отдельную функцию чтобы избежать дублирования кода
+ * Обновляет ссылку в футере в зависимости от статуса авторизации
  * 
- * @param {HTMLElement} authBtn - ссылка кнопки авторизации
- * @param {HTMLElement} authText - элемент с текстом
- * @param {HTMLElement} headerAvatar - элемент с аватаром
- * @param {HTMLElement} headerAvatarIcon - элемент с иконкой
- * @private
- */
-function _resetToDefaultAuth( authBtn, authText, headerAvatar, headerAvatarIcon ) {
-	// Скрываем аватар, показываем иконку
-	if ( headerAvatar ) headerAvatar.style.display = 'none';
-	if ( headerAvatarIcon ) headerAvatarIcon.style.display = 'block';
-
-	// Устанавливаем текст и ссылку для неавторизованного пользователя
-	if ( authText ) authText.textContent = 'Войти';
-	if ( authBtn ) {
-		authBtn.href = '/pages html/login.html';
-		authBtn.title = 'Войти в аккаунт';
-	}
-
-	console.log( '👤 MAIN: Отображается состояние "Войти"' );
-}
-
-// ============================================================================
-// 3. ОБНОВЛЕНИЕ ССЫЛКИ В ПОДВАЛЕ
-// ============================================================================
-
-/**
- * Обновляет ссылку "Мой аккаунт" в подвале сайта
- * 
- * Особенности:
- * - Безопасно обновляет DOM через textContent и createTextNode
- * - Сохраняет иконку Font Awesome нетронутой
- * - Не использует innerHTML для предотвращения XSS
+ * Алгоритм:
+ * 1. Сначала ищет элемент по id="footerProfileLink" (приоритетный способ)
+ * 2. Если не найден — ищет через CSS-селектор (запасной способ)
  * 
  * Состояния:
  * - Авторизован:  "👤 Мой профиль" -> /pages html/profile.html
- * - Не авторизован: "👤 Войти / Регистрация" -> /pages html/login.html
+ * - Не авторизован: "👤 Мой аккаунт" -> /pages html/login.html
  */
 function updateFooterProfileLink() {
-	try {
-		// Ищем ссылку в подвале (первый элемент списка profile-links)
-		const profileLink = document.querySelector( '.footer-column .profile-links li:first-child a' );
+	// Способ 1: ищем по id (самый надёжный)
+	const profileLinkById = document.getElementById( 'footerProfileLink' );
 
-		if ( !profileLink ) {
-			console.log( 'ℹ️ MAIN: Ссылка на профиль в подвале не найдена (возможно, другой макет)' );
-			return;
-		}
-
-		const currentUser = localStorage.getItem( 'komori_current_user' );
-
-		// Находим иконку, чтобы сохранить её при обновлении
-		const icon = profileLink.querySelector( 'i' );
-
-		if ( currentUser ) {
-			// ===== ПОЛЬЗОВАТЕЛЬ АВТОРИЗОВАН =====
-			try {
-				const user = JSON.parse( currentUser );
-				profileLink.href = '/pages html/login.html';
-				profileLink.title = 'Перейти в профиль';
-
-				// Безопасное обновление содержимого ссылки
-				this._updateLinkContent( profileLink, icon, 'Мой профиль' );
-
-				console.log( '🔗 MAIN: Ссылка в подвале -> "Мой профиль" для:', user.name );
-			} catch ( e ) {
-				// Ошибка парсинга - показываем состояние входа
-				profileLink.href = '/pages html/login.html';
-				profileLink.title = 'Войти или зарегистрироваться';
-				this._updateLinkContent( profileLink, icon, 'Войти / Регистрация' );
-
-				console.warn( '⚠️ MAIN: Ошибка парсинга, ссылка сброшена на вход' );
-			}
-		} else {
-			// ===== ПОЛЬЗОВАТЕЛЬ НЕ АВТОРИЗОВАН =====
-			profileLink.href = '/pages html/login.html';
-			profileLink.title = 'Войти или зарегистрироваться';
-			this._updateLinkContent( profileLink, icon, 'Войти / Регистрация' );
-
-			console.log( '🔗 MAIN: Ссылка в подвале -> "Войти / Регистрация"' );
-		}
-	} catch ( error ) {
-		console.error( '❌ MAIN: Ошибка при обновлении ссылки в подвале:', error );
-	}
-}
-
-/**
- * Безопасно обновляет содержимое ссылки, сохраняя иконку
- * Использует DOM-методы вместо innerHTML для безопасности
- * 
- * @param {HTMLElement} link - элемент ссылки для обновления
- * @param {HTMLElement} icon - элемент иконки, который нужно сохранить
- * @param {string} text - новый текст ссылки
- * @private
- */
-function _updateLinkContent( link, icon, text ) {
-	// Очищаем содержимое ссылки
-	while ( link.firstChild ) {
-		link.removeChild( link.firstChild );
-	}
-
-	// Добавляем иконку (если она была)
-	if ( icon ) {
-		link.appendChild( icon.cloneNode( true ) ); // Клонируем чтобы избежать проблем с перемещением
-	}
-
-	// Добавляем пробел и текст
-	link.appendChild( document.createTextNode( ' ' + text ) );
-}
-
-// ============================================================================
-// 4. ОСНОВНАЯ ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
-// ============================================================================
-
-/**
- * Главный обработчик загрузки DOM
- * Инициализирует все модули и обработчики
- * 
- * Порядок важен:
- * 1. Базовые утилиты (скролл, модальные окна)
- * 2. UI обновления (счетчики, аватар)
- * 3. Интерактивные элементы (формы, анимации)
- * 4. Доступность (в последнюю очередь)
- */
-document.addEventListener( 'DOMContentLoaded', function () {
-	console.log( '🚀 MAIN: DOM полностью загружен, начинаю инициализацию...' );
-
-	// ===== 1. БАЗОВЫЕ УТИЛИТЫ =====
-	initSmoothScroll();      // Плавная прокрутка для якорных ссылок
-	initModalHandlers();     // Закрытие модальных окон
-
-	// ===== 2. ОБНОВЛЕНИЕ UI =====
-	updateCopyrightYear();   // Год в футере
-
-	// Обновляем счетчики только если API доступен
-	if ( window.API && typeof window.API.updateHeaderCounters === 'function' ) {
-		API.updateHeaderCounters();
-		console.log( '🔢 MAIN: Счетчики корзины и избранного обновлены' );
-	} else {
-		console.warn( '⚠️ MAIN: API.updateHeaderCounters недоступен' );
-	}
-
-	updateHeaderAvatar();    // Аватар пользователя
-	updateFooterProfileLink(); // Ссылка в подвале
-
-	// ===== 3. ИНТЕРАКТИВНЫЕ ЭЛЕМЕНТЫ =====
-	initFormValidation();    // Валидация форм
-	initScrollAnimations();  // Анимации появления при скролле
-
-	// ===== 4. ДОСТУПНОСТЬ =====
-	enhanceAccessibility();  // Улучшение для клавиатуры и скринридеров
-
-	console.log( '✅ MAIN: Все модули успешно инициализированы' );
-} );
-
-// ============================================================================
-// 5. ПЛАВНЫЙ СКРОЛЛ ДЛЯ ЯКОРНЫХ ССЫЛОК
-// ============================================================================
-
-/**
- * Инициализирует плавную прокрутку для внутренних ссылок
- * 
- * Какие ссылки обрабатываются:
- * - <a href="#section"> (якорь на этой же странице)
- * - <a href="#top"> (возврат наверх)
- * 
- * Какие игнорируются:
- * - <a href="#"> (пустая ссылка)
- * - <a href="page.html#section"> (ссылка на другую страницу)
- * 
- * Особенности:
- * - Учитывает высоту фиксированного хедера
- * - Закрывает мобильное меню после клика
- */
-function initSmoothScroll() {
-	// Находим все якорные ссылки (кроме пустых)
-	const anchorLinks = document.querySelectorAll( 'a[href^="#"]:not([href="#"])' );
-
-	if ( anchorLinks.length === 0 ) {
-		console.log( 'ℹ️ MAIN: Якорные ссылки не найдены на странице' );
+	if ( profileLinkById ) {
+		updateFooterLinkById( profileLinkById );
 		return;
 	}
 
-	console.log( `🔗 MAIN: Найдено ${anchorLinks.length} якорных ссылок для плавного скролла` );
+	// Способ 2: ищем через CSS-селектор (запасной)
+	const profileLinkBySelector = document.querySelector( '.footer-column .profile-links li:first-child a' );
 
-	anchorLinks.forEach( anchor => {
-		anchor.addEventListener( 'click', function ( e ) {
-			const targetId = this.getAttribute( 'href' );
+	if ( profileLinkBySelector ) {
+		updateFooterLinkBySelector( profileLinkBySelector );
+		return;
+	}
 
-			// Ищем целевой элемент
-			const targetElement = document.querySelector( targetId );
-
-			if ( targetElement ) {
-				// Предотвращаем стандартный переход
-				e.preventDefault();
-
-				// Вычисляем позицию с учетом фиксированного хедера
-				const header = document.querySelector( 'header' );
-				const headerHeight = header ? header.offsetHeight : 0;
-				const targetPosition = targetElement.offsetTop - headerHeight - 20; // 20px дополнительный отступ
-
-				// Плавная прокрутка
-				window.scrollTo( {
-					top: targetPosition,
-					behavior: 'smooth'
-				} );
-
-				console.log( `📜 MAIN: Плавный скролл к "${targetId}" (позиция: ${targetPosition}px)` );
-
-				// Закрываем мобильное меню если оно открыто
-				closeMobileMenu();
-			} else {
-				console.warn( `⚠️ MAIN: Целевой элемент "${targetId}" не найден на странице` );
-			}
-		} );
-	} );
+	// Элемент не найден ни одним способом
+	console.log( 'ℹ️ MAIN: Ссылка на профиль в подвале не найдена' );
 }
+
+/**
+ * Обновляет ссылку, найденную по id
+ * Использует innerHTML для замены содержимого (безопасно, так как мы контролируем контент)
+ * 
+ * @param {HTMLElement} link - элемент ссылки с id="footerProfileLink"
+ * @private
+ */
+function updateFooterLinkById( link ) {
+	const currentUser = localStorage.getItem( 'komori_current_user' );
+
+	if ( currentUser ) {
+		try {
+			JSON.parse( currentUser ); // Проверяем валидность JSON
+			link.href = '/pages html/profile.html';
+			link.innerHTML = '<i class="fas fa-user-circle"></i> Мой профиль';
+			console.log( '🔗 MAIN: Футер (по id) -> "Мой профиль"' );
+		} catch ( e ) {
+			link.href = '/pages html/login.html';
+			link.innerHTML = '<i class="fas fa-user-circle"></i> Мой аккаунт';
+			console.warn( '⚠️ MAIN: Ошибка парсинга, футер сброшен на вход' );
+		}
+	} else {
+		link.href = '/pages html/login.html';
+		link.innerHTML = '<i class="fas fa-user-circle"></i> Мой аккаунт';
+		console.log( '🔗 MAIN: Футер (по id) -> "Мой аккаунт"' );
+	}
+}
+
+/**
+ * Обновляет ссылку, найденную по CSS-селектору
+ * Использует безопасные DOM-методы (textContent, createTextNode)
+ * 
+ * @param {HTMLElement} link - элемент ссылки, найденный по селектору
+ * @private
+ */
+function updateFooterLinkBySelector( link ) {
+	const currentUser = localStorage.getItem( 'komori_current_user' );
+
+	// Сохраняем иконку, чтобы не потерять её при перестроении
+	const icon = link.querySelector( 'i' );
+
+	if ( currentUser ) {
+		try {
+			const user = JSON.parse( currentUser );
+			link.href = '/pages html/profile.html';
+			link.title = 'Перейти в профиль';
+			rebuildLinkContent( link, icon, 'Мой профиль' );
+			console.log( '🔗 MAIN: Футер (по селектору) -> "Мой профиль" для:', user.name );
+		} catch ( e ) {
+			link.href = '/pages html/login.html';
+			link.title = 'Войти или зарегистрироваться';
+			rebuildLinkContent( link, icon, 'Войти / Регистрация' );
+			console.warn( '⚠️ MAIN: Ошибка парсинга, ссылка сброшена на вход' );
+		}
+	} else {
+		link.href = '/pages html/login.html';
+		link.title = 'Войти или зарегистрироваться';
+		rebuildLinkContent( link, icon, 'Войти / Регистрация' );
+		console.log( '🔗 MAIN: Футер (по селектору) -> "Войти / Регистрация"' );
+	}
+}
+
+// ============================================================================
+// 4. УТИЛИТЫ (МЕНЮ, КОПИРАЙТ, МОДАЛЬНЫЕ ОКНА)
+// ============================================================================
 
 /**
  * Закрывает мобильное меню (бургер-меню)
@@ -413,10 +364,6 @@ function closeMobileMenu() {
 	}
 }
 
-// ============================================================================
-// 6. ОБНОВЛЕНИЕ ГОДА В ФУТЕРЕ
-// ============================================================================
-
 /**
  * Автоматически обновляет год в копирайте футера
  * 
@@ -443,13 +390,133 @@ function updateCopyrightYear() {
 
 	if ( oldText !== newText ) {
 		copyright.textContent = newText;
-		console.log( `📅 MAIN: Год в копирайте обновлен: ${oldText.match( /\d{4}/ )} -> ${currentYear}` );
+		console.log( '📅 MAIN: Год в копирайте обновлен: ' + ( oldText.match( /\d{4}/ ) || ['????'] ) + ' -> ' + currentYear );
 	}
 }
 
+/**
+ * Закрывает модальное окно
+ * @param {HTMLElement} modal - элемент модального окна (.modal-overlay)
+ */
+function closeModal( modal ) {
+	if ( !modal ) {
+		return;
+	}
+
+	modal.classList.remove( 'active' );
+	document.body.style.overflow = ''; // Возвращаем прокрутку
+
+	// Генерируем событие для других модулей
+	modal.dispatchEvent( new CustomEvent( 'modalClosed' ) );
+
+	console.log( '🪟 MAIN: Модальное окно закрыто' );
+}
+
 // ============================================================================
-// 7. ВАЛИДАЦИЯ ФОРМ
+// 5. ИНИЦИАЛИЗАТОРЫ (СКРОЛЛ, ФОРМЫ, АНИМАЦИИ, ДОСТУПНОСТЬ, ОТСТУПЫ)
 // ============================================================================
+
+/**
+ * Инициализирует плавную прокрутку для внутренних ссылок
+ * 
+ * Какие ссылки обрабатываются:
+ * - <a href="#section"> (якорь на этой же странице)
+ * - <a href="#top"> (возврат наверх)
+ * 
+ * Какие игнорируются:
+ * - <a href="#"> (пустая ссылка)
+ * - <a href="page.html#section"> (ссылка на другую страницу)
+ * 
+ * Особенности:
+ * - Учитывает высоту фиксированного хедера
+ * - Закрывает мобильное меню после клика
+ */
+function initSmoothScroll() {
+	// Находим все якорные ссылки (кроме пустых)
+	const anchorLinks = document.querySelectorAll( 'a[href^="#"]:not([href="#"])' );
+
+	if ( anchorLinks.length === 0 ) {
+		console.log( 'ℹ️ MAIN: Якорные ссылки не найдены на странице' );
+		return;
+	}
+
+	console.log( '🔗 MAIN: Найдено ' + anchorLinks.length + ' якорных ссылок для плавного скролла' );
+
+	anchorLinks.forEach( function ( anchor ) {
+		anchor.addEventListener( 'click', function ( e ) {
+			const targetId = this.getAttribute( 'href' );
+
+			// Ищем целевой элемент
+			const targetElement = document.querySelector( targetId );
+
+			if ( targetElement ) {
+				// Предотвращаем стандартный переход
+				e.preventDefault();
+
+				// Вычисляем позицию с учетом фиксированного хедера
+				const header = document.querySelector( 'header' );
+				const headerHeight = header ? header.offsetHeight : 0;
+				const targetPosition = targetElement.offsetTop - headerHeight - 20; // 20px дополнительный отступ
+
+				// Плавная прокрутка
+				window.scrollTo( {
+					top: targetPosition,
+					behavior: 'smooth'
+				} );
+
+				console.log( '📜 MAIN: Плавный скролл к "' + targetId + '" (позиция: ' + targetPosition + 'px)' );
+
+				// Закрываем мобильное меню если оно открыто
+				closeMobileMenu();
+			} else {
+				console.warn( '⚠️ MAIN: Целевой элемент "' + targetId + '" не найден на странице' );
+			}
+		} );
+	} );
+}
+
+/**
+ * Инициализирует обработчики для модальных окон
+ * 
+ * Способы закрытия:
+ * 1. Клик по оверлею (темному фону)
+ * 2. Нажатие клавиши Escape
+ * 3. Клик по кнопке закрытия (.modal-close)
+ */
+function initModalHandlers() {
+	// Закрытие по клику на оверлей
+	document.addEventListener( 'click', function ( e ) {
+		// Проверяем, что клик был именно по оверлею, а не по содержимому
+		if ( e.target.classList.contains( 'modal-overlay' ) &&
+			e.target.classList.contains( 'active' ) ) {
+			closeModal( e.target );
+		}
+	} );
+
+	// Закрытие по кнопке закрытия
+	document.addEventListener( 'click', function ( e ) {
+		const closeBtn = e.target.closest( '.modal-close' );
+		if ( closeBtn ) {
+			const modal = closeBtn.closest( '.modal-overlay' );
+			if ( modal ) {
+				closeModal( modal );
+			}
+		}
+	} );
+
+	// Закрытие по Escape
+	document.addEventListener( 'keydown', function ( e ) {
+		if ( e.key === 'Escape' ) {
+			const activeModal = document.querySelector( '.modal-overlay.active' );
+			if ( activeModal ) {
+				closeModal( activeModal );
+				console.log( '⌨️ MAIN: Модальное окно закрыто клавишей Escape' );
+			}
+		}
+	} );
+
+	console.log( '🪟 MAIN: Обработчики модальных окон настроены' );
+}
 
 // Хранилище для валидаторов (нужно для очистки при SPA-переходах)
 const formValidators = [];
@@ -474,9 +541,9 @@ function initFormValidation() {
 		return;
 	}
 
-	console.log( `📝 MAIN: Найдено ${forms.length} форм, добавляю валидацию` );
+	console.log( '📝 MAIN: Найдено ' + forms.length + ' форм, добавляю валидацию' );
 
-	forms.forEach( ( form, formIndex ) => {
+	forms.forEach( function ( form ) {
 		// Создаем функцию-валидатор для этой формы
 		const validator = function ( e ) {
 			const requiredFields = form.querySelectorAll( '[required]' );
@@ -484,7 +551,7 @@ function initFormValidation() {
 			let firstErrorField = null;
 
 			// Проверяем все обязательные поля
-			requiredFields.forEach( field => {
+			requiredFields.forEach( function ( field ) {
 				if ( !field.value.trim() ) {
 					isValid = false;
 
@@ -503,7 +570,7 @@ function initFormValidation() {
 						this.style.boxShadow = '';
 					}, { once: true } );
 
-					console.warn( `⚠️ MAIN: Поле "${field.name || field.id || 'без имени'}" не заполнено` );
+					console.warn( '⚠️ MAIN: Поле "' + ( field.name || field.id || 'без имени' ) + '" не заполнено' );
 				}
 			} );
 
@@ -537,13 +604,12 @@ function initFormValidation() {
 		form.addEventListener( 'submit', validator );
 
 		// Сохраняем ссылки для возможной очистки
-		formValidators.push( { form, validator } );
+		formValidators.push( {
+			form: form,
+			validator: validator
+		} );
 	} );
 }
-
-// ============================================================================
-// 8. АНИМАЦИИ ПРИ СКРОЛЛЕ
-// ============================================================================
 
 let scrollObserver = null; // Храним ссылку для очистки
 
@@ -569,7 +635,7 @@ function initScrollAnimations() {
 		return;
 	}
 
-	console.log( `✨ MAIN: Найдено ${animatedElements.length} элементов для анимации` );
+	console.log( '✨ MAIN: Найдено ' + animatedElements.length + ' элементов для анимации' );
 
 	// Отключаем предыдущий наблюдатель если был
 	if ( scrollObserver ) {
@@ -578,8 +644,8 @@ function initScrollAnimations() {
 	}
 
 	// Создаем новый наблюдатель
-	scrollObserver = new IntersectionObserver( ( entries ) => {
-		entries.forEach( entry => {
+	scrollObserver = new IntersectionObserver( function ( entries ) {
+		entries.forEach( function ( entry ) {
 			if ( entry.isIntersecting ) {
 				// Элемент появился в области видимости
 				entry.target.classList.add( 'animated' );
@@ -587,24 +653,20 @@ function initScrollAnimations() {
 				// Прекращаем наблюдение за этим элементом (анимация срабатывает один раз)
 				scrollObserver.unobserve( entry.target );
 
-				console.log( `✨ MAIN: Анимация запущена для:`, entry.target );
+				console.log( '✨ MAIN: Анимация запущена для:', entry.target );
 			}
 		} );
 	}, {
-		threshold: 0.1,        // Срабатывает при видимости 10% элемента
-		rootMargin: '0px 0px -50px 0px' // Небольшой оффсет для раннего срабатывания
+		threshold: 0.1,            // Срабатывает при видимости 10% элемента
+		rootMargin: '0px 0px -50px 0px'  // Небольшой оффсет для раннего срабатывания
 	} );
 
 	// Начинаем наблюдение за всеми элементами
-	animatedElements.forEach( ( element, index ) => {
+	animatedElements.forEach( function ( element, index ) {
 		scrollObserver.observe( element );
-		console.log( `👁️ MAIN: Наблюдение #${index + 1}:`, element.tagName, element.className );
+		console.log( '👁️ MAIN: Наблюдение #' + ( index + 1 ) + ':', element.tagName, element.className );
 	} );
 }
-
-// ============================================================================
-// 9. УЛУЧШЕНИЕ ДОСТУПНОСТИ (ИСПРАВЛЕНО!)
-// ============================================================================
 
 /**
  * Улучшает доступность сайта для людей с ограниченными возможностями
@@ -626,7 +688,7 @@ function enhanceAccessibility() {
 	let usingKeyboard = false;
 
 	// Слушаем нажатие Tab - верный признак клавиатурной навигации
-	document.addEventListener( 'keydown', ( e ) => {
+	document.addEventListener( 'keydown', function ( e ) {
 		if ( e.key === 'Tab' ) {
 			usingKeyboard = true;
 			// Добавляем класс к body для CSS-стилей
@@ -636,7 +698,7 @@ function enhanceAccessibility() {
 	}, { passive: true } );
 
 	// Слушаем клик мыши - сбрасываем флаг клавиатуры
-	document.addEventListener( 'mousedown', () => {
+	document.addEventListener( 'mousedown', function () {
 		usingKeyboard = false;
 		document.body.classList.remove( 'keyboard-navigation' );
 	}, { passive: true } );
@@ -645,15 +707,15 @@ function enhanceAccessibility() {
 	const roleButtons = document.querySelectorAll( '[role="button"]' );
 
 	if ( roleButtons.length > 0 ) {
-		console.log( `♿ MAIN: Найдено ${roleButtons.length} элементов с role="button"` );
+		console.log( '♿ MAIN: Найдено ' + roleButtons.length + ' элементов с role="button"' );
 
-		roleButtons.forEach( button => {
+		roleButtons.forEach( function ( button ) {
 			// Добавляем обработку Enter и Space
 			button.addEventListener( 'keydown', function ( e ) {
 				if ( e.key === 'Enter' || e.key === ' ' ) {
 					e.preventDefault();
 					this.click();
-					console.log( `⌨️ MAIN: Элемент активирован клавишей "${e.key}"` );
+					console.log( '⌨️ MAIN: Элемент активирован клавишей "' + e.key + '"' );
 				}
 			} );
 
@@ -665,7 +727,7 @@ function enhanceAccessibility() {
 	}
 
 	// Добавляем aria-label к ссылкам без текста (иконки)
-	document.querySelectorAll( 'a:empty, a img:only-child' ).forEach( link => {
+	document.querySelectorAll( 'a:empty, a img:only-child' ).forEach( function ( link ) {
 		if ( !link.getAttribute( 'aria-label' ) ) {
 			const text = link.getAttribute( 'title' ) || 'Ссылка';
 			link.setAttribute( 'aria-label', text );
@@ -681,10 +743,6 @@ function enhanceAccessibility() {
 	console.log( '💡 MAIN: Для стилизации фокуса используйте:' );
 	console.log( '   :focus-visible { outline: 2px solid #ff6b6b; }' );
 }
-
-// ============================================================================
-// 10. ОТСТУП ДЛЯ ОСНОВНОГО КОНТЕНТА (МОБИЛЬНЫЕ)
-// ============================================================================
 
 let headerOffsetHandler = null; // Храним для очистки
 
@@ -715,7 +773,7 @@ function initHeaderOffset() {
 		if ( isMobile ) {
 			const headerHeight = header.offsetHeight;
 			main.style.marginTop = headerHeight + 'px';
-			console.log( `📱 MAIN: Мобильный режим, отступ: ${headerHeight}px` );
+			console.log( '📱 MAIN: Мобильный режим, отступ: ' + headerHeight + 'px' );
 		} else {
 			main.style.marginTop = '';
 			console.log( '🖥️ MAIN: Десктопный режим, отступ убран' );
@@ -735,70 +793,7 @@ function initHeaderOffset() {
 }
 
 // ============================================================================
-// 11. МОДАЛЬНЫЕ ОКНА
-// ============================================================================
-
-/**
- * Инициализирует обработчики для модальных окон
- * 
- * Способы закрытия:
- * 1. Клик по оверлею (темному фону)
- * 2. Нажатие клавиши Escape
- * 3. Клик по кнопке закрытия (.modal-close)
- */
-function initModalHandlers() {
-	// Закрытие по клику на оверлей
-	document.addEventListener( 'click', ( e ) => {
-		// Проверяем, что клик был именно по оверлею, а не по содержимому
-		if ( e.target.classList.contains( 'modal-overlay' ) &&
-			e.target.classList.contains( 'active' ) ) {
-			closeModal( e.target );
-		}
-	} );
-
-	// Закрытие по кнопке закрытия
-	document.addEventListener( 'click', ( e ) => {
-		const closeBtn = e.target.closest( '.modal-close' );
-		if ( closeBtn ) {
-			const modal = closeBtn.closest( '.modal-overlay' );
-			if ( modal ) {
-				closeModal( modal );
-			}
-		}
-	} );
-
-	// Закрытие по Escape
-	document.addEventListener( 'keydown', ( e ) => {
-		if ( e.key === 'Escape' ) {
-			const activeModal = document.querySelector( '.modal-overlay.active' );
-			if ( activeModal ) {
-				closeModal( activeModal );
-				console.log( '⌨️ MAIN: Модальное окно закрыто клавишей Escape' );
-			}
-		}
-	} );
-
-	console.log( '🪟 MAIN: Обработчики модальных окон настроены' );
-}
-
-/**
- * Закрывает модальное окно
- * @param {HTMLElement} modal - элемент модального окна (.modal-overlay)
- */
-function closeModal( modal ) {
-	if ( !modal ) return;
-
-	modal.classList.remove( 'active' );
-	document.body.style.overflow = ''; // Возвращаем прокрутку
-
-	// Генерируем событие для других модулей
-	modal.dispatchEvent( new CustomEvent( 'modalClosed' ) );
-
-	console.log( '🪟 MAIN: Модальное окно закрыто' );
-}
-
-// ============================================================================
-// 12. ГЛОБАЛЬНЫЕ СЛУШАТЕЛИ СОБЫТИЙ
+// 6. ГЛОБАЛЬНЫЕ СЛУШАТЕЛИ СОБЫТИЙ
 // ============================================================================
 
 /**
@@ -843,7 +838,7 @@ window.addEventListener( 'cartUpdated', function () {
 } );
 
 // ============================================================================
-// 13. ОЧИСТКА РЕСУРСОВ (ДЛЯ SPA-ПРИЛОЖЕНИЙ)
+// 7. ОЧИСТКА РЕСУРСОВ (ДЛЯ SPA-ПРИЛОЖЕНИЙ)
 // ============================================================================
 
 /**
@@ -863,8 +858,8 @@ window.cleanupMain = function () {
 	}
 
 	// Очищаем валидаторы форм
-	formValidators.forEach( ( { form, validator } ) => {
-		form.removeEventListener( 'submit', validator );
+	formValidators.forEach( function ( item ) {
+		item.form.removeEventListener( 'submit', item.validator );
 	} );
 	formValidators.length = 0;
 	console.log( '🧹 MAIN: Валидаторы форм удалены' );
@@ -880,23 +875,61 @@ window.cleanupMain = function () {
 };
 
 // ============================================================================
-// 14. ЗАПУСК ОТЛОЖЕННЫХ ИНИЦИАЛИЗАЦИЙ
+// 8. ЗАПУСК ПРИ ЗАГРУЗКЕ СТРАНИЦЫ (ЕДИНЫЙ ОБРАБОТЧИК)
 // ============================================================================
 
 /**
- * Инициализация отступа хедера
- * Запускается сразу или после загрузки DOM
+ * Главный обработчик загрузки DOM
+ * Все инициализации собраны в одном месте
+ * 
+ * Порядок вызовов:
+ * 1. Обновление UI (год, аватар, футер)
+ * 2. Инициализация обработчиков (скролл, модалки, формы, анимации)
+ * 3. Доступность (в последнюю очередь)
+ * 4. Отступы (зависят от загруженного DOM)
  */
+function initAll() {
+	console.log( '🚀 MAIN: DOM полностью загружен, начинаю инициализацию...' );
+
+	// ===== 1. ОБНОВЛЕНИЕ UI =====
+	updateCopyrightYear();      // Год в футере
+	updateHeaderAvatar();       // Аватар пользователя в шапке
+	updateFooterProfileLink();  // Ссылка в подвале
+
+	// Обновляем счетчики только если API доступен
+	if ( window.API && typeof window.API.updateHeaderCounters === 'function' ) {
+		window.API.updateHeaderCounters();
+		console.log( '🔢 MAIN: Счетчики корзины и избранного обновлены' );
+	} else {
+		console.warn( '⚠️ MAIN: API.updateHeaderCounters недоступен' );
+	}
+
+	// ===== 2. ИНИЦИАЛИЗАЦИЯ ОБРАБОТЧИКОВ =====
+	initSmoothScroll();         // Плавная прокрутка для якорных ссылок
+	initModalHandlers();        // Закрытие модальных окон
+	initFormValidation();       // Валидация форм
+	initScrollAnimations();     // Анимации появления при скролле
+
+	// ===== 3. ДОСТУПНОСТЬ =====
+	enhanceAccessibility();     // Улучшение для клавиатуры и скринридеров
+
+	// ===== 4. ОТСТУПЫ =====
+	initHeaderOffset();         // Отступ для main под хедером
+
+	console.log( '✅ MAIN: Все модули успешно инициализированы' );
+}
+
+// Запускаем инициализацию когда DOM готов
 if ( document.readyState === 'loading' ) {
 	// DOM еще грузится - ждем
-	document.addEventListener( 'DOMContentLoaded', initHeaderOffset );
+	document.addEventListener( 'DOMContentLoaded', initAll );
 } else {
 	// DOM уже загружен - запускаем сразу
-	initHeaderOffset();
+	initAll();
 }
 
 // ============================================================================
-// 15. ЭКСПОРТ ДЛЯ ОТЛАДКИ
+// 9. ЭКСПОРТ ДЛЯ ОТЛАДКИ
 // ============================================================================
 
 /**
@@ -904,16 +937,16 @@ if ( document.readyState === 'loading' ) {
  * Для отладки: window.MAIN.функция()
  */
 window.MAIN = {
-	getSiteRoot,
-	updateHeaderAvatar,
-	updateFooterProfileLink,
-	closeMobileMenu,
-	updateCopyrightYear,
-	enhanceAccessibility,
+	getSiteRoot: getSiteRoot,
+	updateHeaderAvatar: updateHeaderAvatar,
+	updateFooterProfileLink: updateFooterProfileLink,
+	closeMobileMenu: closeMobileMenu,
+	updateCopyrightYear: updateCopyrightYear,
+	enhanceAccessibility: enhanceAccessibility,
 	cleanup: window.cleanupMain,
 
 	// Информация о модуле
-	version: '2.0.0',
+	version: '2.1.0',
 	loaded: new Date().toISOString()
 };
 

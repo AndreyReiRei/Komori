@@ -722,6 +722,23 @@ body {
 	flex-wrap: wrap;
 }
 
+.btn-primary {
+	background: #2d2d2d;
+	color: white;
+	border: 1px solid #ff3366;
+	padding: 12px 20px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 500;
+	transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+	background: #ff3366;
+	color: white;
+}
+
 .btn-secondary {
 	background: #2d2d2d;
 	color: white;
