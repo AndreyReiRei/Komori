@@ -1,130 +1,108 @@
 /* ============================================================================
- * ПЕРЕМЕННЫЕ (CSS Custom Properties)
+ * 1. ПЕРЕМЕННЫЕ (CSS Custom Properties)
  * ============================================================================
- * :root - глобальные переменные, доступные во всем документе
- * Используются для единообразия дизайна и легкого изменения темы
+ * :root — глобальные переменные, доступные во всём документе.
+ * Используются для единообразия дизайна и лёгкого изменения темы.
  * ============================================================================ */
 
 :root {
 	/* ===== ЦВЕТОВАЯ СХЕМА ===== */
 	--primary: #ff3366;
-	/* Основной цвет (розовый) */
 	--primary-dark: #e62e5c;
-	/* Темный оттенок основного */
 	--primary-gradient: linear-gradient(135deg, #ff3366 0%, #ff6b6b 100%);
-	/* Градиент */
 	--secondary: #ffb7c5;
-	/* Вторичный цвет (светло-розовый) */
 	--secondary-gradient: linear-gradient(135deg, #ffb7c5 0%, #ff6b6b 100%);
 	--accent: #ffb7c5;
-	/* Акцентный цвет */
 	--success: #2ecc71;
-	/* Зеленый для успеха */
 	--danger: #ff4757;
-	/* Красный для ошибок */
 	--warning: #ff9800;
-	/* Оранжевый для предупреждений */
 
 	/* ===== ЦВЕТА ТЕКСТА ===== */
 	--text-primary: #1a1a1a;
-	/* Основной текст (черный) */
 	--text-secondary: #4a4a4a;
-	/* Второстепенный текст */
 	--text-muted: #666666;
-	/* Приглушенный текст */
 	--text-light: #999999;
-	/* Светлый текст */
 	--text-white: #ffffff;
-	/* Белый текст */
 
 	/* ===== ЦВЕТА ФОНА ===== */
 	--bg-primary: #ffffff;
-	/* Основной фон (белый) */
 	--bg-secondary: #f8f9fa;
-	/* Вторичный фон (светло-серый) */
 	--bg-tertiary: #f5f5f5;
-	/* Третичный фон */
 	--bg-gradient: linear-gradient(180deg, rgba(255, 183, 197, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
 
 	/* ===== ЦВЕТА ГРАНИЦ ===== */
 	--border-light: rgba(255, 51, 102, 0.15);
-	/* Светлая граница */
 	--border-hover: rgba(255, 51, 102, 0.4);
-	/* Граница при наведении */
 
 	/* ===== ТЕНИ ===== */
 	--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
-	/* Маленькая тень */
 	--shadow-md: 0 12px 32px -8px rgba(0, 0, 0, 0.08);
-	/* Средняя тень */
 	--shadow-lg: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
-	/* Большая тень */
 	--shadow-hover: 0 30px 50px -15px rgba(255, 51, 102, 0.25);
-	/* Тень при наведении */
 	--shadow-glow: 0 8px 16px -4px rgba(255, 51, 102, 0.3);
-	/* Свечение */
 
 	/* ===== АНИМАЦИИ ===== */
 	--transition-fast: 0.2s ease;
-	/* Быстрая анимация */
 	--transition-base: 0.3s ease;
-	/* Базовая анимация */
 	--transition-slow: 0.4s cubic-bezier(0.2, 0, 0, 1);
-	/* Медленная анимация */
 	--transition-bounce: 0.4s cubic-bezier(0.2, 0.8, 0.4, 1.2);
-	/* Пружинящая */
 
 	/* ===== СКРУГЛЕНИЯ ===== */
 	--radius-sm: 8px;
-	/* Маленькое скругление */
 	--radius-md: 12px;
-	/* Среднее скругление */
 	--radius-lg: 16px;
-	/* Большое скругление */
 	--radius-xl: 24px;
-	/* Очень большое скругление */
 	--radius-full: 40px;
-	/* Полное скругление (круг) */
+
+	/* ===== ТИПОГРАФИКА ===== */
+	--font-display: 'Playfair Display', 'Noto Serif JP', 'Georgia', serif;
+	--font-body: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 	/* ===== РАЗМЕРЫ КАРТОЧЕК ===== */
 	--card-width: 380px;
-	/* Ширина карточки */
-	--card-image-height: 280px;
-	/* Высота изображения */
 	--card-padding: 24px;
-	/* Внутренние отступы карточки */
 }
 
 
 /* ============================================================================
- * ОСНОВНЫЕ СТИЛИ АККОРДЕОНА
+ * 2. ПОДКЛЮЧЕНИЕ ШРИФТОВ
+ * ============================================================================
+ * Playfair Display — элегантный шрифт с характером для азиатской эстетики.
+ * Поддерживает кириллицу, имеет восточный оттенок в глифах.
+ * Inter — современный гротеск для основного текста, отличная читаемость.
+ * Noto Serif/Sans JP — запасные шрифты с японским характером,
+ * загружаются только если система их не имеет.
+ * ============================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;600;700&family=Playfair+Display:wght@600;700;800&display=swap');
+
+
+/* ============================================================================
+ * 3. ОСНОВНЫЕ СТИЛИ АККОРДЕОНА
  * ============================================================================ */
 
 /* Контейнер всей секции аккордеона */
 .products-accordion {
 	padding: clamp(10px, 2vw, 20px) 0;
-	/* Адаптивные отступы */
 	position: relative;
 	background: var(--bg-gradient);
-	/* Градиентный фон */
 	overflow: hidden;
 	border-radius: var(--radius-lg);
-	/* Скругление углов */
 }
 
-/* Заголовок секции (Новинки / Хиты / Скидки) */
+/* Заголовок секции — используем декоративный шрифт */
 .promo-section h2 {
 	margin-top: clamp(5px, 4vw, 15px);
+	font-family: var(--font-display);
 	font-size: clamp(28px, 5vw, 38px);
-	/* Адаптивный размер шрифта */
+	font-weight: 800;
 	text-align: center;
 	position: relative;
 	padding-bottom: 5px;
-	font-weight: 700;
-	letter-spacing: -0.02em;
+	letter-spacing: 0.02em;
 	color: rgb(254, 254, 254);
-	/* Многослойная тень для текста (3D эффект) */
-	text-shadow: 1px 1px 2px #ff3366,
+	text-shadow:
+		1px 1px 2px #ff3366,
 		2px 2px 4px rgba(0, 0, 0, 0.5),
 		3px 3px 6px rgba(0, 0, 0, 0.3);
 }
@@ -137,106 +115,75 @@
 	margin: 0 auto;
 }
 
+
 /* ============================================================================
- * КОНТЕЙНЕР ПРОКРУТКИ (ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ)
+ * 4. КОНТЕЙНЕР ПРОКРУТКИ (ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ)
  * ============================================================================ */
 
 .products-scroll {
 	display: flex;
-	/* Горизонтальное расположение */
 	gap: clamp(16px, 2.5vw, 30px);
-	/* Расстояние между карточками */
 	overflow-x: auto;
-	/* Горизонтальная прокрутка */
 	scroll-behavior: smooth;
-	/* Плавная прокрутка */
 	scroll-snap-type: x mandatory;
-	/* Принудительная привязка при скролле */
 	padding: 20px clamp(16px, 3vw, 40px) 40px;
-	/* Отступы внутри контейнера */
 	margin: 0;
 	align-items: stretch;
-	/* ✅ Все карточки одинаковой высоты */
-	/* Скрываем полосу прокрутки (Chrome, Safari) */
 	scrollbar-width: none;
-	/* Firefox */
 	-ms-overflow-style: none;
-	/* IE/Edge */
 }
 
-/* Скрываем полосу прокрутки для Webkit браузеров */
 .products-scroll::-webkit-scrollbar {
 	display: none;
 }
 
 
 /* ============================================================================
- * КАРТОЧКА ТОВАРА
+ * 5. КАРТОЧКА ТОВАРА — ОСНОВНОЙ КОНТЕЙНЕР
  * ============================================================================ */
 
-/* Основной контейнер карточки */
 .product-card {
+	font-family: var(--font-body);
 	flex: 0 0 auto;
-	/* Запрещаем растягивание */
 	scroll-snap-align: start;
-	/* Привязка к началу при скролле */
 	width: var(--card-width);
-	/* Фиксированная ширина */
 	background: var(--bg-primary);
-	/* Белый фон */
 	border-radius: var(--radius-xl);
-	/* Скругление углов */
 	overflow: hidden;
-	/* Скрываем выступающее содержимое */
 	box-shadow: var(--shadow-md);
-	/* Тень */
 	border: 1px solid var(--border-light);
-	/* Граница */
 	transition: all var(--transition-slow);
-	/* Плавный переход */
 	position: relative;
 	display: flex;
-	/* Flexbox для вертикального расположения */
 	flex-direction: column;
-	/* Вертикальная ось */
 	height: 100%;
-	/* ✅ Занимает всю высоту родителя */
-	min-height: 550px;
-	/* ✅ Минимальная высота для десктопа */
 	content-visibility: auto;
-	/* ✅ Не рендерить содержимое вне области видимости */
 	contain-intrinsic-size: auto var(--card-width) 550px;
-	/* ✅ Подсказка браузеру о размере */
 }
 
-/* Эффект при наведении на карточку */
+/* Эффект при наведении */
 .product-card:hover {
 	transform: translateY(-3px) scale(1.01);
-	/* Поднимаем и увеличиваем */
 	box-shadow: var(--shadow-hover);
-	/* Усиленная тень */
 	border-color: var(--border-hover);
-	/* Меняем цвет границы */
 }
 
-/* ===== ИЗОБРАЖЕНИЕ ТОВАРА ===== */
+
+/* ============================================================================
+ * 6. ИЗОБРАЖЕНИЕ ТОВАРА
+ * ============================================================================ */
 
 /* Контейнер изображения */
 .product-image {
 	position: relative;
 	aspect-ratio: 1 / 1;
-	/* ✅ Резервирует квадратную область */
 	height: auto;
-	/* ✅ Высота определяется через aspect-ratio */
 	overflow: hidden;
-	/* Скрываем超出部分 */
 	background: #1a1a1a;
-	/* ✅ Тёмный фон под цвет темы */
 	flex-shrink: 0;
-	/* ✅ Запрещаем сжатие */
 }
 
-/* Полупрозрачный слой поверх изображения */
+/* Декоративный слой поверх изображения */
 .product-image::after {
 	content: '';
 	position: absolute;
@@ -246,54 +193,50 @@
 	bottom: 0;
 	background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.02) 100%);
 	pointer-events: none;
-	/* Чтобы слой не мешал кликам */
 }
 
-/* Само изображение */
+/* Само изображение — скрыто до загрузки, плавно появляется */
 .product-image img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	/* Сохраняем пропорции, обрезаем лишнее */
 	transition: transform var(--transition-slow), opacity 0.4s ease;
-	/* ✅ Плавное увеличение и появление */
 	opacity: 0;
-	/* ✅ Скрыто до загрузки */
 	background: #1a1a1a;
-	/* ✅ Фон на случай прозрачных изображений */
 }
 
-/* ✅ Плавное появление после загрузки */
+/* Класс добавляется через JS (onload) после успешной загрузки */
 .product-image img.loaded {
 	opacity: 1;
 }
 
-/* ✅ Увеличение изображения при наведении — только после загрузки */
+/* Увеличение при наведении — только для загруженных изображений */
 .product-card:hover .product-image img.loaded {
 	transform: scale(1.1);
-	/* Увеличиваем на 10% */
 }
 
-/* ===== БЕЙДЖИ ТОВАРА (метки: Новинка, Хит, Скидка) ===== */
 
-/* Контейнер для всех бейджей */
+/* ============================================================================
+ * 7. БЕЙДЖИ ТОВАРА (метки: Новинка, Хит, Скидка)
+ * ============================================================================ */
+
 .product-badges {
 	position: absolute;
 	top: 16px;
 	left: 16px;
 	z-index: 2;
-	/* Поверх изображения */
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
 }
 
-/* Стиль одного бейджа */
+/* Базовый стиль бейджа */
 .product-badge {
 	background: var(--primary-gradient);
 	color: var(--text-white);
 	padding: 8px 18px;
 	border-radius: var(--radius-full);
+	font-family: var(--font-body);
 	font-size: 13px;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -301,30 +244,28 @@
 	box-shadow: var(--shadow-glow);
 	backdrop-filter: blur(4px);
 	width: fit-content;
-	/* Ширина по содержимому */
 	white-space: nowrap;
-	/* Запрещаем перенос текста */
 }
 
-/* Специальный стиль для бейджа "Новинка" */
+/* Варианты бейджей */
 .product-badge.new {
 	background: linear-gradient(135deg, #ff6b6b 0%, #3341ff 100%);
 	box-shadow: 0 8px 16px -4px rgba(255, 51, 102, 0.3);
 }
 
-/* Специальный стиль для бейджа "Хит" */
 .product-badge.hit {
 	background: linear-gradient(135deg, #f71404 0%, #ff6b6b 100%);
 }
 
-/* Специальный стиль для бейджа "Скидка" */
 .product-badge.sale {
 	background: var(--primary-gradient);
 }
 
-/* ===== КНОПКА ИЗБРАННОГО (СЕРДЕЧКО) ===== */
 
-/* Кнопка добавления в избранное */
+/* ============================================================================
+ * 8. КНОПКА ИЗБРАННОГО (СЕРДЕЧКО)
+ * ============================================================================ */
+
 .favorite-btn {
 	position: absolute;
 	top: 16px;
@@ -341,38 +282,31 @@
 	justify-content: center;
 	transition: all var(--transition-bounce);
 	z-index: 3;
-	/* Поверх изображения */
 	box-shadow: var(--shadow-sm);
 	padding: 0;
 	font-size: 20px;
 }
 
-/* Иконка внутри кнопки */
 .favorite-btn i,
 .favorite-btn svg {
 	transition: all var(--transition-base);
 	font-size: 22px;
 }
 
-/* Эффект при наведении */
 .favorite-btn:hover {
 	transform: scale(1.1);
-	/* Увеличиваем */
 	border-color: var(--primary);
-	/* Меняем цвет границы */
 	background: var(--bg-primary);
 	box-shadow: var(--shadow-glow);
 	color: var(--primary);
-	/* Меняем цвет иконки */
 }
 
-/* Эффект при наведении на иконку */
 .favorite-btn:hover i,
 .favorite-btn:hover svg {
 	transform: scale(1.1);
 }
 
-/* Активное состояние (товар в избранном) - красное сердечко */
+/* Активное состояние — товар в избранном */
 .favorite-btn.active {
 	background: var(--bg-primary);
 	border-color: var(--primary);
@@ -385,7 +319,6 @@
 	color: var(--primary);
 }
 
-/* Неактивное состояние (товар НЕ в избранном) - серое сердечко */
 .favorite-btn:not(.active) {
 	color: var(--text-muted);
 }
@@ -395,12 +328,11 @@
 	color: var(--text-muted);
 }
 
-/* Эффект нажатия */
 .favorite-btn:active {
 	transform: scale(0.95);
 }
 
-/* Фокус для доступности (клавиатура) */
+/* Фокус для доступности с клавиатуры */
 .favorite-btn:focus-visible {
 	outline: 2px solid var(--primary);
 	outline-offset: 2px;
@@ -427,69 +359,73 @@
 	}
 }
 
-/* Запуск анимации при активации */
 .favorite-btn.active i {
 	animation: heartBeat 0.4s ease;
 }
 
-/* ===== КОНТЕНТ КАРТОЧКИ ===== */
 
-/* Контейнер для текстового содержимого */
+/* ============================================================================
+ * 9. КОНТЕНТ КАРТОЧКИ (текстовая часть)
+ * ============================================================================ */
+
 .product-content {
 	padding: var(--card-padding);
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	/* ✅ Занимает всё свободное пространство */
 	background: var(--bg-primary);
 }
 
-/* Заголовок товара */
+/* ----- 9.1 Заголовок товара ----- */
 .product-title {
+	font-family: var(--font-body);
 	color: var(--text-primary);
 	font-size: clamp(18px, 2vw, 20px);
 	font-weight: 700;
 	margin-bottom: 12px;
 	line-height: 1.4;
-	letter-spacing: -0.3px;
+	letter-spacing: -0.01em;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
-	/* Для Webkit браузеров (Chrome, Safari, Edge) */
 	line-clamp: 2;
-	/* ✅ Стандартное свойство для будущих версий */
 	overflow: hidden;
-	padding-right: 50px;
-	/* Место для сердечка */
 	flex-shrink: 0;
-	/* ✅ Не сжимаем */
 	min-height: calc(1.4em * 2);
-	/* ✅ Фиксированная высота для 2 строк */
 	word-break: break-word;
-	/* Для переноса длинных слов */
 }
 
-/* Описание товара */
+/* ----- 9.2 Описание товара ----- */
 .product-description {
-	color: var(--text-muted);
-	font-size: 14px;
-	line-height: 1.6;
+	color: var(--text-secondary);
+	/* #4a4a4a — контраст 7.2:1, комфортно */
+	font-size: 15px;
+	/* чуть крупнее стандартных 14px */
+	line-height: 1.5;
+	/* плотнее 1.6 — текст связнее */
+	letter-spacing: 0.01em;
+	/* микродеталь для воздуха между буквами */
 	margin-bottom: 20px;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 3;
-	/* Для Webkit браузеров */
 	line-clamp: 3;
-	/* ✅ Стандартное свойство */
 	overflow: hidden;
 	flex: 1;
-	/* ✅ Отталкивает цены и кнопку вниз */
-	min-height: calc(1.6em * 3);
-	/* ✅ Фиксированная высота для 3 строк */
+	min-height: calc(1.5em * 3);
 	word-break: break-word;
+	transition: color var(--transition-base);
 }
 
-/* ===== БЛОК С ЦЕНАМИ ===== */
+/* При наведении на карточку описание чуть темнеет — ощущение интерактивности */
+.product-card:hover .product-description {
+	color: #333333;
+}
+
+
+/* ============================================================================
+ * 10. БЛОК С ЦЕНАМИ
+ * ============================================================================ */
 
 .product-meta {
 	display: flex;
@@ -498,21 +434,22 @@
 	margin-bottom: 24px;
 	flex-wrap: wrap;
 	flex-shrink: 0;
-	/* ✅ Не сжимаем */
 	min-height: 50px;
-	/* ✅ Фиксированная минимальная высота */
 }
 
-/* Актуальная цена */
+/* Актуальная цена — моноширинные цифры, не прыгают при смене */
 .product-price {
 	color: var(--primary-dark);
+	font-family: var(--font-body);
 	font-size: 28px;
 	font-weight: 800;
 	letter-spacing: -0.5px;
 	line-height: 1;
+	font-feature-settings: 'tnum';
+	font-variant-numeric: tabular-nums;
 }
 
-/* Старая цена (перечеркнутая) */
+/* Старая цена — перечёркнутая */
 .product-old-price {
 	color: var(--text-light);
 	font-size: 18px;
@@ -531,20 +468,26 @@
 	letter-spacing: 0.3px;
 }
 
-/* ===== КОНТЕЙНЕР ДЛЯ КНОПКИ ===== */
+
+/* ============================================================================
+ * 11. КОНТЕЙНЕР ДЛЯ КНОПКИ
+ * ============================================================================ */
 
 .product-actions {
 	flex-shrink: 0;
-	/* ✅ Не сжимаем */
 	width: 100%;
-	margin-top: 0;
+	margin-top: auto;
+	/* прижимает кнопку к низу карточки */
 	min-height: 60px;
-	/* ✅ Фиксированная высота для кнопки */
 }
 
-/* ===== КНОПКА ДОБАВЛЕНИЯ В КОРЗИНУ ===== */
+
+/* ============================================================================
+ * 12. КНОПКА ДОБАВЛЕНИЯ В КОРЗИНУ
+ * ============================================================================ */
 
 .product-btn {
+	font-family: var(--font-body);
 	background: #1a1a1a;
 	color: var(--text-white);
 	border: 1px solid #333;
@@ -563,10 +506,9 @@
 	justify-content: center;
 	gap: 8px;
 	width: 100%;
-	/* ✅ margin-top: auto удален - кнопку прижимает flex-родитель */
 }
 
-/* Эффект "волны" при наведении (псевдоэлемент) */
+/* Эффект «волны» при наведении */
 .product-btn::before {
 	content: '';
 	position: absolute;
@@ -578,7 +520,6 @@
 	transition: left 0.5s ease;
 }
 
-/* Эффект при наведении на кнопку */
 .product-btn:hover {
 	background: #ff3366;
 	border-color: #ff3366;
@@ -586,44 +527,45 @@
 	box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
 }
 
-/* Анимация волны при наведении */
 .product-btn:hover::before {
 	left: 100%;
 }
 
-/* Эффект нажатия */
 .product-btn:active {
 	transform: translateY(0);
 }
 
-/* Отключенное состояние (товара нет в наличии) */
+/* Отключённое состояние — товара нет в наличии */
 .product-btn:disabled {
 	opacity: 0.5;
 	cursor: not-allowed;
 	transform: none;
 }
 
-/* Иконка внутри кнопки */
 .product-btn i {
 	font-size: 18px;
 }
 
-/* ===== ССЫЛКА НА ВСЮ КАРТОЧКУ ===== */
 
-/* Оборачиваем карточку в ссылку для перехода на страницу товара */
+/* ============================================================================
+ * 13. ССЫЛКА НА ВСЮ КАРТОЧКУ
+ * ============================================================================ */
+
 .product-card-link {
 	text-decoration: none;
 	color: inherit;
 	display: flex;
-	/* Flex для вертикального растяжения */
 	flex-direction: column;
 	height: 100%;
-	/* ✅ 100% высоты карточки */
 	cursor: pointer;
 }
 
+
 /* ============================================================================
- * УВАЖЕНИЕ К СИСТЕМНЫМ НАСТРОЙКАМ ДОСТУПНОСТИ
+ * 14. УВАЖЕНИЕ К СИСТЕМНЫМ НАСТРОЙКАМ ДОСТУПНОСТИ
+ * ============================================================================
+ * Отключаем все анимации для пользователей,
+ * которые включили reduced motion в системе.
  * ============================================================================ */
 
 @media (prefers-reduced-motion: reduce) {
@@ -638,6 +580,12 @@
 	.product-card:hover .product-image img.loaded {
 		transition: none;
 		transform: none;
+	}
+
+	.product-description,
+	.product-card:hover .product-description {
+		transition: none;
+		color: var(--text-secondary);
 	}
 
 	.product-btn,
@@ -665,11 +613,11 @@
 	}
 }
 
+
 /* ============================================================================
- * НАВИГАЦИОННАЯ ПОЛОСКА (индикатор текущего слайда)
+ * 15. НАВИГАЦИОННАЯ ПОЛОСКА (индикатор текущего слайда)
  * ============================================================================ */
 
-/* Контейнер для навигации */
 .scroll-navbar {
 	display: flex;
 	justify-content: center;
@@ -678,7 +626,6 @@
 	margin-top: 20px;
 }
 
-/* Трек (дорожка) для сегментов */
 .navbar-track {
 	display: flex;
 	gap: 4px;
@@ -688,7 +635,6 @@
 	justify-content: center;
 }
 
-/* Один сегмент навигации */
 .navbar-segment {
 	flex: 1 1 auto;
 	height: 6px;
@@ -702,16 +648,13 @@
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Активный сегмент (текущий слайд) */
 .navbar-segment.active {
 	background: linear-gradient(135deg, #1a1a1a 0%, var(--primary) 50%, #1a1a1a 100%);
 	border-color: var(--text-primary);
 	box-shadow: var(--shadow-glow);
 	height: 8px;
-	/* Увеличиваем высоту активного сегмента */
 }
 
-/* Эффект при наведении на сегмент */
 .navbar-segment:hover {
 	background: var(--accent);
 	border-color: var(--text-primary);
@@ -719,132 +662,113 @@
 }
 
 
-/* АДАПТИВНОСТЬ (Responsive Design) */
+/* ============================================================================
+ * 16. АДАПТИВНОСТЬ (Responsive Design)
+ * ============================================================================
+ * Брейкпоинты подобраны под реальные устройства.
+ * Каждый диапазон переопределяет переменные и размеры под свою ширину.
+ * ============================================================================ */
 
-/* ===== БАЗОВЫЕ НАСТРОЙКИ ДЛЯ МОБИЛЬНЫХ (320px - 480px) ===== */
+/* ----- 16.1 Мобильные (320px - 480px) ----- */
 @media (width < 481px) {
 	:root {
 		--card-width: 260px;
-		/* Увеличиваем для лучшей читаемости */
-		--card-image-height: 180px;
-		/* Уменьшаем высоту изображения */
 		--card-padding: 12px;
-		/* Уменьшаем отступы */
 	}
 
-	/* Контейнер аккордеона */
 	.products-accordion {
 		padding: 15px 0 25px;
 	}
 
-	/* Заголовок */
 	.promo-section h2 {
 		font-size: 24px;
 		margin-bottom: 10px;
 		margin-top: 5px;
 	}
 
-	/* Контейнер прокрутки */
 	.products-scroll {
 		gap: 12px;
 		padding: 10px 10px 20px;
 		align-items: stretch;
-		/* Растягиваем карточки */
 	}
 
-	/* КАРТОЧКА ТОВАРА - специально для мобильных */
 	.product-card {
 		width: var(--card-width);
-		min-height: 380px;
-		/* ✅ Фиксируем минимальную высоту (было 550px) */
 		height: auto;
-		/* Автоматическая высота */
+		contain-intrinsic-size: auto var(--card-width) 380px;
 	}
 
-	/* Изображение */
 	.product-image {
-		height: var(--card-image-height);
-		min-height: var(--card-image-height);
-		max-height: var(--card-image-height);
+		aspect-ratio: 1 / 1;
+		height: auto;
 	}
 
-	/* Контент карточки */
 	.product-content {
 		padding: var(--card-padding);
 		flex: 1;
-		/* Растягивается */
 		display: flex;
 		flex-direction: column;
 	}
 
-	/* Заголовок - фиксируем высоту на 2 строки */
 	.product-title {
 		font-size: 15px;
 		margin-bottom: 8px;
 		-webkit-line-clamp: 2;
 		line-clamp: 2;
 		min-height: 42px;
-		/* ✅ Фиксированная высота (15px * 1.4 * 2) */
-		padding-right: 35px;
 	}
 
-	/* Описание - СКРЫВАЕМ на маленьких экранах */
+	/* На мобильных показываем 1 строку описания вместо полного скрытия */
 	.product-description {
-		display: none;
-		margin-bottom: 0;
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		line-clamp: 1;
+		min-height: calc(1.5em * 1);
 		flex: 0;
-		/* Убираем flex: 1 */
-		min-height: 0;
+		font-size: 13px;
+		margin-bottom: 10px;
 	}
 
-	/* Блок с ценами */
 	.product-meta {
 		gap: 8px;
 		margin-bottom: 16px;
 		min-height: 40px;
-		/* ✅ Фиксированная высота */
 	}
 
-	/* Актуальная цена */
 	.product-price {
 		font-size: 20px;
 	}
 
-	/* Старая цена */
 	.product-old-price {
 		font-size: 14px;
 	}
 
-	/* Бейдж скидки */
 	.product-discount {
 		padding: 3px 8px;
 		font-size: 10px;
 	}
 
-	/* Контейнер кнопки */
 	.product-actions {
 		min-height: 44px;
-		/* ✅ Фиксированная высота под кнопку */
 		margin-top: auto;
-		/* ✅ Прижимаем к низу */
 	}
 
-	/* Кнопка добавления в корзину */
 	.product-btn {
 		padding: 10px 12px;
 		font-size: 12px;
 		border-radius: var(--radius-sm);
 	}
 
-	/* Бейджи */
 	.product-badge {
 		padding: 5px 12px;
 		font-size: 10px;
+	}
+
+	.product-badges {
 		top: 10px;
 		left: 10px;
 	}
 
-	/* Кнопка избранного */
 	.favorite-btn {
 		width: 32px;
 		height: 32px;
@@ -856,7 +780,6 @@
 		font-size: 16px;
 	}
 
-	/* Навигационная полоска */
 	.scroll-navbar {
 		padding: 0 10px;
 		margin-top: 10px;
@@ -877,23 +800,20 @@
 	}
 }
 
-/* ===== ОЧЕНЬ МАЛЕНЬКИЕ ТЕЛЕФОНЫ (до 360px) ===== */
+/* ----- 16.2 Очень маленькие телефоны (до 360px) ----- */
 @media (width < 361px) {
 	:root {
 		--card-width: 240px;
-		--card-image-height: 160px;
 		--card-padding: 10px;
 	}
 
 	.product-card {
-		min-height: 360px;
-		/* Еще меньше минимальная высота */
+		contain-intrinsic-size: auto var(--card-width) 360px;
 	}
 
 	.product-title {
 		font-size: 14px;
 		min-height: 39px;
-		/* 14px * 1.4 * 2 = 39px */
 	}
 
 	.product-price {
@@ -919,11 +839,10 @@
 	}
 }
 
-/* ===== ТЕЛЕФОНЫ L (481px - 576px) ===== */
+/* ----- 16.3 Телефоны L (481px - 576px) ----- */
 @media (481px <=width < 577px) {
 	:root {
 		--card-width: 280px;
-		--card-image-height: 190px;
 		--card-padding: 14px;
 	}
 
@@ -933,8 +852,7 @@
 	}
 
 	.product-card {
-		min-height: 420px;
-		/* ✅ Умеренная высота */
+		contain-intrinsic-size: auto var(--card-width) 420px;
 	}
 
 	.product-title {
@@ -943,11 +861,8 @@
 		-webkit-line-clamp: 2;
 		line-clamp: 2;
 		min-height: 45px;
-		/* 16px * 1.4 * 2 = 45px */
-		padding-right: 40px;
 	}
 
-	/* Показываем описание, но только 2 строки */
 	.product-description {
 		display: -webkit-box;
 		font-size: 12px;
@@ -955,9 +870,7 @@
 		-webkit-line-clamp: 2;
 		line-clamp: 2;
 		min-height: 36px;
-		/* 12px * 1.5 * 2 = 36px */
 		flex: 0;
-		/* Не растягиваем */
 	}
 
 	.product-meta {
@@ -1014,11 +927,10 @@
 	}
 }
 
-/* ===== БОЛЬШИЕ МОБИЛЬНЫЕ / МАЛЕНЬКИЕ ПЛАНШЕТЫ (577px - 768px) ===== */
+/* ----- 16.4 Большие мобильные / маленькие планшеты (577px - 768px) ----- */
 @media (577px <=width < 769px) {
 	:root {
 		--card-width: 300px;
-		--card-image-height: 210px;
 		--card-padding: 16px;
 	}
 
@@ -1028,7 +940,7 @@
 	}
 
 	.product-card {
-		min-height: 460px;
+		contain-intrinsic-size: auto var(--card-width) 460px;
 	}
 
 	.product-title {
@@ -1036,8 +948,6 @@
 		-webkit-line-clamp: 2;
 		line-clamp: 2;
 		min-height: 48px;
-		/* 17px * 1.4 * 2 = 48px */
-		padding-right: 45px;
 	}
 
 	.product-description {
@@ -1046,7 +956,6 @@
 		-webkit-line-clamp: 2;
 		line-clamp: 2;
 		min-height: 39px;
-		/* 13px * 1.5 * 2 = 39px */
 		flex: 0;
 	}
 
@@ -1088,11 +997,10 @@
 	}
 }
 
-/* ===== ПЛАНШЕТЫ (769px - 992px) ===== */
+/* ----- 16.5 Планшеты (769px - 992px) ----- */
 @media (769px <=width < 993px) {
 	:root {
 		--card-width: 320px;
-		--card-image-height: 230px;
 		--card-padding: 18px;
 	}
 
@@ -1102,7 +1010,7 @@
 	}
 
 	.product-card {
-		min-height: 500px;
+		contain-intrinsic-size: auto var(--card-width) 500px;
 	}
 
 	.product-title {
@@ -1110,7 +1018,6 @@
 		-webkit-line-clamp: 2;
 		line-clamp: 2;
 		min-height: 50px;
-		/* 18px * 1.4 * 2 = 50px */
 	}
 
 	.product-description {
@@ -1119,9 +1026,7 @@
 		-webkit-line-clamp: 3;
 		line-clamp: 3;
 		min-height: 58px;
-		/* 13px * 1.5 * 3 = 58px */
 		flex: 1;
-		/* На планшетах уже можно растягивать */
 	}
 
 	.product-meta {
@@ -1141,7 +1046,6 @@
 	.product-actions {
 		min-height: 54px;
 		margin-top: 0;
-		/* Убираем, так как description уже тянет */
 	}
 
 	.product-btn {
@@ -1159,11 +1063,10 @@
 	}
 }
 
-/* ===== НЕБОЛЬШИЕ ДЕСКТОПЫ (993px - 1200px) ===== */
+/* ----- 16.6 Небольшие десктопы (993px - 1200px) ----- */
 @media (993px <=width < 1201px) {
 	:root {
 		--card-width: 340px;
-		--card-image-height: 250px;
 		--card-padding: 20px;
 	}
 
@@ -1173,7 +1076,7 @@
 	}
 
 	.product-card {
-		min-height: 530px;
+		contain-intrinsic-size: auto var(--card-width) 530px;
 	}
 
 	.product-title {
@@ -1188,7 +1091,6 @@
 		-webkit-line-clamp: 3;
 		line-clamp: 3;
 		min-height: 63px;
-		/* 14px * 1.5 * 3 = 63px */
 	}
 
 	.product-meta {
@@ -1204,11 +1106,10 @@
 	}
 }
 
-/* ===== СТАНДАРТНЫЕ ДЕСКТОПЫ (1201px - 1440px) ===== */
+/* ----- 16.7 Стандартные десктопы (1201px - 1440px) ----- */
 @media (1201px <=width < 1441px) {
 	:root {
 		--card-width: 360px;
-		--card-image-height: 270px;
 		--card-padding: 22px;
 	}
 
@@ -1218,7 +1119,7 @@
 	}
 
 	.product-card {
-		min-height: 560px;
+		contain-intrinsic-size: auto var(--card-width) 560px;
 	}
 
 	.product-title {
@@ -1236,11 +1137,10 @@
 	}
 }
 
-/* ===== БОЛЬШИЕ ДЕСКТОПЫ (1441px - 1920px) ===== */
+/* ----- 16.8 Большие десктопы (1441px - 1920px) ----- */
 @media (1441px <=width < 1921px) {
 	:root {
 		--card-width: 400px;
-		--card-image-height: 300px;
 		--card-padding: 24px;
 	}
 
@@ -1250,7 +1150,7 @@
 	}
 
 	.product-card {
-		min-height: 600px;
+		contain-intrinsic-size: auto var(--card-width) 600px;
 	}
 
 	.product-title {
@@ -1265,15 +1165,13 @@
 		-webkit-line-clamp: 3;
 		line-clamp: 3;
 		min-height: 68px;
-		/* 15px * 1.5 * 3 = 68px */
 	}
 }
 
-/* ===== УЛЬТРАШИРОКИЕ ЭКРАНЫ (1921px и выше) ===== */
+/* ----- 16.9 Ультраширокие экраны (1921px и выше) ----- */
 @media (width >=1921px) {
 	:root {
 		--card-width: 450px;
-		--card-image-height: 340px;
 		--card-padding: 28px;
 	}
 
@@ -1283,7 +1181,7 @@
 	}
 
 	.product-card {
-		min-height: 650px;
+		contain-intrinsic-size: auto var(--card-width) 650px;
 	}
 
 	.product-title {
@@ -1328,32 +1226,32 @@
 	}
 }
 
+
 /* ============================================================================
- * ОБЩИЕ ПРАВИЛА ДЛЯ ВСЕХ КАРТОЧЕК (ПЕРЕОПРЕДЕЛЕНИЕ)
+ * 17. ОБЩИЕ ПРАВИЛА ДЛЯ ВСЕХ КАРТОЧЕК (ПЕРЕОПРЕДЕЛЕНИЕ)
+ * ============================================================================
+ * Финализируем поведение description и кнопки,
+ * чтобы не зависеть от каскада медиа-запросов.
  * ============================================================================ */
 
-/* Эти правила применяются после всех медиа-запросов */
+/* На мобильных — описание фиксированное, кнопка прижата */
 @media (width < 769px) {
-
-	/* На мобильных устройствах description НЕ должен растягиваться */
 	.product-description {
 		flex: 0 !important;
 		flex-grow: 0 !important;
 	}
 
-	/* Кнопка должна прижиматься через margin-top: auto */
 	.product-actions {
 		margin-top: auto !important;
 	}
 
-	/* Контент должен занимать всё пространство */
 	.product-content {
 		flex: 1 !important;
 	}
 }
 
-/* Для планшетов и выше - возвращаем стандартное поведение */
-@media (min-width: 769px) {
+/* На планшетах и выше — описание растягивается */
+@media (width >=769px) {
 	.product-description {
 		flex: 1 !important;
 	}
@@ -1363,11 +1261,13 @@
 	}
 }
 
+
 /* ============================================================================
- * ТАЧ-УСТРОЙСТВА (специальные настройки)
+ * 18. ТАЧ-УСТРОЙСТВА (специальные настройки)
+ * ============================================================================
+ * Отключаем ховер-эффекты, которые бессмысленны на таче.
  * ============================================================================ */
 
-/* Отключаем эффекты наведения на тач-устройствах */
 @media (hover: none) and (pointer: coarse) {
 	.scroll-btn {
 		display: none !important;
@@ -1378,8 +1278,12 @@
 		box-shadow: var(--shadow-md);
 	}
 
-	.product-card:hover .product-image img {
+	.product-card:hover .product-image img.loaded {
 		transform: none;
+	}
+
+	.product-card:hover .product-description {
+		color: var(--text-secondary);
 	}
 
 	.favorite-btn:hover {
