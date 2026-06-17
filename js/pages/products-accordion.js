@@ -281,6 +281,12 @@
 	// =========================================================================
 
 	/**
+	 * Константы для размеров изображений
+	 */
+	const PRODUCT_IMAGE_WIDTH = 300;
+	const PRODUCT_IMAGE_HEIGHT = 300;
+
+	/**
 	 * Создает HTML-строку с бейджами товара
 	 * 
 	 * @param {Object} product - объект товара
@@ -305,6 +311,37 @@
 		return badges.length > 0
 			? `<div class="product-badges">${badges.join( '' )}</div>`
 			: '';
+	}
+
+	/**
+	 * Формирует HTML-строку изображения с атрибутами для lazy loading
+	 * 
+	 * @param {string} imageUrl - URL изображения
+	 * @param {string} productName - название товара для alt
+	 * @param {string} fallbackSvg - запасное SVG при ошибке загрузки
+	 * @returns {string} HTML-строка тега img
+	 */
+	function createImageHtml( imageUrl, productName, fallbackSvg ) {
+		const escapedUrl = escapeHtml( imageUrl );
+		const escapedAlt = escapeHtml( productName );
+		const escapedFallback = escapeHtml( fallbackSvg );
+
+		return `
+		<img 
+			src="${escapedUrl}" 
+			alt="${escapedAlt}" 
+			loading="lazy"
+			decoding="async"
+			width="${PRODUCT_IMAGE_WIDTH}"
+			height="${PRODUCT_IMAGE_HEIGHT}"
+			onload="this.classList.add('loaded')"
+			onerror="
+				this.onerror=null; 
+				this.src='${escapedFallback}'; 
+				this.classList.add('loaded');
+			"
+		>
+	`;
 	}
 
 	/**
@@ -339,7 +376,7 @@
 			const favoriteClass = isFavorite ? ' active' : '';
 			const heartIcon = isFavorite ? 'fas' : 'far'; // fas = заполненное, far = контурное
 
-			// Безопасно получаем URL
+			// Безопасно получаем URL категории
 			let categoryUrl = '#';
 			if ( typeof window.store.getCategoryUrl === 'function' ) {
 				try {
@@ -394,49 +431,85 @@
 
 			// Собираем HTML карточки
 			card.innerHTML = `
-                <a href="${categoryUrl}" class="product-card-link">
-                    <div class="product-image">
-                        <img src="${escapeHtml( imageUrl )}" 
-                             alt="${escapeHtml( product.name )}" 
-                             loading="lazy"
-                             onerror="this.onerror=null; this.src='${escapeHtml( fallbackSvg )}';">
-                        ${createBadgesHtml( product )}
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title">${escapeHtml( product.name )}</h3>
-                        <p class="product-description">${escapeHtml( product.description || '' )}</p>
-                        <div class="product-meta">
-                            <span class="product-price">${formattedPrice}</span>
-                            ${formattedOldPrice ? `<span class="product-old-price">${formattedOldPrice}</span>` : ''}
-                        </div>
-                    </div>
-                </a>
-                <div class="product-actions">
-                    <button class="product-btn add-to-cart" 
-                            data-id="${product.id}" 
-                            ${!isInStock ? 'disabled' : ''}
-                            title="${isInStock ? 'Добавить в корзину' : 'Нет в наличии'}">
-                        <i class="fas fa-shopping-cart"></i> В корзину
-                    </button>
-                    <button class="favorite-btn${favoriteClass}" 
-                            data-id="${product.id}"
-                            title="${isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'}">
-                        <i class="${heartIcon} fa-heart"></i>
-                    </button>
-                </div>
-            `;
+			<a href="${categoryUrl}" class="product-card-link">
+				<div class="product-image">
+					${createImageHtml( imageUrl, product.name, fallbackSvg )}
+					${createBadgesHtml( product )}
+				</div>
+				<div class="product-content">
+					<h3 class="product-title">${escapeHtml( product.name )}</h3>
+					<p class="product-description">${escapeHtml( product.description || '' )}</p>
+					<div class="product-meta">
+						<span class="product-price">${formattedPrice}</span>
+						${formattedOldPrice ? `<span class="product-old-price">${formattedOldPrice}</span>` : ''}
+					</div>
+				</div>
+			</a>
+			<div class="product-actions">
+				<button class="product-btn add-to-cart" 
+					data-id="${product.id}" 
+					${!isInStock ? 'disabled' : ''}
+					title="${isInStock ? 'Добавить в корзину' : 'Нет в наличии'}">
+					<i class="fas fa-shopping-cart"></i> В корзину
+				</button>
+				<button class="favorite-btn${favoriteClass}" 
+					data-id="${product.id}"
+					title="${isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'}">
+					<i class="${heartIcon} fa-heart"></i>
+				</button>
+			</div>
+		`;
 
 			return card;
 		} catch ( error ) {
 			console.error( '📊 Аккордеон: ошибка при создании карточки товара:', error );
 			// Возвращаем карточку-заглушку с сообщением об ошибке
 			card.innerHTML = `
-                <div class="product-card-error">
-                    <p>Ошибка загрузки товара</p>
-                </div>
-            `;
+			<div class="product-card-error">
+				<p>Ошибка загрузки товара</p>
+			</div>
+		`;
 			return card;
 		}
+	}
+
+	/**
+	 * Настраивает Intersection Observer для ленивой загрузки
+	 * изображений в горизонтальном аккордеоне.
+	 * 
+	 * Вызывать после рендеринга всех карточек в аккордеон.
+	 * Нативный loading="lazy" не всегда корректно работает 
+	 * с горизонтальным скроллом и overflow: hidden.
+	 */
+	function setupAccordionLazyLoading() {
+		const accordionContainer = document.querySelector( '.products-accordion' );
+		if ( !accordionContainer ) return;
+
+		const lazyImages = accordionContainer.querySelectorAll( '.product-image img[loading="lazy"]' );
+		if ( !lazyImages.length ) return;
+
+		const imageObserver = new IntersectionObserver( ( entries ) => {
+			entries.forEach( entry => {
+				if ( entry.isIntersecting ) {
+					const img = entry.target;
+
+					// Если src уже задан (нативный lazy loading сработал) — просто добавляем класс
+					// Если нет — подстраховка через data-src (на случай будущего рефакторинга)
+					if ( img.dataset.src && !img.src ) {
+						img.src = img.dataset.src;
+					}
+
+					img.classList.add( 'loaded' );
+					imageObserver.unobserve( img );
+				}
+			} );
+		}, {
+			root: accordionContainer,
+			rootMargin: '300px', // Начинаем загрузку за 300px до входа в видимую область
+			threshold: 0.01       // Срабатывает, когда хотя бы 1% изображения виден
+		} );
+
+		lazyImages.forEach( img => imageObserver.observe( img ) );
 	}
 
 	// =========================================================================

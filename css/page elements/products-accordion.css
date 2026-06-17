@@ -199,12 +199,14 @@
 	/* Flexbox для вертикального расположения */
 	flex-direction: column;
 	/* Вертикальная ось */
-	backdrop-filter: blur(10px);
-	/* Размытие фона */
 	height: 100%;
 	/* ✅ Занимает всю высоту родителя */
 	min-height: 550px;
 	/* ✅ Минимальная высота для десктопа */
+	content-visibility: auto;
+	/* ✅ Не рендерить содержимое вне области видимости */
+	contain-intrinsic-size: auto var(--card-width) 550px;
+	/* ✅ Подсказка браузеру о размере */
 }
 
 /* Эффект при наведении на карточку */
@@ -222,18 +224,16 @@
 /* Контейнер изображения */
 .product-image {
 	position: relative;
-	height: var(--card-image-height);
-	/* Фиксированная высота */
+	aspect-ratio: 1 / 1;
+	/* ✅ Резервирует квадратную область */
+	height: auto;
+	/* ✅ Высота определяется через aspect-ratio */
 	overflow: hidden;
 	/* Скрываем超出部分 */
-	background: linear-gradient(135deg, #fff5f7 0%, #ffe6ea 100%);
-	/* Градиентный фон */
+	background: #1a1a1a;
+	/* ✅ Тёмный фон под цвет темы */
 	flex-shrink: 0;
 	/* ✅ Запрещаем сжатие */
-	min-height: var(--card-image-height);
-	/* ✅ Гарантия высоты */
-	max-height: var(--card-image-height);
-	/* ✅ Гарантия высоты */
 }
 
 /* Полупрозрачный слой поверх изображения */
@@ -255,12 +255,21 @@
 	height: 100%;
 	object-fit: cover;
 	/* Сохраняем пропорции, обрезаем лишнее */
-	transition: transform var(--transition-slow);
-	/* Плавное увеличение */
+	transition: transform var(--transition-slow), opacity 0.4s ease;
+	/* ✅ Плавное увеличение и появление */
+	opacity: 0;
+	/* ✅ Скрыто до загрузки */
+	background: #1a1a1a;
+	/* ✅ Фон на случай прозрачных изображений */
 }
 
-/* Увеличение изображения при наведении на карточку */
-.product-card:hover .product-image img {
+/* ✅ Плавное появление после загрузки */
+.product-image img.loaded {
+	opacity: 1;
+}
+
+/* ✅ Увеличение изображения при наведении — только после загрузки */
+.product-card:hover .product-image img.loaded {
 	transform: scale(1.1);
 	/* Увеличиваем на 10% */
 }
@@ -444,11 +453,11 @@
 	line-height: 1.4;
 	letter-spacing: -0.3px;
 	display: -webkit-box;
+	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
 	/* Для Webkit браузеров (Chrome, Safari, Edge) */
 	line-clamp: 2;
 	/* ✅ Стандартное свойство для будущих версий */
-	-webkit-box-orient: vertical;
 	overflow: hidden;
 	padding-right: 50px;
 	/* Место для сердечка */
@@ -467,11 +476,11 @@
 	line-height: 1.6;
 	margin-bottom: 20px;
 	display: -webkit-box;
+	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 3;
 	/* Для Webkit браузеров */
 	line-clamp: 3;
 	/* ✅ Стандартное свойство */
-	-webkit-box-orient: vertical;
 	overflow: hidden;
 	flex: 1;
 	/* ✅ Отталкивает цены и кнопку вниз */
@@ -611,6 +620,49 @@
 	height: 100%;
 	/* ✅ 100% высоты карточки */
 	cursor: pointer;
+}
+
+/* ============================================================================
+ * УВАЖЕНИЕ К СИСТЕМНЫМ НАСТРОЙКАМ ДОСТУПНОСТИ
+ * ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+	.product-card,
+	.product-card:hover {
+		transition: none;
+		transform: none;
+	}
+
+	.product-image img,
+	.product-card:hover .product-image img.loaded {
+		transition: none;
+		transform: none;
+	}
+
+	.product-btn,
+	.product-btn:hover,
+	.product-btn:active,
+	.product-btn::before {
+		transition: none;
+		transform: none;
+		animation: none;
+	}
+
+	.product-btn:hover::before {
+		left: -100%;
+	}
+
+	.favorite-btn,
+	.favorite-btn:hover,
+	.favorite-btn:active {
+		transition: none;
+		transform: none;
+	}
+
+	.favorite-btn.active i {
+		animation: none;
+	}
 }
 
 /* ============================================================================
