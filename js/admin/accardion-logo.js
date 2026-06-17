@@ -1,15 +1,50 @@
 /**
- * Скрипт для аккордеон-скролла с навигационными индикаторами
- * Использует store.js для хранения слайдов
+ * ============================================================================
+ * ACCORDION-LOGO.JS — ПРОМО-СЛАЙДЫ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ
+ * ============================================================================
+ * 
+ * НАЗНАЧЕНИЕ:
+ * Управляет горизонтальным аккордеоном с промо-слайдами на главной странице
+ * и админ-панелью для управления этими слайдами.
+ * 
+ * ОСНОВНЫЕ ВОЗМОЖНОСТИ:
+ * - Автоматическая прокрутка слайдов с паузой при наведении
+ * - Ленивая загрузка фоновых изображений (первый слайд сразу, остальные — при приближении)
+ * - Навигационные точки-индикаторы
+ * - Админ-панель: CRUD слайдов, drag-and-drop сортировка, загрузка изображений
+ * 
+ * ЗАВИСИМОСТИ:
+ * - store.js (глобальный window.store) — хранение слайдов в localStorage
+ * - API.js (глобальный window.API) — утилиты (getSafeImageUrl, showNotification и др.)
+ * 
+ * АРХИТЕКТУРА:
+ * - Один класс PromoSlidesManager
+ * - Два режима: frontend (главная страница) и admin (админ-панель)
+ * - Режим определяется по наличию элемента #promoSlidesList в DOM
+ * 
+ * ============================================================================
  */
-class PromoSlidesManager {
-	constructor() {
-		this.currentEditId = null;
-		this.autoPlayInterval = null;
-		this.accordionInitialized = false;
-		this.currentPreviewUrl = null; // Для хранения временного URL превью
 
-		// Определяем, где мы находимся
+class PromoSlidesManager {
+
+	/**
+	 * Создаёт экземпляр менеджера промо-слайдов.
+	 * Определяет режим работы (админка или фронтенд) и запускает инициализацию.
+	 */
+	constructor() {
+		// ID редактируемого слайда (null = создание нового)
+		this.currentEditId = null;
+
+		// Таймер автоматической прокрутки
+		this.autoPlayInterval = null;
+
+		// Флаг инициализации аккордеона (защита от двойного запуска)
+		this.accordionInitialized = false;
+
+		// Временный URL для превью загруженного изображения (через URL.createObjectURL)
+		this.currentPreviewUrl = null;
+
+		// Определяем режим: админка или фронтенд
 		this.isAdmin = !!document.getElementById( 'promoSlidesList' );
 
 		if ( this.isAdmin ) {
@@ -20,20 +55,28 @@ class PromoSlidesManager {
 	}
 
 	// =========================================================================
-	// АДМИНКА
+	// 1. АДМИН-ПАНЕЛЬ
 	// =========================================================================
 
+	/**
+	 * Инициализирует режим администрирования.
+	 * Рендерит список слайдов, привязывает события, подписывается на обновления.
+	 */
 	initAdmin() {
 		console.log( '🖥️ Режим администрирования промо-слайдов' );
 		this.renderSlidesList();
 		this.bindAdminEvents();
 
-		// Слушаем обновление слайдов
+		// Слушаем событие обновления слайдов (вызывается из store)
 		window.addEventListener( 'promoslides:updated', () => {
 			this.renderSlidesList();
 		} );
 	}
 
+	/**
+	 * Рендерит список слайдов в админ-панели.
+	 * Активные слайды отображаются первыми.
+	 */
 	renderSlidesList() {
 		const container = document.getElementById( 'promoSlidesList' );
 		if ( !container ) return;
@@ -52,41 +95,51 @@ class PromoSlidesManager {
 		this.initDragAndDrop();
 	}
 
+	/**
+	 * Рендерит HTML-строку одного элемента списка слайдов.
+	 * 
+	 * @param {Object} slide — объект слайда
+	 * @returns {string} HTML-строка
+	 */
 	renderSlideItem( slide ) {
 		const statusText = slide.status === 'active' ? 'Активен' : 'Неактивен';
 		const statusClass = slide.status;
 
 		return `
-            <div class="slide-item" data-id="${slide.id}" data-order="${slide.order}">
-                <div class="drag-handle">
-                    <i class="fas fa-grip-vertical"></i>
-                </div>
-                <div class="slide-preview">
-                    ${slide.image ?
-				`<img src="${slide.image}" alt="${slide.title}" onerror="this.src='/image/no-image.jpg'">` :
-				'<div class="slide-preview-placeholder"><i class="fas fa-image"></i></div>'
+			<div class="slide-item" data-id="${slide.id}" data-order="${slide.order}">
+				<div class="drag-handle">
+					<i class="fas fa-grip-vertical"></i>
+				</div>
+				<div class="slide-preview">
+					${slide.image
+				? `<img src="${slide.image}" alt="${slide.title}" onerror="this.src='/image/no-image.jpg'">`
+				: '<div class="slide-preview-placeholder"><i class="fas fa-image"></i></div>'
 			}
-                </div>
-                <div class="slide-info">
-                    <div class="slide-title">${this.escapeHtml( slide.title )}</div>
-                    <div class="slide-description">${this.escapeHtml( slide.description )}</div>
-                    ${slide.price ? `<div class="slide-price">${this.escapeHtml( slide.price )}</div>` : ''}
-                </div>
-                <div class="slide-order">
-                    <span class="slide-status-badge ${statusClass}">${statusText}</span>
-                </div>
-                <div class="slide-actions">
-                    <button class="slide-action-btn edit-slide" data-id="${slide.id}" title="Редактировать">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="slide-action-btn delete-slide" data-id="${slide.id}" title="Удалить">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-        `;
+				</div>
+				<div class="slide-info">
+					<div class="slide-title">${this.escapeHtml( slide.title )}</div>
+					<div class="slide-description">${this.escapeHtml( slide.description )}</div>
+					${slide.price ? `<div class="slide-price">${this.escapeHtml( slide.price )}</div>` : ''}
+				</div>
+				<div class="slide-order">
+					<span class="slide-status-badge ${statusClass}">${statusText}</span>
+				</div>
+				<div class="slide-actions">
+					<button class="slide-action-btn edit-slide" data-id="${slide.id}" title="Редактировать">
+						<i class="fas fa-edit"></i>
+					</button>
+					<button class="slide-action-btn delete-slide" data-id="${slide.id}" title="Удалить">
+						<i class="fas fa-trash"></i>
+					</button>
+				</div>
+			</div>
+		`;
 	}
 
+	/**
+	 * Инициализирует drag-and-drop для сортировки слайдов.
+	 * Меняет порядковые номера (order) перетаскиваемых слайдов.
+	 */
 	initDragAndDrop() {
 		const items = document.querySelectorAll( '.slide-item' );
 		let draggedItem = null;
@@ -148,10 +201,15 @@ class PromoSlidesManager {
 		} );
 	}
 
+	// =========================================================================
+	// 2. МОДАЛЬНОЕ ОКНО (ДОБАВЛЕНИЕ / РЕДАКТИРОВАНИЕ СЛАЙДА)
+	// =========================================================================
+
 	/**
-	 * Открывает модальное окно для добавления или редактирования слайда
-	 * Синхронизирует currentSlideId с ProductManager
-	 * @param {string|null} slideId - ID слайда или null для нового
+	 * Открывает модальное окно для добавления или редактирования слайда.
+	 * Синхронизирует currentSlideId с ProductManager.
+	 * 
+	 * @param {string|null} slideId — ID слайда или null для создания нового
 	 */
 	openModal( slideId = null ) {
 		const modal = document.getElementById( 'promoSlideModal' );
@@ -162,7 +220,7 @@ class PromoSlidesManager {
 		this.clearImagePreview();
 		this.currentEditId = slideId;
 
-		// ===== СИНХРОНИЗАЦИЯ С ProductManager =====
+		// Синхронизация с ProductManager (если есть на странице)
 		if ( window.productManager ) {
 			window.productManager.currentSlideId = slideId;
 			console.log( '🔗 Синхронизация: ProductManager.currentSlideId =', slideId );
@@ -183,6 +241,11 @@ class PromoSlidesManager {
 		modal.classList.add( 'show' );
 	}
 
+	/**
+	 * Заполняет форму модального окна данными существующего слайда.
+	 * 
+	 * @param {Object} slide — объект слайда
+	 */
 	fillForm( slide ) {
 		document.getElementById( 'slideTitle' ).value = slide.title;
 		document.getElementById( 'slideDescription' ).value = slide.description;
@@ -192,16 +255,17 @@ class PromoSlidesManager {
 		document.getElementById( 'slideStatus' ).value = slide.status;
 
 		if ( slide.image ) {
-			// Для редактирования используем путь из слайда
 			this.updateImagePreview( slide.image );
 			document.getElementById( 'slideImageUrl' ).value = slide.image;
 		}
 	}
 
-	// ========== РАБОТА С ИЗОБРАЖЕНИЯМИ ==========
+	// =========================================================================
+	// 3. РАБОТА С ИЗОБРАЖЕНИЯМИ В АДМИНКЕ
+	// =========================================================================
 
 	/**
-	 * Очищает превью изображения и показывает плейсхолдер
+	 * Очищает превью изображения и показывает плейсхолдер загрузки.
 	 */
 	clearImagePreview() {
 		const previewContainer = document.getElementById( 'slidePreviewContainer' );
@@ -210,7 +274,7 @@ class PromoSlidesManager {
 		const uploadPlaceholder = document.querySelector( '#slideImageUpload .upload-placeholder' );
 		const loadingPlaceholder = document.querySelector( '#slideImageUpload .loading-placeholder' );
 
-		// Очищаем временный URL
+		// Освобождаем временный URL
 		if ( this.currentPreviewUrl ) {
 			URL.revokeObjectURL( this.currentPreviewUrl );
 			this.currentPreviewUrl = null;
@@ -231,8 +295,9 @@ class PromoSlidesManager {
 	}
 
 	/**
-	 * Обновляет превью изображения
-	 * @param {string} src - путь к изображению или временный URL
+	 * Обновляет превью изображения в модальном окне.
+	 * 
+	 * @param {string} src — путь к изображению или временный blob-URL
 	 */
 	updateImagePreview( src ) {
 		const previewContainer = document.getElementById( 'slidePreviewContainer' );
@@ -249,36 +314,35 @@ class PromoSlidesManager {
 			return;
 		}
 
-		// Скрываем плейсхолдер и индикатор загрузки
 		if ( uploadPlaceholder ) uploadPlaceholder.style.display = 'none';
 		if ( loadingPlaceholder ) loadingPlaceholder.style.display = 'none';
 
-		// Показываем контейнер превью
 		if ( previewContainer ) previewContainer.style.display = 'flex';
 
-		// Устанавливаем изображение
 		if ( previewImg ) {
 			previewImg.src = src;
 			previewImg.style.display = 'block';
 		}
 
-		// Показываем кнопку очистки
 		if ( clearBtn ) clearBtn.style.display = 'flex';
 	}
 
 	/**
-	 * Обработка загрузки файла изображения
-	 * @param {File} file - загруженный файл
+	 * Обрабатывает загрузку файла изображения для слайда.
+	 * Создаёт временный URL для превью, сохраняет путь в скрытое поле.
+	 * 
+	 * @param {File} file — загруженный файл
 	 */
 	handleImageUpload( file ) {
 		if ( !file ) return;
 
+		// Проверка типа файла
 		if ( !file.type.startsWith( 'image/' ) ) {
 			API.showNotification( 'Пожалуйста, выберите изображение', 'error' );
 			return;
 		}
 
-		// Проверка размера (макс 5MB)
+		// Проверка размера (максимум 5MB)
 		if ( file.size > 5 * 1024 * 1024 ) {
 			const sizeMB = ( file.size / 1024 / 1024 ).toFixed( 2 );
 			API.showNotification( `Размер файла (${sizeMB} MB) превышает лимит в 5MB`, 'error' );
@@ -293,7 +357,6 @@ class PromoSlidesManager {
 		if ( uploadPlaceholder ) uploadPlaceholder.style.display = 'none';
 
 		const fileName = file.name;
-		// Формируем путь к файлу в папке /image/
 		const imagePath = `/image/${fileName}`;
 
 		// Очищаем предыдущий временный URL
@@ -301,7 +364,7 @@ class PromoSlidesManager {
 			URL.revokeObjectURL( this.currentPreviewUrl );
 		}
 
-		// Создаем временный URL для превью
+		// Создаём временный URL для превью (не base64!)
 		const previewUrl = URL.createObjectURL( file );
 		this.currentPreviewUrl = previewUrl;
 
@@ -317,11 +380,16 @@ class PromoSlidesManager {
 		API.showNotification( `Изображение выбрано: ${fileName}`, 'success' );
 	}
 
+	// =========================================================================
+	// 4. СОХРАНЕНИЕ И УДАЛЕНИЕ СЛАЙДОВ
+	// =========================================================================
+
 	/**
- * Сохраняет слайд (создаёт новый или обновляет существующий)
- */
+	 * Сохраняет слайд (создаёт новый или обновляет существующий).
+	 * Выполняет валидацию перед сохранением.
+	 */
 	saveSlide() {
-		// Проверка что store доступен
+		// Проверка доступности store
 		if ( !store || !store.addPromoSlide || !store.updatePromoSlide ) {
 			console.error( '❌ store не доступен! Слайд не сохранён.' );
 			return;
@@ -337,17 +405,19 @@ class PromoSlidesManager {
 		const status = document.getElementById( 'slideStatus' )?.value;
 		const image = document.getElementById( 'slideImageUrl' )?.value;
 
-		// Валидация
+		// Валидация: обязательные поля
 		if ( !title || !description ) {
 			API.showNotification( 'Заполните заголовок и описание слайда', 'error' );
 			return;
 		}
 
+		// Валидация: изображение обязательно
 		if ( !image ) {
 			API.showNotification( 'Выберите изображение для слайда', 'error' );
 			return;
 		}
 
+		// Валидация: запрет base64 (должен быть путь к файлу)
 		if ( image.startsWith( 'data:image' ) ) {
 			API.showNotification( '❌ Ошибка: обнаружены данные base64. Пожалуйста, выберите файл заново.', 'error' );
 			return;
@@ -373,8 +443,9 @@ class PromoSlidesManager {
 	}
 
 	/**
-	 * Открывает модальное окно подтверждения удаления слайда
-	 * @param {string} id - ID слайда
+	 * Открывает модальное окно подтверждения удаления слайда.
+	 * 
+	 * @param {string} id — ID слайда для удаления
 	 */
 	deleteSlide( id ) {
 		const slides = store.getPromoSlides();
@@ -392,7 +463,7 @@ class PromoSlidesManager {
 	}
 
 	/**
-	 * Подтверждает удаление слайда
+	 * Подтверждает удаление слайда.
 	 */
 	confirmDelete() {
 		if ( this.currentEditId ) {
@@ -404,8 +475,8 @@ class PromoSlidesManager {
 	}
 
 	/**
-	 * Закрывает модальное окно слайда
-	 * Сбрасывает currentSlideId в ProductManager
+	 * Закрывает модальное окно редактирования слайда.
+	 * Сбрасывает currentSlideId в ProductManager.
 	 */
 	closeModal() {
 		const modal = document.getElementById( 'promoSlideModal' );
@@ -415,7 +486,7 @@ class PromoSlidesManager {
 		}
 		this.currentEditId = null;
 
-		// ===== СИНХРОНИЗАЦИЯ: сбрасываем ID в ProductManager =====
+		// Синхронизация: сбрасываем ID в ProductManager
 		if ( window.productManager ) {
 			window.productManager.currentSlideId = null;
 		}
@@ -424,7 +495,7 @@ class PromoSlidesManager {
 	}
 
 	/**
-	 * Закрывает модальное окно подтверждения удаления
+	 * Закрывает модальное окно подтверждения удаления.
 	 */
 	closeDeleteModal() {
 		const modal = document.getElementById( 'deletePromoSlideModal' );
@@ -435,14 +506,22 @@ class PromoSlidesManager {
 		this.currentEditId = null;
 	}
 
+	// =========================================================================
+	// 5. ПРИВЯЗКА СОБЫТИЙ АДМИНКИ
+	// =========================================================================
+
+	/**
+	 * Привязывает обработчики событий для админ-панели.
+	 * Использует делегирование где возможно.
+	 */
 	bindAdminEvents() {
 		console.log( '🔗 Привязка событий админки...' );
 
-		// Кнопка добавления
+		// Кнопка «Добавить слайд»
 		const addBtn = document.getElementById( 'addPromoSlideBtn' );
 		if ( addBtn ) addBtn.onclick = () => this.openModal();
 
-		// Редактирование/удаление через делегирование
+		// Делегирование: редактирование и удаление
 		document.addEventListener( 'click', ( e ) => {
 			const editBtn = e.target.closest( '.edit-slide' );
 			if ( editBtn ) {
@@ -463,10 +542,8 @@ class PromoSlidesManager {
 		const clearBtn = document.getElementById( 'clearPreviewBtn' );
 
 		if ( uploadArea && imageFile ) {
-			// Клик по области загрузки
 			uploadArea.onclick = () => imageFile.click();
 
-			// Выбор файла
 			imageFile.onchange = ( e ) => {
 				if ( e.target.files[0] ) {
 					this.handleImageUpload( e.target.files[0] );
@@ -495,11 +572,13 @@ class PromoSlidesManager {
 		const closeBtn = document.getElementById( 'closePromoSlideModal' );
 		if ( closeBtn ) closeBtn.onclick = () => this.closeModal();
 
-		// Оверлей модального окна
+		// Закрытие по клику на оверлей
 		const modal = document.getElementById( 'promoSlideModal' );
-		if ( modal ) modal.onclick = ( e ) => {
-			if ( e.target === modal ) this.closeModal();
-		};
+		if ( modal ) {
+			modal.onclick = ( e ) => {
+				if ( e.target === modal ) this.closeModal();
+			};
+		}
 
 		// Модальное окно удаления
 		const confirmDeleteBtn = document.getElementById( 'confirmDeletePromoSlideBtn' );
@@ -511,22 +590,28 @@ class PromoSlidesManager {
 		const closeDeleteBtn = document.getElementById( 'closeDeletePromoSlideModal' );
 		if ( closeDeleteBtn ) closeDeleteBtn.onclick = () => this.closeDeleteModal();
 
-		// Оверлей модального окна удаления
+		// Закрытие модального окна удаления по клику на оверлей
 		const deleteModal = document.getElementById( 'deletePromoSlideModal' );
-		if ( deleteModal ) deleteModal.onclick = ( e ) => {
-			if ( e.target === deleteModal ) this.closeDeleteModal();
-		};
+		if ( deleteModal ) {
+			deleteModal.onclick = ( e ) => {
+				if ( e.target === deleteModal ) this.closeDeleteModal();
+			};
+		}
 	}
 
 	// =========================================================================
-	// ФРОНТЕНД (ГЛАВНАЯ СТРАНИЦА)
+	// 6. ФРОНТЕНД — РЕНДЕРИНГ СЛАЙДОВ НА ГЛАВНОЙ
 	// =========================================================================
 
+	/**
+	 * Инициализирует режим отображения слайдов на главной странице.
+	 */
 	initFrontend() {
 		console.log( '🏠 Режим отображения промо-слайдов' );
 		this.loadAndRenderSlides();
 		this.initAccordion();
 
+		// Подписываемся на обновления слайдов из админки
 		window.addEventListener( 'promoslides:updated', () => {
 			console.log( '🔄 Слайды обновлены, перезагружаем...' );
 			this.loadAndRenderSlides();
@@ -534,6 +619,10 @@ class PromoSlidesManager {
 		} );
 	}
 
+	/**
+	 * Загружает активные слайды из store и рендерит их в контейнер.
+	 * Первый слайд загружает фон сразу, остальные — лениво через Intersection Observer.
+	 */
 	loadAndRenderSlides() {
 		const container = document.querySelector( '.accordion-logo__container' );
 		if ( !container ) return;
@@ -542,19 +631,28 @@ class PromoSlidesManager {
 
 		if ( slides.length > 0 ) {
 			container.innerHTML = '';
+
 			slides.forEach( ( slide, index ) => {
+				// Первый слайд загружаем сразу, остальные — через data-bg (ленивая загрузка)
+				const bgAttribute = index === 0
+					? `style="background-image: url('${this.escapeHtml( slide.image )}');"`
+					: `data-bg="${this.escapeHtml( slide.image )}"`;
+
 				const slideHtml = `
-                    <div class="accordion-item" style="background-image: url('${slide.image}');" data-slide-index="${index}">
-                        <div class="item-content">
-                            <h2>${this.escapeHtml( slide.title )}</h2>
-                            <p>${this.escapeHtml( slide.description )}</p>
-                            ${slide.price ? `<span class="price">${this.escapeHtml( slide.price )}</span>` : ''}
-                            ${slide.link ? `<a href="${slide.link}" class="slide-link"></a>` : ''}
-                        </div>
-                    </div>
-                `;
+					<div class="accordion-item" data-slide-index="${index}" ${bgAttribute}>
+						<div class="item-content">
+							<h2>${this.escapeHtml( slide.title )}</h2>
+							<p>${this.escapeHtml( slide.description )}</p>
+							${slide.price ? `<span class="price">${this.escapeHtml( slide.price )}</span>` : ''}
+							${slide.link ? `<a href="${this.escapeHtml( slide.link )}" class="slide-link"></a>` : ''}
+						</div>
+					</div>
+				`;
 				container.insertAdjacentHTML( 'beforeend', slideHtml );
 			} );
+
+			// Запускаем ленивую загрузку фонов для слайдов после первого
+			this.initSlidesLazyLoading( container );
 			this.updateNavigationDots( slides.length );
 			console.log( `✅ Отрендерено ${slides.length} слайдов` );
 		} else {
@@ -563,6 +661,52 @@ class PromoSlidesManager {
 		}
 	}
 
+	/**
+	 * ЛЕНИВАЯ ЗАГРУЗКА ФОНОВ ДЛЯ СЛАЙДОВ.
+	 * Использует Intersection Observer, чтобы не загружать все фоны сразу.
+	 * Первый слайд уже загружен (фон задан инлайново), остальные ждут очереди.
+	 * Когда слайд приближается к видимой области — фон подставляется из data-bg.
+	 * 
+	 * @param {HTMLElement} container — контейнер со слайдами
+	 */
+	initSlidesLazyLoading( container ) {
+		// Находим все слайды, у которых есть data-bg (все кроме первого)
+		const lazySlides = container.querySelectorAll( '.accordion-item[data-bg]' );
+		if ( !lazySlides.length ) return;
+
+		console.log( `🖼️ Ленивая загрузка фонов для ${lazySlides.length} слайдов` );
+
+		const bgObserver = new IntersectionObserver( ( entries ) => {
+			entries.forEach( entry => {
+				if ( entry.isIntersecting ) {
+					const slide = entry.target;
+					const bgUrl = slide.dataset.bg;
+
+					if ( bgUrl ) {
+						// Подставляем фон
+						slide.style.backgroundImage = `url('${bgUrl}')`;
+						// Удаляем data-bg за ненадобностью
+						slide.removeAttribute( 'data-bg' );
+						console.log( `🖼️ Фон загружен для слайда #${slide.dataset.slideIndex}` );
+					}
+
+					// Прекращаем наблюдение за этим слайдом
+					bgObserver.unobserve( slide );
+				}
+			} );
+		}, {
+			rootMargin: '300px',  // Начинаем загрузку за 300px до появления
+			threshold: 0.01       // Достаточно 1% видимости
+		} );
+
+		lazySlides.forEach( slide => bgObserver.observe( slide ) );
+	}
+
+	/**
+	 * Обновляет навигационные точки (индикаторы) под слайдами.
+	 * 
+	 * @param {number} count — количество слайдов
+	 */
 	updateNavigationDots( count ) {
 		const navIndicators = document.querySelector( '.custom-navigation .nav-indicators' );
 		if ( !navIndicators ) return;
@@ -576,6 +720,14 @@ class PromoSlidesManager {
 		}
 	}
 
+	// =========================================================================
+	// 7. АККОРДЕОН — ЛОГИКА ПРОКРУТКИ И АВТОПЛЕЯ
+	// =========================================================================
+
+	/**
+	 * Инициализирует аккордеон: автопрокрутку, навигационные точки,
+	 * обработку касаний и скролла.
+	 */
 	initAccordion() {
 		const container = document.querySelector( '.accordion-logo__container' );
 		if ( !container ) {
@@ -593,6 +745,7 @@ class PromoSlidesManager {
 
 		console.log( `🎯 Аккордеон: инициализация с ${totalItems} слайдами` );
 
+		// Очищаем предыдущий таймер если был
 		if ( this.autoPlayInterval ) {
 			clearInterval( this.autoPlayInterval );
 			this.autoPlayInterval = null;
@@ -601,13 +754,19 @@ class PromoSlidesManager {
 		let currentIndex = 0;
 		let isUserInteracting = false;
 		let scrollAnimationFrame = null;
+		let scrollEndTimer = null;
 
+		/**
+		 * Обновляет активную навигационную точку на основе позиции скролла.
+		 * Использует requestAnimationFrame для оптимизации производительности.
+		 */
 		const updateActiveNav = () => {
 			if ( scrollAnimationFrame ) cancelAnimationFrame( scrollAnimationFrame );
 			scrollAnimationFrame = requestAnimationFrame( () => {
 				const scrollLeft = container.scrollLeft;
 				const itemWidth = container.clientWidth;
 				if ( itemWidth === 0 ) return;
+
 				const activeIndex = Math.round( scrollLeft / itemWidth );
 				if ( activeIndex >= 0 && activeIndex < totalItems ) {
 					currentIndex = activeIndex;
@@ -618,6 +777,10 @@ class PromoSlidesManager {
 			} );
 		};
 
+		/**
+		 * Переключает на следующий слайд.
+		 * После последнего — возвращается к первому.
+		 */
 		const nextSlide = () => {
 			if ( isUserInteracting ) return;
 			const itemWidth = container.clientWidth;
@@ -627,11 +790,18 @@ class PromoSlidesManager {
 			container.scrollTo( { left: itemWidth * nextIndex, behavior: 'smooth' } );
 		};
 
+		/**
+		 * Запускает автоматическую прокрутку.
+		 * Интервал: 10 секунд — достаточно для чтения короткого рекламного текста.
+		 */
 		const startAutoPlay = () => {
 			if ( this.autoPlayInterval ) clearInterval( this.autoPlayInterval );
-			this.autoPlayInterval = setInterval( nextSlide, 5000 );
+			this.autoPlayInterval = setInterval( nextSlide, 10000 );
 		};
 
+		/**
+		 * Останавливает автоматическую прокрутку.
+		 */
 		const stopAutoPlay = () => {
 			if ( this.autoPlayInterval ) {
 				clearInterval( this.autoPlayInterval );
@@ -639,6 +809,12 @@ class PromoSlidesManager {
 			}
 		};
 
+		/**
+		 * Приостанавливает автопрокрутку на указанное время.
+		 * Используется после ручного взаимодействия пользователя.
+		 * 
+		 * @param {number} duration — время паузы в миллисекундах
+		 */
 		const pauseAutoPlay = ( duration = 2000 ) => {
 			stopAutoPlay();
 			isUserInteracting = true;
@@ -648,22 +824,28 @@ class PromoSlidesManager {
 			}, duration );
 		};
 
+		// Обработчик скролла — обновляет навигацию и служит fallback для Safari
 		container.removeEventListener( 'scroll', updateActiveNav );
-		container.addEventListener( 'scroll', updateActiveNav );
+		container.addEventListener( 'scroll', () => {
+			updateActiveNav();
+			// Fallback для браузеров без поддержки scrollend (Safari < 15.4)
+			clearTimeout( scrollEndTimer );
+			scrollEndTimer = setTimeout( updateActiveNav, 150 );
+		} );
 
+		// Клик по навигационным точкам
 		navDots.forEach( ( dot, index ) => {
 			dot.removeEventListener( 'click', dot._clickHandler );
 			dot._clickHandler = () => {
 				const itemWidth = container.clientWidth;
 				if ( itemWidth === 0 ) return;
 				container.scrollTo( { left: itemWidth * index, behavior: 'smooth' } );
-				pauseAutoPlay( 2000 );
+				pauseAutoPlay( 3000 );
 			};
 			dot.addEventListener( 'click', dot._clickHandler );
 		} );
 
-		container.addEventListener( 'scrollend', updateActiveNav );
-
+		// Пауза при наведении на навигационные точки
 		const navContainer = document.querySelector( '.custom-navigation' );
 		if ( navContainer ) {
 			navContainer.removeEventListener( 'mouseenter', stopAutoPlay );
@@ -678,6 +860,7 @@ class PromoSlidesManager {
 			} );
 		}
 
+		// Обработка касаний на мобильных устройствах
 		container.addEventListener( 'touchstart', () => {
 			stopAutoPlay();
 			isUserInteracting = true;
@@ -686,12 +869,14 @@ class PromoSlidesManager {
 			setTimeout( () => {
 				isUserInteracting = false;
 				startAutoPlay();
-			}, 2000 );
+			}, 3000 );
 		} );
 
+		// Обновление навигации при изменении размера окна
 		window.removeEventListener( 'resize', updateActiveNav );
 		window.addEventListener( 'resize', updateActiveNav );
 
+		// Первичное обновление и запуск
 		updateActiveNav();
 		startAutoPlay();
 
@@ -699,18 +884,36 @@ class PromoSlidesManager {
 		console.log( '✅ Аккордеон успешно инициализирован' );
 	}
 
+	// =========================================================================
+	// 8. УТИЛИТЫ
+	// =========================================================================
+
+	/**
+	 * Экранирует HTML-спецсимволы для безопасной вставки в DOM.
+	 * Защищает от XSS при рендеринге пользовательских данных.
+	 * 
+	 * @param {string} str — исходная строка
+	 * @returns {string} экранированная строка
+	 */
 	escapeHtml( str ) {
 		if ( !str ) return '';
-		return str.replace( /[&<>]/g, function ( m ) {
-			if ( m === '&' ) return '&amp;';
-			if ( m === '<' ) return '&lt;';
-			if ( m === '>' ) return '&gt;';
-			return m;
+		return str.replace( /[&<>"']/g, function ( m ) {
+			switch ( m ) {
+				case '&': return '&amp;';
+				case '<': return '&lt;';
+				case '>': return '&gt;';
+				case '"': return '&quot;';
+				case "'": return '&#039;';
+				default: return m;
+			}
 		} );
 	}
 }
 
-// Инициализация
+// =========================================================================
+// 9. ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+// =========================================================================
+
 if ( document.readyState === 'loading' ) {
 	document.addEventListener( 'DOMContentLoaded', () => {
 		window.promoSlidesManager = new PromoSlidesManager();
