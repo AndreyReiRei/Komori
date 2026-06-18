@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-06-17T10:27:48.307Z",
+    "lastUpdated": "2026-06-18T10:07:55.200Z",
     "season": "spring",
     "seasonName": "🌸 Весна",
     "year": 2026,
@@ -57,9 +57,9 @@
       "episodes": "19 эп.",
       "episodesCount": 19,
       "duration": 24,
-      "score": 8.8,
-      "scoreRaw": 88,
-      "popularity": 108677,
+      "score": 8.9,
+      "scoreRaw": 89,
+      "popularity": 109584,
       "genres": [
         "Экшен",
         "Приключения",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 7.8,
       "scoreRaw": 78,
-      "popularity": 104537,
+      "popularity": 104873,
       "genres": [
         "Экшен",
         "Приключения",
@@ -127,7 +127,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 101863,
+      "popularity": 102168,
       "genres": [
         "Экшен",
         "Приключения",
@@ -161,7 +161,7 @@
       "duration": 24,
       "score": 7.8,
       "scoreRaw": 78,
-      "popularity": 98174,
+      "popularity": 98657,
       "genres": [
         "Драма",
         "Психология"
@@ -193,7 +193,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 93046,
+      "popularity": 93451,
       "genres": [
         "Экшен",
         "Приключения",
@@ -227,7 +227,7 @@
       "duration": 24,
       "score": 8,
       "scoreRaw": 80,
-      "popularity": 73450,
+      "popularity": 74049,
       "genres": [
         "Комедия",
         "Романтика"
@@ -259,7 +259,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 68088,
+      "popularity": 68536,
       "genres": [
         "Экшен",
         "Комедия",
@@ -293,7 +293,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 67212,
+      "popularity": 67357,
       "genres": [
         "Романтика",
         "Повседневность"
@@ -311,8 +311,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 214,
-    "timestamp": 1781692068308,
-    "nextUpdate": "2026-06-18T10:27:48.308Z"
+    "fetchDuration": 327,
+    "timestamp": 1781777275200,
+    "nextUpdate": "2026-06-19T10:07:55.200Z"
   }
 }
