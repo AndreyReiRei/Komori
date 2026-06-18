@@ -141,7 +141,21 @@ select {
 	letter-spacing: 0.3px;
 }
 
-/* ===== АДАПТИВНАЯ ТИПОГРАФИКА ===== */
+
+/* НАВИГАЦИЯ КЛАВИАТУРЫ */
+
+/* Видимый фокус для клавиатурной навигации */
+*:focus-visible {
+	outline: 2px solid #840000;
+	outline-offset: 2px;
+}
+
+/* Убираем outline для кликов мышью */
+*:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
 
 /* Планшеты (769px - 992px) */
 @media (769px <=width < 993px) {
