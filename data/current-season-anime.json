@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-06-18T10:07:55.200Z",
+    "lastUpdated": "2026-06-19T10:14:14.889Z",
     "season": "spring",
     "seasonName": "🌸 Весна",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 179142,
+      "popularity": 179944,
       "genres": [
         "Приключения",
         "Драма",
@@ -59,7 +59,7 @@
       "duration": 24,
       "score": 8.9,
       "scoreRaw": 89,
-      "popularity": 109584,
+      "popularity": 110302,
       "genres": [
         "Экшен",
         "Приключения",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 7.8,
       "scoreRaw": 78,
-      "popularity": 104873,
+      "popularity": 105228,
       "genres": [
         "Экшен",
         "Приключения",
@@ -127,7 +127,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 102168,
+      "popularity": 102475,
       "genres": [
         "Экшен",
         "Приключения",
@@ -161,7 +161,7 @@
       "duration": 24,
       "score": 7.8,
       "scoreRaw": 78,
-      "popularity": 98657,
+      "popularity": 99061,
       "genres": [
         "Драма",
         "Психология"
@@ -193,7 +193,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 93451,
+      "popularity": 93876,
       "genres": [
         "Экшен",
         "Приключения",
@@ -227,7 +227,7 @@
       "duration": 24,
       "score": 8,
       "scoreRaw": 80,
-      "popularity": 74049,
+      "popularity": 74528,
       "genres": [
         "Комедия",
         "Романтика"
@@ -259,7 +259,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 68536,
+      "popularity": 68911,
       "genres": [
         "Экшен",
         "Комедия",
@@ -293,7 +293,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 67357,
+      "popularity": 67494,
       "genres": [
         "Романтика",
         "Повседневность"
@@ -311,8 +311,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 327,
-    "timestamp": 1781777275200,
-    "nextUpdate": "2026-06-19T10:07:55.200Z"
+    "fetchDuration": 205,
+    "timestamp": 1781864054889,
+    "nextUpdate": "2026-06-20T10:14:14.889Z"
   }
 }
