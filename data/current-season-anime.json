@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-06-22T11:37:10.833Z",
+    "lastUpdated": "2026-06-23T09:23:50.720Z",
     "season": "spring",
     "seasonName": "🌸 Весна",
     "year": 2026,
@@ -10,39 +10,6 @@
     "version": "2.0"
   },
   "anime": [
-    {
-      "id": "anilist-147105",
-      "title": "Witch Hat Atelier",
-      "nativeTitle": "とんがり帽子のアトリエ",
-      "excerpt": "In a world where everyone takes wonders like magic spells and dragons for granted, Coco is a girl with a simple dream: she wants to be a witch. But everybody knows magicians are born, not made, and Co...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx147105-rwOX8qyUy8gV.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx147105-rwOX8qyUy8gV.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/147105-fTjmRrILFixZ.jpg",
-      "type": "🌐 ONA",
-      "format": "ONA",
-      "status": "▶️ Выходит",
-      "episodes": "13 эп.",
-      "episodesCount": 13,
-      "duration": 24,
-      "score": 8.6,
-      "scoreRaw": 86,
-      "popularity": 183273,
-      "genres": [
-        "Приключения",
-        "Драма",
-        "Фэнтези"
-      ],
-      "studios": [
-        "BUG FILMS",
-        "Avex Pictures"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/147105",
-      "trailerUrl": "https://www.youtube.com/watch?v=rc26AwBXlUE",
-      "season": "SPRING",
-      "seasonYear": 2026,
-      "order": 1
-    },
     {
       "id": "anilist-189046",
       "title": "Re:ZERO -Starting Life in Another World- Season 4",
@@ -75,7 +42,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=i8EjBP85cCc",
       "season": "SPRING",
       "seasonYear": 2026,
-      "order": 2
+      "order": 1
     },
     {
       "id": "anilist-195600",
@@ -93,7 +60,7 @@
       "duration": 24,
       "score": 7.8,
       "scoreRaw": 78,
-      "popularity": 106862,
+      "popularity": 107367,
       "genres": [
         "Экшен",
         "Приключения",
@@ -109,7 +76,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=XCyj9KKKjUI",
       "season": "SPRING",
       "seasonYear": 2026,
-      "order": 3
+      "order": 2
     },
     {
       "id": "anilist-182205",
@@ -143,7 +110,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=ikxIrDr72iA",
       "season": "SPRING",
       "seasonYear": 2026,
-      "order": 4
+      "order": 3
     },
     {
       "id": "anilist-180745",
@@ -175,7 +142,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=kAncxuwCPZg",
       "season": "SPRING",
       "seasonYear": 2026,
-      "order": 5
+      "order": 4
     },
     {
       "id": "anilist-182300",
@@ -209,7 +176,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=57OL0uTIBVg",
       "season": "SPRING",
       "seasonYear": 2026,
-      "order": 6
+      "order": 5
     },
     {
       "id": "anilist-169580",
@@ -241,7 +208,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=3mTUxCIyJhA",
       "season": "SPRING",
       "seasonYear": 2026,
-      "order": 7
+      "order": 6
     },
     {
       "id": "anilist-199547",
@@ -259,7 +226,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 69866,
+      "popularity": 70199,
       "genres": [
         "Экшен",
         "Комедия",
@@ -275,7 +242,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=t0Ruh2QBpqg",
       "season": "SPRING",
       "seasonYear": 2026,
-      "order": 8
+      "order": 7
     },
     {
       "id": "anilist-199221",
@@ -293,7 +260,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 65915,
+      "popularity": 66150,
       "genres": [
         "Экшен",
         "Приключения",
@@ -309,12 +276,44 @@
       "trailerUrl": "https://www.youtube.com/watch?v=Ox8hatPxyiQ",
       "season": "SPRING",
       "seasonYear": 2026,
+      "order": 8
+    },
+    {
+      "id": "anilist-199588",
+      "title": "Gals Can't Be Kind to Otaku!?",
+      "nativeTitle": "オタクに優しいギャルはいない!?",
+      "excerpt": "Meet Takuya Seo, an otaku who sits behind the popular gals in class, Ijichi and Amane. Since they're people from different \"castes,\" you wouldn't expect them to have much in common. But when their wor...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx199588-M2vtWicvqNbU.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx199588-M2vtWicvqNbU.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/199588-I4HoR4YjnpqD.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "12 эп.",
+      "episodesCount": 12,
+      "duration": 23,
+      "score": 7.6,
+      "scoreRaw": 76,
+      "popularity": 55948,
+      "genres": [
+        "Комедия",
+        "Романтика"
+      ],
+      "studios": [
+        "TMS Entertainment",
+        "ADK Emotions"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/199588",
+      "trailerUrl": "https://www.youtube.com/watch?v=pdWQUnshA4M",
+      "season": "SPRING",
+      "seasonYear": 2026,
       "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 199,
-    "timestamp": 1782128230833,
-    "nextUpdate": "2026-06-23T11:37:10.833Z"
+    "fetchDuration": 180,
+    "timestamp": 1782206630720,
+    "nextUpdate": "2026-06-24T09:23:50.720Z"
   }
 }
