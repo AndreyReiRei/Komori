@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-06-25T08:49:14.772Z",
+    "lastUpdated": "2026-06-26T08:52:10.397Z",
     "season": "spring",
     "seasonName": "🌸 Весна",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.9,
       "scoreRaw": 89,
-      "popularity": 112934,
+      "popularity": 113415,
       "genres": [
         "Экшен",
         "Приключения",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 7.8,
       "scoreRaw": 78,
-      "popularity": 107839,
+      "popularity": 108262,
       "genres": [
         "Экшен",
         "Приключения",
@@ -94,7 +94,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 104828,
+      "popularity": 105218,
       "genres": [
         "Экшен",
         "Приключения",
@@ -128,7 +128,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 96814,
+      "popularity": 97309,
       "genres": [
         "Экшен",
         "Приключения",
@@ -162,7 +162,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 70861,
+      "popularity": 71461,
       "genres": [
         "Экшен",
         "Комедия",
@@ -181,40 +181,6 @@
       "order": 5
     },
     {
-      "id": "anilist-199221",
-      "title": "Dr. STONE SCIENCE FUTURE Cour 3",
-      "nativeTitle": "Dr.STONE SCIENCE FUTURE 3クール",
-      "excerpt": "The third and final cour of the fourth season of Dr.STONE.",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx199221-TReDQMNhslHu.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx199221-TReDQMNhslHu.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/199221-b3W0FfJd4zMy.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "13 эп.",
-      "episodesCount": 13,
-      "duration": 24,
-      "score": 8.2,
-      "scoreRaw": 82,
-      "popularity": 66380,
-      "genres": [
-        "Экшен",
-        "Приключения",
-        "Комедия",
-        "Фантастика"
-      ],
-      "studios": [
-        "TMS Entertainment",
-        "Toho"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/199221",
-      "trailerUrl": "https://www.youtube.com/watch?v=Ox8hatPxyiQ",
-      "season": "SPRING",
-      "seasonYear": 2026,
-      "order": 6
-    },
-    {
       "id": "anilist-186497",
       "title": "The Ramparts of Ice",
       "nativeTitle": "氷の城壁",
@@ -225,12 +191,12 @@
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
+      "episodes": "14 эп.",
+      "episodesCount": 14,
       "duration": 24,
       "score": 7.9,
       "scoreRaw": 79,
-      "popularity": 53823,
+      "popularity": 54152,
       "genres": [
         "Комедия",
         "Драма",
@@ -246,41 +212,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=a7ah5by0Ffw",
       "season": "SPRING",
       "seasonYear": 2026,
-      "order": 7
-    },
-    {
-      "id": "anilist-182483",
-      "title": "The Warrior Princess and the Barbaric King",
-      "nativeTitle": "姫騎士は蛮族の嫁",
-      "excerpt": "Serafina, the West’s fiercest knight, expected torture when captured by barbarians. Instead, she got a marriage proposal! Marrying her sworn enemy is a hard no! But after seeing her wedding captor’s c...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx182483-La7chs6htDWr.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx182483-La7chs6htDWr.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/182483-Nzix9ntq3CVj.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "12 эп.",
-      "episodesCount": 12,
-      "duration": 24,
-      "score": 6.7,
-      "scoreRaw": 67,
-      "popularity": 45449,
-      "genres": [
-        "Комедия",
-        "Ecchi",
-        "Фэнтези",
-        "Романтика"
-      ],
-      "studios": [
-        "KADOKAWA",
-        "Jumondou"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/182483",
-      "trailerUrl": "https://www.youtube.com/watch?v=oGSDv7XSZA4",
-      "season": "SPRING",
-      "seasonYear": 2026,
-      "order": 8
+      "order": 6
     },
     {
       "id": "anilist-194393",
@@ -298,7 +230,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 45224,
+      "popularity": 45707,
       "genres": [
         "Комедия",
         "Романтика"
@@ -312,12 +244,77 @@
       "trailerUrl": "https://www.youtube.com/watch?v=oGJrnyjDbsA",
       "season": "SPRING",
       "seasonYear": 2026,
+      "order": 7
+    },
+    {
+      "id": "anilist-190143",
+      "title": "Agents of the Four Seasons: Dance of Spring",
+      "nativeTitle": "春夏秋冬代行者 春の舞",
+      "excerpt": "When the Agent of Spring, Hinagiku Kayo, is abducted, spring itself vanishes—plunging the world into unending winter. Refusing to give up, her devoted guard, Sakura Himedaka, searches for her for year...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx190143-IqqbkMAF0GOo.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx190143-IqqbkMAF0GOo.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/190143-0Ffw9Tb9Sjdo.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "14 эп.",
+      "episodesCount": 14,
+      "duration": 24,
+      "score": 7.5,
+      "scoreRaw": 75,
+      "popularity": 39270,
+      "genres": [
+        "Драма",
+        "Фэнтези",
+        "Романтика"
+      ],
+      "studios": [
+        "Aniplex",
+        "WIT STUDIO"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/190143",
+      "trailerUrl": "https://www.youtube.com/watch?v=3NdlPDtfZU4",
+      "season": "SPRING",
+      "seasonYear": 2026,
+      "order": 8
+    },
+    {
+      "id": "anilist-198113",
+      "title": "KILL BLUE",
+      "nativeTitle": "キルアオ",
+      "excerpt": "Juuzou Oogami is a legendary hitman who has never failed an assignment, no matter how impossible. One day, after wiping out a powerful organization, he is stung by a mysterious wasp and collapses. Whe...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx198113-NRa47idWSlnx.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx198113-NRa47idWSlnx.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/198113-5hYeMXL2zilW.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "12 эп.",
+      "episodesCount": 12,
+      "duration": 24,
+      "score": 7.3,
+      "scoreRaw": 73,
+      "popularity": 35920,
+      "genres": [
+        "Экшен",
+        "Комедия"
+      ],
+      "studios": [
+        "CUE",
+        "DMM.com"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/198113",
+      "trailerUrl": "https://www.youtube.com/watch?v=9sEiONbweqI",
+      "season": "SPRING",
+      "seasonYear": 2026,
       "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 214,
-    "timestamp": 1782377354772,
-    "nextUpdate": "2026-06-26T08:49:14.772Z"
+    "fetchDuration": 304,
+    "timestamp": 1782463930397,
+    "nextUpdate": "2026-06-27T08:52:10.397Z"
   }
 }
