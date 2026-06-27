@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-06-26T08:52:10.397Z",
+    "lastUpdated": "2026-06-27T08:27:16.275Z",
     "season": "spring",
     "seasonName": "🌸 Весна",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.9,
       "scoreRaw": 89,
-      "popularity": 113415,
+      "popularity": 113899,
       "genres": [
         "Экшен",
         "Приключения",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 7.8,
       "scoreRaw": 78,
-      "popularity": 108262,
+      "popularity": 108653,
       "genres": [
         "Экшен",
         "Приключения",
@@ -94,7 +94,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 105218,
+      "popularity": 105598,
       "genres": [
         "Экшен",
         "Приключения",
@@ -128,7 +128,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 97309,
+      "popularity": 97805,
       "genres": [
         "Экшен",
         "Приключения",
@@ -162,7 +162,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 71461,
+      "popularity": 71902,
       "genres": [
         "Экшен",
         "Комедия",
@@ -194,9 +194,9 @@
       "episodes": "14 эп.",
       "episodesCount": 14,
       "duration": 24,
-      "score": 7.9,
-      "scoreRaw": 79,
-      "popularity": 54152,
+      "score": 8,
+      "scoreRaw": 80,
+      "popularity": 54759,
       "genres": [
         "Комедия",
         "Драма",
@@ -230,7 +230,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 45707,
+      "popularity": 46055,
       "genres": [
         "Комедия",
         "Романтика"
@@ -262,7 +262,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 39270,
+      "popularity": 39433,
       "genres": [
         "Драма",
         "Фэнтези",
@@ -295,7 +295,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 35920,
+      "popularity": 36172,
       "genres": [
         "Экшен",
         "Комедия"
@@ -313,8 +313,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 304,
-    "timestamp": 1782463930397,
-    "nextUpdate": "2026-06-27T08:52:10.397Z"
+    "fetchDuration": 262,
+    "timestamp": 1782548836275,
+    "nextUpdate": "2026-06-28T08:27:16.275Z"
   }
 }
