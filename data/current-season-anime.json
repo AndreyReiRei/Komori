@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-06-27T08:27:16.275Z",
+    "lastUpdated": "2026-06-28T08:41:26.731Z",
     "season": "spring",
     "seasonName": "🌸 Весна",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.9,
       "scoreRaw": 89,
-      "popularity": 113899,
+      "popularity": 114271,
       "genres": [
         "Экшен",
         "Приключения",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 7.8,
       "scoreRaw": 78,
-      "popularity": 108653,
+      "popularity": 109068,
       "genres": [
         "Экшен",
         "Приключения",
@@ -94,7 +94,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 105598,
+      "popularity": 106215,
       "genres": [
         "Экшен",
         "Приключения",
@@ -113,40 +113,6 @@
       "order": 3
     },
     {
-      "id": "anilist-182300",
-      "title": "Wistoria: Wand and Sword Season 2",
-      "nativeTitle": "杖と剣のウィストリア Season2",
-      "excerpt": "The second season of Tsue to Tsurugi no Wistoria. Will, a washout student at a magical academy who is unable to use magic, is aiming to join the top tier of mages, the Magia Vander, to fulfill a promi...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx182300-IYkq5KrkQq1V.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx182300-IYkq5KrkQq1V.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/182300-d1znfWKzn1bT.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "12 эп.",
-      "episodesCount": 12,
-      "duration": 24,
-      "score": 8.2,
-      "scoreRaw": 82,
-      "popularity": 97805,
-      "genres": [
-        "Экшен",
-        "Приключения",
-        "Драма",
-        "Фэнтези"
-      ],
-      "studios": [
-        "Actas",
-        "Bandai Namco Pictures"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/182300",
-      "trailerUrl": "https://www.youtube.com/watch?v=57OL0uTIBVg",
-      "season": "SPRING",
-      "seasonYear": 2026,
-      "order": 4
-    },
-    {
       "id": "anilist-199547",
       "title": "MARRIAGETOXIN",
       "nativeTitle": "マリッジトキシン",
@@ -162,7 +128,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 71902,
+      "popularity": 72296,
       "genres": [
         "Экшен",
         "Комедия",
@@ -178,7 +144,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=t0Ruh2QBpqg",
       "season": "SPRING",
       "seasonYear": 2026,
-      "order": 5
+      "order": 4
     },
     {
       "id": "anilist-186497",
@@ -196,7 +162,7 @@
       "duration": 24,
       "score": 8,
       "scoreRaw": 80,
-      "popularity": 54759,
+      "popularity": 55337,
       "genres": [
         "Комедия",
         "Драма",
@@ -212,7 +178,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=a7ah5by0Ffw",
       "season": "SPRING",
       "seasonYear": 2026,
-      "order": 6
+      "order": 5
     },
     {
       "id": "anilist-194393",
@@ -230,7 +196,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 46055,
+      "popularity": 46379,
       "genres": [
         "Комедия",
         "Романтика"
@@ -244,77 +210,109 @@
       "trailerUrl": "https://www.youtube.com/watch?v=oGJrnyjDbsA",
       "season": "SPRING",
       "seasonYear": 2026,
-      "order": 7
+      "order": 6
     },
     {
-      "id": "anilist-190143",
-      "title": "Agents of the Four Seasons: Dance of Spring",
-      "nativeTitle": "春夏秋冬代行者 春の舞",
-      "excerpt": "When the Agent of Spring, Hinagiku Kayo, is abducted, spring itself vanishes—plunging the world into unending winter. Refusing to give up, her devoted guard, Sakura Himedaka, searches for her for year...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx190143-IqqbkMAF0GOo.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx190143-IqqbkMAF0GOo.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/190143-0Ffw9Tb9Sjdo.jpg",
+      "id": "anilist-197754",
+      "title": "LIAR GAME",
+      "nativeTitle": "LIAR GAME",
+      "excerpt": "Wishing she would live up to the ideal, Kanzaki Nao's father named her thusly for “honesty”. Nao has more than lived up to her father's wishes--even exceeding them and earning the label of \"a foolishl...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx197754-Q5KqcUhIdypp.png",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx197754-Q5KqcUhIdypp.png",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/197754-cMWxeRdhYrFW.jpg",
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "14 эп.",
-      "episodesCount": 14,
+      "episodes": "24 мин.",
+      "episodesCount": null,
       "duration": 24,
-      "score": 7.5,
-      "scoreRaw": 75,
-      "popularity": 39433,
+      "score": 6,
+      "scoreRaw": 60,
+      "popularity": 36022,
       "genres": [
         "Драма",
-        "Фэнтези",
-        "Романтика"
+        "Психология"
       ],
       "studios": [
-        "Aniplex",
-        "WIT STUDIO"
+        "MADHOUSE",
+        "Bit grooove promotion"
       ],
       "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/190143",
-      "trailerUrl": "https://www.youtube.com/watch?v=3NdlPDtfZU4",
+      "sourceUrl": "https://anilist.co/anime/197754",
+      "trailerUrl": "https://www.youtube.com/watch?v=FIPOXj00ysQ",
+      "season": "SPRING",
+      "seasonYear": 2026,
+      "order": 7
+    },
+    {
+      "id": "anilist-184492",
+      "title": "Welcome to Demon School! Iruma-kun Season 4",
+      "nativeTitle": "魔入りました！入間くん 第4シリーズ",
+      "excerpt": "The fourth season of Mairimashita! Iruma-kun. Suzuki Iruma and all thirteen students of the Misfit Class must perform to reach Rank 4 at the Music Festival. (Source: Crunchyroll News)...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx184492-KUVFGieuMaOx.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx184492-KUVFGieuMaOx.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/184492-JsZazzn4Acqf.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "24 эп.",
+      "episodesCount": 24,
+      "duration": 25,
+      "score": 8,
+      "scoreRaw": 80,
+      "popularity": 34336,
+      "genres": [
+        "Комедия",
+        "Фэнтези",
+        "Сверхъестественное"
+      ],
+      "studios": [
+        "Bandai Namco Pictures"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/184492",
+      "trailerUrl": "https://www.youtube.com/watch?v=6Lo1DUCY9nY",
       "season": "SPRING",
       "seasonYear": 2026,
       "order": 8
     },
     {
-      "id": "anilist-198113",
-      "title": "KILL BLUE",
-      "nativeTitle": "キルアオ",
-      "excerpt": "Juuzou Oogami is a legendary hitman who has never failed an assignment, no matter how impossible. One day, after wiping out a powerful organization, he is stung by a mysterious wasp and collapses. Whe...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx198113-NRa47idWSlnx.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx198113-NRa47idWSlnx.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/198113-5hYeMXL2zilW.jpg",
+      "id": "anilist-171110",
+      "title": "Ascendance of a Bookworm: Adopted Daughter of an Archduke",
+      "nativeTitle": "本好きの下剋上 領主の養女",
+      "excerpt": "Anime adaptation of Part 3 of Honzuki no Gekokujou. Following a disastrous encounter with a noble, Myne finally resolves to say goodbye to her family and friends in the lower city, changing her name t...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171110-7zOdInS6DQNL.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx171110-7zOdInS6DQNL.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/171110-lgtmKokpevUM.jpg",
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "12 эп.",
-      "episodesCount": 12,
+      "episodes": "24 мин.",
+      "episodesCount": null,
       "duration": 24,
-      "score": 7.3,
-      "scoreRaw": 73,
-      "popularity": 36172,
+      "score": 7.6,
+      "scoreRaw": 76,
+      "popularity": 32879,
       "genres": [
-        "Экшен",
-        "Комедия"
+        "Драма",
+        "Фэнтези",
+        "Повседневность"
       ],
       "studios": [
-        "CUE",
-        "DMM.com"
+        "WIT STUDIO",
+        "TO Books"
       ],
       "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/198113",
-      "trailerUrl": "https://www.youtube.com/watch?v=9sEiONbweqI",
+      "sourceUrl": "https://anilist.co/anime/171110",
+      "trailerUrl": "https://www.youtube.com/watch?v=rtPF6rjrdSU",
       "season": "SPRING",
       "seasonYear": 2026,
       "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 262,
-    "timestamp": 1782548836275,
-    "nextUpdate": "2026-06-28T08:27:16.275Z"
+    "fetchDuration": 322,
+    "timestamp": 1782636086731,
+    "nextUpdate": "2026-06-29T08:41:26.731Z"
   }
 }
