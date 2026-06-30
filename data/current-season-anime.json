@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-06-29T10:25:05.065Z",
+    "lastUpdated": "2026-06-30T08:58:02.179Z",
     "season": "spring",
     "seasonName": "🌸 Весна",
     "year": 2026,
@@ -311,8 +311,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 289,
-    "timestamp": 1782728705065,
-    "nextUpdate": "2026-06-30T10:25:05.065Z"
+    "fetchDuration": 194,
+    "timestamp": 1782809882179,
+    "nextUpdate": "2026-07-01T08:58:02.179Z"
   }
 }
