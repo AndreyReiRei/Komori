@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-02T08:46:55.070Z",
+    "lastUpdated": "2026-07-03T08:50:42.259Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 6.5,
       "scoreRaw": 65,
-      "popularity": 17028,
+      "popularity": 17913,
       "genres": [
         "Экшен",
         "Приключения",
@@ -44,6 +44,40 @@
       "order": 1
     },
     {
+      "id": "anilist-197715",
+      "title": "The Villager of Level 999",
+      "nativeTitle": "LV999の村人",
+      "excerpt": "Monsters did not always exist in the island country of Hexaldoria, once known as Japan. But, once monsters appeared, their numbers grew in an instant. Eighty percent of the world is now too dangerous...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx197715-KLFLxU24U1uL.png",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx197715-KLFLxU24U1uL.png",
+      "bannerImage": null,
+      "type": "🌐 ONA",
+      "format": "ONA",
+      "status": "▶️ Выходит",
+      "episodes": "12 эп.",
+      "episodesCount": 12,
+      "duration": 24,
+      "score": 6.3,
+      "scoreRaw": 63,
+      "popularity": 13708,
+      "genres": [
+        "Экшен",
+        "Приключения",
+        "Комедия",
+        "Фэнтези"
+      ],
+      "studios": [
+        "Brain's Base",
+        "DMM.com"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/197715",
+      "trailerUrl": "https://www.youtube.com/watch?v=YfWJLXcN7hI",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 2
+    },
+    {
       "id": "anilist-206521",
       "title": "The World Is Dancing",
       "nativeTitle": "ワールド イズ ダンシング",
@@ -57,9 +91,9 @@
       "episodes": "13 эп.",
       "episodesCount": 13,
       "duration": 24,
-      "score": 6.8,
-      "scoreRaw": 68,
-      "popularity": 11623,
+      "score": 6.9,
+      "scoreRaw": 69,
+      "popularity": 12319,
       "genres": [
         "Драма"
       ],
@@ -72,7 +106,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=h2zytdkjAU8",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 2
+      "order": 3
     },
     {
       "id": "anilist-192800",
@@ -88,9 +122,9 @@
       "episodes": "12 эп.",
       "episodesCount": 12,
       "duration": 24,
-      "score": 6.6,
-      "scoreRaw": 66,
-      "popularity": 9069,
+      "score": 6.7,
+      "scoreRaw": 67,
+      "popularity": 10299,
       "genres": [
         "Комедия",
         "Фэнтези"
@@ -104,7 +138,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=I9V_HpMr3_8",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 3
+      "order": 4
     },
     {
       "id": "anilist-186863",
@@ -120,9 +154,9 @@
       "episodes": "24 мин.",
       "episodesCount": null,
       "duration": 24,
-      "score": 6.8,
-      "scoreRaw": 68,
-      "popularity": 8713,
+      "score": 6.9,
+      "scoreRaw": 69,
+      "popularity": 9180,
       "genres": [
         "Приключения",
         "Фэнтези"
@@ -135,7 +169,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=xi4rGcyeYr8",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 4
+      "order": 5
     },
     {
       "id": "anilist-196219",
@@ -153,7 +187,7 @@
       "duration": 24,
       "score": 6,
       "scoreRaw": 60,
-      "popularity": 6796,
+      "popularity": 8183,
       "genres": [
         "Драма",
         "Фэнтези",
@@ -168,43 +202,12 @@
       "trailerUrl": "https://www.youtube.com/watch?v=R82wqxOXPIM",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 5
-    },
-    {
-      "id": "anilist-213427",
-      "title": "Pie no Mi: Oshi no Mori e Youkoso!",
-      "nativeTitle": "パイの実 おしの森へようこそ！",
-      "excerpt": "Lotte's snack brand Pie no Mi animated series which will be released on Lotte's official YouTube channel, with one episode released each month.",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx213427-lRj8vpcMoPLG.png",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx213427-lRj8vpcMoPLG.png",
-      "bannerImage": null,
-      "type": "🌐 ONA",
-      "format": "ONA",
-      "status": "▶️ Выходит",
-      "episodes": "8 эп.",
-      "episodesCount": 8,
-      "duration": 2,
-      "score": 5.3,
-      "scoreRaw": 0,
-      "popularity": 19,
-      "genres": [
-        "Комедия"
-      ],
-      "studios": [
-        "Lotte Entertainment",
-        "TOHO animation STUDIO"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/213427",
-      "trailerUrl": "https://www.youtube.com/watch?v=019tI1mFQes",
-      "season": "SUMMER",
-      "seasonYear": 2026,
       "order": 6
     }
   ],
   "debug": {
-    "fetchDuration": 169,
-    "timestamp": 1782982015070,
-    "nextUpdate": "2026-07-03T08:46:55.070Z"
+    "fetchDuration": 274,
+    "timestamp": 1783068642259,
+    "nextUpdate": "2026-07-04T08:50:42.259Z"
   }
 }
