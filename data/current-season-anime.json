@@ -1,15 +1,47 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-03T08:50:42.259Z",
+    "lastUpdated": "2026-07-04T08:25:36.666Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
-    "totalAnime": 6,
+    "totalAnime": 7,
     "source": "AniList API",
     "generator": "GitHub Actions (update-anime-news.yml)",
     "version": "2.0"
   },
   "anime": [
+    {
+      "id": "anilist-180136",
+      "title": "The Exiled Heavy Knight Knows How to Game the System",
+      "nativeTitle": "追放された転生重騎士はゲーム知識で無双する",
+      "excerpt": "Born into a prestigious family of master swordsmen, Elymas Edvaughn’s future shatters when he awakens the so-called “defective” Heavy Knight class. Disowned and cast out, he regains memories of anothe...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx180136-gtMTCRlOD4OE.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx180136-gtMTCRlOD4OE.jpg",
+      "bannerImage": null,
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "26 эп.",
+      "episodesCount": 26,
+      "duration": 24,
+      "score": 6.6,
+      "scoreRaw": 66,
+      "popularity": 21207,
+      "genres": [
+        "Экшен",
+        "Фэнтези"
+      ],
+      "studios": [
+        "GoHands",
+        "Shouchiku"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/180136",
+      "trailerUrl": "https://www.youtube.com/watch?v=uC13b3_8riU",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 1
+    },
     {
       "id": "anilist-208044",
       "title": "From Overshadowed to Overpowered: Second Reincarnation of a Talentless Sage",
@@ -26,7 +58,7 @@
       "duration": 24,
       "score": 6.5,
       "scoreRaw": 65,
-      "popularity": 17913,
+      "popularity": 20348,
       "genres": [
         "Экшен",
         "Приключения",
@@ -41,7 +73,39 @@
       "trailerUrl": "https://www.youtube.com/watch?v=QOeItd-RrVs",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 1
+      "order": 2
+    },
+    {
+      "id": "anilist-207141",
+      "title": "Chainsmoker Cat",
+      "nativeTitle": "ヤニねこ",
+      "excerpt": "Yani is a catgirl with a seriously bad smoking habit. She smokes so much that her apartment smells like ash and is littered with cigarette butts—and plenty of other trash! Every time she tries to quit...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx207141-h5q5KJPd6vaX.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx207141-h5q5KJPd6vaX.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/207141-MvHAS2YVfJzL.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "24 мин.",
+      "episodesCount": null,
+      "duration": 24,
+      "score": 6.7,
+      "scoreRaw": 67,
+      "popularity": 19981,
+      "genres": [
+        "Комедия",
+        "Повседневность"
+      ],
+      "studios": [
+        "Bibury Animation Studios",
+        "Kodansha"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/207141",
+      "trailerUrl": "https://www.youtube.com/watch?v=KYGgyQtSAdI",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 3
     },
     {
       "id": "anilist-197715",
@@ -57,9 +121,9 @@
       "episodes": "12 эп.",
       "episodesCount": 12,
       "duration": 24,
-      "score": 6.3,
-      "scoreRaw": 63,
-      "popularity": 13708,
+      "score": 6.5,
+      "scoreRaw": 65,
+      "popularity": 16717,
       "genres": [
         "Экшен",
         "Приключения",
@@ -75,7 +139,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=YfWJLXcN7hI",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 2
+      "order": 4
     },
     {
       "id": "anilist-206521",
@@ -93,7 +157,7 @@
       "duration": 24,
       "score": 6.9,
       "scoreRaw": 69,
-      "popularity": 12319,
+      "popularity": 12866,
       "genres": [
         "Драма"
       ],
@@ -106,7 +170,40 @@
       "trailerUrl": "https://www.youtube.com/watch?v=h2zytdkjAU8",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 3
+      "order": 5
+    },
+    {
+      "id": "anilist-204466",
+      "title": "KAIJU GIRL CARAMELISE",
+      "nativeTitle": "乙女怪獣キャラメリゼ",
+      "excerpt": "Kuroe Akaishi just wants a normal high school life—but that’s impossible with a rare condition that turns her into a giant kaiju whenever her emotions spike! Things get even worse when she falls for A...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx204466-vXMvIs4VOoQd.png",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx204466-vXMvIs4VOoQd.png",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/204466-cpbNGN9qHrGP.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "24 мин.",
+      "episodesCount": null,
+      "duration": 24,
+      "score": 7.2,
+      "scoreRaw": 72,
+      "popularity": 12660,
+      "genres": [
+        "Комедия",
+        "Романтика",
+        "Сверхъестественное"
+      ],
+      "studios": [
+        "LIDENFILMS",
+        "TBS"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/204466",
+      "trailerUrl": "https://www.youtube.com/watch?v=ECtHlHde3EQ",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 6
     },
     {
       "id": "anilist-192800",
@@ -124,7 +221,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 10299,
+      "popularity": 11234,
       "genres": [
         "Комедия",
         "Фэнтези"
@@ -138,76 +235,12 @@
       "trailerUrl": "https://www.youtube.com/watch?v=I9V_HpMr3_8",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 4
-    },
-    {
-      "id": "anilist-186863",
-      "title": "The Cat and the Dragon",
-      "nativeTitle": "猫と竜",
-      "excerpt": "The story follows a fire-breathing, human-hating dragon raised by a mother cat in a forest. The dragon, known affectionately as \"Uncle Wing,\" watches over the many curious cats — such as one that goes...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx186863-AO4efoB8HuzA.png",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx186863-AO4efoB8HuzA.png",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/186863-hRsC2yxvILTx.jpg",
-      "type": "🌐 ONA",
-      "format": "ONA",
-      "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
-      "duration": 24,
-      "score": 6.9,
-      "scoreRaw": 69,
-      "popularity": 9180,
-      "genres": [
-        "Приключения",
-        "Фэнтези"
-      ],
-      "studios": [
-        "OLM"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/186863",
-      "trailerUrl": "https://www.youtube.com/watch?v=xi4rGcyeYr8",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 5
-    },
-    {
-      "id": "anilist-196219",
-      "title": "The Oblivious Saint Can't Contain Her Power",
-      "nativeTitle": "無自覚聖女は今日も無意識に力を垂れ流す",
-      "excerpt": "Lady Carolina, the overlooked daughter of a powerful duke, has always believed herself to be the black sheep amid her illustrious kin. Her father is the distinguished prime minister; her elder sister,...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx196219-imvC0rbk4VzH.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx196219-imvC0rbk4VzH.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/196219-2F64WTRfqRU9.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
-      "duration": 24,
-      "score": 6,
-      "scoreRaw": 60,
-      "popularity": 8183,
-      "genres": [
-        "Драма",
-        "Фэнтези",
-        "Романтика"
-      ],
-      "studios": [
-        "Earth Star Entertainment",
-        "Magic Bus"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/196219",
-      "trailerUrl": "https://www.youtube.com/watch?v=R82wqxOXPIM",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 6
+      "order": 7
     }
   ],
   "debug": {
-    "fetchDuration": 274,
-    "timestamp": 1783068642259,
-    "nextUpdate": "2026-07-04T08:50:42.259Z"
+    "fetchDuration": 200,
+    "timestamp": 1783153536666,
+    "nextUpdate": "2026-07-05T08:25:36.666Z"
   }
 }
