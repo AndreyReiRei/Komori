@@ -1,46 +1,116 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-05T08:42:15.796Z",
+    "lastUpdated": "2026-07-06T09:58:24.819Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
-    "totalAnime": 5,
+    "totalAnime": 8,
     "source": "AniList API",
     "generator": "GitHub Actions (update-anime-news.yml)",
     "version": "2.0"
   },
   "anime": [
     {
-      "id": "anilist-180136",
-      "title": "The Exiled Heavy Knight Knows How to Game the System",
-      "nativeTitle": "追放された転生重騎士はゲーム知識で無双する",
-      "excerpt": "Born into a prestigious family of master swordsmen, Elymas Edvaughn’s future shatters when he awakens the so-called “defective” Heavy Knight class. Disowned and cast out, he regains memories of anothe...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx180136-gtMTCRlOD4OE.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx180136-gtMTCRlOD4OE.jpg",
+      "id": "anilist-178789",
+      "title": "Mushoku Tensei: Jobless Reincarnation Season 3",
+      "nativeTitle": "無職転生Ⅲ ～異世界行ったら本気だす～",
+      "excerpt": "The third season of Mushoku Tensei: Isekai Ittara Honki Dasu.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx178789-hNXjKFzUq7mk.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx178789-hNXjKFzUq7mk.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/178789-9nHWmoRLlcLu.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "14 эп.",
+      "episodesCount": 14,
+      "duration": 24,
+      "score": 8.6,
+      "scoreRaw": 86,
+      "popularity": 104364,
+      "genres": [
+        "Приключения",
+        "Драма",
+        "Ecchi",
+        "Фэнтези"
+      ],
+      "studios": [
+        "Studio Bind",
+        "Hakuhodo DY Music & Pictures"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/178789",
+      "trailerUrl": "https://www.youtube.com/watch?v=ODxfIvSgWuo",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 1
+    },
+    {
+      "id": "anilist-210031",
+      "title": "You and I Are Polar Opposites Season 2",
+      "nativeTitle": "正反対な君と僕 第2期",
+      "excerpt": "The second season of Seihantai na Kimi to Boku.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx210031-TppgcHZh46LY.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx210031-TppgcHZh46LY.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/210031-M4bt0rAmWk5Q.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "13 эп.",
+      "episodesCount": 13,
+      "duration": 24,
+      "score": 8.1,
+      "scoreRaw": 81,
+      "popularity": 32077,
+      "genres": [
+        "Комедия",
+        "Драма",
+        "Романтика",
+        "Повседневность"
+      ],
+      "studios": [
+        "Lapin Track",
+        "Shouchiku"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/210031",
+      "trailerUrl": "https://www.youtube.com/watch?v=HW7enBbU_hk",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 2
+    },
+    {
+      "id": "anilist-185542",
+      "title": "Skeleton Knight in Another World Season 2",
+      "nativeTitle": "骸骨騎士様、只今異世界へお出掛け中Ⅱ",
+      "excerpt": "The second season of Gaikotsu Kishi-sama, Tadaima Isekai e Odekakechuu.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx185542-6a9LCWlLHa0T.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx185542-6a9LCWlLHa0T.jpg",
       "bannerImage": null,
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "26 эп.",
-      "episodesCount": 26,
+      "episodes": "12 эп.",
+      "episodesCount": 12,
       "duration": 24,
-      "score": 6.7,
-      "scoreRaw": 67,
-      "popularity": 25091,
+      "score": 6.9,
+      "scoreRaw": 69,
+      "popularity": 30039,
       "genres": [
         "Экшен",
+        "Приключения",
+        "Комедия",
         "Фэнтези"
       ],
       "studios": [
-        "GoHands",
-        "Shouchiku"
+        "Aura Studio",
+        "OVERLAP"
       ],
       "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/180136",
-      "trailerUrl": "https://www.youtube.com/watch?v=uC13b3_8riU",
+      "sourceUrl": "https://anilist.co/anime/185542",
+      "trailerUrl": "https://www.youtube.com/watch?v=Enu3fyOdkoM",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 1
+      "order": 3
     },
     {
       "id": "anilist-207141",
@@ -56,9 +126,9 @@
       "episodes": "24 мин.",
       "episodesCount": null,
       "duration": 24,
-      "score": 6.7,
-      "scoreRaw": 67,
-      "popularity": 24143,
+      "score": 6.6,
+      "scoreRaw": 66,
+      "popularity": 29909,
       "genres": [
         "Комедия",
         "Повседневность"
@@ -72,7 +142,73 @@
       "trailerUrl": "https://www.youtube.com/watch?v=KYGgyQtSAdI",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 2
+      "order": 4
+    },
+    {
+      "id": "anilist-187538",
+      "title": "BLACK TORCH",
+      "nativeTitle": "BLACK TORCH",
+      "excerpt": "Jirou Azuma is no average high schooler. A descendant of ninjas and trained in the ancient warrior art of the shinobi, Jirou is also able to talk with animals. After a mysterious encounter with an inj...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187538-fXVXKYUA3VV6.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx187538-fXVXKYUA3VV6.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/187538-287evzCezNl0.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "24 мин.",
+      "episodesCount": null,
+      "duration": 24,
+      "score": 7.1,
+      "scoreRaw": 71,
+      "popularity": 29846,
+      "genres": [
+        "Экшен",
+        "Приключения",
+        "Фэнтези",
+        "Фантастика"
+      ],
+      "studios": [
+        "100studio",
+        "Shogakukan-Shueisha Productions"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/187538",
+      "trailerUrl": "https://www.youtube.com/watch?v=2clp09dITKY",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 5
+    },
+    {
+      "id": "anilist-180136",
+      "title": "The Exiled Heavy Knight Knows How to Game the System",
+      "nativeTitle": "追放された転生重騎士はゲーム知識で無双する",
+      "excerpt": "Born into a prestigious family of master swordsmen, Elymas Edvaughn’s future shatters when he awakens the so-called “defective” Heavy Knight class. Disowned and cast out, he regains memories of anothe...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx180136-gtMTCRlOD4OE.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx180136-gtMTCRlOD4OE.jpg",
+      "bannerImage": null,
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "26 эп.",
+      "episodesCount": 26,
+      "duration": 24,
+      "score": 6.8,
+      "scoreRaw": 68,
+      "popularity": 29376,
+      "genres": [
+        "Экшен",
+        "Фэнтези"
+      ],
+      "studios": [
+        "GoHands",
+        "Shouchiku"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/180136",
+      "trailerUrl": "https://www.youtube.com/watch?v=uC13b3_8riU",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 6
     },
     {
       "id": "anilist-208044",
@@ -90,7 +226,7 @@
       "duration": 24,
       "score": 6.5,
       "scoreRaw": 65,
-      "popularity": 22006,
+      "popularity": 24155,
       "genres": [
         "Экшен",
         "Приключения",
@@ -105,78 +241,45 @@
       "trailerUrl": "https://www.youtube.com/watch?v=QOeItd-RrVs",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 3
+      "order": 7
     },
     {
-      "id": "anilist-197715",
-      "title": "The Villager of Level 999",
-      "nativeTitle": "LV999の村人",
-      "excerpt": "In Earthclear, everyone is born into a fixed role, and villagers are the weakest of all. Most never rise above Level 5—except Kouji Kagami, who is Level…999?! On a monster hunt, he meets Alice, the De...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx197715-KLFLxU24U1uL.png",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx197715-KLFLxU24U1uL.png",
-      "bannerImage": null,
-      "type": "🌐 ONA",
-      "format": "ONA",
-      "status": "▶️ Выходит",
-      "episodes": "12 эп.",
-      "episodesCount": 12,
-      "duration": 24,
-      "score": 6.6,
-      "scoreRaw": 66,
-      "popularity": 18303,
-      "genres": [
-        "Экшен",
-        "Приключения",
-        "Комедия",
-        "Фэнтези"
-      ],
-      "studios": [
-        "Brain's Base",
-        "DMM.com"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/197715",
-      "trailerUrl": "https://www.youtube.com/watch?v=YfWJLXcN7hI",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 4
-    },
-    {
-      "id": "anilist-209983",
-      "title": "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing Season 2",
-      "nativeTitle": "ヘルモード ～やり込み好きのゲーマーは廃設定の異世界で無双する～ 2nd Season",
-      "excerpt": "The second season of Hell Mode.",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx209983-sFOcKyqMufxb.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx209983-sFOcKyqMufxb.jpg",
+      "id": "anilist-200637",
+      "title": "The 100 Girlfriends Who Really, Really, Really, Really, REALLY Love You Season 3",
+      "nativeTitle": "君のことが大大大大大好きな100人の彼女 第3期",
+      "excerpt": "The third season of Kimi no Koto ga Dai Dai Dai Dai Daisuki na 100-nin no Kanojo.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx200637-QLR5uv9SbQ69.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx200637-QLR5uv9SbQ69.jpg",
       "bannerImage": null,
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "13 эп.",
-      "episodesCount": 13,
-      "duration": 25,
-      "score": 6.9,
-      "scoreRaw": 69,
-      "popularity": 16232,
+      "episodes": "24 мин.",
+      "episodesCount": null,
+      "duration": 24,
+      "score": 8,
+      "scoreRaw": 80,
+      "popularity": 23573,
       "genres": [
-        "Экшен",
-        "Приключения",
-        "Фэнтези"
+        "Комедия",
+        "Ecchi",
+        "Романтика"
       ],
       "studios": [
-        "Yokohama Animation Lab"
+        "Bandai Namco Filmworks",
+        "Bibury Animation Studios"
       ],
       "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/209983",
-      "trailerUrl": "https://www.youtube.com/watch?v=hr_7R76pUC8",
+      "sourceUrl": "https://anilist.co/anime/200637",
+      "trailerUrl": "https://www.youtube.com/watch?v=kvbOPdDfPio",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 5
+      "order": 8
     }
   ],
   "debug": {
-    "fetchDuration": 220,
-    "timestamp": 1783240935796,
-    "nextUpdate": "2026-07-06T08:42:15.796Z"
+    "fetchDuration": 293,
+    "timestamp": 1783331904819,
+    "nextUpdate": "2026-07-07T09:58:24.819Z"
   }
 }
