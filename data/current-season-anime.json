@@ -1,10 +1,10 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-06T09:58:24.819Z",
+    "lastUpdated": "2026-07-07T09:25:46.451Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
-    "totalAnime": 8,
+    "totalAnime": 9,
     "source": "AniList API",
     "generator": "GitHub Actions (update-anime-news.yml)",
     "version": "2.0"
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 32077,
+      "popularity": 34244,
       "genres": [
         "Комедия",
         "Драма",
@@ -77,6 +77,70 @@
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 2
+    },
+    {
+      "id": "anilist-207141",
+      "title": "Chainsmoker Cat",
+      "nativeTitle": "ヤニねこ",
+      "excerpt": "Yani is a catgirl with a seriously bad smoking habit. She smokes so much that her apartment smells like ash and is littered with cigarette butts—and plenty of other trash! Every time she tries to quit...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx207141-h5q5KJPd6vaX.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx207141-h5q5KJPd6vaX.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/207141-MvHAS2YVfJzL.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "24 мин.",
+      "episodesCount": null,
+      "duration": 24,
+      "score": 6.7,
+      "scoreRaw": 67,
+      "popularity": 32080,
+      "genres": [
+        "Комедия",
+        "Повседневность"
+      ],
+      "studios": [
+        "Bibury Animation Studios",
+        "Kodansha"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/207141",
+      "trailerUrl": "https://www.youtube.com/watch?v=KYGgyQtSAdI",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 3
+    },
+    {
+      "id": "anilist-103303",
+      "title": "Sparks of Tomorrow",
+      "nativeTitle": "二十世紀電氣目録-ユーレカ・エヴリカ-",
+      "excerpt": "The novel takes place in the summer of 1907, the 40th year of the Meiji era. 15-year-old Inako Momokawa lives in the Fushimi area of Kyoto, and is the second daughter of a sake brewer. Nothing she doe...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx103303-IF43hFJPPv2Y.png",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx103303-IF43hFJPPv2Y.png",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/103303-K73aVOqkCPqL.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "13 эп.",
+      "episodesCount": 13,
+      "duration": 25,
+      "score": 7.3,
+      "scoreRaw": 73,
+      "popularity": 30916,
+      "genres": [
+        "Приключения",
+        "Романтика"
+      ],
+      "studios": [
+        "Kyoto Animation",
+        "Kyoto Animation"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/103303",
+      "trailerUrl": "https://www.youtube.com/watch?v=-W2vs2etG9o",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 4
     },
     {
       "id": "anilist-185542",
@@ -110,39 +174,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=Enu3fyOdkoM",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 3
-    },
-    {
-      "id": "anilist-207141",
-      "title": "Chainsmoker Cat",
-      "nativeTitle": "ヤニねこ",
-      "excerpt": "Yani is a catgirl with a seriously bad smoking habit. She smokes so much that her apartment smells like ash and is littered with cigarette butts—and plenty of other trash! Every time she tries to quit...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx207141-h5q5KJPd6vaX.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx207141-h5q5KJPd6vaX.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/207141-MvHAS2YVfJzL.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
-      "duration": 24,
-      "score": 6.6,
-      "scoreRaw": 66,
-      "popularity": 29909,
-      "genres": [
-        "Комедия",
-        "Повседневность"
-      ],
-      "studios": [
-        "Bibury Animation Studios",
-        "Kodansha"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/207141",
-      "trailerUrl": "https://www.youtube.com/watch?v=KYGgyQtSAdI",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 4
+      "order": 5
     },
     {
       "id": "anilist-187538",
@@ -176,7 +208,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=2clp09dITKY",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 5
+      "order": 6
     },
     {
       "id": "anilist-180136",
@@ -208,40 +240,40 @@
       "trailerUrl": "https://www.youtube.com/watch?v=uC13b3_8riU",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 6
+      "order": 7
     },
     {
-      "id": "anilist-208044",
-      "title": "From Overshadowed to Overpowered: Second Reincarnation of a Talentless Sage",
-      "nativeTitle": "落第賢者の学院無双～二度目の転生、Sランクチート魔術師冒険録～",
-      "excerpt": "Ephtal is reincarnated as a human, coming from modern Earth. In this new world where magic is real, he decides to devote the entirety of his life in the pursuit of magic. Despite his efforts, though,...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx208044-Pm2UhvApQFUh.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx208044-Pm2UhvApQFUh.jpg",
-      "bannerImage": null,
-      "type": "🌐 ONA",
-      "format": "ONA",
+      "id": "anilist-199111",
+      "title": "Grand Blue Dreaming Season 3",
+      "nativeTitle": "ぐらんぶる Season 3",
+      "excerpt": "The third season of Grand Blue.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx199111-gBSuBG61ElcW.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx199111-gBSuBG61ElcW.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/199111-Z8y9awn2Zb6v.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
+      "episodes": "12 эп.",
+      "episodesCount": 12,
       "duration": 24,
-      "score": 6.5,
-      "scoreRaw": 65,
-      "popularity": 24155,
+      "score": 8.2,
+      "scoreRaw": 82,
+      "popularity": 26529,
       "genres": [
-        "Экшен",
-        "Приключения",
-        "Фэнтези"
+        "Комедия",
+        "Повседневность",
+        "Спорт"
       ],
       "studios": [
-        "EMT Squared",
-        "ABC Animation"
+        "NBCUniversal Entertainment Japan",
+        "Zero-G"
       ],
       "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/208044",
-      "trailerUrl": "https://www.youtube.com/watch?v=QOeItd-RrVs",
+      "sourceUrl": "https://anilist.co/anime/199111",
+      "trailerUrl": "https://www.youtube.com/watch?v=KJw6ZZaMOWA",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 7
+      "order": 8
     },
     {
       "id": "anilist-200637",
@@ -259,7 +291,7 @@
       "duration": 24,
       "score": 8,
       "scoreRaw": 80,
-      "popularity": 23573,
+      "popularity": 25181,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -274,12 +306,12 @@
       "trailerUrl": "https://www.youtube.com/watch?v=kvbOPdDfPio",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 8
+      "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 293,
-    "timestamp": 1783331904819,
-    "nextUpdate": "2026-07-07T09:58:24.819Z"
+    "fetchDuration": 210,
+    "timestamp": 1783416346451,
+    "nextUpdate": "2026-07-08T09:25:46.451Z"
   }
 }
