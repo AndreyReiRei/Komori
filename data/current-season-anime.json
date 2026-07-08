@@ -1,10 +1,10 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-07T09:25:46.451Z",
+    "lastUpdated": "2026-07-08T08:10:11.903Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
-    "totalAnime": 9,
+    "totalAnime": 8,
     "source": "AniList API",
     "generator": "GitHub Actions (update-anime-news.yml)",
     "version": "2.0"
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 104364,
+      "popularity": 107708,
       "genres": [
         "Приключения",
         "Драма",
@@ -79,6 +79,72 @@
       "order": 2
     },
     {
+      "id": "anilist-103303",
+      "title": "Sparks of Tomorrow",
+      "nativeTitle": "二十世紀電氣目録-ユーレカ・エヴリカ-",
+      "excerpt": "The novel takes place in the summer of 1907, the 40th year of the Meiji era. 15-year-old Inako Momokawa lives in the Fushimi area of Kyoto, and is the second daughter of a sake brewer. Nothing she doe...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx103303-IF43hFJPPv2Y.png",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx103303-IF43hFJPPv2Y.png",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/103303-K73aVOqkCPqL.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "13 эп.",
+      "episodesCount": 13,
+      "duration": 25,
+      "score": 7.4,
+      "scoreRaw": 74,
+      "popularity": 33012,
+      "genres": [
+        "Приключения",
+        "Романтика"
+      ],
+      "studios": [
+        "Kyoto Animation",
+        "Kyoto Animation"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/103303",
+      "trailerUrl": "https://www.youtube.com/watch?v=-W2vs2etG9o",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 3
+    },
+    {
+      "id": "anilist-187538",
+      "title": "BLACK TORCH",
+      "nativeTitle": "BLACK TORCH",
+      "excerpt": "Jirou Azuma is no average high schooler. A descendant of ninjas and trained in the ancient warrior art of the shinobi, Jirou is also able to talk with animals. After a mysterious encounter with an inj...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187538-fXVXKYUA3VV6.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx187538-fXVXKYUA3VV6.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/187538-287evzCezNl0.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "24 мин.",
+      "episodesCount": null,
+      "duration": 24,
+      "score": 7.2,
+      "scoreRaw": 72,
+      "popularity": 32203,
+      "genres": [
+        "Экшен",
+        "Приключения",
+        "Фэнтези",
+        "Фантастика"
+      ],
+      "studios": [
+        "100studio",
+        "Shogakukan-Shueisha Productions"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/187538",
+      "trailerUrl": "https://www.youtube.com/watch?v=2clp09dITKY",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 4
+    },
+    {
       "id": "anilist-207141",
       "title": "Chainsmoker Cat",
       "nativeTitle": "ヤニねこ",
@@ -108,39 +174,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=KYGgyQtSAdI",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 3
-    },
-    {
-      "id": "anilist-103303",
-      "title": "Sparks of Tomorrow",
-      "nativeTitle": "二十世紀電氣目録-ユーレカ・エヴリカ-",
-      "excerpt": "The novel takes place in the summer of 1907, the 40th year of the Meiji era. 15-year-old Inako Momokawa lives in the Fushimi area of Kyoto, and is the second daughter of a sake brewer. Nothing she doe...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx103303-IF43hFJPPv2Y.png",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx103303-IF43hFJPPv2Y.png",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/103303-K73aVOqkCPqL.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "13 эп.",
-      "episodesCount": 13,
-      "duration": 25,
-      "score": 7.3,
-      "scoreRaw": 73,
-      "popularity": 30916,
-      "genres": [
-        "Приключения",
-        "Романтика"
-      ],
-      "studios": [
-        "Kyoto Animation",
-        "Kyoto Animation"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/103303",
-      "trailerUrl": "https://www.youtube.com/watch?v=-W2vs2etG9o",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 4
+      "order": 5
     },
     {
       "id": "anilist-185542",
@@ -158,7 +192,7 @@
       "duration": 24,
       "score": 6.9,
       "scoreRaw": 69,
-      "popularity": 30039,
+      "popularity": 31116,
       "genres": [
         "Экшен",
         "Приключения",
@@ -172,40 +206,6 @@
       "source": "AniList",
       "sourceUrl": "https://anilist.co/anime/185542",
       "trailerUrl": "https://www.youtube.com/watch?v=Enu3fyOdkoM",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 5
-    },
-    {
-      "id": "anilist-187538",
-      "title": "BLACK TORCH",
-      "nativeTitle": "BLACK TORCH",
-      "excerpt": "Jirou Azuma is no average high schooler. A descendant of ninjas and trained in the ancient warrior art of the shinobi, Jirou is also able to talk with animals. After a mysterious encounter with an inj...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187538-fXVXKYUA3VV6.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx187538-fXVXKYUA3VV6.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/187538-287evzCezNl0.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
-      "duration": 24,
-      "score": 7.1,
-      "scoreRaw": 71,
-      "popularity": 29846,
-      "genres": [
-        "Экшен",
-        "Приключения",
-        "Фэнтези",
-        "Фантастика"
-      ],
-      "studios": [
-        "100studio",
-        "Shogakukan-Shueisha Productions"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/187538",
-      "trailerUrl": "https://www.youtube.com/watch?v=2clp09dITKY",
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 6
@@ -226,7 +226,7 @@
       "duration": 24,
       "score": 6.8,
       "scoreRaw": 68,
-      "popularity": 29376,
+      "popularity": 30647,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -274,44 +274,11 @@
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 8
-    },
-    {
-      "id": "anilist-200637",
-      "title": "The 100 Girlfriends Who Really, Really, Really, Really, REALLY Love You Season 3",
-      "nativeTitle": "君のことが大大大大大好きな100人の彼女 第3期",
-      "excerpt": "The third season of Kimi no Koto ga Dai Dai Dai Dai Daisuki na 100-nin no Kanojo.",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx200637-QLR5uv9SbQ69.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx200637-QLR5uv9SbQ69.jpg",
-      "bannerImage": null,
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
-      "duration": 24,
-      "score": 8,
-      "scoreRaw": 80,
-      "popularity": 25181,
-      "genres": [
-        "Комедия",
-        "Ecchi",
-        "Романтика"
-      ],
-      "studios": [
-        "Bandai Namco Filmworks",
-        "Bibury Animation Studios"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/200637",
-      "trailerUrl": "https://www.youtube.com/watch?v=kvbOPdDfPio",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 210,
-    "timestamp": 1783416346451,
-    "nextUpdate": "2026-07-08T09:25:46.451Z"
+    "fetchDuration": 360,
+    "timestamp": 1783498211903,
+    "nextUpdate": "2026-07-09T08:10:11.903Z"
   }
 }
