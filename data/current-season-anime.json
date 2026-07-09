@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-08T08:10:11.903Z",
+    "lastUpdated": "2026-07-09T09:22:55.117Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 107708,
+      "popularity": 110043,
       "genres": [
         "Приключения",
         "Драма",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 34244,
+      "popularity": 36908,
       "genres": [
         "Комедия",
         "Драма",
@@ -79,6 +79,71 @@
       "order": 2
     },
     {
+      "id": "anilist-207141",
+      "title": "Chainsmoker Cat",
+      "nativeTitle": "ヤニねこ",
+      "excerpt": "Yani is a catgirl with a seriously bad smoking habit. She smokes so much that her apartment smells like ash and is littered with cigarette butts—and plenty of other trash! Every time she tries to quit...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx207141-h5q5KJPd6vaX.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx207141-h5q5KJPd6vaX.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/207141-MvHAS2YVfJzL.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "24 мин.",
+      "episodesCount": null,
+      "duration": 24,
+      "score": 6.7,
+      "scoreRaw": 67,
+      "popularity": 35698,
+      "genres": [
+        "Комедия",
+        "Повседневность"
+      ],
+      "studios": [
+        "Bibury Animation Studios",
+        "Kodansha"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/207141",
+      "trailerUrl": "https://www.youtube.com/watch?v=KYGgyQtSAdI",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 3
+    },
+    {
+      "id": "anilist-187260",
+      "title": "I Want to Love You Till Your Dying Day",
+      "nativeTitle": "きみが死ぬまで恋をしたい",
+      "excerpt": "At the mysterious orphanage where Sheena lives, death is nothing new to its residents—girls who no longer have families of their own, who are raised as weapons of war, taught to kill and take the live...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187260-WW5RBa5NINRP.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx187260-WW5RBa5NINRP.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/187260-HMkLPy3ZvzW1.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "13 эп.",
+      "episodesCount": 13,
+      "duration": 24,
+      "score": 7.5,
+      "scoreRaw": 75,
+      "popularity": 35183,
+      "genres": [
+        "Драма",
+        "Фэнтези",
+        "Романтика"
+      ],
+      "studios": [
+        "ROLL2",
+        "KADOKAWA"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/187260",
+      "trailerUrl": "https://www.youtube.com/watch?v=zJLbfK_9ZmQ",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 4
+    },
+    {
       "id": "anilist-103303",
       "title": "Sparks of Tomorrow",
       "nativeTitle": "二十世紀電氣目録-ユーレカ・エヴリカ-",
@@ -94,7 +159,7 @@
       "duration": 25,
       "score": 7.4,
       "scoreRaw": 74,
-      "popularity": 33012,
+      "popularity": 34417,
       "genres": [
         "Приключения",
         "Романтика"
@@ -108,7 +173,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=-W2vs2etG9o",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 3
+      "order": 5
     },
     {
       "id": "anilist-187538",
@@ -126,7 +191,7 @@
       "duration": 24,
       "score": 7.2,
       "scoreRaw": 72,
-      "popularity": 32203,
+      "popularity": 34151,
       "genres": [
         "Экшен",
         "Приключения",
@@ -142,39 +207,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=2clp09dITKY",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 4
-    },
-    {
-      "id": "anilist-207141",
-      "title": "Chainsmoker Cat",
-      "nativeTitle": "ヤニねこ",
-      "excerpt": "Yani is a catgirl with a seriously bad smoking habit. She smokes so much that her apartment smells like ash and is littered with cigarette butts—and plenty of other trash! Every time she tries to quit...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx207141-h5q5KJPd6vaX.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx207141-h5q5KJPd6vaX.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/207141-MvHAS2YVfJzL.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
-      "duration": 24,
-      "score": 6.7,
-      "scoreRaw": 67,
-      "popularity": 32080,
-      "genres": [
-        "Комедия",
-        "Повседневность"
-      ],
-      "studios": [
-        "Bibury Animation Studios",
-        "Kodansha"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/207141",
-      "trailerUrl": "https://www.youtube.com/watch?v=KYGgyQtSAdI",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 5
+      "order": 6
     },
     {
       "id": "anilist-185542",
@@ -192,7 +225,7 @@
       "duration": 24,
       "score": 6.9,
       "scoreRaw": 69,
-      "popularity": 31116,
+      "popularity": 31900,
       "genres": [
         "Экшен",
         "Приключения",
@@ -208,7 +241,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=Enu3fyOdkoM",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 6
+      "order": 7
     },
     {
       "id": "anilist-180136",
@@ -226,7 +259,7 @@
       "duration": 24,
       "score": 6.8,
       "scoreRaw": 68,
-      "popularity": 30647,
+      "popularity": 31638,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -240,45 +273,12 @@
       "trailerUrl": "https://www.youtube.com/watch?v=uC13b3_8riU",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 7
-    },
-    {
-      "id": "anilist-199111",
-      "title": "Grand Blue Dreaming Season 3",
-      "nativeTitle": "ぐらんぶる Season 3",
-      "excerpt": "The third season of Grand Blue.",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx199111-gBSuBG61ElcW.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx199111-gBSuBG61ElcW.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/199111-Z8y9awn2Zb6v.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "12 эп.",
-      "episodesCount": 12,
-      "duration": 24,
-      "score": 8.2,
-      "scoreRaw": 82,
-      "popularity": 26529,
-      "genres": [
-        "Комедия",
-        "Повседневность",
-        "Спорт"
-      ],
-      "studios": [
-        "NBCUniversal Entertainment Japan",
-        "Zero-G"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/199111",
-      "trailerUrl": "https://www.youtube.com/watch?v=KJw6ZZaMOWA",
-      "season": "SUMMER",
-      "seasonYear": 2026,
       "order": 8
     }
   ],
   "debug": {
-    "fetchDuration": 360,
-    "timestamp": 1783498211903,
-    "nextUpdate": "2026-07-09T08:10:11.903Z"
+    "fetchDuration": 274,
+    "timestamp": 1783588975117,
+    "nextUpdate": "2026-07-10T09:22:55.117Z"
   }
 }
