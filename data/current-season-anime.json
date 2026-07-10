@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-09T09:22:55.117Z",
+    "lastUpdated": "2026-07-10T09:20:13.286Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 110043,
+      "popularity": 112099,
       "genres": [
         "Приключения",
         "Драма",
@@ -45,35 +45,33 @@
       "order": 1
     },
     {
-      "id": "anilist-210031",
-      "title": "You and I Are Polar Opposites Season 2",
-      "nativeTitle": "正反対な君と僕 第2期",
-      "excerpt": "The second season of Seihantai na Kimi to Boku.",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx210031-TppgcHZh46LY.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx210031-TppgcHZh46LY.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/210031-M4bt0rAmWk5Q.jpg",
+      "id": "anilist-135865",
+      "title": "Saga of Tanya the Evil Season 2",
+      "nativeTitle": "幼女戦記Ⅱ",
+      "excerpt": "The second season of Youjo Senki.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx135865-T7XIPMAbqcxN.png",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx135865-T7XIPMAbqcxN.png",
+      "bannerImage": null,
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "13 эп.",
-      "episodesCount": 13,
+      "episodes": "12 эп.",
+      "episodesCount": 12,
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 36908,
+      "popularity": 72080,
       "genres": [
-        "Комедия",
-        "Драма",
-        "Романтика",
-        "Повседневность"
+        "Экшен",
+        "Фэнтези"
       ],
       "studios": [
-        "Lapin Track",
-        "Shouchiku"
+        "NUT",
+        "KADOKAWA"
       ],
       "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/210031",
-      "trailerUrl": "https://www.youtube.com/watch?v=HW7enBbU_hk",
+      "sourceUrl": "https://anilist.co/anime/135865",
+      "trailerUrl": "https://www.youtube.com/watch?v=kUvhvkPDvm0",
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 2
@@ -94,7 +92,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 35698,
+      "popularity": 38089,
       "genres": [
         "Комедия",
         "Повседневность"
@@ -109,6 +107,40 @@
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 3
+    },
+    {
+      "id": "anilist-210031",
+      "title": "You and I Are Polar Opposites Season 2",
+      "nativeTitle": "正反対な君と僕 第2期",
+      "excerpt": "The second season of Seihantai na Kimi to Boku.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx210031-TppgcHZh46LY.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx210031-TppgcHZh46LY.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/210031-M4bt0rAmWk5Q.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "13 эп.",
+      "episodesCount": 13,
+      "duration": 24,
+      "score": 8.1,
+      "scoreRaw": 81,
+      "popularity": 37593,
+      "genres": [
+        "Комедия",
+        "Драма",
+        "Романтика",
+        "Повседневность"
+      ],
+      "studios": [
+        "Lapin Track",
+        "Shouchiku"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/210031",
+      "trailerUrl": "https://www.youtube.com/watch?v=HW7enBbU_hk",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 4
     },
     {
       "id": "anilist-187260",
@@ -126,7 +158,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 35183,
+      "popularity": 36382,
       "genres": [
         "Драма",
         "Фэнтези",
@@ -141,7 +173,41 @@
       "trailerUrl": "https://www.youtube.com/watch?v=zJLbfK_9ZmQ",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 4
+      "order": 5
+    },
+    {
+      "id": "anilist-187538",
+      "title": "BLACK TORCH",
+      "nativeTitle": "BLACK TORCH",
+      "excerpt": "Jirou Azuma is no average high schooler. A descendant of ninjas and trained in the ancient warrior art of the shinobi, Jirou is also able to talk with animals. After a mysterious encounter with an inj...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187538-fXVXKYUA3VV6.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx187538-fXVXKYUA3VV6.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/187538-287evzCezNl0.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "24 мин.",
+      "episodesCount": null,
+      "duration": 24,
+      "score": 7.2,
+      "scoreRaw": 72,
+      "popularity": 35776,
+      "genres": [
+        "Экшен",
+        "Приключения",
+        "Фэнтези",
+        "Фантастика"
+      ],
+      "studios": [
+        "100studio",
+        "Shogakukan-Shueisha Productions"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/187538",
+      "trailerUrl": "https://www.youtube.com/watch?v=2clp09dITKY",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 6
     },
     {
       "id": "anilist-103303",
@@ -173,49 +239,15 @@
       "trailerUrl": "https://www.youtube.com/watch?v=-W2vs2etG9o",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 5
+      "order": 7
     },
     {
-      "id": "anilist-187538",
-      "title": "BLACK TORCH",
-      "nativeTitle": "BLACK TORCH",
-      "excerpt": "Jirou Azuma is no average high schooler. A descendant of ninjas and trained in the ancient warrior art of the shinobi, Jirou is also able to talk with animals. After a mysterious encounter with an inj...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187538-fXVXKYUA3VV6.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx187538-fXVXKYUA3VV6.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/187538-287evzCezNl0.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
-      "duration": 24,
-      "score": 7.2,
-      "scoreRaw": 72,
-      "popularity": 34151,
-      "genres": [
-        "Экшен",
-        "Приключения",
-        "Фэнтези",
-        "Фантастика"
-      ],
-      "studios": [
-        "100studio",
-        "Shogakukan-Shueisha Productions"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/187538",
-      "trailerUrl": "https://www.youtube.com/watch?v=2clp09dITKY",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 6
-    },
-    {
-      "id": "anilist-185542",
-      "title": "Skeleton Knight in Another World Season 2",
-      "nativeTitle": "骸骨騎士様、只今異世界へお出掛け中Ⅱ",
-      "excerpt": "The second season of Gaikotsu Kishi-sama, Tadaima Isekai e Odekakechuu.",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx185542-6a9LCWlLHa0T.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx185542-6a9LCWlLHa0T.jpg",
+      "id": "anilist-159309",
+      "title": "Trapped in a Dating Sim: The World of Otome Games is Tough for Mobs Season 2",
+      "nativeTitle": "乙女ゲー世界はモブに厳しい世界です2",
+      "excerpt": "The second season of Otomege Sekai wa Mob ni Kibishii Sekai desu.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx159309-wRfh9O1odrDJ.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx159309-wRfh9O1odrDJ.jpg",
       "bannerImage": null,
       "type": "📺 Сериал",
       "format": "TV",
@@ -223,62 +255,30 @@
       "episodes": "12 эп.",
       "episodesCount": 12,
       "duration": 24,
-      "score": 6.9,
-      "scoreRaw": 69,
-      "popularity": 31900,
+      "score": 7,
+      "scoreRaw": 70,
+      "popularity": 33541,
       "genres": [
         "Экшен",
-        "Приключения",
-        "Комедия",
-        "Фэнтези"
+        "Фэнтези",
+        "Меха",
+        "Романтика"
       ],
       "studios": [
-        "Aura Studio",
-        "OVERLAP"
+        "KADOKAWA",
+        "ENGI"
       ],
       "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/185542",
-      "trailerUrl": "https://www.youtube.com/watch?v=Enu3fyOdkoM",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 7
-    },
-    {
-      "id": "anilist-180136",
-      "title": "The Exiled Heavy Knight Knows How to Game the System",
-      "nativeTitle": "追放された転生重騎士はゲーム知識で無双する",
-      "excerpt": "Born into a prestigious family of master swordsmen, Elymas Edvaughn’s future shatters when he awakens the so-called “defective” Heavy Knight class. Disowned and cast out, he regains memories of anothe...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx180136-gtMTCRlOD4OE.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx180136-gtMTCRlOD4OE.jpg",
-      "bannerImage": null,
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "26 эп.",
-      "episodesCount": 26,
-      "duration": 24,
-      "score": 6.8,
-      "scoreRaw": 68,
-      "popularity": 31638,
-      "genres": [
-        "Экшен",
-        "Фэнтези"
-      ],
-      "studios": [
-        "GoHands",
-        "Shouchiku"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/180136",
-      "trailerUrl": "https://www.youtube.com/watch?v=uC13b3_8riU",
+      "sourceUrl": "https://anilist.co/anime/159309",
+      "trailerUrl": "https://www.youtube.com/watch?v=d3n8-15GCG8",
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 8
     }
   ],
   "debug": {
-    "fetchDuration": 274,
-    "timestamp": 1783588975117,
-    "nextUpdate": "2026-07-10T09:22:55.117Z"
+    "fetchDuration": 333,
+    "timestamp": 1783675213286,
+    "nextUpdate": "2026-07-11T09:20:13.286Z"
   }
 }
