@@ -1,10 +1,10 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-10T09:20:13.286Z",
+    "lastUpdated": "2026-07-11T07:41:55.057Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
-    "totalAnime": 8,
+    "totalAnime": 9,
     "source": "AniList API",
     "generator": "GitHub Actions (update-anime-news.yml)",
     "version": "2.0"
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 112099,
+      "popularity": 113632,
       "genres": [
         "Приключения",
         "Драма",
@@ -45,6 +45,39 @@
       "order": 1
     },
     {
+      "id": "anilist-196187",
+      "title": "Smoking Behind the Supermarket with You",
+      "nativeTitle": "スーパーの裏でヤニ吸うふたり",
+      "excerpt": "At age forty-five, office worker Sasaki has had enough of the corporate grind. His only solace is smoking-and the friendly smile of supermarket cashier Yamada. When Sasaki can't find Yamada after a pa...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx196187-0dgFi2CPp3xn.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx196187-0dgFi2CPp3xn.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/196187-Z9dV6uotmKjM.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "12 эп.",
+      "episodesCount": 12,
+      "duration": 24,
+      "score": 8.3,
+      "scoreRaw": 83,
+      "popularity": 79626,
+      "genres": [
+        "Комедия",
+        "Романтика",
+        "Повседневность"
+      ],
+      "studios": [
+        "Asahi Production",
+        "Asmik Ace"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/196187",
+      "trailerUrl": "https://www.youtube.com/watch?v=aOOwNK6Ul6E",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 2
+    },
+    {
       "id": "anilist-135865",
       "title": "Saga of Tanya the Evil Season 2",
       "nativeTitle": "幼女戦記Ⅱ",
@@ -60,7 +93,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 72080,
+      "popularity": 73496,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -74,7 +107,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=kUvhvkPDvm0",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 2
+      "order": 3
     },
     {
       "id": "anilist-207141",
@@ -106,7 +139,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=KYGgyQtSAdI",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 3
+      "order": 4
     },
     {
       "id": "anilist-210031",
@@ -140,7 +173,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=HW7enBbU_hk",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 4
+      "order": 5
     },
     {
       "id": "anilist-187260",
@@ -158,7 +191,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 36382,
+      "popularity": 37091,
       "genres": [
         "Драма",
         "Фэнтези",
@@ -173,7 +206,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=zJLbfK_9ZmQ",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 5
+      "order": 6
     },
     {
       "id": "anilist-187538",
@@ -191,7 +224,7 @@
       "duration": 24,
       "score": 7.2,
       "scoreRaw": 72,
-      "popularity": 35776,
+      "popularity": 36774,
       "genres": [
         "Экшен",
         "Приключения",
@@ -207,7 +240,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=2clp09dITKY",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 6
+      "order": 7
     },
     {
       "id": "anilist-103303",
@@ -223,9 +256,9 @@
       "episodes": "13 эп.",
       "episodesCount": 13,
       "duration": 25,
-      "score": 7.4,
-      "scoreRaw": 74,
-      "popularity": 34417,
+      "score": 7.5,
+      "scoreRaw": 75,
+      "popularity": 36268,
       "genres": [
         "Приключения",
         "Романтика"
@@ -239,7 +272,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=-W2vs2etG9o",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 7
+      "order": 8
     },
     {
       "id": "anilist-159309",
@@ -255,9 +288,9 @@
       "episodes": "12 эп.",
       "episodesCount": 12,
       "duration": 24,
-      "score": 7,
-      "scoreRaw": 70,
-      "popularity": 33541,
+      "score": 6.9,
+      "scoreRaw": 69,
+      "popularity": 35307,
       "genres": [
         "Экшен",
         "Фэнтези",
@@ -273,12 +306,12 @@
       "trailerUrl": "https://www.youtube.com/watch?v=d3n8-15GCG8",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 8
+      "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 333,
-    "timestamp": 1783675213286,
-    "nextUpdate": "2026-07-11T09:20:13.286Z"
+    "fetchDuration": 369,
+    "timestamp": 1783755715057,
+    "nextUpdate": "2026-07-12T07:41:55.057Z"
   }
 }
