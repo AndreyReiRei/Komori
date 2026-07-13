@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-12T08:02:02.334Z",
+    "lastUpdated": "2026-07-13T08:51:43.409Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 114960,
+      "popularity": 116150,
       "genres": [
         "Приключения",
         "Драма",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.3,
       "scoreRaw": 83,
-      "popularity": 81873,
+      "popularity": 83397,
       "genres": [
         "Комедия",
         "Романтика",
@@ -68,7 +68,7 @@
       ],
       "studios": [
         "Asahi Production",
-        "Asmik Ace"
+        "TBS"
       ],
       "source": "AniList",
       "sourceUrl": "https://anilist.co/anime/196187",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 74427,
+      "popularity": 75082,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -123,9 +123,9 @@
       "episodes": "24 мин.",
       "episodesCount": null,
       "duration": 24,
-      "score": 6.7,
-      "scoreRaw": 67,
-      "popularity": 39956,
+      "score": 6.8,
+      "scoreRaw": 68,
+      "popularity": 41279,
       "genres": [
         "Комедия",
         "Повседневность"
@@ -140,73 +140,6 @@
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 4
-    },
-    {
-      "id": "anilist-210031",
-      "title": "You and I Are Polar Opposites Season 2",
-      "nativeTitle": "正反対な君と僕 第2期",
-      "excerpt": "The second season of Seihantai na Kimi to Boku.",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx210031-TppgcHZh46LY.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx210031-TppgcHZh46LY.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/210031-M4bt0rAmWk5Q.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "13 эп.",
-      "episodesCount": 13,
-      "duration": 24,
-      "score": 8.1,
-      "scoreRaw": 81,
-      "popularity": 38169,
-      "genres": [
-        "Комедия",
-        "Драма",
-        "Романтика",
-        "Повседневность"
-      ],
-      "studios": [
-        "Lapin Track",
-        "Shouchiku"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/210031",
-      "trailerUrl": "https://www.youtube.com/watch?v=HW7enBbU_hk",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 5
-    },
-    {
-      "id": "anilist-187260",
-      "title": "I Want to Love You Till Your Dying Day",
-      "nativeTitle": "きみが死ぬまで恋をしたい",
-      "excerpt": "At the mysterious orphanage where Sheena lives, death is nothing new to its residents—girls who no longer have families of their own, who are raised as weapons of war, taught to kill and take the live...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187260-WW5RBa5NINRP.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx187260-WW5RBa5NINRP.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/187260-HMkLPy3ZvzW1.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "13 эп.",
-      "episodesCount": 13,
-      "duration": 24,
-      "score": 7.5,
-      "scoreRaw": 75,
-      "popularity": 37621,
-      "genres": [
-        "Драма",
-        "Фэнтези",
-        "Романтика"
-      ],
-      "studios": [
-        "ROLL2",
-        "KADOKAWA"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/187260",
-      "trailerUrl": "https://www.youtube.com/watch?v=zJLbfK_9ZmQ",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 6
     },
     {
       "id": "anilist-187538",
@@ -224,7 +157,7 @@
       "duration": 24,
       "score": 7.2,
       "scoreRaw": 72,
-      "popularity": 37604,
+      "popularity": 39724,
       "genres": [
         "Экшен",
         "Приключения",
@@ -238,6 +171,73 @@
       "source": "AniList",
       "sourceUrl": "https://anilist.co/anime/187538",
       "trailerUrl": "https://www.youtube.com/watch?v=2clp09dITKY",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 5
+    },
+    {
+      "id": "anilist-210031",
+      "title": "You and I Are Polar Opposites Season 2",
+      "nativeTitle": "正反対な君と僕 第2期",
+      "excerpt": "The second season of Seihantai na Kimi to Boku.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx210031-TppgcHZh46LY.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx210031-TppgcHZh46LY.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/210031-M4bt0rAmWk5Q.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "13 эп.",
+      "episodesCount": 13,
+      "duration": 24,
+      "score": 8.1,
+      "scoreRaw": 81,
+      "popularity": 38673,
+      "genres": [
+        "Комедия",
+        "Драма",
+        "Романтика",
+        "Повседневность"
+      ],
+      "studios": [
+        "Lapin Track",
+        "Shouchiku"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/210031",
+      "trailerUrl": "https://www.youtube.com/watch?v=HW7enBbU_hk",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 6
+    },
+    {
+      "id": "anilist-187260",
+      "title": "I Want to Love You Till Your Dying Day",
+      "nativeTitle": "きみが死ぬまで恋をしたい",
+      "excerpt": "At the mysterious orphanage where Sheena lives, death is nothing new to its residents—girls who no longer have families of their own, who are raised as weapons of war, taught to kill and take the live...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187260-WW5RBa5NINRP.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx187260-WW5RBa5NINRP.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/187260-HMkLPy3ZvzW1.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "13 эп.",
+      "episodesCount": 13,
+      "duration": 24,
+      "score": 7.5,
+      "scoreRaw": 75,
+      "popularity": 38108,
+      "genres": [
+        "Драма",
+        "Фэнтези",
+        "Романтика"
+      ],
+      "studios": [
+        "ROLL2",
+        "KADOKAWA"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/187260",
+      "trailerUrl": "https://www.youtube.com/watch?v=zJLbfK_9ZmQ",
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 7
@@ -258,7 +258,7 @@
       "duration": 25,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 36876,
+      "popularity": 37468,
       "genres": [
         "Приключения",
         "Романтика"
@@ -290,7 +290,7 @@
       "duration": 24,
       "score": 6.9,
       "scoreRaw": 69,
-      "popularity": 36216,
+      "popularity": 36786,
       "genres": [
         "Экшен",
         "Фэнтези",
@@ -310,8 +310,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 367,
-    "timestamp": 1783843322334,
-    "nextUpdate": "2026-07-13T08:02:02.334Z"
+    "fetchDuration": 295,
+    "timestamp": 1783932703409,
+    "nextUpdate": "2026-07-14T08:51:43.409Z"
   }
 }
