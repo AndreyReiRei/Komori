@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-15T07:52:12.989Z",
+    "lastUpdated": "2026-07-16T07:57:42.834Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 120113,
+      "popularity": 121224,
       "genres": [
         "Приключения",
         "Драма",
@@ -58,9 +58,9 @@
       "episodes": "12 эп.",
       "episodesCount": 12,
       "duration": 24,
-      "score": 8.3,
-      "scoreRaw": 83,
-      "popularity": 85823,
+      "score": 8.2,
+      "scoreRaw": 82,
+      "popularity": 86758,
       "genres": [
         "Комедия",
         "Романтика",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 76202,
+      "popularity": 76638,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -125,7 +125,7 @@
       "duration": 24,
       "score": 6.8,
       "scoreRaw": 68,
-      "popularity": 43515,
+      "popularity": 44326,
       "genres": [
         "Комедия",
         "Повседневность"
@@ -157,7 +157,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 42238,
+      "popularity": 43042,
       "genres": [
         "Экшен",
         "Приключения",
@@ -191,7 +191,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 40552,
+      "popularity": 41068,
       "genres": [
         "Комедия",
         "Драма",
@@ -225,7 +225,7 @@
       "duration": 25,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 39599,
+      "popularity": 40186,
       "genres": [
         "Приключения",
         "Романтика"
@@ -257,7 +257,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 38905,
+      "popularity": 40067,
       "genres": [
         "Драма",
         "Фэнтези",
@@ -275,43 +275,41 @@
       "order": 8
     },
     {
-      "id": "anilist-159309",
-      "title": "Trapped in a Dating Sim: The World of Otome Games is Tough for Mobs Season 2",
-      "nativeTitle": "乙女ゲー世界はモブに厳しい世界です2",
-      "excerpt": "The second season of Otomege Sekai wa Mob ni Kibishii Sekai desu.",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx159309-wRfh9O1odrDJ.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx159309-wRfh9O1odrDJ.jpg",
+      "id": "anilist-180136",
+      "title": "The Exiled Heavy Knight Knows How to Game the System",
+      "nativeTitle": "追放された転生重騎士はゲーム知識で無双する",
+      "excerpt": "Born into a prestigious family of master swordsmen, Elymas Edvaughn’s future shatters when he awakens the so-called “defective” Heavy Knight class. Disowned and cast out, he regains memories of anothe...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx180136-gtMTCRlOD4OE.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx180136-gtMTCRlOD4OE.jpg",
       "bannerImage": null,
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "12 эп.",
-      "episodesCount": 12,
+      "episodes": "26 эп.",
+      "episodesCount": 26,
       "duration": 24,
-      "score": 6.9,
-      "scoreRaw": 69,
-      "popularity": 37705,
+      "score": 6.7,
+      "scoreRaw": 67,
+      "popularity": 38113,
       "genres": [
         "Экшен",
-        "Фэнтези",
-        "Меха",
-        "Романтика"
+        "Фэнтези"
       ],
       "studios": [
-        "KADOKAWA",
-        "ENGI"
+        "GoHands",
+        "Shouchiku"
       ],
       "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/159309",
-      "trailerUrl": "https://www.youtube.com/watch?v=d3n8-15GCG8",
+      "sourceUrl": "https://anilist.co/anime/180136",
+      "trailerUrl": "https://www.youtube.com/watch?v=uC13b3_8riU",
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 323,
-    "timestamp": 1784101932989,
-    "nextUpdate": "2026-07-16T07:52:12.989Z"
+    "fetchDuration": 427,
+    "timestamp": 1784188662835,
+    "nextUpdate": "2026-07-17T07:57:42.835Z"
   }
 }
