@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-17T07:54:01.642Z",
+    "lastUpdated": "2026-07-18T07:29:06.888Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 122088,
+      "popularity": 122984,
       "genres": [
         "Приключения",
         "Драма",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 87463,
+      "popularity": 88768,
       "genres": [
         "Комедия",
         "Романтика",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 77581,
+      "popularity": 78283,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -125,7 +125,7 @@
       "duration": 24,
       "score": 6.8,
       "scoreRaw": 68,
-      "popularity": 45072,
+      "popularity": 46586,
       "genres": [
         "Комедия",
         "Повседневность"
@@ -157,7 +157,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 43676,
+      "popularity": 44201,
       "genres": [
         "Экшен",
         "Приключения",
@@ -191,7 +191,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 41422,
+      "popularity": 41782,
       "genres": [
         "Комедия",
         "Драма",
@@ -225,7 +225,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 40844,
+      "popularity": 41273,
       "genres": [
         "Драма",
         "Фэнтези",
@@ -258,7 +258,7 @@
       "duration": 25,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 40582,
+      "popularity": 40957,
       "genres": [
         "Приключения",
         "Романтика"
@@ -275,43 +275,41 @@
       "order": 8
     },
     {
-      "id": "anilist-159309",
-      "title": "Trapped in a Dating Sim: The World of Otome Games is Tough for Mobs Season 2",
-      "nativeTitle": "乙女ゲー世界はモブに厳しい世界です2",
-      "excerpt": "The second season of Otomege Sekai wa Mob ni Kibishii Sekai desu.",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx159309-wRfh9O1odrDJ.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx159309-wRfh9O1odrDJ.jpg",
+      "id": "anilist-180136",
+      "title": "The Exiled Heavy Knight Knows How to Game the System",
+      "nativeTitle": "追放された転生重騎士はゲーム知識で無双する",
+      "excerpt": "Born into a prestigious family of master swordsmen, Elymas Edvaughn’s future shatters when he awakens the so-called “defective” Heavy Knight class. Disowned and cast out, he regains memories of anothe...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx180136-gtMTCRlOD4OE.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx180136-gtMTCRlOD4OE.jpg",
       "bannerImage": null,
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "12 эп.",
-      "episodesCount": 12,
+      "episodes": "26 эп.",
+      "episodesCount": 26,
       "duration": 24,
-      "score": 6.8,
-      "scoreRaw": 68,
-      "popularity": 38943,
+      "score": 6.7,
+      "scoreRaw": 67,
+      "popularity": 39755,
       "genres": [
         "Экшен",
-        "Фэнтези",
-        "Меха",
-        "Романтика"
+        "Фэнтези"
       ],
       "studios": [
-        "KADOKAWA",
-        "ENGI"
+        "GoHands",
+        "Shouchiku"
       ],
       "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/159309",
-      "trailerUrl": "https://www.youtube.com/watch?v=d3n8-15GCG8",
+      "sourceUrl": "https://anilist.co/anime/180136",
+      "trailerUrl": "https://www.youtube.com/watch?v=uC13b3_8riU",
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 198,
-    "timestamp": 1784274841642,
-    "nextUpdate": "2026-07-18T07:54:01.642Z"
+    "fetchDuration": 329,
+    "timestamp": 1784359746888,
+    "nextUpdate": "2026-07-19T07:29:06.888Z"
   }
 }
