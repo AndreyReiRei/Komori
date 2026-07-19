@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-18T07:29:06.888Z",
+    "lastUpdated": "2026-07-19T08:01:30.457Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 122984,
+      "popularity": 123719,
       "genres": [
         "Приключения",
         "Драма",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 88768,
+      "popularity": 89895,
       "genres": [
         "Комедия",
         "Романтика",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 78283,
+      "popularity": 78775,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -125,7 +125,7 @@
       "duration": 24,
       "score": 6.8,
       "scoreRaw": 68,
-      "popularity": 46586,
+      "popularity": 47863,
       "genres": [
         "Комедия",
         "Повседневность"
@@ -157,7 +157,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 44201,
+      "popularity": 44746,
       "genres": [
         "Экшен",
         "Приключения",
@@ -191,7 +191,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 41782,
+      "popularity": 42101,
       "genres": [
         "Комедия",
         "Драма",
@@ -225,7 +225,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 41273,
+      "popularity": 41834,
       "genres": [
         "Драма",
         "Фэнтези",
@@ -258,7 +258,7 @@
       "duration": 25,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 40957,
+      "popularity": 41438,
       "genres": [
         "Приключения",
         "Романтика"
@@ -290,7 +290,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 39755,
+      "popularity": 40819,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -308,8 +308,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 329,
-    "timestamp": 1784359746888,
-    "nextUpdate": "2026-07-19T07:29:06.888Z"
+    "fetchDuration": 198,
+    "timestamp": 1784448090457,
+    "nextUpdate": "2026-07-20T08:01:30.457Z"
   }
 }
