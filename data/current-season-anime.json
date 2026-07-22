@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-21T08:09:55.940Z",
+    "lastUpdated": "2026-07-22T08:10:10.065Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 126036,
+      "popularity": 127254,
       "genres": [
         "Приключения",
         "Драма",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 91568,
+      "popularity": 92216,
       "genres": [
         "Комедия",
         "Романтика",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 79544,
+      "popularity": 79884,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -125,7 +125,7 @@
       "duration": 24,
       "score": 6.8,
       "scoreRaw": 68,
-      "popularity": 49872,
+      "popularity": 50568,
       "genres": [
         "Комедия",
         "Повседневность"
@@ -157,7 +157,7 @@
       "duration": 24,
       "score": 7.2,
       "scoreRaw": 72,
-      "popularity": 47207,
+      "popularity": 47980,
       "genres": [
         "Экшен",
         "Приключения",
@@ -191,7 +191,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 43386,
+      "popularity": 43930,
       "genres": [
         "Комедия",
         "Драма",
@@ -210,39 +210,6 @@
       "order": 6
     },
     {
-      "id": "anilist-187260",
-      "title": "I Want to Love You Till Your Dying Day",
-      "nativeTitle": "きみが死ぬまで恋をしたい",
-      "excerpt": "At the mysterious orphanage where Sheena lives, death is nothing new to its residents—girls who no longer have families of their own, who are raised as weapons of war, taught to kill and take the live...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187260-WW5RBa5NINRP.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx187260-WW5RBa5NINRP.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/187260-HMkLPy3ZvzW1.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "13 эп.",
-      "episodesCount": 13,
-      "duration": 24,
-      "score": 7.5,
-      "scoreRaw": 75,
-      "popularity": 42622,
-      "genres": [
-        "Драма",
-        "Фэнтези",
-        "Романтика"
-      ],
-      "studios": [
-        "ROLL2",
-        "KADOKAWA"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/187260",
-      "trailerUrl": "https://www.youtube.com/watch?v=zJLbfK_9ZmQ",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 7
-    },
-    {
       "id": "anilist-103303",
       "title": "Sparks of Tomorrow",
       "nativeTitle": "二十世紀電氣目録-ユーレカ・エヴリカ-",
@@ -258,7 +225,7 @@
       "duration": 25,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 42493,
+      "popularity": 42954,
       "genres": [
         "Приключения",
         "Романтика"
@@ -270,6 +237,39 @@
       "source": "AniList",
       "sourceUrl": "https://anilist.co/anime/103303",
       "trailerUrl": "https://www.youtube.com/watch?v=-W2vs2etG9o",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 7
+    },
+    {
+      "id": "anilist-187260",
+      "title": "I Want to Love You Till Your Dying Day",
+      "nativeTitle": "きみが死ぬまで恋をしたい",
+      "excerpt": "At the mysterious orphanage where Sheena lives, death is nothing new to its residents—girls who no longer have families of their own, who are raised as weapons of war, taught to kill and take the live...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187260-WW5RBa5NINRP.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx187260-WW5RBa5NINRP.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/187260-HMkLPy3ZvzW1.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "13 эп.",
+      "episodesCount": 13,
+      "duration": 24,
+      "score": 7.5,
+      "scoreRaw": 75,
+      "popularity": 42937,
+      "genres": [
+        "Драма",
+        "Фэнтези",
+        "Романтика"
+      ],
+      "studios": [
+        "ROLL2",
+        "KADOKAWA"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/187260",
+      "trailerUrl": "https://www.youtube.com/watch?v=zJLbfK_9ZmQ",
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 8
@@ -290,7 +290,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 41971,
+      "popularity": 42391,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -308,8 +308,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 306,
-    "timestamp": 1784621395940,
-    "nextUpdate": "2026-07-22T08:09:55.940Z"
+    "fetchDuration": 283,
+    "timestamp": 1784707810065,
+    "nextUpdate": "2026-07-23T08:10:10.065Z"
   }
 }
