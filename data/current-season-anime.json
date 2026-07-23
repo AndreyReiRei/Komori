@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-22T08:10:10.065Z",
+    "lastUpdated": "2026-07-23T08:13:46.489Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 127254,
+      "popularity": 128175,
       "genres": [
         "Приключения",
         "Драма",
@@ -48,7 +48,7 @@
       "id": "anilist-196187",
       "title": "Smoking Behind the Supermarket with You",
       "nativeTitle": "スーパーの裏でヤニ吸うふたり",
-      "excerpt": "At age forty-five, office worker Sasaki has had enough of the corporate grind. His only solace is smoking-and the friendly smile of supermarket cashier Yamada. When Sasaki can't find Yamada after a pa...",
+      "excerpt": "Sasaki is an overworked salaryman drifting through the corporate grind, sustained by cigarettes and the cheerful service and smile of Yamada, the clerk at his favorite supermarket. But one night after...",
       "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx196187-0dgFi2CPp3xn.jpg",
       "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx196187-0dgFi2CPp3xn.jpg",
       "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/196187-Z9dV6uotmKjM.jpg",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 92216,
+      "popularity": 92815,
       "genres": [
         "Комедия",
         "Романтика",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 79884,
+      "popularity": 80194,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -125,7 +125,7 @@
       "duration": 24,
       "score": 6.8,
       "scoreRaw": 68,
-      "popularity": 50568,
+      "popularity": 51273,
       "genres": [
         "Комедия",
         "Повседневность"
@@ -157,7 +157,7 @@
       "duration": 24,
       "score": 7.2,
       "scoreRaw": 72,
-      "popularity": 47980,
+      "popularity": 48678,
       "genres": [
         "Экшен",
         "Приключения",
@@ -191,7 +191,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 43930,
+      "popularity": 44360,
       "genres": [
         "Комедия",
         "Драма",
@@ -210,38 +210,6 @@
       "order": 6
     },
     {
-      "id": "anilist-103303",
-      "title": "Sparks of Tomorrow",
-      "nativeTitle": "二十世紀電氣目録-ユーレカ・エヴリカ-",
-      "excerpt": "The novel takes place in the summer of 1907, the 40th year of the Meiji era. 15-year-old Inako Momokawa lives in the Fushimi area of Kyoto, and is the second daughter of a sake brewer. Nothing she doe...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx103303-IF43hFJPPv2Y.png",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx103303-IF43hFJPPv2Y.png",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/103303-K73aVOqkCPqL.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "13 эп.",
-      "episodesCount": 13,
-      "duration": 25,
-      "score": 7.5,
-      "scoreRaw": 75,
-      "popularity": 42954,
-      "genres": [
-        "Приключения",
-        "Романтика"
-      ],
-      "studios": [
-        "Kyoto Animation",
-        "Kyoto Animation"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/103303",
-      "trailerUrl": "https://www.youtube.com/watch?v=-W2vs2etG9o",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 7
-    },
-    {
       "id": "anilist-187260",
       "title": "I Want to Love You Till Your Dying Day",
       "nativeTitle": "きみが死ぬまで恋をしたい",
@@ -257,7 +225,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 42937,
+      "popularity": 43621,
       "genres": [
         "Драма",
         "Фэнтези",
@@ -270,6 +238,38 @@
       "source": "AniList",
       "sourceUrl": "https://anilist.co/anime/187260",
       "trailerUrl": "https://www.youtube.com/watch?v=zJLbfK_9ZmQ",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 7
+    },
+    {
+      "id": "anilist-103303",
+      "title": "Sparks of Tomorrow",
+      "nativeTitle": "二十世紀電氣目録-ユーレカ・エヴリカ-",
+      "excerpt": "The novel takes place in the summer of 1907, the 40th year of the Meiji era. 15-year-old Inako Momokawa lives in the Fushimi area of Kyoto, and is the second daughter of a sake brewer. Nothing she doe...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx103303-IF43hFJPPv2Y.png",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx103303-IF43hFJPPv2Y.png",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/103303-K73aVOqkCPqL.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "13 эп.",
+      "episodesCount": 13,
+      "duration": 25,
+      "score": 7.6,
+      "scoreRaw": 76,
+      "popularity": 43286,
+      "genres": [
+        "Приключения",
+        "Романтика"
+      ],
+      "studios": [
+        "Kyoto Animation",
+        "Kyoto Animation"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/103303",
+      "trailerUrl": "https://www.youtube.com/watch?v=-W2vs2etG9o",
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 8
@@ -290,7 +290,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 42391,
+      "popularity": 42810,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -308,8 +308,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 283,
-    "timestamp": 1784707810065,
-    "nextUpdate": "2026-07-23T08:10:10.065Z"
+    "fetchDuration": 206,
+    "timestamp": 1784794426489,
+    "nextUpdate": "2026-07-24T08:13:46.489Z"
   }
 }
