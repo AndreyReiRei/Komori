@@ -1,10 +1,10 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-26T08:10:22.087Z",
+    "lastUpdated": "2026-07-27T09:33:41.285Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
-    "totalAnime": 8,
+    "totalAnime": 9,
     "source": "AniList API",
     "generator": "GitHub Actions (update-anime-news.yml)",
     "version": "2.0"
@@ -24,9 +24,9 @@
       "episodes": "14 эп.",
       "episodesCount": 14,
       "duration": 24,
-      "score": 8.6,
-      "scoreRaw": 86,
-      "popularity": 130295,
+      "score": 8.5,
+      "scoreRaw": 85,
+      "popularity": 130971,
       "genres": [
         "Приключения",
         "Драма",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 95138,
+      "popularity": 96426,
       "genres": [
         "Комедия",
         "Романтика",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 81637,
+      "popularity": 81958,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -108,6 +108,39 @@
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 3
+    },
+    {
+      "id": "anilist-185874",
+      "title": "BLEACH: Thousand-Year Blood War - The Calamity",
+      "nativeTitle": "BLEACH 千年血戦篇-禍進譚-",
+      "excerpt": "The fourth and final part of BLEACH: Sennen Kessen-hen. Destruction looms at the end of the Thousand-Year Blood War between the Soul Reapers and Quincies… as the death of the Soul King mirrors the col...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx185874-aU3e6tBT6wwA.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx185874-aU3e6tBT6wwA.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/185874-IdGyh1EBG91I.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "10 эп.",
+      "episodesCount": 10,
+      "duration": null,
+      "score": 8.8,
+      "scoreRaw": 88,
+      "popularity": 62388,
+      "genres": [
+        "Экшен",
+        "Приключения",
+        "Сверхъестественное"
+      ],
+      "studios": [
+        "Studio Pierrot",
+        "Shueisha"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/185874",
+      "trailerUrl": "https://www.youtube.com/watch?v=IJONbpfIlUg",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 4
     },
     {
       "id": "anilist-207141",
@@ -125,7 +158,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 53822,
+      "popularity": 55209,
       "genres": [
         "Комедия",
         "Повседневность"
@@ -139,7 +172,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=KYGgyQtSAdI",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 4
+      "order": 5
     },
     {
       "id": "anilist-187538",
@@ -157,7 +190,7 @@
       "duration": 24,
       "score": 7.2,
       "scoreRaw": 72,
-      "popularity": 50289,
+      "popularity": 52113,
       "genres": [
         "Экшен",
         "Приключения",
@@ -173,7 +206,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=2clp09dITKY",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 5
+      "order": 6
     },
     {
       "id": "anilist-210031",
@@ -191,7 +224,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 45301,
+      "popularity": 46194,
       "genres": [
         "Комедия",
         "Драма",
@@ -207,7 +240,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=HW7enBbU_hk",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 6
+      "order": 7
     },
     {
       "id": "anilist-180136",
@@ -225,7 +258,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 44751,
+      "popularity": 45194,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -239,7 +272,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=uC13b3_8riU",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 7
+      "order": 8
     },
     {
       "id": "anilist-187260",
@@ -257,7 +290,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 44675,
+      "popularity": 45143,
       "genres": [
         "Драма",
         "Фэнтези",
@@ -272,12 +305,12 @@
       "trailerUrl": "https://www.youtube.com/watch?v=zJLbfK_9ZmQ",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 8
+      "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 226,
-    "timestamp": 1785053422087,
-    "nextUpdate": "2026-07-27T08:10:22.087Z"
+    "fetchDuration": 344,
+    "timestamp": 1785144821285,
+    "nextUpdate": "2026-07-28T09:33:41.285Z"
   }
 }
