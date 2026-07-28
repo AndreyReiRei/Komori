@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-07-27T09:33:41.285Z",
+    "lastUpdated": "2026-07-28T08:17:18.033Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 130971,
+      "popularity": 132045,
       "genres": [
         "Приключения",
         "Драма",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 81958,
+      "popularity": 82246,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -258,7 +258,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 45194,
+      "popularity": 45547,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -309,8 +309,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 344,
-    "timestamp": 1785144821285,
-    "nextUpdate": "2026-07-28T09:33:41.285Z"
+    "fetchDuration": 360,
+    "timestamp": 1785226638033,
+    "nextUpdate": "2026-07-29T08:17:18.033Z"
   }
 }
