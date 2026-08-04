@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-08-03T09:24:49.381Z",
+    "lastUpdated": "2026-08-04T08:23:29.740Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 135534,
+      "popularity": 136471,
       "genres": [
         "Приключения",
         "Драма",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 84069,
+      "popularity": 84314,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -125,7 +125,7 @@
       "duration": null,
       "score": 8.8,
       "scoreRaw": 88,
-      "popularity": 66486,
+      "popularity": 67400,
       "genres": [
         "Экшен",
         "Приключения",
@@ -190,7 +190,7 @@
       "duration": 24,
       "score": 7.1,
       "scoreRaw": 71,
-      "popularity": 54832,
+      "popularity": 55451,
       "genres": [
         "Экшен",
         "Приключения",
@@ -207,6 +207,38 @@
       "season": "SUMMER",
       "seasonYear": 2026,
       "order": 6
+    },
+    {
+      "id": "anilist-180136",
+      "title": "The Exiled Heavy Knight Knows How to Game the System",
+      "nativeTitle": "追放された転生重騎士はゲーム知識で無双する",
+      "excerpt": "Born into a prestigious family of master swordsmen, Elymas Edvaughn’s future shatters when he awakens the so-called “defective” Heavy Knight class. Disowned and cast out, he regains memories of anothe...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx180136-gtMTCRlOD4OE.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx180136-gtMTCRlOD4OE.jpg",
+      "bannerImage": null,
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "26 эп.",
+      "episodesCount": 26,
+      "duration": 24,
+      "score": 6.7,
+      "scoreRaw": 67,
+      "popularity": 48686,
+      "genres": [
+        "Экшен",
+        "Фэнтези"
+      ],
+      "studios": [
+        "GoHands",
+        "Shouchiku"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/180136",
+      "trailerUrl": "https://www.youtube.com/watch?v=uC13b3_8riU",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 7
     },
     {
       "id": "anilist-210031",
@@ -240,38 +272,6 @@
       "trailerUrl": "https://www.youtube.com/watch?v=HW7enBbU_hk",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 7
-    },
-    {
-      "id": "anilist-180136",
-      "title": "The Exiled Heavy Knight Knows How to Game the System",
-      "nativeTitle": "追放された転生重騎士はゲーム知識で無双する",
-      "excerpt": "Born into a prestigious family of master swordsmen, Elymas Edvaughn’s future shatters when he awakens the so-called “defective” Heavy Knight class. Disowned and cast out, he regains memories of anothe...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx180136-gtMTCRlOD4OE.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx180136-gtMTCRlOD4OE.jpg",
-      "bannerImage": null,
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "26 эп.",
-      "episodesCount": 26,
-      "duration": 24,
-      "score": 6.7,
-      "scoreRaw": 67,
-      "popularity": 48267,
-      "genres": [
-        "Экшен",
-        "Фэнтези"
-      ],
-      "studios": [
-        "GoHands",
-        "Shouchiku"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/180136",
-      "trailerUrl": "https://www.youtube.com/watch?v=uC13b3_8riU",
-      "season": "SUMMER",
-      "seasonYear": 2026,
       "order": 8
     },
     {
@@ -290,7 +290,7 @@
       "duration": 25,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 46877,
+      "popularity": 47557,
       "genres": [
         "Приключения",
         "Романтика"
@@ -308,8 +308,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 279,
-    "timestamp": 1785749089381,
-    "nextUpdate": "2026-08-04T09:24:49.381Z"
+    "fetchDuration": 339,
+    "timestamp": 1785831809740,
+    "nextUpdate": "2026-08-05T08:23:29.740Z"
   }
 }
