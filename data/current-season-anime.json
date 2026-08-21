@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-08-20T06:29:27.763Z",
+    "lastUpdated": "2026-08-21T06:30:46.848Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.4,
       "scoreRaw": 84,
-      "popularity": 144819,
+      "popularity": 145227,
       "genres": [
         "Приключения",
         "Драма",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 107800,
+      "popularity": 108185,
       "genres": [
         "Комедия",
         "Романтика",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 87798,
+      "popularity": 88108,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -125,7 +125,7 @@
       "duration": null,
       "score": 8.8,
       "scoreRaw": 88,
-      "popularity": 74358,
+      "popularity": 74678,
       "genres": [
         "Экшен",
         "Приключения",
@@ -158,9 +158,10 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 65623,
+      "popularity": 65921,
       "genres": [
         "Комедия",
+        "Ecchi",
         "Повседневность"
       ],
       "studios": [
@@ -190,7 +191,7 @@
       "duration": 24,
       "score": 7.1,
       "scoreRaw": 71,
-      "popularity": 60840,
+      "popularity": 61060,
       "genres": [
         "Экшен",
         "Приключения",
@@ -224,7 +225,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 54380,
+      "popularity": 54595,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -256,7 +257,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 53021,
+      "popularity": 53261,
       "genres": [
         "Комедия",
         "Драма",
@@ -290,7 +291,7 @@
       "duration": 25,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 51568,
+      "popularity": 51717,
       "genres": [
         "Приключения",
         "Романтика"
@@ -308,8 +309,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 194,
-    "timestamp": 1787207367763,
-    "nextUpdate": "2026-08-21T06:29:27.763Z"
+    "fetchDuration": 245,
+    "timestamp": 1787293846848,
+    "nextUpdate": "2026-08-22T06:30:46.848Z"
   }
 }
