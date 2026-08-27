@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-08-26T06:32:17.597Z",
+    "lastUpdated": "2026-08-27T17:08:54.586Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.4,
       "scoreRaw": 84,
-      "popularity": 147643,
+      "popularity": 148466,
       "genres": [
         "Приключения",
         "Драма",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 110704,
+      "popularity": 111454,
       "genres": [
         "Комедия",
         "Романтика",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 89019,
+      "popularity": 89398,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -125,7 +125,7 @@
       "duration": null,
       "score": 9,
       "scoreRaw": 90,
-      "popularity": 78226,
+      "popularity": 79179,
       "genres": [
         "Экшен",
         "Приключения",
@@ -158,7 +158,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 67781,
+      "popularity": 68340,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -191,7 +191,7 @@
       "duration": 24,
       "score": 7.1,
       "scoreRaw": 71,
-      "popularity": 62709,
+      "popularity": 63141,
       "genres": [
         "Экшен",
         "Приключения",
@@ -225,7 +225,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 56337,
+      "popularity": 56687,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -245,7 +245,7 @@
       "id": "anilist-210031",
       "title": "You and I Are Polar Opposites Season 2",
       "nativeTitle": "正反対な君と僕 第2期",
-      "excerpt": "The second season of Seihantai na Kimi to Boku.",
+      "excerpt": "Six months have passed since the polar opposite classmates Miyu Suzuki and Yuusuke Tani started dating. Through spending time together along with their friends from school, the two have been happier t...",
       "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx210031-TppgcHZh46LY.jpg",
       "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx210031-TppgcHZh46LY.jpg",
       "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/210031-M4bt0rAmWk5Q.jpg",
@@ -257,7 +257,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 54663,
+      "popularity": 55122,
       "genres": [
         "Комедия",
         "Драма",
@@ -291,7 +291,7 @@
       "duration": 25,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 52596,
+      "popularity": 52914,
       "genres": [
         "Приключения",
         "Романтика"
@@ -309,8 +309,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 301,
-    "timestamp": 1787725937597,
-    "nextUpdate": "2026-08-27T06:32:17.597Z"
+    "fetchDuration": 2311,
+    "timestamp": 1787850534586,
+    "nextUpdate": "2026-08-28T17:08:54.586Z"
   }
 }
