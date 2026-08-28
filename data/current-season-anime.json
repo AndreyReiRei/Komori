@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-08-27T17:08:54.586Z",
+    "lastUpdated": "2026-08-28T17:55:33.582Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.4,
       "scoreRaw": 84,
-      "popularity": 148466,
+      "popularity": 148837,
       "genres": [
         "Приключения",
         "Драма",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 111454,
+      "popularity": 112118,
       "genres": [
         "Комедия",
         "Романтика",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 89398,
+      "popularity": 89585,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -125,7 +125,7 @@
       "duration": null,
       "score": 9,
       "scoreRaw": 90,
-      "popularity": 79179,
+      "popularity": 79533,
       "genres": [
         "Экшен",
         "Приключения",
@@ -158,7 +158,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 68340,
+      "popularity": 68629,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -191,7 +191,7 @@
       "duration": 24,
       "score": 7.1,
       "scoreRaw": 71,
-      "popularity": 63141,
+      "popularity": 63328,
       "genres": [
         "Экшен",
         "Приключения",
@@ -223,9 +223,9 @@
       "episodes": "26 эп.",
       "episodesCount": 26,
       "duration": 24,
-      "score": 6.7,
-      "scoreRaw": 67,
-      "popularity": 56687,
+      "score": 6.6,
+      "scoreRaw": 66,
+      "popularity": 57167,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -257,7 +257,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 55122,
+      "popularity": 55331,
       "genres": [
         "Комедия",
         "Драма",
@@ -291,7 +291,7 @@
       "duration": 25,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 52914,
+      "popularity": 53045,
       "genres": [
         "Приключения",
         "Романтика"
@@ -309,8 +309,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 2311,
-    "timestamp": 1787850534586,
-    "nextUpdate": "2026-08-28T17:08:54.586Z"
+    "fetchDuration": 259,
+    "timestamp": 1787939733582,
+    "nextUpdate": "2026-08-29T17:55:33.582Z"
   }
 }
