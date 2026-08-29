@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-08-28T17:55:33.582Z",
+    "lastUpdated": "2026-08-29T12:00:06.820Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.4,
       "scoreRaw": 84,
-      "popularity": 148837,
+      "popularity": 149155,
       "genres": [
         "Приключения",
         "Драма",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 112118,
+      "popularity": 112688,
       "genres": [
         "Комедия",
         "Романтика",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 89585,
+      "popularity": 89757,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -125,7 +125,7 @@
       "duration": null,
       "score": 9,
       "scoreRaw": 90,
-      "popularity": 79533,
+      "popularity": 79871,
       "genres": [
         "Экшен",
         "Приключения",
@@ -158,7 +158,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 68629,
+      "popularity": 68916,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -191,7 +191,7 @@
       "duration": 24,
       "score": 7.1,
       "scoreRaw": 71,
-      "popularity": 63328,
+      "popularity": 63543,
       "genres": [
         "Экшен",
         "Приключения",
@@ -225,7 +225,7 @@
       "duration": 24,
       "score": 6.6,
       "scoreRaw": 66,
-      "popularity": 57167,
+      "popularity": 57529,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -257,7 +257,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 55331,
+      "popularity": 55519,
       "genres": [
         "Комедия",
         "Драма",
@@ -309,8 +309,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 259,
-    "timestamp": 1787939733582,
-    "nextUpdate": "2026-08-29T17:55:33.582Z"
+    "fetchDuration": 1680,
+    "timestamp": 1788004806820,
+    "nextUpdate": "2026-08-30T12:00:06.820Z"
   }
 }
