@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-09-04T10:13:10.095Z",
+    "lastUpdated": "2026-09-05T09:41:54.820Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 115213,
+      "popularity": 115797,
       "genres": [
         "Комедия",
         "Романтика",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8,
       "scoreRaw": 80,
-      "popularity": 90592,
+      "popularity": 90759,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -125,7 +125,7 @@
       "duration": null,
       "score": 9,
       "scoreRaw": 90,
-      "popularity": 82571,
+      "popularity": 82887,
       "genres": [
         "Экшен",
         "Приключения",
@@ -158,7 +158,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 70498,
+      "popularity": 70819,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -191,7 +191,7 @@
       "duration": 24,
       "score": 7,
       "scoreRaw": 70,
-      "popularity": 65187,
+      "popularity": 65373,
       "genres": [
         "Экшен",
         "Приключения",
@@ -257,7 +257,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 57033,
+      "popularity": 57211,
       "genres": [
         "Комедия",
         "Драма",
@@ -289,11 +289,12 @@
       "episodes": "13 эп.",
       "episodesCount": 13,
       "duration": 25,
-      "score": 7.5,
-      "scoreRaw": 75,
-      "popularity": 54399,
+      "score": 7.6,
+      "scoreRaw": 76,
+      "popularity": 54581,
       "genres": [
         "Приключения",
+        "Комедия",
         "Романтика"
       ],
       "studios": [
@@ -309,8 +310,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 436,
-    "timestamp": 1788516790095,
-    "nextUpdate": "2026-09-05T10:13:10.095Z"
+    "fetchDuration": 339,
+    "timestamp": 1788601314820,
+    "nextUpdate": "2026-09-06T09:41:54.820Z"
   }
 }
