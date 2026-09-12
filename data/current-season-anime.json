@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-09-06T09:57:23.790Z",
+    "lastUpdated": "2026-09-12T09:50:12.799Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.4,
       "scoreRaw": 84,
-      "popularity": 152258,
+      "popularity": 154916,
       "genres": [
         "Приключения",
         "Драма",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 116287,
+      "popularity": 118952,
       "genres": [
         "Комедия",
         "Романтика",
@@ -93,7 +93,7 @@
       "duration": 24,
       "score": 8,
       "scoreRaw": 80,
-      "popularity": 90910,
+      "popularity": 91863,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -113,7 +113,7 @@
       "id": "anilist-185874",
       "title": "BLEACH: Thousand-Year Blood War - The Calamity",
       "nativeTitle": "BLEACH 千年血戦篇-禍進譚-",
-      "excerpt": "The fourth and final part of BLEACH: Sennen Kessen-hen. Destruction looms at the end of the Thousand-Year Blood War between the Soul Reapers and Quincies… as the death of the Soul King mirrors the col...",
+      "excerpt": "Destruction looms at the end of the Thousand-Year Blood War between the Soul Reapers and Quincies… as the death of the Soul King mirrors the collapse of the Three Worlds, distortions and omens of dest...",
       "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx185874-aU3e6tBT6wwA.jpg",
       "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx185874-aU3e6tBT6wwA.jpg",
       "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/185874-IdGyh1EBG91I.jpg",
@@ -125,7 +125,7 @@
       "duration": null,
       "score": 9,
       "scoreRaw": 90,
-      "popularity": 83581,
+      "popularity": 85448,
       "genres": [
         "Экшен",
         "Приключения",
@@ -153,12 +153,12 @@
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
+      "episodes": "12 эп.",
+      "episodesCount": 12,
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 71115,
+      "popularity": 72735,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -186,12 +186,12 @@
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
+      "episodes": "12 эп.",
+      "episodesCount": 12,
       "duration": 24,
       "score": 7,
       "scoreRaw": 70,
-      "popularity": 65843,
+      "popularity": 67469,
       "genres": [
         "Экшен",
         "Приключения",
@@ -225,7 +225,7 @@
       "duration": 24,
       "score": 6.6,
       "scoreRaw": 66,
-      "popularity": 59485,
+      "popularity": 61109,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -257,7 +257,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 57382,
+      "popularity": 58818,
       "genres": [
         "Комедия",
         "Драма",
@@ -291,7 +291,7 @@
       "duration": 25,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 54716,
+      "popularity": 55986,
       "genres": [
         "Приключения",
         "Комедия",
@@ -310,8 +310,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 215,
-    "timestamp": 1788688643790,
-    "nextUpdate": "2026-09-07T09:57:23.790Z"
+    "fetchDuration": 194,
+    "timestamp": 1789206612799,
+    "nextUpdate": "2026-09-13T09:50:12.799Z"
   }
 }
