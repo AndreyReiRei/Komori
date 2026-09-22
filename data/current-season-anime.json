@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-09-21T11:31:34.268Z",
+    "lastUpdated": "2026-09-22T10:38:16.879Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 159029,
+      "popularity": 159699,
       "genres": [
         "Приключения",
         "Драма",
@@ -60,7 +60,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 122588,
+      "popularity": 122986,
       "genres": [
         "Комедия",
         "Романтика",
@@ -125,7 +125,7 @@
       "duration": null,
       "score": 9,
       "scoreRaw": 90,
-      "popularity": 88172,
+      "popularity": 88368,
       "genres": [
         "Экшен",
         "Приключения",
@@ -158,7 +158,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 75004,
+      "popularity": 75229,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -191,7 +191,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 63395,
+      "popularity": 63593,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -223,7 +223,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 60692,
+      "popularity": 60903,
       "genres": [
         "Комедия",
         "Драма",
@@ -257,7 +257,7 @@
       "duration": 25,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 57641,
+      "popularity": 57940,
       "genres": [
         "Приключения",
         "Комедия",
@@ -290,7 +290,7 @@
       "duration": 24,
       "score": 7.4,
       "scoreRaw": 74,
-      "popularity": 55405,
+      "popularity": 55502,
       "genres": [
         "Драма",
         "Фэнтези",
@@ -309,8 +309,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 324,
-    "timestamp": 1789990294268,
-    "nextUpdate": "2026-09-22T11:31:34.268Z"
+    "fetchDuration": 327,
+    "timestamp": 1790073496879,
+    "nextUpdate": "2026-09-23T10:38:16.879Z"
   }
 }
