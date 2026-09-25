@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-09-24T10:47:51.323Z",
+    "lastUpdated": "2026-09-25T10:52:21.285Z",
     "season": "summer",
     "seasonName": "☀️ Лето",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 160775,
+      "popularity": 161248,
       "genres": [
         "Приключения",
         "Драма",
@@ -45,39 +45,6 @@
       "order": 1
     },
     {
-      "id": "anilist-196187",
-      "title": "Smoking Behind the Supermarket with You",
-      "nativeTitle": "スーパーの裏でヤニ吸うふたり",
-      "excerpt": "Sasaki is an overworked salaryman drifting through the corporate grind, sustained by cigarettes and the cheerful service and smile of Yamada, the clerk at his favorite supermarket. But one night after...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx196187-0dgFi2CPp3xn.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx196187-0dgFi2CPp3xn.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/196187-Z9dV6uotmKjM.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "12 эп.",
-      "episodesCount": 12,
-      "duration": 24,
-      "score": 8.1,
-      "scoreRaw": 81,
-      "popularity": 123722,
-      "genres": [
-        "Комедия",
-        "Романтика",
-        "Повседневность"
-      ],
-      "studios": [
-        "Asahi Production",
-        "TBS"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/196187",
-      "trailerUrl": "https://www.youtube.com/watch?v=aOOwNK6Ul6E",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 2
-    },
-    {
       "id": "anilist-185874",
       "title": "BLEACH: Thousand-Year Blood War - The Calamity",
       "nativeTitle": "BLEACH 千年血戦篇-禍進譚-",
@@ -93,7 +60,7 @@
       "duration": null,
       "score": 9,
       "scoreRaw": 90,
-      "popularity": 88800,
+      "popularity": 89019,
       "genres": [
         "Экшен",
         "Приключения",
@@ -108,40 +75,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=IJONbpfIlUg",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 3
-    },
-    {
-      "id": "anilist-207141",
-      "title": "Chainsmoker Cat",
-      "nativeTitle": "ヤニねこ",
-      "excerpt": "Yani is a catgirl with a seriously bad smoking habit. She smokes so much that her apartment smells like ash and is littered with cigarette butts—and plenty of other trash! Every time she tries to quit...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx207141-h5q5KJPd6vaX.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx207141-h5q5KJPd6vaX.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/207141-MvHAS2YVfJzL.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "12 эп.",
-      "episodesCount": 12,
-      "duration": 24,
-      "score": 6.7,
-      "scoreRaw": 67,
-      "popularity": 75661,
-      "genres": [
-        "Комедия",
-        "Ecchi",
-        "Повседневность"
-      ],
-      "studios": [
-        "Bibury Animation Studios",
-        "Kodansha"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/207141",
-      "trailerUrl": "https://www.youtube.com/watch?v=KYGgyQtSAdI",
-      "season": "SUMMER",
-      "seasonYear": 2026,
-      "order": 4
+      "order": 2
     },
     {
       "id": "anilist-180136",
@@ -159,7 +93,7 @@
       "duration": 24,
       "score": 6.7,
       "scoreRaw": 67,
-      "popularity": 63984,
+      "popularity": 64387,
       "genres": [
         "Экшен",
         "Фэнтези"
@@ -173,7 +107,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=uC13b3_8riU",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 5
+      "order": 3
     },
     {
       "id": "anilist-210031",
@@ -191,7 +125,7 @@
       "duration": 24,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 61298,
+      "popularity": 61472,
       "genres": [
         "Комедия",
         "Драма",
@@ -207,7 +141,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=HW7enBbU_hk",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 6
+      "order": 4
     },
     {
       "id": "anilist-103303",
@@ -225,7 +159,7 @@
       "duration": 25,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 58380,
+      "popularity": 58553,
       "genres": [
         "Приключения",
         "Комедия",
@@ -240,7 +174,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=-W2vs2etG9o",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 7
+      "order": 5
     },
     {
       "id": "anilist-187260",
@@ -258,7 +192,7 @@
       "duration": 24,
       "score": 7.4,
       "scoreRaw": 74,
-      "popularity": 55933,
+      "popularity": 56104,
       "genres": [
         "Драма",
         "Фэнтези",
@@ -273,7 +207,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=zJLbfK_9ZmQ",
       "season": "SUMMER",
       "seasonYear": 2026,
-      "order": 8
+      "order": 6
     },
     {
       "id": "anilist-198946",
@@ -291,7 +225,7 @@
       "duration": 24,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 45498,
+      "popularity": 45724,
       "genres": [
         "Экшен",
         "Драма",
@@ -306,12 +240,77 @@
       "trailerUrl": "https://www.youtube.com/watch?v=0N1-8XY_3Rs",
       "season": "SUMMER",
       "seasonYear": 2026,
+      "order": 7
+    },
+    {
+      "id": "anilist-209983",
+      "title": "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing Season 2",
+      "nativeTitle": "ヘルモード ～やり込み好きのゲーマーは廃設定の異世界で無双する～ 2nd Season",
+      "excerpt": "The second season of Hell Mode.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx209983-sFOcKyqMufxb.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx209983-sFOcKyqMufxb.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/209983-fJysbFB72IM9.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "13 эп.",
+      "episodesCount": 13,
+      "duration": 25,
+      "score": 7.1,
+      "scoreRaw": 71,
+      "popularity": 41502,
+      "genres": [
+        "Экшен",
+        "Приключения",
+        "Фэнтези"
+      ],
+      "studios": [
+        "Yokohama Animation Lab",
+        "Mainichi Broadcasting System"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/209983",
+      "trailerUrl": "https://www.youtube.com/watch?v=hr_7R76pUC8",
+      "season": "SUMMER",
+      "seasonYear": 2026,
+      "order": 8
+    },
+    {
+      "id": "anilist-182616",
+      "title": "The Elusive Samurai Season 2",
+      "nativeTitle": "逃げ上手の若君 第二期",
+      "excerpt": "The second season of Nige Jouzu no Wakagimi.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx182616-DymJCBpkR4qs.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx182616-DymJCBpkR4qs.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/182616-kmIqMEUsLYrO.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "12 эп.",
+      "episodesCount": 12,
+      "duration": 24,
+      "score": 7.6,
+      "scoreRaw": 76,
+      "popularity": 27556,
+      "genres": [
+        "Экшен",
+        "Приключения"
+      ],
+      "studios": [
+        "Aniplex",
+        "CloverWorks"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/182616",
+      "trailerUrl": "https://www.youtube.com/watch?v=5xV6uMwR-Xo",
+      "season": "SUMMER",
+      "seasonYear": 2026,
       "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 296,
-    "timestamp": 1790246871323,
-    "nextUpdate": "2026-09-25T10:47:51.323Z"
+    "fetchDuration": 300,
+    "timestamp": 1790333541285,
+    "nextUpdate": "2026-09-26T10:52:21.285Z"
   }
 }
