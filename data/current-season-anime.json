@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-01T12:06:47.737Z",
+    "lastUpdated": "2026-10-02T11:37:32.590Z",
     "season": "fall",
     "seasonName": "🍂 Осень",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": null,
       "score": 7.4,
       "scoreRaw": 74,
-      "popularity": 41644,
+      "popularity": 43029,
       "genres": [
         "Экшен",
         "Приключения",
@@ -59,7 +59,7 @@
       "duration": null,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 33637,
+      "popularity": 34192,
       "genres": [
         "Экшен",
         "Приключения",
@@ -78,6 +78,40 @@
       "order": 2
     },
     {
+      "id": "anilist-213805",
+      "title": "The Ramparts of Ice Season 2",
+      "nativeTitle": "氷の城壁 第2期",
+      "excerpt": "Koyuki, the isolated girl; Miki, the former school idol; Minato, the guy with no concept of personal space; and Yota, the gentle basketball player. Clumsy, frustrating, yet deeply endearing — this com...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx213805-Nokui3uWlIlw.png",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx213805-Nokui3uWlIlw.png",
+      "bannerImage": null,
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "? эп.",
+      "episodesCount": null,
+      "duration": null,
+      "score": 8.1,
+      "scoreRaw": 81,
+      "popularity": 25313,
+      "genres": [
+        "Комедия",
+        "Драма",
+        "Романтика",
+        "Повседневность"
+      ],
+      "studios": [
+        "Studio KAI",
+        "TBS"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/213805",
+      "trailerUrl": "https://www.youtube.com/watch?v=VvzeL7UMCE8",
+      "season": "FALL",
+      "seasonYear": 2026,
+      "order": 3
+    },
+    {
       "id": "anilist-212888",
       "title": "Overgeared",
       "nativeTitle": "テムパル～アイテムの力～",
@@ -88,12 +122,12 @@
       "type": "🌐 ONA",
       "format": "ONA",
       "status": "▶️ Выходит",
-      "episodes": "? эп.",
+      "episodes": "24 мин.",
       "episodesCount": null,
-      "duration": null,
+      "duration": 24,
       "score": 7.4,
       "scoreRaw": 74,
-      "popularity": 21400,
+      "popularity": 22648,
       "genres": [
         "Экшен",
         "Приключения",
@@ -109,7 +143,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=e1Km0FqUZl0",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 3
+      "order": 4
     },
     {
       "id": "anilist-185756",
@@ -125,9 +159,9 @@
       "episodes": "? эп.",
       "episodesCount": null,
       "duration": null,
-      "score": 7,
-      "scoreRaw": 70,
-      "popularity": 19666,
+      "score": 7.1,
+      "scoreRaw": 71,
+      "popularity": 20075,
       "genres": [
         "Приключения",
         "Фэнтези"
@@ -140,7 +174,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=8_Lxr7vO9l0",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 4
+      "order": 5
     },
     {
       "id": "anilist-204389",
@@ -153,12 +187,12 @@
       "type": "🌐 ONA",
       "format": "ONA",
       "status": "▶️ Выходит",
-      "episodes": "? эп.",
+      "episodes": "24 мин.",
       "episodesCount": null,
-      "duration": null,
+      "duration": 24,
       "score": 7.1,
       "scoreRaw": 71,
-      "popularity": 15902,
+      "popularity": 16309,
       "genres": [
         "Экшен",
         "Приключения",
@@ -173,7 +207,39 @@
       "trailerUrl": "https://www.youtube.com/watch?v=LyDMSUR6_Q8",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 5
+      "order": 6
+    },
+    {
+      "id": "anilist-206401",
+      "title": "FX Fighter Kurumi-chan",
+      "nativeTitle": "FX戦士くるみちゃん",
+      "excerpt": "University student Kurumi Fukuga has finally fulfilled her long-held desire of starting foreign exchange (FX) trading, motivated by recouping the 20 million yen her late mother lost in trading. \"I'll...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx206401-8cAebkI0i8BA.png",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx206401-8cAebkI0i8BA.png",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/206401-Nsf3QKwKxDra.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "? эп.",
+      "episodesCount": null,
+      "duration": null,
+      "score": 6.9,
+      "scoreRaw": 69,
+      "popularity": 8640,
+      "genres": [
+        "Драма",
+        "Повседневность"
+      ],
+      "studios": [
+        "Passione",
+        "KADOKAWA"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/206401",
+      "trailerUrl": "https://www.youtube.com/watch?v=7rxIZ3z0S4s",
+      "season": "FALL",
+      "seasonYear": 2026,
+      "order": 7
     },
     {
       "id": "anilist-169581",
@@ -191,7 +257,7 @@
       "duration": null,
       "score": 5.9,
       "scoreRaw": 59,
-      "popularity": 8304,
+      "popularity": 8483,
       "genres": [
         "Экшен",
         "Приключения",
@@ -207,7 +273,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=XqrBfyUNYZs",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 6
+      "order": 8
     },
     {
       "id": "anilist-215835",
@@ -225,7 +291,7 @@
       "duration": 3,
       "score": 6.2,
       "scoreRaw": 62,
-      "popularity": 2274,
+      "popularity": 2319,
       "genres": [
         "Комедия",
         "Повседневность"
@@ -238,72 +304,12 @@
       "trailerUrl": "https://www.youtube.com/watch?v=rUHYbwZDVVI",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 7
-    },
-    {
-      "id": "anilist-199068",
-      "title": "The Prince of Tennis II U-17 WORLD CUP: Final Member Selection Match",
-      "nativeTitle": "新テニスの王子様 U-17 WORLD CUP 決勝メンバー決定戦",
-      "excerpt": "Old rivalries reignite as Team Japan players face off to earn spots in the lineup for the World Cup final. (Source: Crunchyroll News)",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx199068-2afNaytl50Ko.png",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx199068-2afNaytl50Ko.png",
-      "bannerImage": null,
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "23 мин.",
-      "episodesCount": null,
-      "duration": 23,
-      "score": 7.2,
-      "scoreRaw": 0,
-      "popularity": 1053,
-      "genres": [
-        "Экшен",
-        "Комедия",
-        "Спорт"
-      ],
-      "studios": [],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/199068",
-      "trailerUrl": "https://www.youtube.com/watch?v=bsNeADDQFD4",
-      "season": "FALL",
-      "seasonYear": 2026,
-      "order": 8
-    },
-    {
-      "id": "anilist-207217",
-      "title": "Delivery Kitten Unyan",
-      "nativeTitle": "子猫の配達員うーにゃん",
-      "excerpt": "Today’s the day Unyan the kitten becomes a delivery courier! Getting dressed, eating breakfast, packing his bag…He’s eager to get started, but there are so many firsts along the way! It’s a busy morni...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b207217-IxKfwpEZZzLh.png",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/b207217-IxKfwpEZZzLh.png",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/207217-NemulFw4QSc8.jpg",
-      "type": "🌐 ONA",
-      "format": "ONA",
-      "status": "▶️ Выходит",
-      "episodes": "3 эп.",
-      "episodesCount": 3,
-      "duration": 3,
-      "score": 6,
-      "scoreRaw": 0,
-      "popularity": 95,
-      "genres": [
-        "Повседневность"
-      ],
-      "studios": [
-        "Studio Nanahoshi"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/207217",
-      "trailerUrl": "https://www.youtube.com/watch?v=Rya5HXrNeww",
-      "season": "FALL",
-      "seasonYear": 2026,
       "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 220,
-    "timestamp": 1790856407737,
-    "nextUpdate": "2026-10-02T12:06:47.737Z"
+    "fetchDuration": 284,
+    "timestamp": 1790941052590,
+    "nextUpdate": "2026-10-03T11:37:32.590Z"
   }
 }
