@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-02T11:37:32.590Z",
+    "lastUpdated": "2026-10-03T10:51:07.413Z",
     "season": "fall",
     "seasonName": "🍂 Осень",
     "year": 2026,
@@ -10,6 +10,38 @@
     "version": "2.0"
   },
   "anime": [
+    {
+      "id": "anilist-195516",
+      "title": "The Apothecary Diaries Season 3",
+      "nativeTitle": "薬屋のひとりごと 第3期",
+      "excerpt": "In the aftermath of the Shi Clan’s rebellion, things have finally settled down, and Maomao has returned to her old life as a pharmacist in the pleasure district. One day, triggered by a breakfast serv...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx195516-MJpUZlOberqH.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx195516-MJpUZlOberqH.jpg",
+      "bannerImage": null,
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "12 эп.",
+      "episodesCount": 12,
+      "duration": null,
+      "score": 8.5,
+      "scoreRaw": 85,
+      "popularity": 83042,
+      "genres": [
+        "Драма",
+        "Детектив"
+      ],
+      "studios": [
+        "Toho",
+        "OLM"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/195516",
+      "trailerUrl": "https://www.youtube.com/watch?v=YvNvvUeCztE",
+      "season": "FALL",
+      "seasonYear": 2026,
+      "order": 1
+    },
     {
       "id": "anilist-159042",
       "title": "Reincarnated as a Sword Season 2",
@@ -26,7 +58,7 @@
       "duration": null,
       "score": 7.4,
       "scoreRaw": 74,
-      "popularity": 43029,
+      "popularity": 44022,
       "genres": [
         "Экшен",
         "Приключения",
@@ -41,7 +73,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=kbtRqqa2GyA",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 1
+      "order": 2
     },
     {
       "id": "anilist-210482",
@@ -59,7 +91,7 @@
       "duration": null,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 34192,
+      "popularity": 35646,
       "genres": [
         "Экшен",
         "Приключения",
@@ -75,7 +107,41 @@
       "trailerUrl": "https://www.youtube.com/watch?v=jXtG_lcR9P4",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 2
+      "order": 3
+    },
+    {
+      "id": "anilist-178083",
+      "title": "Tokyo Revengers: Santen Sensou-hen",
+      "nativeTitle": "東京リベンジャーズ 三天戦争編",
+      "excerpt": "Sequel to Tokyo Revengers: Tenjiku-hen.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx178083-bg7pg6TCHwtG.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx178083-bg7pg6TCHwtG.jpg",
+      "bannerImage": null,
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "? эп.",
+      "episodesCount": null,
+      "duration": null,
+      "score": 7.5,
+      "scoreRaw": 75,
+      "popularity": 28226,
+      "genres": [
+        "Экшен",
+        "Драма",
+        "Романтика",
+        "Сверхъестественное"
+      ],
+      "studios": [
+        "Pony Canyon",
+        "LIDENFILMS"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/178083",
+      "trailerUrl": "https://www.youtube.com/watch?v=Nm21TTXUkf4",
+      "season": "FALL",
+      "seasonYear": 2026,
+      "order": 4
     },
     {
       "id": "anilist-213805",
@@ -91,9 +157,9 @@
       "episodes": "? эп.",
       "episodesCount": null,
       "duration": null,
-      "score": 8.1,
-      "scoreRaw": 81,
-      "popularity": 25313,
+      "score": 8.2,
+      "scoreRaw": 82,
+      "popularity": 26821,
       "genres": [
         "Комедия",
         "Драма",
@@ -109,7 +175,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=VvzeL7UMCE8",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 3
+      "order": 5
     },
     {
       "id": "anilist-212888",
@@ -122,12 +188,12 @@
       "type": "🌐 ONA",
       "format": "ONA",
       "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
+      "episodes": "12 эп.",
+      "episodesCount": 12,
       "duration": 24,
       "score": 7.4,
       "scoreRaw": 74,
-      "popularity": 22648,
+      "popularity": 23602,
       "genres": [
         "Экшен",
         "Приключения",
@@ -143,7 +209,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=e1Km0FqUZl0",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 4
+      "order": 6
     },
     {
       "id": "anilist-185756",
@@ -161,7 +227,7 @@
       "duration": null,
       "score": 7.1,
       "scoreRaw": 71,
-      "popularity": 20075,
+      "popularity": 20421,
       "genres": [
         "Приключения",
         "Фэнтези"
@@ -174,7 +240,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=8_Lxr7vO9l0",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 5
+      "order": 7
     },
     {
       "id": "anilist-204389",
@@ -192,7 +258,7 @@
       "duration": 24,
       "score": 7.1,
       "scoreRaw": 71,
-      "popularity": 16309,
+      "popularity": 16730,
       "genres": [
         "Экшен",
         "Приключения",
@@ -207,16 +273,16 @@
       "trailerUrl": "https://www.youtube.com/watch?v=LyDMSUR6_Q8",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 6
+      "order": 8
     },
     {
-      "id": "anilist-206401",
-      "title": "FX Fighter Kurumi-chan",
-      "nativeTitle": "FX戦士くるみちゃん",
-      "excerpt": "University student Kurumi Fukuga has finally fulfilled her long-held desire of starting foreign exchange (FX) trading, motivated by recouping the 20 million yen her late mother lost in trading. \"I'll...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx206401-8cAebkI0i8BA.png",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx206401-8cAebkI0i8BA.png",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/206401-Nsf3QKwKxDra.jpg",
+      "id": "anilist-204650",
+      "title": "TOUGEN ANKI: Nikko Kegon Falls Arc",
+      "nativeTitle": "桃源暗鬼 日光・華厳の滝編",
+      "excerpt": "After battling in Kyoto and Nerima, the Rasetsu Academy students have grown stronger. But Yaoroshi leaves the academy to join the Oni Brigade for their \"the total eradication of the Momotaro.\" When Sh...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx204650-nvK5CuG60WGY.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx204650-nvK5CuG60WGY.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/204650-MpownoVlYv69.jpg",
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
@@ -225,91 +291,26 @@
       "duration": null,
       "score": 6.9,
       "scoreRaw": 69,
-      "popularity": 8640,
-      "genres": [
-        "Драма",
-        "Повседневность"
-      ],
-      "studios": [
-        "Passione",
-        "KADOKAWA"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/206401",
-      "trailerUrl": "https://www.youtube.com/watch?v=7rxIZ3z0S4s",
-      "season": "FALL",
-      "seasonYear": 2026,
-      "order": 7
-    },
-    {
-      "id": "anilist-169581",
-      "title": "Magical Explorer",
-      "nativeTitle": "マジカル★エクスプローラー　エロゲの友人キャラに転生したけど、ゲーム知識使って自由に生きる",
-      "excerpt": "Few titles are more revered among horndogs-(ahem) connoisseurs of Japanese erotic video games-than Magical Explorer. One day, our smut-loving hero wakes up to find he has been reincarnated into the bo...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx169581-UlAviVH36Hxi.png",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx169581-UlAviVH36Hxi.png",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/169581-cdooqY7Jqy3x.jpg",
-      "type": "🌐 ONA",
-      "format": "ONA",
-      "status": "▶️ Выходит",
-      "episodes": "? эп.",
-      "episodesCount": null,
-      "duration": null,
-      "score": 5.9,
-      "scoreRaw": 59,
-      "popularity": 8483,
+      "popularity": 13544,
       "genres": [
         "Экшен",
-        "Приключения",
-        "Ecchi",
-        "Фэнтези"
+        "Детектив",
+        "Сверхъестественное"
       ],
       "studios": [
-        "WHITE FOX",
-        "Aniplex"
+        "Studio Hibari"
       ],
       "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/169581",
-      "trailerUrl": "https://www.youtube.com/watch?v=XqrBfyUNYZs",
-      "season": "FALL",
-      "seasonYear": 2026,
-      "order": 8
-    },
-    {
-      "id": "anilist-215835",
-      "title": "Umayuru: Full Gate!",
-      "nativeTitle": "うまゆるふるげ〜と!",
-      "excerpt": "\"Umayuru\" is a short anime series featuring pint-sized Uma Musume! This time, it’s a \"Full-Gate\" three-minute race where *all* the Uma Musume take to the track! A super-sized, laid-back gathering with...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx215835-B0seSw93V5qM.png",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx215835-B0seSw93V5qM.png",
-      "bannerImage": null,
-      "type": "🌐 ONA",
-      "format": "ONA",
-      "status": "▶️ Выходит",
-      "episodes": "26 эп.",
-      "episodesCount": 26,
-      "duration": 3,
-      "score": 6.2,
-      "scoreRaw": 62,
-      "popularity": 2319,
-      "genres": [
-        "Комедия",
-        "Повседневность"
-      ],
-      "studios": [
-        "AtoriE"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/215835",
-      "trailerUrl": "https://www.youtube.com/watch?v=rUHYbwZDVVI",
+      "sourceUrl": "https://anilist.co/anime/204650",
+      "trailerUrl": "https://www.youtube.com/watch?v=upBWYExYoYc",
       "season": "FALL",
       "seasonYear": 2026,
       "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 284,
-    "timestamp": 1790941052590,
-    "nextUpdate": "2026-10-03T11:37:32.590Z"
+    "fetchDuration": 320,
+    "timestamp": 1791024667413,
+    "nextUpdate": "2026-10-04T10:51:07.413Z"
   }
 }
