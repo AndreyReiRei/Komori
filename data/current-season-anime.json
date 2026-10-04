@@ -1,10 +1,10 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-03T10:51:07.413Z",
+    "lastUpdated": "2026-10-04T11:33:40.582Z",
     "season": "fall",
     "seasonName": "🍂 Осень",
     "year": 2026,
-    "totalAnime": 9,
+    "totalAnime": 8,
     "source": "AniList API",
     "generator": "GitHub Actions (update-anime-news.yml)",
     "version": "2.0"
@@ -26,7 +26,7 @@
       "duration": null,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 83042,
+      "popularity": 86261,
       "genres": [
         "Драма",
         "Детектив"
@@ -43,6 +43,39 @@
       "order": 1
     },
     {
+      "id": "anilist-195604",
+      "title": "Black Clover Season 2",
+      "nativeTitle": "ブラッククローバー 第2期",
+      "excerpt": "As tyranny engulfs the Clover Kingdom, Asta and the Magic Knights launch a desperate raid on the Spade Kingdom to rescue their squad captains from the Dark Triad. But their mission leads them into a b...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx195604-tSZcfKbVqSEG.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx195604-tSZcfKbVqSEG.jpg",
+      "bannerImage": null,
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "? эп.",
+      "episodesCount": null,
+      "duration": null,
+      "score": 8.7,
+      "scoreRaw": 87,
+      "popularity": 75739,
+      "genres": [
+        "Экшен",
+        "Приключения",
+        "Комедия",
+        "Фэнтези"
+      ],
+      "studios": [
+        "Studio Pierrot"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/195604",
+      "trailerUrl": "https://www.youtube.com/watch?v=4MYo8FfiXMA",
+      "season": "FALL",
+      "seasonYear": 2026,
+      "order": 2
+    },
+    {
       "id": "anilist-159042",
       "title": "Reincarnated as a Sword Season 2",
       "nativeTitle": "転生したら剣でした 第2期",
@@ -53,12 +86,12 @@
       "type": "🌐 ONA",
       "format": "ONA",
       "status": "▶️ Выходит",
-      "episodes": "? эп.",
-      "episodesCount": null,
+      "episodes": "12 эп.",
+      "episodesCount": 12,
       "duration": null,
       "score": 7.4,
       "scoreRaw": 74,
-      "popularity": 44022,
+      "popularity": 44699,
       "genres": [
         "Экшен",
         "Приключения",
@@ -73,7 +106,40 @@
       "trailerUrl": "https://www.youtube.com/watch?v=kbtRqqa2GyA",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 2
+      "order": 3
+    },
+    {
+      "id": "anilist-189123",
+      "title": "Blue Box Season 2",
+      "nativeTitle": "アオのハコ Season２",
+      "excerpt": "The second season of Ao no Hako.",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx189123-0secXELIhkIW.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx189123-0secXELIhkIW.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/189123-s2oirY2r1Svy.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "12 эп.",
+      "episodesCount": 12,
+      "duration": null,
+      "score": 7.9,
+      "scoreRaw": 79,
+      "popularity": 38022,
+      "genres": [
+        "Романтика",
+        "Повседневность",
+        "Спорт"
+      ],
+      "studios": [
+        "UNLIMITED PRODUCE by TMS",
+        "Electric Circus"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/189123",
+      "trailerUrl": "https://www.youtube.com/watch?v=hJ6Y8PAOUk8",
+      "season": "FALL",
+      "seasonYear": 2026,
+      "order": 4
     },
     {
       "id": "anilist-210482",
@@ -91,7 +157,7 @@
       "duration": null,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 35646,
+      "popularity": 36673,
       "genres": [
         "Экшен",
         "Приключения",
@@ -107,7 +173,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=jXtG_lcR9P4",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 3
+      "order": 5
     },
     {
       "id": "anilist-178083",
@@ -120,12 +186,12 @@
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "? эп.",
-      "episodesCount": null,
+      "episodes": "13 эп.",
+      "episodesCount": 13,
       "duration": null,
-      "score": 7.5,
-      "scoreRaw": 75,
-      "popularity": 28226,
+      "score": 7.6,
+      "scoreRaw": 76,
+      "popularity": 29682,
       "genres": [
         "Экшен",
         "Драма",
@@ -141,7 +207,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=Nm21TTXUkf4",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 4
+      "order": 6
     },
     {
       "id": "anilist-213805",
@@ -159,7 +225,7 @@
       "duration": null,
       "score": 8.2,
       "scoreRaw": 82,
-      "popularity": 26821,
+      "popularity": 27758,
       "genres": [
         "Комедия",
         "Драма",
@@ -175,7 +241,7 @@
       "trailerUrl": "https://www.youtube.com/watch?v=VvzeL7UMCE8",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 5
+      "order": 7
     },
     {
       "id": "anilist-212888",
@@ -193,7 +259,7 @@
       "duration": 24,
       "score": 7.4,
       "scoreRaw": 74,
-      "popularity": 23602,
+      "popularity": 24542,
       "genres": [
         "Экшен",
         "Приключения",
@@ -209,108 +275,12 @@
       "trailerUrl": "https://www.youtube.com/watch?v=e1Km0FqUZl0",
       "season": "FALL",
       "seasonYear": 2026,
-      "order": 6
-    },
-    {
-      "id": "anilist-185756",
-      "title": "As a Reincarnated Aristocrat, I'll Use My Appraisal Skill to Rise in the World Season 3",
-      "nativeTitle": "転生貴族、鑑定スキルで成り上がる 第3期",
-      "excerpt": "The third season of Tensei Kizoku, Kantei Skill de Nariagaru. Note: On September 4, 2026, it was announced that GeyeG Pictures would take over the production from studio MOTHER while keeping the same...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx185756-xPCl0RyQ7fXD.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx185756-xPCl0RyQ7fXD.jpg",
-      "bannerImage": null,
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "? эп.",
-      "episodesCount": null,
-      "duration": null,
-      "score": 7.1,
-      "scoreRaw": 71,
-      "popularity": 20421,
-      "genres": [
-        "Приключения",
-        "Фэнтези"
-      ],
-      "studios": [
-        "GeyeG Pictures"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/185756",
-      "trailerUrl": "https://www.youtube.com/watch?v=8_Lxr7vO9l0",
-      "season": "FALL",
-      "seasonYear": 2026,
-      "order": 7
-    },
-    {
-      "id": "anilist-204389",
-      "title": "A Wild Last Boss Appeared! Season 2",
-      "nativeTitle": "野生のラスボスが現れた！ 第2期",
-      "excerpt": "The second season of Yasei no Last Boss ga Arawareta!",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx204389-jCoFCeTthDMy.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx204389-jCoFCeTthDMy.jpg",
-      "bannerImage": null,
-      "type": "🌐 ONA",
-      "format": "ONA",
-      "status": "▶️ Выходит",
-      "episodes": "24 мин.",
-      "episodesCount": null,
-      "duration": 24,
-      "score": 7.1,
-      "scoreRaw": 71,
-      "popularity": 16730,
-      "genres": [
-        "Экшен",
-        "Приключения",
-        "Фэнтези"
-      ],
-      "studios": [
-        "NBCUniversal Entertainment Japan",
-        "WAO World"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/204389",
-      "trailerUrl": "https://www.youtube.com/watch?v=LyDMSUR6_Q8",
-      "season": "FALL",
-      "seasonYear": 2026,
       "order": 8
-    },
-    {
-      "id": "anilist-204650",
-      "title": "TOUGEN ANKI: Nikko Kegon Falls Arc",
-      "nativeTitle": "桃源暗鬼 日光・華厳の滝編",
-      "excerpt": "After battling in Kyoto and Nerima, the Rasetsu Academy students have grown stronger. But Yaoroshi leaves the academy to join the Oni Brigade for their \"the total eradication of the Momotaro.\" When Sh...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx204650-nvK5CuG60WGY.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx204650-nvK5CuG60WGY.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/204650-MpownoVlYv69.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "? эп.",
-      "episodesCount": null,
-      "duration": null,
-      "score": 6.9,
-      "scoreRaw": 69,
-      "popularity": 13544,
-      "genres": [
-        "Экшен",
-        "Детектив",
-        "Сверхъестественное"
-      ],
-      "studios": [
-        "Studio Hibari"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/204650",
-      "trailerUrl": "https://www.youtube.com/watch?v=upBWYExYoYc",
-      "season": "FALL",
-      "seasonYear": 2026,
-      "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 320,
-    "timestamp": 1791024667413,
-    "nextUpdate": "2026-10-04T10:51:07.413Z"
+    "fetchDuration": 246,
+    "timestamp": 1791113620582,
+    "nextUpdate": "2026-10-05T11:33:40.582Z"
   }
 }
