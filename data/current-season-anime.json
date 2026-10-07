@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-06T12:28:19.694Z",
+    "lastUpdated": "2026-10-07T12:21:33.238Z",
     "season": "fall",
     "seasonName": "🍂 Осень",
     "year": 2026,
@@ -17,16 +17,16 @@
       "excerpt": "In the aftermath of the Shi Clan’s rebellion, things have finally settled down, and Maomao has returned to her old life as a pharmacist in the pleasure district. One day, triggered by a breakfast serv...",
       "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx195516-MJpUZlOberqH.jpg",
       "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx195516-MJpUZlOberqH.jpg",
-      "bannerImage": null,
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/195516-B5M0cPaQbQXI.jpg",
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
       "episodes": "12 эп.",
       "episodesCount": 12,
-      "duration": null,
+      "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 89722,
+      "popularity": 90687,
       "genres": [
         "Драма",
         "Детектив"
@@ -53,12 +53,12 @@
       "type": "📺 Сериал",
       "format": "TV",
       "status": "▶️ Выходит",
-      "episodes": "? эп.",
+      "episodes": "24 мин.",
       "episodesCount": null,
-      "duration": null,
+      "duration": 24,
       "score": 8.7,
       "scoreRaw": 87,
-      "popularity": 81517,
+      "popularity": 82884,
       "genres": [
         "Экшен",
         "Приключения",
@@ -66,7 +66,8 @@
         "Фэнтези"
       ],
       "studios": [
-        "Studio Pierrot"
+        "Studio Pierrot",
+        "TV Tokyo"
       ],
       "source": "AniList",
       "sourceUrl": "https://anilist.co/anime/195604",
@@ -88,10 +89,10 @@
       "status": "▶️ Выходит",
       "episodes": "12 эп.",
       "episodesCount": 12,
-      "duration": null,
+      "duration": 23,
       "score": 7.4,
       "scoreRaw": 74,
-      "popularity": 45755,
+      "popularity": 46123,
       "genres": [
         "Экшен",
         "Приключения",
@@ -121,18 +122,18 @@
       "status": "▶️ Выходит",
       "episodes": "12 эп.",
       "episodesCount": 12,
-      "duration": null,
+      "duration": 24,
       "score": 8,
       "scoreRaw": 80,
-      "popularity": 42412,
+      "popularity": 43219,
       "genres": [
         "Романтика",
         "Повседневность",
         "Спорт"
       ],
       "studios": [
-        "UNLIMITED PRODUCE by TMS",
-        "Electric Circus"
+        "Electric Circus",
+        "TMS Entertainment"
       ],
       "source": "AniList",
       "sourceUrl": "https://anilist.co/anime/189123",
@@ -157,7 +158,7 @@
       "duration": null,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 38003,
+      "popularity": 38429,
       "genres": [
         "Экшен",
         "Приключения",
@@ -177,7 +178,7 @@
     },
     {
       "id": "anilist-178083",
-      "title": "Tokyo Revengers: Santen Sensou-hen",
+      "title": "Tokyo Revengers: War of the Three Titans Arc",
       "nativeTitle": "東京リベンジャーズ 三天戦争編",
       "excerpt": "Sequel to Tokyo Revengers: Tenjiku-hen.",
       "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx178083-bg7pg6TCHwtG.jpg",
@@ -191,7 +192,7 @@
       "duration": null,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 31017,
+      "popularity": 31406,
       "genres": [
         "Экшен",
         "Драма",
@@ -210,40 +211,6 @@
       "order": 6
     },
     {
-      "id": "anilist-213805",
-      "title": "The Ramparts of Ice Season 2",
-      "nativeTitle": "氷の城壁 第2期",
-      "excerpt": "Koyuki, the isolated girl; Miki, the former school idol; Minato, the guy with no concept of personal space; and Yota, the gentle basketball player. Clumsy, frustrating, yet deeply endearing — this com...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx213805-Nokui3uWlIlw.png",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx213805-Nokui3uWlIlw.png",
-      "bannerImage": null,
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "? эп.",
-      "episodesCount": null,
-      "duration": null,
-      "score": 8.2,
-      "scoreRaw": 82,
-      "popularity": 29240,
-      "genres": [
-        "Комедия",
-        "Драма",
-        "Романтика",
-        "Повседневность"
-      ],
-      "studios": [
-        "Studio KAI",
-        "TBS"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/213805",
-      "trailerUrl": "https://www.youtube.com/watch?v=VvzeL7UMCE8",
-      "season": "FALL",
-      "seasonYear": 2026,
-      "order": 7
-    },
-    {
       "id": "anilist-212888",
       "title": "Overgeared",
       "nativeTitle": "テムパル～アイテムの力～",
@@ -259,7 +226,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 28955,
+      "popularity": 30458,
       "genres": [
         "Экшен",
         "Приключения",
@@ -267,12 +234,46 @@
         "Фэнтези"
       ],
       "studios": [
-        "EGG FIRM",
-        "J.C.STAFF"
+        "J.C.STAFF",
+        "Pony Canyon"
       ],
       "source": "AniList",
       "sourceUrl": "https://anilist.co/anime/212888",
       "trailerUrl": "https://www.youtube.com/watch?v=e1Km0FqUZl0",
+      "season": "FALL",
+      "seasonYear": 2026,
+      "order": 7
+    },
+    {
+      "id": "anilist-213805",
+      "title": "The Ramparts of Ice Season 2",
+      "nativeTitle": "氷の城壁 第2期",
+      "excerpt": "Koyuki, the isolated girl; Miki, the former school idol; Minato, the guy with no concept of personal space; and Yota, the gentle basketball player. Clumsy, frustrating, yet deeply endearing — this com...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx213805-Nokui3uWlIlw.png",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx213805-Nokui3uWlIlw.png",
+      "bannerImage": null,
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "25 мин.",
+      "episodesCount": null,
+      "duration": 25,
+      "score": 8.2,
+      "scoreRaw": 82,
+      "popularity": 29752,
+      "genres": [
+        "Комедия",
+        "Драма",
+        "Романтика",
+        "Повседневность"
+      ],
+      "studios": [
+        "Studio KAI",
+        "TBS"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/213805",
+      "trailerUrl": "https://www.youtube.com/watch?v=VvzeL7UMCE8",
       "season": "FALL",
       "seasonYear": 2026,
       "order": 8
@@ -290,10 +291,10 @@
       "status": "▶️ Выходит",
       "episodes": "12 эп.",
       "episodesCount": 12,
-      "duration": null,
+      "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 27348,
+      "popularity": 29011,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -312,8 +313,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 292,
-    "timestamp": 1791289699694,
-    "nextUpdate": "2026-10-07T12:28:19.694Z"
+    "fetchDuration": 483,
+    "timestamp": 1791375693238,
+    "nextUpdate": "2026-10-08T12:21:33.238Z"
   }
 }
