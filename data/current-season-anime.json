@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-09T12:19:28.808Z",
+    "lastUpdated": "2026-10-10T11:37:47.573Z",
     "season": "fall",
     "seasonName": "🍂 Осень",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 92299,
+      "popularity": 93790,
       "genres": [
         "Драма",
         "Детектив"
@@ -56,9 +56,9 @@
       "episodes": "24 мин.",
       "episodesCount": null,
       "duration": 24,
-      "score": 8.7,
-      "scoreRaw": 87,
-      "popularity": 84779,
+      "score": 8.6,
+      "scoreRaw": 86,
+      "popularity": 85641,
       "genres": [
         "Экшен",
         "Приключения",
@@ -92,7 +92,7 @@
       "duration": 23,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 47710,
+      "popularity": 48129,
       "genres": [
         "Экшен",
         "Приключения",
@@ -125,7 +125,7 @@
       "duration": 24,
       "score": 8,
       "scoreRaw": 80,
-      "popularity": 44177,
+      "popularity": 44570,
       "genres": [
         "Романтика",
         "Повседневность",
@@ -158,7 +158,7 @@
       "duration": null,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 39195,
+      "popularity": 40190,
       "genres": [
         "Экшен",
         "Приключения",
@@ -192,7 +192,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 32458,
+      "popularity": 33289,
       "genres": [
         "Экшен",
         "Приключения",
@@ -226,7 +226,7 @@
       "duration": null,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 32015,
+      "popularity": 32783,
       "genres": [
         "Экшен",
         "Драма",
@@ -245,40 +245,6 @@
       "order": 7
     },
     {
-      "id": "anilist-213805",
-      "title": "The Ramparts of Ice Season 2",
-      "nativeTitle": "氷の城壁 第2期",
-      "excerpt": "Koyuki, the isolated girl; Miki, the former school idol; Minato, the guy with no concept of personal space; and Youta, the gentle basketball player. Clumsy, frustrating, yet deeply endearing — this co...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx213805-Nokui3uWlIlw.png",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx213805-Nokui3uWlIlw.png",
-      "bannerImage": null,
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "25 мин.",
-      "episodesCount": null,
-      "duration": 25,
-      "score": 8.1,
-      "scoreRaw": 81,
-      "popularity": 30925,
-      "genres": [
-        "Комедия",
-        "Драма",
-        "Романтика",
-        "Повседневность"
-      ],
-      "studios": [
-        "Studio KAI",
-        "TBS"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/213805",
-      "trailerUrl": "https://www.youtube.com/watch?v=VvzeL7UMCE8",
-      "season": "FALL",
-      "seasonYear": 2026,
-      "order": 8
-    },
-    {
       "id": "anilist-191656",
       "title": "Even the Student Council Has Its Holes!",
       "nativeTitle": "生徒会にも穴はある！",
@@ -294,7 +260,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 30848,
+      "popularity": 31604,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -309,12 +275,46 @@
       "trailerUrl": "https://www.youtube.com/watch?v=VTRVLnzhl90",
       "season": "FALL",
       "seasonYear": 2026,
+      "order": 8
+    },
+    {
+      "id": "anilist-213805",
+      "title": "The Ramparts of Ice Season 2",
+      "nativeTitle": "氷の城壁 第2期",
+      "excerpt": "Koyuki, the isolated girl; Miki, the former school idol; Minato, the guy with no concept of personal space; and Youta, the gentle basketball player. Clumsy, frustrating, yet deeply endearing — this co...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx213805-Nokui3uWlIlw.png",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx213805-Nokui3uWlIlw.png",
+      "bannerImage": null,
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "25 мин.",
+      "episodesCount": null,
+      "duration": 25,
+      "score": 8.1,
+      "scoreRaw": 81,
+      "popularity": 31563,
+      "genres": [
+        "Комедия",
+        "Драма",
+        "Романтика",
+        "Повседневность"
+      ],
+      "studios": [
+        "Studio KAI",
+        "TBS"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/213805",
+      "trailerUrl": "https://www.youtube.com/watch?v=VvzeL7UMCE8",
+      "season": "FALL",
+      "seasonYear": 2026,
       "order": 9
     }
   ],
   "debug": {
-    "fetchDuration": 228,
-    "timestamp": 1791548368808,
-    "nextUpdate": "2026-10-10T12:19:28.808Z"
+    "fetchDuration": 241,
+    "timestamp": 1791632267573,
+    "nextUpdate": "2026-10-11T11:37:47.573Z"
   }
 }
