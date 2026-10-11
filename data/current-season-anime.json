@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-10T11:37:47.573Z",
+    "lastUpdated": "2026-10-11T11:51:07.173Z",
     "season": "fall",
     "seasonName": "🍂 Осень",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 93790,
+      "popularity": 95038,
       "genres": [
         "Драма",
         "Детектив"
@@ -56,9 +56,9 @@
       "episodes": "24 мин.",
       "episodesCount": null,
       "duration": 24,
-      "score": 8.6,
-      "scoreRaw": 86,
-      "popularity": 85641,
+      "score": 8.7,
+      "scoreRaw": 87,
+      "popularity": 87412,
       "genres": [
         "Экшен",
         "Приключения",
@@ -92,7 +92,7 @@
       "duration": 23,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 48129,
+      "popularity": 48458,
       "genres": [
         "Экшен",
         "Приключения",
@@ -125,7 +125,7 @@
       "duration": 24,
       "score": 8,
       "scoreRaw": 80,
-      "popularity": 44570,
+      "popularity": 45032,
       "genres": [
         "Романтика",
         "Повседневность",
@@ -158,7 +158,7 @@
       "duration": null,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 40190,
+      "popularity": 40830,
       "genres": [
         "Экшен",
         "Приключения",
@@ -192,7 +192,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 33289,
+      "popularity": 34057,
       "genres": [
         "Экшен",
         "Приключения",
@@ -226,7 +226,7 @@
       "duration": null,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 32783,
+      "popularity": 33252,
       "genres": [
         "Экшен",
         "Драма",
@@ -260,7 +260,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 31604,
+      "popularity": 33234,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -293,7 +293,7 @@
       "duration": 25,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 31563,
+      "popularity": 32024,
       "genres": [
         "Комедия",
         "Драма",
@@ -313,8 +313,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 241,
-    "timestamp": 1791632267573,
-    "nextUpdate": "2026-10-11T11:37:47.573Z"
+    "fetchDuration": 200,
+    "timestamp": 1791719467173,
+    "nextUpdate": "2026-10-12T11:51:07.173Z"
   }
 }
