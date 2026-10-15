@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-14T10:53:26.216Z",
+    "lastUpdated": "2026-10-15T10:35:46.655Z",
     "season": "fall",
     "seasonName": "🍂 Осень",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 97501,
+      "popularity": 98124,
       "genres": [
         "Драма",
         "Детектив"
@@ -58,7 +58,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 90530,
+      "popularity": 91107,
       "genres": [
         "Экшен",
         "Приключения",
@@ -125,7 +125,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 46778,
+      "popularity": 47060,
       "genres": [
         "Романтика",
         "Повседневность",
@@ -158,7 +158,7 @@
       "duration": null,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 42154,
+      "popularity": 42444,
       "genres": [
         "Экшен",
         "Приключения",
@@ -192,7 +192,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 38441,
+      "popularity": 39389,
       "genres": [
         "Экшен",
         "Приключения",
@@ -226,7 +226,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 36543,
+      "popularity": 37142,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -259,7 +259,7 @@
       "duration": 23,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 35166,
+      "popularity": 36028,
       "genres": [
         "Драма",
         "Романтика"
@@ -291,7 +291,7 @@
       "duration": null,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 34075,
+      "popularity": 34257,
       "genres": [
         "Экшен",
         "Драма",
@@ -311,8 +311,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 258,
-    "timestamp": 1791975206216,
-    "nextUpdate": "2026-10-15T10:53:26.216Z"
+    "fetchDuration": 211,
+    "timestamp": 1792060546655,
+    "nextUpdate": "2026-10-16T10:35:46.655Z"
   }
 }
