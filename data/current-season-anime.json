@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-15T10:35:46.655Z",
+    "lastUpdated": "2026-10-16T10:22:42.064Z",
     "season": "fall",
     "seasonName": "🍂 Осень",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 98124,
+      "popularity": 98699,
       "genres": [
         "Драма",
         "Детектив"
@@ -58,7 +58,7 @@
       "duration": 24,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 91107,
+      "popularity": 91640,
       "genres": [
         "Экшен",
         "Приключения",
@@ -92,7 +92,7 @@
       "duration": 23,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 49237,
+      "popularity": 49731,
       "genres": [
         "Экшен",
         "Приключения",
@@ -125,7 +125,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 47060,
+      "popularity": 47337,
       "genres": [
         "Романтика",
         "Повседневность",
@@ -158,7 +158,7 @@
       "duration": null,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 42444,
+      "popularity": 42704,
       "genres": [
         "Экшен",
         "Приключения",
@@ -192,7 +192,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 39389,
+      "popularity": 40159,
       "genres": [
         "Экшен",
         "Приключения",
@@ -226,7 +226,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 37142,
+      "popularity": 37692,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -259,7 +259,7 @@
       "duration": 23,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 36028,
+      "popularity": 36820,
       "genres": [
         "Драма",
         "Романтика"
@@ -291,7 +291,7 @@
       "duration": null,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 34257,
+      "popularity": 34490,
       "genres": [
         "Экшен",
         "Драма",
@@ -311,8 +311,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 211,
-    "timestamp": 1792060546655,
-    "nextUpdate": "2026-10-16T10:35:46.655Z"
+    "fetchDuration": 252,
+    "timestamp": 1792146162064,
+    "nextUpdate": "2026-10-17T10:22:42.064Z"
   }
 }
