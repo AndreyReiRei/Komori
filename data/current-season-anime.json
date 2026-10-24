@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-10-23T10:44:40.396Z",
+    "lastUpdated": "2026-10-24T10:01:20.485Z",
     "season": "fall",
     "seasonName": "🍂 Осень",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 103153,
+      "popularity": 103850,
       "genres": [
         "Драма",
         "Детектив"
@@ -58,7 +58,7 @@
       "duration": 24,
       "score": 8.7,
       "scoreRaw": 87,
-      "popularity": 96761,
+      "popularity": 97225,
       "genres": [
         "Экшен",
         "Приключения",
@@ -125,7 +125,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 49252,
+      "popularity": 49446,
       "genres": [
         "Романтика",
         "Повседневность",
@@ -158,7 +158,7 @@
       "duration": 24,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 46295,
+      "popularity": 46991,
       "genres": [
         "Экшен",
         "Приключения",
@@ -192,7 +192,7 @@
       "duration": null,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 45249,
+      "popularity": 45833,
       "genres": [
         "Экшен",
         "Приключения",
@@ -226,7 +226,7 @@
       "duration": 23,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 42521,
+      "popularity": 43622,
       "genres": [
         "Драма",
         "Романтика"
@@ -258,7 +258,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 42262,
+      "popularity": 42609,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -291,7 +291,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 37259,
+      "popularity": 37753,
       "genres": [
         "Приключения",
         "Комедия",
@@ -311,8 +311,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 206,
-    "timestamp": 1792752280396,
-    "nextUpdate": "2026-10-24T10:44:40.396Z"
+    "fetchDuration": 323,
+    "timestamp": 1792836080485,
+    "nextUpdate": "2026-10-25T10:01:20.485Z"
   }
 }
