@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-07T12:08:41.900Z",
+    "lastUpdated": "2026-11-08T12:29:37.945Z",
     "season": "fall",
     "seasonName": "🍂 Осень",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 110573,
+      "popularity": 111087,
       "genres": [
         "Драма",
         "Детектив"
@@ -58,7 +58,7 @@
       "duration": 24,
       "score": 8.7,
       "scoreRaw": 87,
-      "popularity": 105993,
+      "popularity": 106784,
       "genres": [
         "Экшен",
         "Приключения",
@@ -92,7 +92,7 @@
       "duration": 24,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 58683,
+      "popularity": 59157,
       "genres": [
         "Экшен",
         "Приключения",
@@ -126,7 +126,7 @@
       "duration": 23,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 55175,
+      "popularity": 55311,
       "genres": [
         "Экшен",
         "Приключения",
@@ -144,39 +144,6 @@
       "order": 4
     },
     {
-      "id": "anilist-189123",
-      "title": "Blue Box Season 2",
-      "nativeTitle": "アオのハコ Season２",
-      "excerpt": "The second season of Ao no Hako. As Taiki and Chinatsu navigate their evolving feelings, a fractured friendship from the past and fierce competition cloud the road to nationals. (Source: Netflix, edit...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx189123-0secXELIhkIW.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx189123-0secXELIhkIW.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/189123-aGJ7pIDUo2Xs.jpg",
-      "type": "📺 Сериал",
-      "format": "TV",
-      "status": "▶️ Выходит",
-      "episodes": "12 эп.",
-      "episodesCount": 12,
-      "duration": 24,
-      "score": 8.1,
-      "scoreRaw": 81,
-      "popularity": 52181,
-      "genres": [
-        "Романтика",
-        "Повседневность",
-        "Спорт"
-      ],
-      "studios": [
-        "Electric Circus",
-        "TMS Entertainment"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/189123",
-      "trailerUrl": "https://www.youtube.com/watch?v=hJ6Y8PAOUk8",
-      "season": "FALL",
-      "seasonYear": 2026,
-      "order": 5
-    },
-    {
       "id": "anilist-205909",
       "title": "Firefly Wedding",
       "nativeTitle": "ホタルの嫁入り",
@@ -192,7 +159,7 @@
       "duration": 23,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 51712,
+      "popularity": 52387,
       "genres": [
         "Драма",
         "Романтика"
@@ -204,6 +171,39 @@
       "source": "AniList",
       "sourceUrl": "https://anilist.co/anime/205909",
       "trailerUrl": "https://www.youtube.com/watch?v=Ex9LrBK-7hk",
+      "season": "FALL",
+      "seasonYear": 2026,
+      "order": 5
+    },
+    {
+      "id": "anilist-189123",
+      "title": "Blue Box Season 2",
+      "nativeTitle": "アオのハコ Season２",
+      "excerpt": "The second season of Ao no Hako. As Taiki and Chinatsu navigate their evolving feelings, a fractured friendship from the past and fierce competition cloud the road to nationals. (Source: Netflix, edit...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx189123-0secXELIhkIW.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx189123-0secXELIhkIW.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/189123-aGJ7pIDUo2Xs.jpg",
+      "type": "📺 Сериал",
+      "format": "TV",
+      "status": "▶️ Выходит",
+      "episodes": "12 эп.",
+      "episodesCount": 12,
+      "duration": 24,
+      "score": 8.1,
+      "scoreRaw": 81,
+      "popularity": 52333,
+      "genres": [
+        "Романтика",
+        "Повседневность",
+        "Спорт"
+      ],
+      "studios": [
+        "Electric Circus",
+        "TMS Entertainment"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/189123",
+      "trailerUrl": "https://www.youtube.com/watch?v=hJ6Y8PAOUk8",
       "season": "FALL",
       "seasonYear": 2026,
       "order": 6
@@ -224,7 +224,7 @@
       "duration": 23,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 49959,
+      "popularity": 50275,
       "genres": [
         "Экшен",
         "Приключения",
@@ -258,7 +258,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 49034,
+      "popularity": 49732,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -291,7 +291,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 45098,
+      "popularity": 45483,
       "genres": [
         "Приключения",
         "Комедия",
@@ -311,8 +311,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 187,
-    "timestamp": 1794053321900,
-    "nextUpdate": "2026-11-08T12:08:41.900Z"
+    "fetchDuration": 351,
+    "timestamp": 1794140977946,
+    "nextUpdate": "2026-11-09T12:29:37.946Z"
   }
 }
