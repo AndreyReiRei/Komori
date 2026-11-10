@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-09T14:45:31.038Z",
+    "lastUpdated": "2026-11-10T13:59:21.031Z",
     "season": "fall",
     "seasonName": "🍂 Осень",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 111488,
+      "popularity": 111820,
       "genres": [
         "Драма",
         "Детектив"
@@ -56,9 +56,9 @@
       "episodes": "24 мин.",
       "episodesCount": null,
       "duration": 24,
-      "score": 8.7,
-      "scoreRaw": 87,
-      "popularity": 107406,
+      "score": 8.8,
+      "scoreRaw": 88,
+      "popularity": 107921,
       "genres": [
         "Экшен",
         "Приключения",
@@ -92,7 +92,7 @@
       "duration": 24,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 60060,
+      "popularity": 60863,
       "genres": [
         "Экшен",
         "Приключения",
@@ -126,7 +126,7 @@
       "duration": 23,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 55458,
+      "popularity": 55559,
       "genres": [
         "Экшен",
         "Приключения",
@@ -159,7 +159,7 @@
       "duration": 23,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 52871,
+      "popularity": 53231,
       "genres": [
         "Драма",
         "Романтика"
@@ -191,7 +191,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 52612,
+      "popularity": 52785,
       "genres": [
         "Романтика",
         "Повседневность",
@@ -209,40 +209,6 @@
       "order": 6
     },
     {
-      "id": "anilist-210482",
-      "title": "STEEL BALL RUN JoJo's Bizarre Adventure 2nd - 3rd STAGE",
-      "nativeTitle": "ジョジョの奇妙な冒険 スティール・ボール・ラン 2nd＆3rd STAGE",
-      "excerpt": "In the 2nd STAGE, a desert crossing spanning roughly 750 miles- the land that Johnny Joestar and Gyro Zeppeli must challenge, is home to the area that is feared as the \"Devil's Palm.\" In 1875, a threa...",
-      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx210482-P1VNKbqdJ6Zj.jpg",
-      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx210482-P1VNKbqdJ6Zj.jpg",
-      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/210482-pYAD0IbzNbgS.jpg",
-      "type": "🌐 ONA",
-      "format": "ONA",
-      "status": "▶️ Выходит",
-      "episodes": "11 эп.",
-      "episodesCount": 11,
-      "duration": 23,
-      "score": 8.6,
-      "scoreRaw": 86,
-      "popularity": 50575,
-      "genres": [
-        "Экшен",
-        "Приключения",
-        "Драма",
-        "Детектив"
-      ],
-      "studios": [
-        "david production",
-        "Warner Bros. Japan"
-      ],
-      "source": "AniList",
-      "sourceUrl": "https://anilist.co/anime/210482",
-      "trailerUrl": "https://www.youtube.com/watch?v=jXtG_lcR9P4",
-      "season": "FALL",
-      "seasonYear": 2026,
-      "order": 7
-    },
-    {
       "id": "anilist-191656",
       "title": "Even the Student Council Has Its Holes!",
       "nativeTitle": "生徒会にも穴はある！",
@@ -258,7 +224,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 50574,
+      "popularity": 51159,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -271,6 +237,40 @@
       "source": "AniList",
       "sourceUrl": "https://anilist.co/anime/191656",
       "trailerUrl": "https://www.youtube.com/watch?v=VTRVLnzhl90",
+      "season": "FALL",
+      "seasonYear": 2026,
+      "order": 7
+    },
+    {
+      "id": "anilist-210482",
+      "title": "STEEL BALL RUN JoJo's Bizarre Adventure 2nd - 3rd STAGE",
+      "nativeTitle": "ジョジョの奇妙な冒険 スティール・ボール・ラン 2nd＆3rd STAGE",
+      "excerpt": "In the 2nd STAGE, a desert crossing spanning roughly 750 miles- the land that Johnny Joestar and Gyro Zeppeli must challenge, is home to the area that is feared as the \"Devil's Palm.\" In 1875, a threa...",
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx210482-P1VNKbqdJ6Zj.jpg",
+      "imageMedium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx210482-P1VNKbqdJ6Zj.jpg",
+      "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/210482-pYAD0IbzNbgS.jpg",
+      "type": "🌐 ONA",
+      "format": "ONA",
+      "status": "▶️ Выходит",
+      "episodes": "11 эп.",
+      "episodesCount": 11,
+      "duration": 23,
+      "score": 8.6,
+      "scoreRaw": 86,
+      "popularity": 50778,
+      "genres": [
+        "Экшен",
+        "Приключения",
+        "Драма",
+        "Детектив"
+      ],
+      "studios": [
+        "david production",
+        "Warner Bros. Japan"
+      ],
+      "source": "AniList",
+      "sourceUrl": "https://anilist.co/anime/210482",
+      "trailerUrl": "https://www.youtube.com/watch?v=jXtG_lcR9P4",
       "season": "FALL",
       "seasonYear": 2026,
       "order": 8
@@ -291,7 +291,7 @@
       "duration": 24,
       "score": 7.3,
       "scoreRaw": 73,
-      "popularity": 45785,
+      "popularity": 46056,
       "genres": [
         "Приключения",
         "Комедия",
@@ -311,8 +311,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 314,
-    "timestamp": 1794235531038,
-    "nextUpdate": "2026-11-10T14:45:31.038Z"
+    "fetchDuration": 202,
+    "timestamp": 1794319161031,
+    "nextUpdate": "2026-11-11T13:59:21.031Z"
   }
 }
