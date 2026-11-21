@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-11-20T14:39:18.991Z",
+    "lastUpdated": "2026-11-21T13:55:47.862Z",
     "season": "fall",
     "seasonName": "🍂 Осень",
     "year": 2026,
@@ -26,7 +26,7 @@
       "duration": 24,
       "score": 8.5,
       "scoreRaw": 85,
-      "popularity": 115416,
+      "popularity": 115812,
       "genres": [
         "Драма",
         "Детектив"
@@ -58,7 +58,7 @@
       "duration": 24,
       "score": 8.8,
       "scoreRaw": 88,
-      "popularity": 112071,
+      "popularity": 112345,
       "genres": [
         "Экшен",
         "Приключения",
@@ -92,7 +92,7 @@
       "duration": 24,
       "score": 7.6,
       "scoreRaw": 76,
-      "popularity": 67453,
+      "popularity": 67983,
       "genres": [
         "Экшен",
         "Приключения",
@@ -124,9 +124,9 @@
       "episodes": "12 эп.",
       "episodesCount": 12,
       "duration": 23,
-      "score": 7.5,
-      "scoreRaw": 75,
-      "popularity": 57302,
+      "score": 7.6,
+      "scoreRaw": 76,
+      "popularity": 57832,
       "genres": [
         "Драма",
         "Романтика"
@@ -158,7 +158,7 @@
       "duration": 23,
       "score": 7.5,
       "scoreRaw": 75,
-      "popularity": 57285,
+      "popularity": 57407,
       "genres": [
         "Экшен",
         "Приключения",
@@ -191,7 +191,7 @@
       "duration": 24,
       "score": 7.4,
       "scoreRaw": 74,
-      "popularity": 55714,
+      "popularity": 55940,
       "genres": [
         "Комедия",
         "Ecchi",
@@ -224,7 +224,7 @@
       "duration": 24,
       "score": 8.1,
       "scoreRaw": 81,
-      "popularity": 54267,
+      "popularity": 54365,
       "genres": [
         "Романтика",
         "Повседневность",
@@ -257,7 +257,7 @@
       "duration": 24,
       "score": 7.4,
       "scoreRaw": 74,
-      "popularity": 53298,
+      "popularity": 53731,
       "genres": [
         "Приключения",
         "Комедия",
@@ -291,7 +291,7 @@
       "duration": 23,
       "score": 8.6,
       "scoreRaw": 86,
-      "popularity": 52980,
+      "popularity": 53303,
       "genres": [
         "Экшен",
         "Приключения",
@@ -311,8 +311,8 @@
     }
   ],
   "debug": {
-    "fetchDuration": 159,
-    "timestamp": 1795185558991,
-    "nextUpdate": "2026-11-21T14:39:18.991Z"
+    "fetchDuration": 174,
+    "timestamp": 1795269347862,
+    "nextUpdate": "2026-11-22T13:55:47.862Z"
   }
 }
